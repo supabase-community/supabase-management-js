@@ -22,7 +22,9 @@
     "build": "npm run clean && npm run build:tsup",
     "build:tsup": "tsup --dts-resolve",
     "typecheck": "tsc --noEmit",
-    "generate": "openapi-typescript https://api.supabase.com/api/v1-json -o ./src/api/v1.d.ts"
+    "generate": "openapi-typescript https://api.supabase.com/api/v1-json -o ./src/api/v1.d.ts",
+    "changeset:version": "changeset version",
+    "changeset:release": "npm run build && changeset publish"
   },
   "dependencies": {
     "openapi-fetch": "^0.6.1"

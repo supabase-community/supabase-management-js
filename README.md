@@ -96,3 +96,11 @@ npm exec changeset
 ```
 
 7. Create a branch, commit your changes, and open a Pull Request against the `main` branch in this repo.
+
+### Regenerating types
+
+The [v1.d.ts](./src/api/v1.d.ts) file is auto-generated based on the Supabase [OpenAPI spec](https://api.supabase.com/api/v1-json) file with the following command:
+
+```sh
+npm run generate
+```
