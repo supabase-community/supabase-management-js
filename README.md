@@ -89,10 +89,10 @@ npm install
 npm run typecheck
 ```
 
-6. Create a changeset to describe your changes
+6. Create a changeset to describe your changes if you are making changes to the source code that effects its public API
 
 ```sh
-npm run changeset:add
+npm exec changeset
 ```
 
 7. Create a branch, commit your changes, and open a Pull Request against the `main` branch in this repo.
