@@ -173,7 +173,7 @@ export type UpdatePostgRESTConfigResponseData = ExtractResponseContent<
 >;
 
 export type RunQueryResponseData = ExtractResponseContent<
-  paths["/v1/projects/{ref}/query"],
+  paths["/v1/projects/{ref}/database/query"],
   "post",
   201
 >;

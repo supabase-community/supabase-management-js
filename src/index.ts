@@ -625,7 +625,7 @@ export class SupabaseManagementAPI {
   /** Run sql query */
   async runQuery(ref: string, query: string): Promise<RunQueryResponseData> {
     const { data, response } = await this.client.post(
-      "/v1/projects/{ref}/query",
+      "/v1/projects/{ref}/database/query",
       {
         params: {
           path: {

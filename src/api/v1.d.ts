@@ -5,7 +5,7 @@
 
 
 export interface paths {
-  "/v1/branch/{branch_id}": {
+  "/v1/branches/{branch_id}": {
     /**
      * Get database branch config 
      * @description Fetches configurations of the specified database branch
@@ -54,42 +54,6 @@ export interface paths {
     post: operations["approveAuthorizationRequest"];
     /** Decline oauth app authorization request */
     delete: operations["declineAuthorizationRequest"];
-  };
-  "/v1/projects/{ref}/functions": {
-    /**
-     * List all functions 
-     * @description Returns all functions you've previously added to the specified project.
-     */
-    get: operations["getFunctions"];
-    /**
-     * Create a function 
-     * @description Creates a function and adds it to the specified project.
-     */
-    post: operations["createFunction"];
-  };
-  "/v1/projects/{ref}/functions/{function_slug}": {
-    /**
-     * Retrieve a function 
-     * @description Retrieves a function with the specified slug and project.
-     */
-    get: operations["getFunction"];
-    /**
-     * Delete a function 
-     * @description Deletes a function with the specified slug from the specified project.
-     */
-    delete: operations["deleteFunction"];
-    /**
-     * Update a function 
-     * @description Updates a function with the specified slug and project.
-     */
-    patch: operations["updateFunction"];
-  };
-  "/v1/projects/{ref}/functions/{function_slug}/body": {
-    /**
-     * Retrieve a function body 
-     * @description Retrieves a function body for the specified slug and project.
-     */
-    get: operations["getFunctionBody"];
   };
   "/v1/projects/{ref}/api-keys": {
     get: operations["getProjectApiKeys"];
@@ -157,7 +121,7 @@ export interface paths {
     /** Updates project's postgrest config */
     patch: operations["updatePostgRESTConfig"];
   };
-  "/v1/projects/{ref}/query": {
+  "/v1/projects/{ref}/database/query": {
     /** Run sql query */
     post: operations["runQuery"];
   };
@@ -237,6 +201,42 @@ export interface paths {
     /** Updates project's pgbouncer config */
     patch: operations["updatePgbouncerConfig"];
   };
+  "/v1/projects/{ref}/functions": {
+    /**
+     * List all functions 
+     * @description Returns all functions you've previously added to the specified project.
+     */
+    get: operations["getFunctions"];
+    /**
+     * Create a function 
+     * @description Creates a function and adds it to the specified project.
+     */
+    post: operations["createFunction"];
+  };
+  "/v1/projects/{ref}/functions/{function_slug}": {
+    /**
+     * Retrieve a function 
+     * @description Retrieves a function with the specified slug and project.
+     */
+    get: operations["getFunction"];
+    /**
+     * Delete a function 
+     * @description Deletes a function with the specified slug from the specified project.
+     */
+    delete: operations["deleteFunction"];
+    /**
+     * Update a function 
+     * @description Updates a function with the specified slug and project.
+     */
+    patch: operations["updateFunction"];
+  };
+  "/v1/projects/{ref}/functions/{function_slug}/body": {
+    /**
+     * Retrieve a function body 
+     * @description Retrieves a function body for the specified slug and project.
+     */
+    get: operations["getFunctionBody"];
+  };
   "/v1/projects/{ref}/config/auth/sso/providers": {
     /** Lists all SSO providers */
     get: operations["listAllProviders"];
@@ -250,6 +250,22 @@ export interface paths {
     put: operations["updateProviderById"];
     /** Removes a SSO provider by its UUID */
     delete: operations["removeProviderById"];
+  };
+  "/v1/organizations/{slug}/oauth/apps": {
+    /** List published or authorized oauth apps */
+    get: operations["listOAuthApps"];
+    /** Create an oauth app */
+    post: operations["createOAuthApp"];
+  };
+  "/v1/organizations/{slug}/oauth/apps/{id}": {
+    /** Update an oauth app */
+    put: operations["updateOAuthApp"];
+    /** Remove a published oauth app */
+    delete: operations["removeOAuthApp"];
+  };
+  "/v1/organizations/{slug}/oauth/apps/{id}/revoke": {
+    /** Revoke an authorized oauth app */
+    post: operations["revokeAuthorizedOAuthApp"];
   };
 }
 
@@ -334,7 +350,7 @@ export interface components {
     CreateOrganizationBody: {
       name: string;
     };
-    TokenDTO: {
+    OAuthTokenBody: {
       /** @enum {string} */
       grant_type: "authorization_code" | "refresh_token";
       client_id: string;
@@ -344,47 +360,30 @@ export interface components {
       redirect_uri?: string;
       refresh_token?: string;
     };
+    OAuthTokenResponse: {
+      /** @enum {string} */
+      token_type: "Bearer";
+      access_token: string;
+      refresh_token: string;
+      expires_in: number;
+    };
+    GetAuthorizationResponse: {
+      name: string;
+      website: string;
+      icon?: string;
+      domain: string;
+      expires_at: string;
+      approved_at?: string;
+      approved_organization_slug?: string;
+    };
     AuthorizationsApproveBody: {
       organization_id: string;
     };
-    CreateFunctionBody: {
-      slug: string;
-      name: string;
-      body: string;
-      verify_jwt?: boolean;
+    ApproveAuthorizationResponse: {
+      url: string;
     };
-    FunctionResponse: {
+    DeclineAuthorizationResponse: {
       id: string;
-      slug: string;
-      name: string;
-      /** @enum {string} */
-      status: "ACTIVE" | "REMOVED" | "THROTTLED";
-      version: number;
-      created_at: number;
-      updated_at: number;
-      verify_jwt?: boolean;
-      import_map?: boolean;
-      entrypoint_path?: string;
-      import_map_path?: string;
-    };
-    FunctionSlugResponse: {
-      id: string;
-      slug: string;
-      name: string;
-      /** @enum {string} */
-      status: "ACTIVE" | "REMOVED" | "THROTTLED";
-      version: number;
-      created_at: number;
-      updated_at: number;
-      verify_jwt?: boolean;
-      import_map?: boolean;
-      entrypoint_path?: string;
-      import_map_path?: string;
-    };
-    UpdateFunctionBody: {
-      name?: string;
-      body?: string;
-      verify_jwt?: boolean;
     };
     ApiKeyResponse: {
       name: string;
@@ -577,6 +576,45 @@ export interface components {
       /** @enum {string} */
       pgbouncer_status: "COMING_DOWN" | "COMING_UP" | "DISABLED" | "ENABLED" | "RELOADING";
     };
+    CreateFunctionBody: {
+      slug: string;
+      name: string;
+      body: string;
+      verify_jwt?: boolean;
+    };
+    FunctionResponse: {
+      id: string;
+      slug: string;
+      name: string;
+      /** @enum {string} */
+      status: "ACTIVE" | "REMOVED" | "THROTTLED";
+      version: number;
+      created_at: number;
+      updated_at: number;
+      verify_jwt?: boolean;
+      import_map?: boolean;
+      entrypoint_path?: string;
+      import_map_path?: string;
+    };
+    FunctionSlugResponse: {
+      id: string;
+      slug: string;
+      name: string;
+      /** @enum {string} */
+      status: "ACTIVE" | "REMOVED" | "THROTTLED";
+      version: number;
+      created_at: number;
+      updated_at: number;
+      verify_jwt?: boolean;
+      import_map?: boolean;
+      entrypoint_path?: string;
+      import_map_path?: string;
+    };
+    UpdateFunctionBody: {
+      name?: string;
+      body?: string;
+      verify_jwt?: boolean;
+    };
     AttributeValue: {
       default?: Record<string, never> | number | string | boolean;
       name?: string;
@@ -654,6 +692,55 @@ export interface components {
       domains?: (components["schemas"]["Domain"])[];
       created_at?: string;
       updated_at?: string;
+    };
+    OAuthAppResponse: {
+      id: string;
+      name: string;
+      website: string;
+      icon?: string;
+      authorized_at?: string;
+      created_at?: string;
+      client_id?: string;
+      client_secret_alias?: string;
+      redirect_uris?: (string)[];
+    };
+    CreateOAuthAppBody: {
+      name: string;
+      website: string;
+      icon?: string;
+      redirect_uris: (string)[];
+    };
+    CreateOAuthAppResponse: {
+      id: string;
+      client_id: string;
+      client_secret: string;
+    };
+    PutOAuthAppResponse: {
+      id: string;
+      client_id: string;
+      client_secret_alias: string;
+      created_at: string;
+      name: string;
+      website: string;
+      icon?: string;
+      redirect_uris: (string)[];
+    };
+    RevokeAuthorizedOAuthAppResponse: {
+      id: string;
+      name: string;
+      website: string;
+      icon?: string;
+      authorized_at: string;
+    };
+    DeleteOAuthAppResponse: {
+      id: string;
+      name: string;
+      website: string;
+      icon?: string;
+      created_at: string;
+      client_id: string;
+      client_secret_alias: string;
+      redirect_uris: (string)[];
     };
   };
   responses: never;
@@ -811,18 +898,22 @@ export interface operations {
       };
     };
     responses: {
-      200: never;
+      303: never;
     };
   };
   /** Exchange auth code for user's access and refresh token */
   token: {
     requestBody: {
       content: {
-        "application/x-www-form-urlencoded": components["schemas"]["TokenDTO"];
+        "application/x-www-form-urlencoded": components["schemas"]["OAuthTokenBody"];
       };
     };
     responses: {
-      201: never;
+      201: {
+        content: {
+          "application/json": components["schemas"]["OAuthTokenResponse"];
+        };
+      };
     };
   };
   getAuthorizationRequest: {
@@ -832,7 +923,11 @@ export interface operations {
       };
     };
     responses: {
-      200: never;
+      200: {
+        content: {
+          "application/json": components["schemas"]["GetAuthorizationResponse"];
+        };
+      };
     };
   };
   /** Approve oauth app authorization request */
@@ -848,7 +943,11 @@ export interface operations {
       };
     };
     responses: {
-      201: never;
+      201: {
+        content: {
+          "application/json": components["schemas"]["ApproveAuthorizationResponse"];
+        };
+      };
     };
   };
   /** Decline oauth app authorization request */
@@ -859,167 +958,11 @@ export interface operations {
       };
     };
     responses: {
-      200: never;
-    };
-  };
-  /**
-   * List all functions 
-   * @description Returns all functions you've previously added to the specified project.
-   */
-  getFunctions: {
-    parameters: {
-      path: {
-        /** @description Project ref */
-        ref: string;
-      };
-    };
-    responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["FunctionResponse"])[];
+          "application/json": components["schemas"]["DeclineAuthorizationResponse"];
         };
       };
-      403: never;
-      /** @description Failed to retrieve project's functions */
-      500: never;
-    };
-  };
-  /**
-   * Create a function 
-   * @description Creates a function and adds it to the specified project.
-   */
-  createFunction: {
-    parameters: {
-      query?: {
-        slug?: string;
-        name?: string;
-        verify_jwt?: boolean;
-        import_map?: boolean;
-        entrypoint_path?: string;
-        import_map_path?: string;
-      };
-      path: {
-        /** @description Project ref */
-        ref: string;
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["CreateFunctionBody"];
-        "application/vnd.denoland.eszip": components["schemas"]["CreateFunctionBody"];
-      };
-    };
-    responses: {
-      201: {
-        content: {
-          "application/json": components["schemas"]["FunctionResponse"];
-        };
-      };
-      403: never;
-      /** @description Failed to create project's function */
-      500: never;
-    };
-  };
-  /**
-   * Retrieve a function 
-   * @description Retrieves a function with the specified slug and project.
-   */
-  getFunction: {
-    parameters: {
-      path: {
-        /** @description Project ref */
-        ref: string;
-        /** @description Function slug */
-        function_slug: string;
-      };
-    };
-    responses: {
-      200: {
-        content: {
-          "application/json": components["schemas"]["FunctionSlugResponse"];
-        };
-      };
-      403: never;
-      /** @description Failed to retrieve function with given slug */
-      500: never;
-    };
-  };
-  /**
-   * Delete a function 
-   * @description Deletes a function with the specified slug from the specified project.
-   */
-  deleteFunction: {
-    parameters: {
-      path: {
-        /** @description Project ref */
-        ref: string;
-        /** @description Function slug */
-        function_slug: string;
-      };
-    };
-    responses: {
-      200: never;
-      403: never;
-      /** @description Failed to delete function with given slug */
-      500: never;
-    };
-  };
-  /**
-   * Update a function 
-   * @description Updates a function with the specified slug and project.
-   */
-  updateFunction: {
-    parameters: {
-      query?: {
-        slug?: string;
-        name?: string;
-        verify_jwt?: boolean;
-        import_map?: boolean;
-        entrypoint_path?: string;
-        import_map_path?: string;
-      };
-      path: {
-        /** @description Project ref */
-        ref: string;
-        /** @description Function slug */
-        function_slug: string;
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["UpdateFunctionBody"];
-        "application/vnd.denoland.eszip": components["schemas"]["UpdateFunctionBody"];
-      };
-    };
-    responses: {
-      200: {
-        content: {
-          "application/json": components["schemas"]["FunctionResponse"];
-        };
-      };
-      403: never;
-      /** @description Failed to update function with given slug */
-      500: never;
-    };
-  };
-  /**
-   * Retrieve a function body 
-   * @description Retrieves a function body for the specified slug and project.
-   */
-  getFunctionBody: {
-    parameters: {
-      path: {
-        /** @description Project ref */
-        ref: string;
-        /** @description Function slug */
-        function_slug: string;
-      };
-    };
-    responses: {
-      200: never;
-      403: never;
-      /** @description Failed to retrieve function body with given slug */
-      500: never;
     };
   };
   getProjectApiKeys: {
@@ -1785,6 +1728,166 @@ export interface operations {
       500: never;
     };
   };
+  /**
+   * List all functions 
+   * @description Returns all functions you've previously added to the specified project.
+   */
+  getFunctions: {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": (components["schemas"]["FunctionResponse"])[];
+        };
+      };
+      403: never;
+      /** @description Failed to retrieve project's functions */
+      500: never;
+    };
+  };
+  /**
+   * Create a function 
+   * @description Creates a function and adds it to the specified project.
+   */
+  createFunction: {
+    parameters: {
+      query?: {
+        slug?: string;
+        name?: string;
+        verify_jwt?: boolean;
+        import_map?: boolean;
+        entrypoint_path?: string;
+        import_map_path?: string;
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateFunctionBody"];
+        "application/vnd.denoland.eszip": components["schemas"]["CreateFunctionBody"];
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["FunctionResponse"];
+        };
+      };
+      403: never;
+      /** @description Failed to create project's function */
+      500: never;
+    };
+  };
+  /**
+   * Retrieve a function 
+   * @description Retrieves a function with the specified slug and project.
+   */
+  getFunction: {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+        /** @description Function slug */
+        function_slug: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["FunctionSlugResponse"];
+        };
+      };
+      403: never;
+      /** @description Failed to retrieve function with given slug */
+      500: never;
+    };
+  };
+  /**
+   * Delete a function 
+   * @description Deletes a function with the specified slug from the specified project.
+   */
+  deleteFunction: {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+        /** @description Function slug */
+        function_slug: string;
+      };
+    };
+    responses: {
+      200: never;
+      403: never;
+      /** @description Failed to delete function with given slug */
+      500: never;
+    };
+  };
+  /**
+   * Update a function 
+   * @description Updates a function with the specified slug and project.
+   */
+  updateFunction: {
+    parameters: {
+      query?: {
+        slug?: string;
+        name?: string;
+        verify_jwt?: boolean;
+        import_map?: boolean;
+        entrypoint_path?: string;
+        import_map_path?: string;
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
+        /** @description Function slug */
+        function_slug: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateFunctionBody"];
+        "application/vnd.denoland.eszip": components["schemas"]["UpdateFunctionBody"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["FunctionResponse"];
+        };
+      };
+      403: never;
+      /** @description Failed to update function with given slug */
+      500: never;
+    };
+  };
+  /**
+   * Retrieve a function body 
+   * @description Retrieves a function body for the specified slug and project.
+   */
+  getFunctionBody: {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+        /** @description Function slug */
+        function_slug: string;
+      };
+    };
+    responses: {
+      200: never;
+      403: never;
+      /** @description Failed to retrieve function body with given slug */
+      500: never;
+    };
+  };
   /** Lists all SSO providers */
   listAllProviders: {
     parameters: {
@@ -1891,6 +1994,97 @@ export interface operations {
       403: never;
       /** @description Either SAML 2.0 was not enabled for this project, or the provider does not exist */
       404: never;
+    };
+  };
+  /** List published or authorized oauth apps */
+  listOAuthApps: {
+    parameters: {
+      query: {
+        type: "published" | "authorized";
+      };
+      path: {
+        slug: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": (components["schemas"]["OAuthAppResponse"])[];
+        };
+      };
+    };
+  };
+  /** Create an oauth app */
+  createOAuthApp: {
+    parameters: {
+      path: {
+        slug: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateOAuthAppBody"];
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["CreateOAuthAppResponse"];
+        };
+      };
+    };
+  };
+  /** Update an oauth app */
+  updateOAuthApp: {
+    parameters: {
+      path: {
+        slug: string;
+        id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateOAuthAppBody"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["PutOAuthAppResponse"];
+        };
+      };
+    };
+  };
+  /** Remove a published oauth app */
+  removeOAuthApp: {
+    parameters: {
+      path: {
+        slug: string;
+        id: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["DeleteOAuthAppResponse"];
+        };
+      };
+    };
+  };
+  /** Revoke an authorized oauth app */
+  revokeAuthorizedOAuthApp: {
+    parameters: {
+      path: {
+        slug: string;
+        id: string;
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["RevokeAuthorizedOAuthAppResponse"];
+        };
+      };
     };
   };
 }
