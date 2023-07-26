@@ -17,6 +17,7 @@ import {
   CreateSecretsRequestBody,
   DeleteSecretsRequestBody,
   DeleteSecretsResponseData,
+  GetBranchDetailsResponseData,
   GetCustomHostnameResponseData,
   GetFunctionBodyResponseData,
   GetFunctionResponseData,
@@ -41,6 +42,8 @@ import {
   RemoveNetworkBanRequestBody,
   ReverifyCustomHostnameResponseData,
   RunQueryResponseData,
+  UpdateBranchRequestBody,
+  UpdateBranchResponseData,
   UpdateFunctionRequestBody,
   UpdateFunctionResponseData,
   UpdatePgSodiumConfigRequestBody,
@@ -107,6 +110,68 @@ export class SupabaseManagementAPI {
 
     if (response.status !== 201) {
       throw await this.#createResponseError(response, "create organization");
+    }
+
+    return data;
+  }
+
+  /**
+   * Get database branch config
+   * @description Fetches configurations of the specified database branch
+   */
+  async getBranchDetails(
+    branchId: string
+  ): Promise<GetBranchDetailsResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/branches/{branch_id}",
+      {
+        params: {
+          path: {
+            branch_id: branchId,
+          },
+        },
+      }
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get branch details");
+    }
+
+    return data;
+  }
+
+  async deleteBranch(branchId: string) {
+    const { response } = await this.client.del("/v1/branches/{branch_id}", {
+      params: {
+        path: {
+          branch_id: branchId,
+        },
+      },
+    });
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "delete branch");
+    }
+  }
+
+  async updateBranch(
+    branchId: string,
+    body: UpdateBranchRequestBody
+  ): Promise<UpdateBranchResponseData> {
+    const { data, response } = await this.client.patch(
+      "/v1/branches/{branch_id}",
+      {
+        params: {
+          path: {
+            branch_id: branchId,
+          },
+        },
+        body,
+      }
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "update branch");
     }
 
     return data;

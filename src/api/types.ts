@@ -18,6 +18,23 @@ export type CreateOrganizationResponseData = ExtractResponseContent<
   201
 >;
 
+export type GetBranchDetailsResponseData = ExtractResponseContent<
+  paths["/v1/branches/{branch_id}"],
+  "get",
+  200
+>;
+
+export type UpdateBranchRequestBody = ExtractRequestBody<
+  paths["/v1/branches/{branch_id}"],
+  "patch"
+>;
+
+export type UpdateBranchResponseData = ExtractResponseContent<
+  paths["/v1/branches/{branch_id}"],
+  "patch",
+  200
+>;
+
 export type GetProjectsResponseData = ExtractResponseContent<
   paths["/v1/projects"],
   "get",
