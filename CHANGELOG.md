@@ -1,5 +1,12 @@
 # supabase-management-js
 
+## 0.1.2
+
+### Patch Changes
+
+- 0753620: Fix for the update run query path
+- daa7771: Add branch endpoints
+
 ## 0.1.1
 
 ### Patch Changes
