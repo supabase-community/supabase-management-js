@@ -1,5 +1,11 @@
 # supabase-management-js
 
+## 0.1.3
+
+### Patch Changes
+
+- c79f01c: Adding auth config endpoints and update to the latest OpenAPI spec
+
 ## 0.1.2
 
 ### Patch Changes
