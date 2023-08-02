@@ -304,6 +304,23 @@ export type GetSSOProvidersResponseData = ExtractResponseContent<
   200
 >;
 
+export type GetProjectAuthConfigResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/config/auth"],
+  "get",
+  200
+>;
+
+export type UpdateProjectAuthConfigRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/config/auth"],
+  "patch"
+>;
+
+export type UpdateProjectAuthConfigResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/config/auth"],
+  "patch",
+  200
+>;
+
 export type CreateSSOProviderRequestBody = ExtractRequestBody<
   paths["/v1/projects/{ref}/config/auth/sso/providers"],
   "post"

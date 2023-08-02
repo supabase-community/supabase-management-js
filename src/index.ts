@@ -27,6 +27,7 @@ import {
   GetPgsodiumConfigResponseData,
   GetPostgRESTConfigResponseData,
   GetProjectApiKeysResponseData,
+  GetProjectAuthConfigResponseData,
   GetProjectPGConfigResponseData,
   GetProjectPgBouncerConfigResponseData,
   GetProjectsResponseData,
@@ -50,6 +51,8 @@ import {
   UpdatePgSodiumConfigResponseData,
   UpdatePostgRESTConfigRequestBody,
   UpdatePostgRESTConfigResponseData,
+  UpdateProjectAuthConfigRequestBody,
+  UpdateProjectAuthConfigResponseData,
   UpdateProjectPGConfigRequestBody,
   UpdateProjectPGConfigResponseData,
   UpdateProjectPgBouncerConfigRequestBody,
@@ -1156,6 +1159,58 @@ export class SupabaseManagementAPI {
       throw await this.#createResponseError(
         response,
         "update Pgbouncer config"
+      );
+    }
+
+    return data;
+  }
+
+  /** Gets project's auth config */
+  async getProjectAuthConfig(
+    ref: string
+  ): Promise<GetProjectAuthConfigResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/config/auth",
+      {
+        params: {
+          path: {
+            ref,
+          },
+        },
+      }
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "get project auth config"
+      );
+    }
+
+    return data;
+  }
+
+  /** Updates a project's auth config */
+  async updateProjectAuthConfig(
+    ref: string,
+    body: UpdateProjectAuthConfigRequestBody
+  ): Promise<UpdateProjectAuthConfigResponseData> {
+    const { data, response } = await this.client.patch(
+      "/v1/projects/{ref}/config/auth",
+      {
+        params: {
+          path: {
+            ref,
+          },
+        },
+        body,
+      }
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "update project auth config"
       );
     }
 

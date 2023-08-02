@@ -201,6 +201,12 @@ export interface paths {
     /** Updates project's pgbouncer config */
     patch: operations["updatePgbouncerConfig"];
   };
+  "/v1/projects/{ref}/config/auth": {
+    /** Gets project's auth config */
+    get: operations["getV1AuthConfig"];
+    /** Updates a project's auth config */
+    patch: operations["updateV1AuthConfig"];
+  };
   "/v1/projects/{ref}/functions": {
     /**
      * List all functions 
@@ -292,6 +298,7 @@ export interface components {
       id: string;
       name: string;
       project_ref: string;
+      parent_project_ref: string;
       is_default: boolean;
       git_branch: string;
       created_at: string;
@@ -557,6 +564,7 @@ export interface components {
       /** @enum {string} */
       pool_mode: "transaction" | "session" | "statement";
       max_client_conn?: number | null;
+      connectionString: string;
     };
     UpdatePgbouncerConfigBody: {
       default_pool_size?: number;
@@ -575,6 +583,26 @@ export interface components {
       pool_mode: "transaction" | "session" | "statement";
       /** @enum {string} */
       pgbouncer_status: "COMING_DOWN" | "COMING_UP" | "DISABLED" | "ENABLED" | "RELOADING";
+    };
+    AuthConfigResponse: {
+      smtp_admin_email?: string;
+      smtp_host?: string;
+      smtp_port?: string;
+      smtp_user?: string;
+      smtp_pass?: string;
+      smtp_max_frequency?: number;
+      smtp_sender_name?: string;
+      rate_limit_email_sent?: number;
+    };
+    UpdateAuthConfigBody: {
+      smtp_admin_email?: string;
+      smtp_host?: string;
+      smtp_port?: string;
+      smtp_user?: string;
+      smtp_pass?: string;
+      smtp_max_frequency?: number;
+      smtp_sender_name?: string;
+      rate_limit_email_sent?: number;
     };
     CreateFunctionBody: {
       slug: string;
@@ -1725,6 +1753,49 @@ export interface operations {
       };
       403: never;
       /** @description Failed to update project's pgbouncer config */
+      500: never;
+    };
+  };
+  /** Gets project's auth config */
+  getV1AuthConfig: {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["AuthConfigResponse"];
+        };
+      };
+      403: never;
+      /** @description Failed to retrieve project's auth config */
+      500: never;
+    };
+  };
+  /** Updates a project's auth config */
+  updateV1AuthConfig: {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateAuthConfigBody"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["AuthConfigResponse"];
+        };
+      };
+      403: never;
+      /** @description Failed to update project's auth config */
       500: never;
     };
   };
