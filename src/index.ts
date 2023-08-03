@@ -713,6 +713,23 @@ export class SupabaseManagementAPI {
     return data;
   }
 
+  async enableWebhooks(ref: string) {
+    const { data, response } = await this.client.post(
+      "/v1/projects/{ref}/database/webhooks/enable",
+      {
+        params: {
+          path: {
+            ref,
+          },
+        },
+      }
+    );
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(response, "enable webhooks");
+    }
+  }
+
   /**
    * List all secrets
    * @description Returns all secrets you've previously added to the specified project.

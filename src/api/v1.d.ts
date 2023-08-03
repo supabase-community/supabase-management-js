@@ -121,10 +121,6 @@ export interface paths {
     /** Updates project's postgrest config */
     patch: operations["updatePostgRESTConfig"];
   };
-  "/v1/projects/{ref}/database/query": {
-    /** Run sql query */
-    post: operations["runQuery"];
-  };
   "/v1/projects/{ref}/secrets": {
     /**
      * List all secrets 
@@ -206,6 +202,14 @@ export interface paths {
     get: operations["getV1AuthConfig"];
     /** Updates a project's auth config */
     patch: operations["updateV1AuthConfig"];
+  };
+  "/v1/projects/{ref}/database/query": {
+    /** Run sql query */
+    post: operations["v1RunQuery"];
+  };
+  "/v1/projects/{ref}/database/webhooks/enable": {
+    /** Enables Database Webhooks on the project */
+    post: operations["v1EnableDatabaseWebhooks"];
   };
   "/v1/projects/{ref}/functions": {
     /**
@@ -449,9 +453,6 @@ export interface components {
       db_schema: string;
       db_extra_search_path: string;
     };
-    RunQueryBody: {
-      query: string;
-    };
     SecretResponse: {
       name: string;
       value: string;
@@ -603,6 +604,9 @@ export interface components {
       smtp_max_frequency?: number;
       smtp_sender_name?: string;
       rate_limit_email_sent?: number;
+    };
+    RunQueryBody: {
+      query: string;
     };
     CreateFunctionBody: {
       slug: string;
@@ -1337,30 +1341,6 @@ export interface operations {
       500: never;
     };
   };
-  /** Run sql query */
-  runQuery: {
-    parameters: {
-      path: {
-        /** @description Project ref */
-        ref: string;
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["RunQueryBody"];
-      };
-    };
-    responses: {
-      201: {
-        content: {
-          "application/json": Record<string, never>;
-        };
-      };
-      403: never;
-      /** @description Failed to run sql query */
-      500: never;
-    };
-  };
   /**
    * List all secrets 
    * @description Returns all secrets you've previously added to the specified project.
@@ -1796,6 +1776,45 @@ export interface operations {
       };
       403: never;
       /** @description Failed to update project's auth config */
+      500: never;
+    };
+  };
+  /** Run sql query */
+  v1RunQuery: {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["RunQueryBody"];
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": Record<string, never>;
+        };
+      };
+      403: never;
+      /** @description Failed to run sql query */
+      500: never;
+    };
+  };
+  /** Enables Database Webhooks on the project */
+  v1EnableDatabaseWebhooks: {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      201: never;
+      403: never;
+      /** @description Failed to enable Database Webhooks on the project */
       500: never;
     };
   };
