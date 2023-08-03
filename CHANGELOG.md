@@ -1,5 +1,11 @@
 # supabase-management-js
 
+## 0.1.4
+
+### Patch Changes
+
+- 1a29f25: Adding enableWebhooks endpoint
+
 ## 0.1.3
 
 ### Patch Changes
