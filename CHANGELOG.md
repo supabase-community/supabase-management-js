@@ -1,5 +1,11 @@
 # supabase-management-js
 
+## 0.1.5
+
+### Patch Changes
+
+- ea4937a: Update types to the newest OpenAPI spec
+
 ## 0.1.4
 
 ### Patch Changes
