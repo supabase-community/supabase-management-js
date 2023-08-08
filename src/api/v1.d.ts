@@ -48,13 +48,6 @@ export interface paths {
     /** Exchange auth code for user's access and refresh token */
     post: operations["token"];
   };
-  "/v1/oauth/authorizations/{id}": {
-    get: operations["getAuthorizationRequest"];
-    /** Approve oauth app authorization request */
-    post: operations["approveAuthorizationRequest"];
-    /** Decline oauth app authorization request */
-    delete: operations["declineAuthorizationRequest"];
-  };
   "/v1/projects/{ref}/api-keys": {
     get: operations["getProjectApiKeys"];
   };
@@ -261,22 +254,6 @@ export interface paths {
     /** Removes a SSO provider by its UUID */
     delete: operations["removeProviderById"];
   };
-  "/v1/organizations/{slug}/oauth/apps": {
-    /** List published or authorized oauth apps */
-    get: operations["listOAuthApps"];
-    /** Create an oauth app */
-    post: operations["createOAuthApp"];
-  };
-  "/v1/organizations/{slug}/oauth/apps/{id}": {
-    /** Update an oauth app */
-    put: operations["updateOAuthApp"];
-    /** Remove a published oauth app */
-    delete: operations["removeOAuthApp"];
-  };
-  "/v1/organizations/{slug}/oauth/apps/{id}/revoke": {
-    /** Revoke an authorized oauth app */
-    post: operations["revokeAuthorizedOAuthApp"];
-  };
 }
 
 export type webhooks = Record<string, never>;
@@ -377,24 +354,6 @@ export interface components {
       access_token: string;
       refresh_token: string;
       expires_in: number;
-    };
-    GetAuthorizationResponse: {
-      name: string;
-      website: string;
-      icon?: string;
-      domain: string;
-      expires_at: string;
-      approved_at?: string;
-      approved_organization_slug?: string;
-    };
-    AuthorizationsApproveBody: {
-      organization_id: string;
-    };
-    ApproveAuthorizationResponse: {
-      url: string;
-    };
-    DeclineAuthorizationResponse: {
-      id: string;
     };
     ApiKeyResponse: {
       name: string;
@@ -725,55 +684,6 @@ export interface components {
       created_at?: string;
       updated_at?: string;
     };
-    OAuthAppResponse: {
-      id: string;
-      name: string;
-      website: string;
-      icon?: string;
-      authorized_at?: string;
-      created_at?: string;
-      client_id?: string;
-      client_secret_alias?: string;
-      redirect_uris?: (string)[];
-    };
-    CreateOAuthAppBody: {
-      name: string;
-      website: string;
-      icon?: string;
-      redirect_uris: (string)[];
-    };
-    CreateOAuthAppResponse: {
-      id: string;
-      client_id: string;
-      client_secret: string;
-    };
-    PutOAuthAppResponse: {
-      id: string;
-      client_id: string;
-      client_secret_alias: string;
-      created_at: string;
-      name: string;
-      website: string;
-      icon?: string;
-      redirect_uris: (string)[];
-    };
-    RevokeAuthorizedOAuthAppResponse: {
-      id: string;
-      name: string;
-      website: string;
-      icon?: string;
-      authorized_at: string;
-    };
-    DeleteOAuthAppResponse: {
-      id: string;
-      name: string;
-      website: string;
-      icon?: string;
-      created_at: string;
-      client_id: string;
-      client_secret_alias: string;
-      redirect_uris: (string)[];
-    };
   };
   responses: never;
   parameters: never;
@@ -944,55 +854,6 @@ export interface operations {
       201: {
         content: {
           "application/json": components["schemas"]["OAuthTokenResponse"];
-        };
-      };
-    };
-  };
-  getAuthorizationRequest: {
-    parameters: {
-      path: {
-        id: string;
-      };
-    };
-    responses: {
-      200: {
-        content: {
-          "application/json": components["schemas"]["GetAuthorizationResponse"];
-        };
-      };
-    };
-  };
-  /** Approve oauth app authorization request */
-  approveAuthorizationRequest: {
-    parameters: {
-      path: {
-        id: string;
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["AuthorizationsApproveBody"];
-      };
-    };
-    responses: {
-      201: {
-        content: {
-          "application/json": components["schemas"]["ApproveAuthorizationResponse"];
-        };
-      };
-    };
-  };
-  /** Decline oauth app authorization request */
-  declineAuthorizationRequest: {
-    parameters: {
-      path: {
-        id: string;
-      };
-    };
-    responses: {
-      200: {
-        content: {
-          "application/json": components["schemas"]["DeclineAuthorizationResponse"];
         };
       };
     };
@@ -2084,97 +1945,6 @@ export interface operations {
       403: never;
       /** @description Either SAML 2.0 was not enabled for this project, or the provider does not exist */
       404: never;
-    };
-  };
-  /** List published or authorized oauth apps */
-  listOAuthApps: {
-    parameters: {
-      query: {
-        type: "published" | "authorized";
-      };
-      path: {
-        slug: string;
-      };
-    };
-    responses: {
-      200: {
-        content: {
-          "application/json": (components["schemas"]["OAuthAppResponse"])[];
-        };
-      };
-    };
-  };
-  /** Create an oauth app */
-  createOAuthApp: {
-    parameters: {
-      path: {
-        slug: string;
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["CreateOAuthAppBody"];
-      };
-    };
-    responses: {
-      201: {
-        content: {
-          "application/json": components["schemas"]["CreateOAuthAppResponse"];
-        };
-      };
-    };
-  };
-  /** Update an oauth app */
-  updateOAuthApp: {
-    parameters: {
-      path: {
-        slug: string;
-        id: string;
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["CreateOAuthAppBody"];
-      };
-    };
-    responses: {
-      200: {
-        content: {
-          "application/json": components["schemas"]["PutOAuthAppResponse"];
-        };
-      };
-    };
-  };
-  /** Remove a published oauth app */
-  removeOAuthApp: {
-    parameters: {
-      path: {
-        slug: string;
-        id: string;
-      };
-    };
-    responses: {
-      200: {
-        content: {
-          "application/json": components["schemas"]["DeleteOAuthAppResponse"];
-        };
-      };
-    };
-  };
-  /** Revoke an authorized oauth app */
-  revokeAuthorizedOAuthApp: {
-    parameters: {
-      path: {
-        slug: string;
-        id: string;
-      };
-    };
-    responses: {
-      201: {
-        content: {
-          "application/json": components["schemas"]["RevokeAuthorizedOAuthAppResponse"];
-        };
-      };
     };
   };
 }
