@@ -1,5 +1,11 @@
 # supabase-management-js
 
+## 0.1.6
+
+### Patch Changes
+
+- d2db1ce: Update to the newest API spec, removing updatePgBouncerConfig endpoint
+
 ## 0.1.5
 
 ### Patch Changes
