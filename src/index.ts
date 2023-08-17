@@ -55,8 +55,6 @@ import {
   UpdateProjectAuthConfigResponseData,
   UpdateProjectPGConfigRequestBody,
   UpdateProjectPGConfigResponseData,
-  UpdateProjectPgBouncerConfigRequestBody,
-  UpdateProjectPgBouncerConfigResponseData,
   UpdateSSLEnforcementConfigRequestBody,
   UpdateSSLEnforcementConfigResponseData,
   UpdateSSOProviderRequestBody,
@@ -1150,33 +1148,6 @@ export class SupabaseManagementAPI {
 
     if (response.status !== 200) {
       throw await this.#createResponseError(response, "get Pgbouncer config");
-    }
-
-    return data;
-  }
-
-  /** Updates project's pgbouncer config */
-  async updatePgBouncerConfig(
-    ref: string,
-    body: UpdateProjectPgBouncerConfigRequestBody
-  ): Promise<UpdateProjectPgBouncerConfigResponseData> {
-    const { data, response } = await this.client.patch(
-      "/v1/projects/{ref}/config/database/pgbouncer",
-      {
-        params: {
-          path: {
-            ref,
-          },
-        },
-        body,
-      }
-    );
-
-    if (response.status !== 200) {
-      throw await this.#createResponseError(
-        response,
-        "update Pgbouncer config"
-      );
     }
 
     return data;

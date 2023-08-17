@@ -185,10 +185,8 @@ export interface paths {
     put: operations["updateConfig"];
   };
   "/v1/projects/{ref}/config/database/pgbouncer": {
-    /** Gets project's pgbouncer config */
-    get: operations["getPgbouncerConfig"];
-    /** Updates project's pgbouncer config */
-    patch: operations["updatePgbouncerConfig"];
+    /** Get project's pgbouncer config */
+    get: operations["v1GetPgbouncerConfig"];
   };
   "/v1/projects/{ref}/config/auth": {
     /** Gets project's auth config */
@@ -281,7 +279,7 @@ export interface components {
       project_ref: string;
       parent_project_ref: string;
       is_default: boolean;
-      git_branch: string;
+      git_branch?: string;
       created_at: string;
       updated_at: string;
     };
@@ -508,41 +506,12 @@ export interface components {
       /** @enum {string} */
       session_replication_role?: "origin" | "replica" | "local";
     };
-    ProjectPgBouncerConfig: {
-      db_dns_name: string;
-      db_host: string;
-      db_name: string;
-      db_port: number;
-      db_ssl: boolean;
-      db_user: string;
+    V1PgbouncerConfigResponse: {
+      /** @enum {string} */
+      pool_mode?: "transaction" | "session" | "statement";
       default_pool_size?: number;
-      ignore_startup_parameters: string;
-      inserted_at: string;
-      pgbouncer_enabled: boolean;
-      /** @enum {string} */
-      pgbouncer_status: "COMING_DOWN" | "COMING_UP" | "DISABLED" | "ENABLED" | "RELOADING";
-      /** @enum {string} */
-      pool_mode: "transaction" | "session" | "statement";
-      max_client_conn?: number | null;
-      connectionString: string;
-    };
-    UpdatePgbouncerConfigBody: {
-      default_pool_size?: number;
-      max_client_conn?: number | null;
-      ignore_startup_parameters: string;
-      pgbouncer_enabled: boolean;
-      /** @enum {string} */
-      pool_mode: "transaction" | "session" | "statement";
-    };
-    UpdatePoolingConfigResponse: {
-      default_pool_size?: number;
-      max_client_conn?: number | null;
-      ignore_startup_parameters: string;
-      pgbouncer_enabled: boolean;
-      /** @enum {string} */
-      pool_mode: "transaction" | "session" | "statement";
-      /** @enum {string} */
-      pgbouncer_status: "COMING_DOWN" | "COMING_UP" | "DISABLED" | "ENABLED" | "RELOADING";
+      ignore_startup_parameters?: string;
+      max_client_conn?: number;
     };
     AuthConfigResponse: {
       smtp_admin_email?: string;
@@ -1555,8 +1524,8 @@ export interface operations {
       500: never;
     };
   };
-  /** Gets project's pgbouncer config */
-  getPgbouncerConfig: {
+  /** Get project's pgbouncer config */
+  v1GetPgbouncerConfig: {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1566,34 +1535,10 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": components["schemas"]["ProjectPgBouncerConfig"];
+          "application/json": components["schemas"]["V1PgbouncerConfigResponse"];
         };
       };
       /** @description Failed to retrieve project's pgbouncer config */
-      500: never;
-    };
-  };
-  /** Updates project's pgbouncer config */
-  updatePgbouncerConfig: {
-    parameters: {
-      path: {
-        /** @description Project ref */
-        ref: string;
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["UpdatePgbouncerConfigBody"];
-      };
-    };
-    responses: {
-      200: {
-        content: {
-          "application/json": components["schemas"]["UpdatePoolingConfigResponse"];
-        };
-      };
-      403: never;
-      /** @description Failed to update project's pgbouncer config */
       500: never;
     };
   };

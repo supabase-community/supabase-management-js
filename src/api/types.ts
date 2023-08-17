@@ -287,17 +287,6 @@ export type GetProjectPgBouncerConfigResponseData = ExtractResponseContent<
   200
 >;
 
-export type UpdateProjectPgBouncerConfigRequestBody = ExtractRequestBody<
-  paths["/v1/projects/{ref}/config/database/pgbouncer"],
-  "patch"
->;
-
-export type UpdateProjectPgBouncerConfigResponseData = ExtractResponseContent<
-  paths["/v1/projects/{ref}/config/database/pgbouncer"],
-  "patch",
-  200
->;
-
 export type GetSSOProvidersResponseData = ExtractResponseContent<
   paths["/v1/projects/{ref}/config/auth/sso/providers"],
   "get",
