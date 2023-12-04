@@ -4,6 +4,8 @@ import {
   ActivateCustomHostnameResponseData,
   ApplyNetworkRestrictionsRequestBody,
   ApplyNetworkRestrictionsResponseData,
+  CheckServiceHealthResponseData,
+  CheckServiceQuery,
   CreateCustomHostnameRequestBody,
   CreateCustomHostnameResponseData,
   CreateFunctionRequestBody,
@@ -15,6 +17,7 @@ import {
   CreateSSOProviderRequestBody,
   CreateSSOProviderResponseData,
   CreateSecretsRequestBody,
+  DeleteProjectResponseBody,
   DeleteSecretsRequestBody,
   DeleteSecretsResponseData,
   GetBranchDetailsResponseData,
@@ -202,6 +205,50 @@ export class SupabaseManagementAPI {
 
     if (response.status !== 201) {
       throw await this.#createResponseError(response, "create project");
+    }
+
+    return data;
+  }
+
+  /** Delete a project */
+  async deleteProject(ref: string): Promise<DeleteProjectResponseBody> {
+    const { data, response } = await this.client.del("/v1/projects/{ref}", {
+      params: {
+        path: {
+          ref,
+        },
+      },
+    });
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "delete project");
+    }
+
+    return data;
+  }
+
+  /**
+   * Check service health
+   * @description Checks the health of the specified service.
+   */
+  async checkServiceHealth(
+    ref: string,
+    query: CheckServiceQuery
+  ): Promise<CheckServiceHealthResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/health",
+      {
+        params: {
+          query: query,
+          path: {
+            ref,
+          },
+        },
+      }
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "check service health");
     }
 
     return data;
@@ -1316,6 +1363,39 @@ export class SupabaseManagementAPI {
     if (response.status !== 204) {
       throw await this.#createResponseError(response, "delete SSO provider");
     }
+  }
+
+  /** List snippets */
+  async listSnippets(projectRef?: string) {
+    const { data, response } = await this.client.get("/v1/snippets", {
+      params: {
+        query: {
+          project_ref: projectRef,
+        },
+      },
+    });
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "list snippets");
+    }
+
+    return data;
+  }
+
+  async getSnippet(id: string) {
+    const { data, response } = await this.client.get("/v1/snippets/{id}", {
+      params: {
+        path: {
+          id,
+        },
+      },
+    });
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get snippet");
+    }
+
+    return data;
   }
 
   get client() {

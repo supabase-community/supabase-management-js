@@ -36,3 +36,16 @@ export type ExtractRequestBody<
 }
   ? Prettify<TData>
   : never;
+
+export type ExtractRequestQuery<
+  TOperation,
+  TMethod extends "put" | "post" | "patch" | "delete" | "get"
+> = TOperation extends {
+  [method in TMethod]: {
+    parameters: {
+      query: infer TQuery;
+    };
+  };
+}
+  ? Prettify<TQuery>
+  : never;

@@ -1,5 +1,9 @@
 import { paths } from "./v1";
-import { ExtractRequestBody, ExtractResponseContent } from "./utils";
+import {
+  ExtractRequestBody,
+  ExtractRequestQuery,
+  ExtractResponseContent,
+} from "./utils";
 
 export type GetOrganizationsResponseData = ExtractResponseContent<
   paths["/v1/organizations"],
@@ -50,6 +54,12 @@ export type CreateProjectResponseData = ExtractResponseContent<
 export type CreateProjectRequestBody = ExtractRequestBody<
   paths["/v1/projects"],
   "post"
+>;
+
+export type DeleteProjectResponseBody = ExtractResponseContent<
+  paths["/v1/projects/{ref}"],
+  "delete",
+  200
 >;
 
 export type ListFunctionsResponseData = ExtractResponseContent<
@@ -335,5 +345,28 @@ export type UpdateSSOProviderRequestBody = ExtractRequestBody<
 export type UpdateSSOProviderResponseData = ExtractResponseContent<
   paths["/v1/projects/{ref}/config/auth/sso/providers/{provider_id}"],
   "put",
+  200
+>;
+
+export type ListSnippetsResponseData = ExtractResponseContent<
+  paths["/v1/snippets"],
+  "get",
+  200
+>;
+
+export type GetSnippetResponseData = ExtractResponseContent<
+  paths["/v1/snippets/{id}"],
+  "get",
+  200
+>;
+
+export type CheckServiceQuery = ExtractRequestQuery<
+  paths["/v1/projects/{ref}/health"],
+  "get"
+>;
+
+export type CheckServiceHealthResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/health"],
+  "get",
   200
 >;

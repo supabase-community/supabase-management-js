@@ -48,6 +48,14 @@ export interface paths {
     /** Exchange auth code for user's access and refresh token */
     post: operations["token"];
   };
+  "/v1/snippets": {
+    /** Lists SQL snippets for the logged in user */
+    get: operations["listSnippets"];
+  };
+  "/v1/snippets/{id}": {
+    /** Gets a specific SQL snippet */
+    get: operations["getSnippet"];
+  };
   "/v1/projects/{ref}/api-keys": {
     get: operations["getProjectApiKeys"];
   };
@@ -114,6 +122,10 @@ export interface paths {
     /** Updates project's postgrest config */
     patch: operations["updatePostgRESTConfig"];
   };
+  "/v1/projects/{ref}": {
+    /** Deletes the given project */
+    delete: operations["deleteProject"];
+  };
   "/v1/projects/{ref}/secrets": {
     /**
      * List all secrets 
@@ -177,6 +189,10 @@ export interface paths {
   "/v1/projects/{ref}/readonly/temporary-disable": {
     /** Disables project's readonly mode for the next 15 minutes */
     post: operations["temporarilyDisableReadonlyMode"];
+  };
+  "/v1/projects/{ref}/health": {
+    /** Gets project's service health status */
+    get: operations["checkServiceHealth"];
   };
   "/v1/projects/{ref}/config/database/postgres": {
     /** Gets project's Postgres config */
@@ -252,6 +268,14 @@ export interface paths {
     /** Removes a SSO provider by its UUID */
     delete: operations["removeProviderById"];
   };
+  "/v1/projects/{ref}/database/backups/restore-pitr": {
+    /** Restores a PITR backup for a database */
+    post: operations["v1RestorePitr"];
+  };
+  "/v1/organizations/{slug}/members": {
+    /** List members of an organization */
+    get: operations["v1ListOrganizationMembers"];
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -272,6 +296,7 @@ export interface components {
     UpdateBranchBody: {
       branch_name?: string;
       git_branch?: string;
+      reset_on_push?: boolean;
     };
     BranchResponse: {
       id: string;
@@ -280,6 +305,8 @@ export interface components {
       parent_project_ref: string;
       is_default: boolean;
       git_branch?: string;
+      pr_number?: number;
+      reset_on_push: boolean;
       created_at: string;
       updated_at: string;
     };
@@ -316,7 +343,8 @@ export interface components {
       /** @description Slug of your organization */
       organization_id: string;
       /**
-       * @description Subscription plan 
+       * @deprecated 
+       * @description Subscription plan is now set on organization level and is ignored in this request 
        * @example free 
        * @enum {string}
        */
@@ -327,13 +355,14 @@ export interface components {
        * @enum {string}
        */
       region: "us-east-1" | "us-west-1" | "us-west-2" | "ap-southeast-1" | "ap-northeast-1" | "ap-northeast-2" | "ap-southeast-2" | "eu-west-1" | "eu-west-2" | "eu-west-3" | "eu-central-1" | "ca-central-1" | "ap-south-1" | "sa-east-1";
+      /** @deprecated */
       kps_enabled?: boolean;
     };
-    OrganizationResponse: {
+    OrganizationResponseV1: {
       id: string;
       name: string;
     };
-    CreateOrganizationBody: {
+    CreateOrganizationBodyV1: {
       name: string;
     };
     OAuthTokenBody: {
@@ -352,6 +381,51 @@ export interface components {
       access_token: string;
       refresh_token: string;
       expires_in: number;
+    };
+    SnippetProject: {
+      id: number;
+      name: string;
+    };
+    SnippetUser: {
+      id: number;
+      username: string;
+    };
+    SnippetMeta: {
+      id: string;
+      inserted_at: string;
+      updated_at: string;
+      /** @enum {string} */
+      type: "sql";
+      /** @enum {string} */
+      visibility: "user" | "project" | "org" | "public";
+      name: string;
+      description: string | null;
+      project: components["schemas"]["SnippetProject"];
+      owner: components["schemas"]["SnippetUser"];
+      updated_by: components["schemas"]["SnippetUser"];
+    };
+    SnippetList: {
+      data: (components["schemas"]["SnippetMeta"])[];
+    };
+    SnippetContent: {
+      favorite: boolean;
+      schema_version: string;
+      sql: string;
+    };
+    SnippetResponse: {
+      id: string;
+      inserted_at: string;
+      updated_at: string;
+      /** @enum {string} */
+      type: "sql";
+      /** @enum {string} */
+      visibility: "user" | "project" | "org" | "public";
+      name: string;
+      description: string | null;
+      project: components["schemas"]["SnippetProject"];
+      owner: components["schemas"]["SnippetUser"];
+      updated_by: components["schemas"]["SnippetUser"];
+      content: components["schemas"]["SnippetContent"];
     };
     ApiKeyResponse: {
       name: string;
@@ -410,11 +484,20 @@ export interface components {
       db_schema: string;
       db_extra_search_path: string;
     };
+    ProjectRefResponse: {
+      id: number;
+      ref: string;
+      name: string;
+    };
     SecretResponse: {
       name: string;
       value: string;
     };
     CreateSecretBody: {
+      /**
+       * @description Secret name must not start with the SUPABASE_ prefix. 
+       * @example string
+       */
       name: string;
       value: string;
     };
@@ -448,6 +531,9 @@ export interface components {
     UpgradeDatabaseBody: {
       target_version: number;
     };
+    ProjectUpgradeInitiateResponse: {
+      tracking_id: string;
+    };
     ProjectVersion: {
       postgres_version: number;
       app_version: string;
@@ -459,6 +545,9 @@ export interface components {
       target_upgrade_versions: (components["schemas"]["ProjectVersion"])[];
       requires_manual_intervention: string | null;
       potential_breaking_changes: (string)[];
+      duration_estimate_hours: number;
+      legacy_auth_custom_roles: (string)[];
+      extension_dependent_objects: (string)[];
     };
     DatabaseUpgradeStatus: {
       initiated_at: string;
@@ -477,6 +566,23 @@ export interface components {
       enabled: boolean;
       override_enabled: boolean;
       override_active_until: string;
+    };
+    AuthHealthResponse: {
+      name: string;
+      version: string;
+      description: string;
+    };
+    RealtimeHealthResponse: {
+      healthy: boolean;
+      db_connected: boolean;
+      connected_cluster: number;
+    };
+    ServiceHealthResponse: {
+      info?: components["schemas"]["AuthHealthResponse"] | components["schemas"]["RealtimeHealthResponse"];
+      /** @enum {string} */
+      name: "auth" | "db" | "realtime" | "rest" | "storage";
+      healthy: boolean;
+      error?: string;
     };
     PostgresConfigResponse: {
       statement_timeout?: string;
@@ -653,6 +759,16 @@ export interface components {
       created_at?: string;
       updated_at?: string;
     };
+    V1RestorePitrBody: {
+      recovery_time_target_unix: number;
+    };
+    V1OrganizationMemberResponse: {
+      user_id: string;
+      user_name: string;
+      email?: string;
+      role_name: string;
+      mfa_enabled: boolean;
+    };
   };
   responses: never;
   parameters: never;
@@ -682,7 +798,7 @@ export interface operations {
           "application/json": components["schemas"]["BranchDetailResponse"];
         };
       };
-      /** @description Failed to update database branch */
+      /** @description Failed to retrieve database branch */
       500: never;
     };
   };
@@ -770,7 +886,7 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["OrganizationResponse"])[];
+          "application/json": (components["schemas"]["OrganizationResponseV1"])[];
         };
       };
       /** @description Unexpected error listing organizations */
@@ -781,13 +897,13 @@ export interface operations {
   createOrganization: {
     requestBody: {
       content: {
-        "application/json": components["schemas"]["CreateOrganizationBody"];
+        "application/json": components["schemas"]["CreateOrganizationBodyV1"];
       };
     };
     responses: {
       201: {
         content: {
-          "application/json": components["schemas"]["OrganizationResponse"];
+          "application/json": components["schemas"]["OrganizationResponseV1"];
         };
       };
       /** @description Unexpected error creating an organization */
@@ -801,7 +917,7 @@ export interface operations {
         client_id: string;
         response_type: "code" | "token" | "id_token token";
         redirect_uri: string;
-        scope: string;
+        scope?: string;
         state?: string;
         response_mode?: string;
         code_challenge?: string;
@@ -825,6 +941,40 @@ export interface operations {
           "application/json": components["schemas"]["OAuthTokenResponse"];
         };
       };
+    };
+  };
+  /** Lists SQL snippets for the logged in user */
+  listSnippets: {
+    parameters: {
+      query?: {
+        project_ref?: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["SnippetList"];
+        };
+      };
+      /** @description Failed to list user's SQL snippets */
+      500: never;
+    };
+  };
+  /** Gets a specific SQL snippet */
+  getSnippet: {
+    parameters: {
+      path: {
+        id: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["SnippetResponse"];
+        };
+      };
+      /** @description Failed to retrieve SQL snippet */
+      500: never;
     };
   };
   getProjectApiKeys: {
@@ -1171,6 +1321,23 @@ export interface operations {
       500: never;
     };
   };
+  /** Deletes the given project */
+  deleteProject: {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["ProjectRefResponse"];
+        };
+      };
+      403: never;
+    };
+  };
   /**
    * List all secrets 
    * @description Returns all secrets you've previously added to the specified project.
@@ -1407,7 +1574,11 @@ export interface operations {
       };
     };
     responses: {
-      201: never;
+      201: {
+        content: {
+          "application/json": components["schemas"]["ProjectUpgradeInitiateResponse"];
+        };
+      };
       403: never;
       /** @description Failed to initiate project upgrade */
       500: never;
@@ -1480,6 +1651,28 @@ export interface operations {
     responses: {
       201: never;
       /** @description Failed to disable project's readonly mode */
+      500: never;
+    };
+  };
+  /** Gets project's service health status */
+  checkServiceHealth: {
+    parameters: {
+      query: {
+        timeout_ms?: number;
+        services: ("auth" | "db" | "realtime" | "rest" | "storage")[];
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": (components["schemas"]["ServiceHealthResponse"])[];
+        };
+      };
+      /** @description Failed to retrieve project's service health status */
       500: never;
     };
   };
@@ -1890,6 +2083,38 @@ export interface operations {
       403: never;
       /** @description Either SAML 2.0 was not enabled for this project, or the provider does not exist */
       404: never;
+    };
+  };
+  /** Restores a PITR backup for a database */
+  v1RestorePitr: {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["V1RestorePitrBody"];
+      };
+    };
+    responses: {
+      201: never;
+    };
+  };
+  /** List members of an organization */
+  v1ListOrganizationMembers: {
+    parameters: {
+      path: {
+        slug: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": (components["schemas"]["V1OrganizationMemberResponse"])[];
+        };
+      };
     };
   };
 }
