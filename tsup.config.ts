@@ -1,23 +1,40 @@
-import { defineConfig } from "tsup";
+import { Plugin } from "esbuild";
+import { Options, defineConfig } from "tsup";
 
-export default defineConfig([
-  {
-    name: "main",
-    entry: ["./src/index.ts"],
-    outDir: "./dist",
-    platform: "node",
-    format: ["cjs"],
-    legacyOutput: true,
-    sourcemap: true,
-    clean: true,
-    bundle: true,
-    splitting: false,
-    dts: true,
-    treeshake: {
-      preset: "smallest",
+const restoreNodeProtocolPlugin = (): Plugin => {
+  return {
+    name: "node-protocol-plugin-restorer",
+    setup(build) {
+      build.onResolve(
+        {
+          filter: /node:/,
+        },
+        async (args) => {
+          return { path: args.path, external: true };
+        }
+      );
     },
-    esbuildPlugins: [],
-    noExternal: ["openapi-fetch"],
-    external: [],
+  };
+};
+
+export const options: Options = {
+  name: "main",
+  config: "tsconfig.json",
+  entry: ["./src/index.ts"],
+  outDir: "./dist",
+  platform: "node",
+  format: ["cjs", "esm"],
+  legacyOutput: false,
+  sourcemap: true,
+  clean: true,
+  bundle: true,
+  splitting: false,
+  dts: true,
+  treeshake: {
+    preset: "recommended",
   },
-]);
+  esbuildPlugins: [restoreNodeProtocolPlugin()],
+  noExternal: ["openapi-fetch"],
+};
+
+export default defineConfig(options);
