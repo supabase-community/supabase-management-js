@@ -1,5 +1,19 @@
 # supabase-management-js
 
+## 1.0.0
+
+### Major Changes
+
+- 5056f36: Add support for ESM and CommonJS through conditional exports
+
+### Patch Changes
+
+- 4efa1bc: Update to latest Supabase management API
+
+  - Added Snippet endpoints
+  - Add ability to check service health status
+  - Added ability to delete projects
+
 ## 0.1.6
 
 ### Patch Changes
