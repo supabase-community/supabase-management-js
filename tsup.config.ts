@@ -1,17 +1,17 @@
-import { Plugin } from "esbuild";
+import type { Plugin, PluginBuild, OnResolveArgs } from "esbuild";
 import { Options, defineConfig } from "tsup";
 
 const restoreNodeProtocolPlugin = (): Plugin => {
   return {
     name: "node-protocol-plugin-restorer",
-    setup(build) {
+    setup(build: PluginBuild) {
       build.onResolve(
         {
           filter: /node:/,
         },
-        async (args) => {
+        async (args: OnResolveArgs) => {
           return { path: args.path, external: true };
-        }
+        },
       );
     },
   };
