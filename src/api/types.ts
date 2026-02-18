@@ -205,6 +205,57 @@ export type GetProjectApiKeysResponseData = ExtractResponseContent<
   200
 >;
 
+export type CreateProjectApiKeyRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/api-keys"],
+  "post"
+>;
+
+export type CreateProjectApiKeyResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/api-keys"],
+  "post",
+  201
+>;
+
+export type GetProjectLegacyApiKeysResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/api-keys/legacy"],
+  "get",
+  200
+>;
+
+export type UpdateProjectLegacyApiKeysQuery = ExtractRequestQuery<
+  paths["/v1/projects/{ref}/api-keys/legacy"],
+  "put"
+>;
+
+export type UpdateProjectLegacyApiKeysResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/api-keys/legacy"],
+  "put",
+  200
+>;
+
+export type GetProjectApiKeyResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/api-keys/{id}"],
+  "get",
+  200
+>;
+
+export type DeleteProjectApiKeyResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/api-keys/{id}"],
+  "delete",
+  200
+>;
+
+export type UpdateProjectApiKeyRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/api-keys/{id}"],
+  "patch"
+>;
+
+export type UpdateProjectApiKeyResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/api-keys/{id}"],
+  "patch",
+  200
+>;
+
 export type GetCustomHostnameResponseData = ExtractResponseContent<
   paths["/v1/projects/{ref}/custom-hostname"],
   "get",

@@ -174,6 +174,15 @@ import {
   ExchangeOAuthTokenResponseData,
   RevokeOAuthTokenRequestBody,
   OAuthAuthorizeProjectClaimQuery,
+  CreateProjectApiKeyRequestBody,
+  CreateProjectApiKeyResponseData,
+  GetProjectLegacyApiKeysResponseData,
+  UpdateProjectLegacyApiKeysQuery,
+  UpdateProjectLegacyApiKeysResponseData,
+  GetProjectApiKeyResponseData,
+  DeleteProjectApiKeyResponseData,
+  UpdateProjectApiKeyRequestBody,
+  UpdateProjectApiKeyResponseData,
 } from "./api/types";
 import { paths } from "./api/v1";
 
@@ -1022,6 +1031,128 @@ export class SupabaseManagementAPI {
 
     if (response.status !== 200) {
       throw await this.#createResponseError(response, "get project api keys");
+    }
+
+    return data;
+  }
+
+  /** Creates a new API key for the project */
+  async createProjectApiKey(
+    ref: string,
+    body: CreateProjectApiKeyRequestBody,
+  ): Promise<CreateProjectApiKeyResponseData> {
+    const { data, response } = await this.client.post(
+      "/v1/projects/{ref}/api-keys",
+      {
+        params: { path: { ref } },
+        body,
+      },
+    );
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(response, "create project api key");
+    }
+
+    return data;
+  }
+
+  /** Check whether legacy (anon, service_role) API keys are enabled */
+  async getProjectLegacyApiKeys(
+    ref: string,
+  ): Promise<GetProjectLegacyApiKeysResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/api-keys/legacy",
+      {
+        params: { path: { ref } },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "get project legacy api keys",
+      );
+    }
+
+    return data;
+  }
+
+  /** Disable or re-enable legacy (anon, service_role) API keys */
+  async updateProjectLegacyApiKeys(
+    ref: string,
+    query: UpdateProjectLegacyApiKeysQuery,
+  ): Promise<UpdateProjectLegacyApiKeysResponseData> {
+    const { data, response } = await this.client.put(
+      "/v1/projects/{ref}/api-keys/legacy",
+      {
+        params: { path: { ref }, query },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "update project legacy api keys",
+      );
+    }
+
+    return data;
+  }
+
+  /** Get a specific API key by ID */
+  async getProjectApiKey(
+    ref: string,
+    id: string,
+  ): Promise<GetProjectApiKeyResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/api-keys/{id}",
+      {
+        params: { path: { ref, id } },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get project api key");
+    }
+
+    return data;
+  }
+
+  /** Deletes an API key for the project */
+  async deleteProjectApiKey(
+    ref: string,
+    id: string,
+  ): Promise<DeleteProjectApiKeyResponseData> {
+    const { data, response } = await this.client.del(
+      "/v1/projects/{ref}/api-keys/{id}",
+      {
+        params: { path: { ref, id } },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "delete project api key");
+    }
+
+    return data;
+  }
+
+  /** Updates an API key for the project */
+  async updateProjectApiKey(
+    ref: string,
+    id: string,
+    body: UpdateProjectApiKeyRequestBody,
+  ): Promise<UpdateProjectApiKeyResponseData> {
+    const { data, response } = await this.client.patch(
+      "/v1/projects/{ref}/api-keys/{id}",
+      {
+        params: { path: { ref, id } },
+        body,
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "update project api key");
     }
 
     return data;
