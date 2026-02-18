@@ -127,11 +127,11 @@ export class SupabaseManagementAPI {
     branchId: string
   ): Promise<GetBranchDetailsResponseData> {
     const { data, response } = await this.client.get(
-      "/v1/branches/{branch_id}",
+      "/v1/branches/{branch_id_or_ref}",
       {
         params: {
           path: {
-            branch_id: branchId,
+            branch_id_or_ref: branchId,
           },
         },
       }
@@ -145,10 +145,10 @@ export class SupabaseManagementAPI {
   }
 
   async deleteBranch(branchId: string) {
-    const { response } = await this.client.del("/v1/branches/{branch_id}", {
+    const { response } = await this.client.del("/v1/branches/{branch_id_or_ref}", {
       params: {
         path: {
-          branch_id: branchId,
+          branch_id_or_ref: branchId,
         },
       },
     });
@@ -163,11 +163,11 @@ export class SupabaseManagementAPI {
     body: UpdateBranchRequestBody
   ): Promise<UpdateBranchResponseData> {
     const { data, response } = await this.client.patch(
-      "/v1/branches/{branch_id}",
+      "/v1/branches/{branch_id_or_ref}",
       {
         params: {
           path: {
-            branch_id: branchId,
+            branch_id_or_ref: branchId,
           },
         },
         body,
@@ -1026,7 +1026,7 @@ export class SupabaseManagementAPI {
   }
 
   /** Upgrades the project's Postgres version */
-  async upgradeProject(ref: string, targetVersion: number) {
+  async upgradeProject(ref: string, targetVersion: string) {
     const { response } = await this.client.post("/v1/projects/{ref}/upgrade", {
       params: {
         path: {
