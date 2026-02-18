@@ -102,6 +102,29 @@ export type GetFunctionBodyResponseData = ExtractResponseContent<
   200
 >;
 
+export type DeployFunctionRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/functions/deploy"],
+  "post",
+  "multipart/form-data"
+>;
+
+export type DeployFunctionResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/functions/deploy"],
+  "post",
+  201
+>;
+
+export type BulkUpdateFunctionsRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/functions"],
+  "put"
+>;
+
+export type BulkUpdateFunctionsResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/functions"],
+  "put",
+  200
+>;
+
 export type GetProjectApiKeysResponseData = ExtractResponseContent<
   paths["/v1/projects/{ref}/api-keys"],
   "get",

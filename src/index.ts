@@ -8,8 +8,12 @@ import {
   CheckServiceQuery,
   CreateCustomHostnameRequestBody,
   CreateCustomHostnameResponseData,
+  BulkUpdateFunctionsRequestBody,
+  BulkUpdateFunctionsResponseData,
   CreateFunctionRequestBody,
   CreateFunctionResponseData,
+  DeployFunctionRequestBody,
+  DeployFunctionResponseData,
   CreateOrganizationRequestBody,
   CreateOrganizationResponseData,
   CreateProjectRequestBody,
@@ -278,7 +282,66 @@ export class SupabaseManagementAPI {
   }
 
   /**
+   * Bulk update functions
+   * @description Bulk update functions. It will create a new function or replace existing. The operation is idempotent.
+   */
+  async bulkUpdateFunctions(
+    ref: string,
+    body: BulkUpdateFunctionsRequestBody
+  ): Promise<BulkUpdateFunctionsResponseData> {
+    const { data, response } = await this.client.put(
+      "/v1/projects/{ref}/functions",
+      {
+        params: {
+          path: {
+            ref,
+          },
+        },
+        body,
+      }
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "bulk update functions");
+    }
+
+    return data;
+  }
+
+  /**
+   * Deploy a function
+   * @description Deploys a function. It will create if the function does not exist.
+   */
+  async deployFunction(
+    ref: string,
+    body: DeployFunctionRequestBody,
+    slug?: string
+  ): Promise<DeployFunctionResponseData> {
+    const { data, response } = await this.client.post(
+      "/v1/projects/{ref}/functions/deploy",
+      {
+        params: {
+          path: {
+            ref,
+          },
+          query: {
+            slug,
+          },
+        },
+        body,
+      }
+    );
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(response, "deploy function");
+    }
+
+    return data;
+  }
+
+  /**
    * Create a function
+   * @deprecated Use deployFunction instead.
    * @description Creates a function and adds it to the specified project.
    */
   async createFunction(
