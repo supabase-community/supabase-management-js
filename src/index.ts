@@ -59,6 +59,29 @@ import {
   ListAvailableRestoreVersionsResponseData,
   GetProjectClaimTokenResponseData,
   CreateProjectClaimTokenResponseData,
+  RunReadOnlyQueryRequestBody,
+  UpdateDatabasePasswordRequestBody,
+  UpdateDatabasePasswordResponseData,
+  GetDatabaseContextResponseData,
+  ListMigrationsResponseData,
+  UpsertMigrationRequestBody,
+  ApplyMigrationRequestBody,
+  RollbackMigrationsQuery,
+  GetMigrationResponseData,
+  PatchMigrationRequestBody,
+  ListBackupsResponseData,
+  RestorePitrBackupRequestBody,
+  GetRestorePointQuery,
+  GetRestorePointResponseData,
+  CreateRestorePointRequestBody,
+  CreateRestorePointResponseData,
+  UndoToRestorePointRequestBody,
+  GetJitAccessResponseData,
+  UpdateJitAccessRequestBody,
+  UpdateJitAccessResponseData,
+  AuthorizeJitAccessRequestBody,
+  AuthorizeJitAccessResponseData,
+  ListJitAccessResponseData,
   GetReadonlyModeStatusResponseData,
   GetSSLEnforcementConfigResponseData,
   GetSSOProviderResponseData,
@@ -1908,6 +1931,447 @@ export class SupabaseManagementAPI {
     }
 
     return data;
+  }
+
+  /**
+   * Run a read-only SQL query
+   * @description Runs a SQL query as supabase_read_only_user. All entity references must be schema qualified.
+   */
+  async runReadOnlyQuery(
+    ref: string,
+    body: RunReadOnlyQueryRequestBody,
+  ): Promise<void> {
+    const { response } = await this.client.post(
+      "/v1/projects/{ref}/database/query/read-only",
+      {
+        params: {
+          path: { ref },
+        },
+        body,
+      },
+    );
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(response, "run read-only query");
+    }
+  }
+
+  /**
+   * Update database password
+   * @description Updates the database password for the given project.
+   */
+  async updateDatabasePassword(
+    ref: string,
+    body: UpdateDatabasePasswordRequestBody,
+  ): Promise<UpdateDatabasePasswordResponseData> {
+    const { data, response } = await this.client.patch(
+      "/v1/projects/{ref}/database/password",
+      {
+        params: {
+          path: { ref },
+        },
+        body,
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "update database password",
+      );
+    }
+
+    return data;
+  }
+
+  /**
+   * Get database metadata
+   * @deprecated This is an experimental endpoint.
+   * @description Gets database metadata for the given project.
+   */
+  async getDatabaseContext(
+    ref: string,
+  ): Promise<GetDatabaseContextResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/database/context",
+      {
+        params: {
+          path: { ref },
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get database context");
+    }
+
+    return data;
+  }
+
+  /**
+   * List migration history
+   * @description Lists applied migration versions. Only available to selected partner OAuth apps.
+   */
+  async listMigrations(ref: string): Promise<ListMigrationsResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/database/migrations",
+      {
+        params: {
+          path: { ref },
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "list migrations");
+    }
+
+    return data;
+  }
+
+  /**
+   * Upsert a migration without applying
+   * @description Upserts a database migration without applying it. Only available to selected partner OAuth apps.
+   */
+  async upsertMigration(
+    ref: string,
+    body: UpsertMigrationRequestBody,
+  ): Promise<void> {
+    const { response } = await this.client.put(
+      "/v1/projects/{ref}/database/migrations",
+      {
+        params: {
+          path: { ref },
+        },
+        body,
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "upsert migration");
+    }
+  }
+
+  /**
+   * Apply a database migration
+   * @description Applies a database migration. Only available to selected partner OAuth apps.
+   */
+  async applyMigration(
+    ref: string,
+    body: ApplyMigrationRequestBody,
+  ): Promise<void> {
+    const { response } = await this.client.post(
+      "/v1/projects/{ref}/database/migrations",
+      {
+        params: {
+          path: { ref },
+        },
+        body,
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "apply migration");
+    }
+  }
+
+  /**
+   * Rollback database migrations
+   * @description Rolls back migrations and removes them from the history table. Only available to selected partner OAuth apps.
+   */
+  async rollbackMigrations(
+    ref: string,
+    query: RollbackMigrationsQuery,
+  ): Promise<void> {
+    const { response } = await this.client.del(
+      "/v1/projects/{ref}/database/migrations",
+      {
+        params: {
+          path: { ref },
+          query,
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "rollback migrations");
+    }
+  }
+
+  /**
+   * Get a migration entry
+   * @description Fetches an existing entry from migration history. Only available to selected partner OAuth apps.
+   */
+  async getMigration(
+    ref: string,
+    version: string,
+  ): Promise<GetMigrationResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/database/migrations/{version}",
+      {
+        params: {
+          path: { ref, version },
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get migration");
+    }
+
+    return data;
+  }
+
+  /**
+   * Patch a migration entry
+   * @description Patches an existing entry in migration history. Only available to selected partner OAuth apps.
+   */
+  async patchMigration(
+    ref: string,
+    version: string,
+    body: PatchMigrationRequestBody,
+  ): Promise<void> {
+    const { response } = await this.client.patch(
+      "/v1/projects/{ref}/database/migrations/{version}",
+      {
+        params: {
+          path: { ref, version },
+        },
+        body,
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "patch migration");
+    }
+  }
+
+  /**
+   * List all backups
+   * @description Lists all backups for the given project.
+   */
+  async listBackups(ref: string): Promise<ListBackupsResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/database/backups",
+      {
+        params: {
+          path: { ref },
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "list backups");
+    }
+
+    return data;
+  }
+
+  /**
+   * Restore a PITR backup
+   * @description Restores a PITR backup for a database.
+   */
+  async restorePitrBackup(
+    ref: string,
+    body: RestorePitrBackupRequestBody,
+  ): Promise<void> {
+    const { response } = await this.client.post(
+      "/v1/projects/{ref}/database/backups/restore-pitr",
+      {
+        params: {
+          path: { ref },
+        },
+        body,
+      },
+    );
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(response, "restore PITR backup");
+    }
+  }
+
+  /**
+   * Get restore points
+   * @description Gets restore points for the given project.
+   */
+  async getRestorePoints(
+    ref: string,
+    query?: GetRestorePointQuery,
+  ): Promise<GetRestorePointResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/database/backups/restore-point",
+      {
+        params: {
+          path: { ref },
+          query,
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get restore points");
+    }
+
+    return data;
+  }
+
+  /**
+   * Create a restore point
+   * @description Initiates creation of a restore point for a database.
+   */
+  async createRestorePoint(
+    ref: string,
+    body: CreateRestorePointRequestBody,
+  ): Promise<CreateRestorePointResponseData> {
+    const { data, response } = await this.client.post(
+      "/v1/projects/{ref}/database/backups/restore-point",
+      {
+        params: {
+          path: { ref },
+        },
+        body,
+      },
+    );
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(response, "create restore point");
+    }
+
+    return data;
+  }
+
+  /**
+   * Undo to a restore point
+   * @description Initiates an undo to a given restore point.
+   */
+  async undoToRestorePoint(
+    ref: string,
+    body: UndoToRestorePointRequestBody,
+  ): Promise<void> {
+    const { response } = await this.client.post(
+      "/v1/projects/{ref}/database/backups/undo",
+      {
+        params: {
+          path: { ref },
+        },
+        body,
+      },
+    );
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(response, "undo to restore point");
+    }
+  }
+
+  /**
+   * Get JIT access mappings
+   * @description Returns user-id to role mappings for JIT access.
+   */
+  async getJitAccess(ref: string): Promise<GetJitAccessResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/database/jit",
+      {
+        params: {
+          path: { ref },
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get JIT access");
+    }
+
+    return data;
+  }
+
+  /**
+   * Update a JIT access mapping
+   * @description Modifies the roles that can be assumed and for how long.
+   */
+  async updateJitAccess(
+    ref: string,
+    body: UpdateJitAccessRequestBody,
+  ): Promise<UpdateJitAccessResponseData> {
+    const { data, response } = await this.client.put(
+      "/v1/projects/{ref}/database/jit",
+      {
+        params: {
+          path: { ref },
+        },
+        body,
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "update JIT access");
+    }
+
+    return data;
+  }
+
+  /**
+   * Authorize JIT access
+   * @description Authorizes the request to assume a role in the project database.
+   */
+  async authorizeJitAccess(
+    ref: string,
+    body: AuthorizeJitAccessRequestBody,
+  ): Promise<AuthorizeJitAccessResponseData> {
+    const { data, response } = await this.client.post(
+      "/v1/projects/{ref}/database/jit",
+      {
+        params: {
+          path: { ref },
+        },
+        body,
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "authorize JIT access");
+    }
+
+    return data;
+  }
+
+  /**
+   * List all JIT access mappings
+   * @description Returns all user-id to role mappings for JIT access.
+   */
+  async listJitAccess(ref: string): Promise<ListJitAccessResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/database/jit/list",
+      {
+        params: {
+          path: { ref },
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "list JIT access");
+    }
+
+    return data;
+  }
+
+  /**
+   * Delete JIT access by user
+   * @description Removes JIT mappings of a user, revoking all JIT database access.
+   */
+  async deleteJitAccess(ref: string, userId: string): Promise<void> {
+    const { response } = await this.client.del(
+      "/v1/projects/{ref}/database/jit/{user_id}",
+      {
+        params: {
+          path: { ref, user_id: userId },
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "delete JIT access");
+    }
   }
 
   get client() {

@@ -515,3 +515,131 @@ export type CreateProjectClaimTokenResponseData = ExtractResponseContent<
   "post",
   200
 >;
+
+// Database
+
+export type RunReadOnlyQueryRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/database/query/read-only"],
+  "post"
+>;
+
+export type UpdateDatabasePasswordRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/database/password"],
+  "patch"
+>;
+
+export type UpdateDatabasePasswordResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/database/password"],
+  "patch",
+  200
+>;
+
+export type GetDatabaseContextResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/database/context"],
+  "get",
+  200
+>;
+
+export type ListMigrationsResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/database/migrations"],
+  "get",
+  200
+>;
+
+export type UpsertMigrationRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/database/migrations"],
+  "put"
+>;
+
+export type ApplyMigrationRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/database/migrations"],
+  "post"
+>;
+
+export type RollbackMigrationsQuery = ExtractRequestQuery<
+  paths["/v1/projects/{ref}/database/migrations"],
+  "delete"
+>;
+
+export type GetMigrationResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/database/migrations/{version}"],
+  "get",
+  200
+>;
+
+export type PatchMigrationRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/database/migrations/{version}"],
+  "patch"
+>;
+
+export type ListBackupsResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/database/backups"],
+  "get",
+  200
+>;
+
+export type RestorePitrBackupRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/database/backups/restore-pitr"],
+  "post"
+>;
+
+export type GetRestorePointQuery = ExtractRequestQuery<
+  paths["/v1/projects/{ref}/database/backups/restore-point"],
+  "get"
+>;
+
+export type GetRestorePointResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/database/backups/restore-point"],
+  "get",
+  200
+>;
+
+export type CreateRestorePointRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/database/backups/restore-point"],
+  "post"
+>;
+
+export type CreateRestorePointResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/database/backups/restore-point"],
+  "post",
+  201
+>;
+
+export type UndoToRestorePointRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/database/backups/undo"],
+  "post"
+>;
+
+export type GetJitAccessResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/database/jit"],
+  "get",
+  200
+>;
+
+export type UpdateJitAccessRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/database/jit"],
+  "put"
+>;
+
+export type UpdateJitAccessResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/database/jit"],
+  "put",
+  200
+>;
+
+export type AuthorizeJitAccessRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/database/jit"],
+  "post"
+>;
+
+export type AuthorizeJitAccessResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/database/jit"],
+  "post",
+  200
+>;
+
+export type ListJitAccessResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/database/jit/list"],
+  "get",
+  200
+>;
