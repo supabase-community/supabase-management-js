@@ -16,35 +16,51 @@ npm install supabase-management-js
 
 `supabase-management-js` requires Node.js 18 and above because it relies on the native `fetch` client.
 
-### Authentication
-
-All API functions accept a standard `RequestInit` options object as their last argument. Pass your access token — retrieved either through [OAuth](https://supabase.com/docs/guides/integrations/oauth-apps/authorize-an-oauth-app) or by generating an API token in your [account](https://supabase.com/dashboard/account/tokens) page — via the `Authorization` header. Your API tokens carry the same privileges as your user account, so be sure to keep it secret.
-
-```ts
-const options: RequestInit = {
-  headers: { Authorization: `Bearer <access token>` },
-};
-```
-
 ### Usage
 
-Each endpoint of the [Management API](https://supabase.com/docs/reference/api/introduction) is exported as an individual async function. Every function returns a Promise that resolves to a discriminated union of `{ data, status, headers }`, making it easy to handle both success and error responses with full type safety.
+The recommended way to use the SDK is through the `SupabaseManagementAPI` class. It handles authentication automatically, so you only need to pass your access token — retrieved either through [OAuth](https://supabase.com/docs/guides/integrations/oauth-apps/authorize-an-oauth-app) or by generating an API token in your [account](https://supabase.com/dashboard/account/tokens) page — once at construction time. Your API tokens carry the same privileges as your user account, so be sure to keep them secret.
 
 ```ts
-import { v1ListAllProjects } from "supabase-management-js";
+import { SupabaseManagementAPI } from "supabase-management-js";
 
-const response = await v1ListAllProjects({
-  headers: { Authorization: `Bearer <access token>` },
-});
+const api = new SupabaseManagementAPI({ accessToken: "<access token>" });
+
+const response = await api.listAllProjects();
 
 if (response.status === 200) {
   console.log(`Found ${response.data.length} projects`);
 }
+```
+
+### Custom base URL
+
+By default the client targets `https://api.supabase.com`. Pass a `baseUrl` option to the constructor to point the client at a different endpoint, such as a staging environment or a local proxy:
+
+```ts
+const api = new SupabaseManagementAPI({
+  accessToken: "<access token>",
+  baseUrl: "https://api.staging.supabase.com",
+});
 ```
 
 ### Handling errors
 
-Each function returns a discriminated union typed on `status`, so you can narrow the response without try/catch:
+Every method returns a Promise that resolves to a discriminated union of `{ data, status, headers }`. Narrow on `status` to handle errors without try/catch:
+
+```ts
+const response = await api.getProject("my-project-ref");
+
+if (response.status === 200) {
+  console.log(response.data.name);
+} else {
+  // response.data and response.status are narrowed to the error variant
+  console.error(`Error: HTTP ${response.status}`);
+}
+```
+
+### Low-level functions
+
+Each endpoint is also exported as a standalone async function for cases where you prefer not to use the class. Pass your access token via a `RequestInit` options object:
 
 ```ts
 import { v1ListAllProjects } from "supabase-management-js";
@@ -52,13 +68,6 @@ import { v1ListAllProjects } from "supabase-management-js";
 const response = await v1ListAllProjects({
   headers: { Authorization: `Bearer <access token>` },
 });
-
-if (response.status === 200) {
-  console.log(`Found ${response.data.length} projects`);
-} else {
-  // response.data and response.status are narrowed to the error variant
-  console.error(`Error: HTTP ${response.status}`);
-}
 ```
 
 ### Contributing
