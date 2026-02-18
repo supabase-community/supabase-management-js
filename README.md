@@ -18,48 +18,46 @@ npm install supabase-management-js
 
 ### Authentication
 
-You can configure the `SupabaseManagementAPI` class with an access token, retrieved either through [OAuth](https://supabase.com/docs/guides/integrations/oauth-apps/authorize-an-oauth-app) or by generating an API token in your [account](https://supabase.com/dashboard/account/tokens) page. Your API tokens carry the same privileges as your user account, so be sure to keep it secret.
+All API functions accept a standard `RequestInit` options object as their last argument. Pass your access token — retrieved either through [OAuth](https://supabase.com/docs/guides/integrations/oauth-apps/authorize-an-oauth-app) or by generating an API token in your [account](https://supabase.com/dashboard/account/tokens) page — via the `Authorization` header. Your API tokens carry the same privileges as your user account, so be sure to keep it secret.
 
 ```ts
-import { SupabaseManagementAPI } from "supabase-management-js";
-
-const client = new SupabaseManagementAPI({ accessToken: "<access token>" });
+const options: RequestInit = {
+  headers: { Authorization: `Bearer <access token>` },
+};
 ```
 
 ### Usage
 
-The `SupabaseManagementAPI` class exposes each API endpoint of the [Management API](https://supabase.com/docs/reference/api/introduction) as a function that returns a Promise with the corresponding response data type.
+Each endpoint of the [Management API](https://supabase.com/docs/reference/api/introduction) is exported as an individual async function. Every function returns a Promise that resolves to a discriminated union of `{ data, status, headers }`, making it easy to handle both success and error responses with full type safety.
 
 ```ts
-import { SupabaseManagementAPI } from "supabase-management-js";
+import { v1ListAllProjects } from "supabase-management-js";
 
-const client = new SupabaseManagementAPI({ accessToken: "<access token>" });
+const response = await v1ListAllProjects({
+  headers: { Authorization: `Bearer <access token>` },
+});
 
-const projects = await client.getProjects();
-
-if (projects) {
-  console.log(`Found ${projects.length} projects`);
+if (response.status === 200) {
+  console.log(`Found ${response.data.length} projects`);
 }
 ```
 
 ### Handling errors
 
-Response errors are thrown as an instance of `SupabaseManagementAPIError` which is a subclass of `Error`. You can use the exported `isSupabaseError` guard function to narrow the type of an `unknown` error object:
+Each function returns a discriminated union typed on `status`, so you can narrow the response without try/catch:
 
 ```ts
-import { SupabaseManagementAPI, isSupabaseError } from "supabase-management-js";
+import { v1ListAllProjects } from "supabase-management-js";
 
-const client = new SupabaseManagementAPI({ accessToken: "<access token>" });
+const response = await v1ListAllProjects({
+  headers: { Authorization: `Bearer <access token>` },
+});
 
-try {
-  await client.getProjects();
-} catch (error) {
-  if (isSupabaseError(error)) {
-    // error is now typed as SupabaseManagementAPI
-    console.log(
-      `Supabase Error:  ${error.message}, response status: ${error.response.status}`
-    );
-  }
+if (response.status === 200) {
+  console.log(`Found ${response.data.length} projects`);
+} else {
+  // response.data and response.status are narrowed to the error variant
+  console.error(`Error: HTTP ${response.status}`);
 }
 ```
 
@@ -89,7 +87,7 @@ npm install
 npm run typecheck
 ```
 
-6. Create a changeset to describe your changes if you are making changes to the source code that effects its public API
+6. Create a changeset to describe your changes if you are making changes to the source code that affects its public API
 
 ```sh
 npm exec changeset
@@ -97,9 +95,9 @@ npm exec changeset
 
 7. Create a branch, commit your changes, and open a Pull Request against the `main` branch in this repo.
 
-### Regenerating types
+### Regenerating the client
 
-The [v1.d.ts](./src/api/v1.d.ts) file is auto-generated based on the Supabase [OpenAPI spec](https://api.supabase.com/api/v1-json) file with the following command:
+The files under `src/generated/` are auto-generated from the Supabase [OpenAPI spec](https://api.supabase.com/api/v1-json) using [orval](https://orval.dev). To refresh both the spec and the generated client in one step, run:
 
 ```sh
 npm run generate
