@@ -877,3 +877,116 @@ export type GetFunctionCombinedStatsResponseData = ExtractResponseContent<
   "get",
   200
 >;
+
+// Advisors
+export type GetPerformanceAdvisorsResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/advisors/performance"],
+  "get",
+  200
+>;
+
+export type GetSecurityAdvisorsQuery = ExtractRequestQuery<
+  paths["/v1/projects/{ref}/advisors/security"],
+  "get"
+>;
+
+export type GetSecurityAdvisorsResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/advisors/security"],
+  "get",
+  200
+>;
+
+// Actions
+export type ListActionRunsQuery = ExtractRequestQuery<
+  paths["/v1/projects/{ref}/actions"],
+  "get"
+>;
+
+export type ListActionRunsResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/actions"],
+  "get",
+  200
+>;
+
+export type GetActionRunResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/actions/{run_id}"],
+  "get",
+  200
+>;
+
+export type UpdateActionRunStatusRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/actions/{run_id}/status"],
+  "patch"
+>;
+
+export type UpdateActionRunStatusResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/actions/{run_id}/status"],
+  "patch",
+  200
+>;
+
+// JIT Access (project-level)
+export type GetJitAccessConfigResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/jit-access"],
+  "get",
+  200
+>;
+
+export type UpdateJitAccessConfigRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/jit-access"],
+  "put"
+>;
+
+export type UpdateJitAccessConfigResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/jit-access"],
+  "put",
+  200
+>;
+
+// CLI
+export type CreateCliLoginRoleRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/cli/login-role"],
+  "post"
+>;
+
+export type CreateCliLoginRoleResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/cli/login-role"],
+  "post",
+  201
+>;
+
+export type DeleteCliLoginRolesResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/cli/login-role"],
+  "delete",
+  200
+>;
+
+// Organizations (by slug)
+export type GetOrganizationBySlugResponseData = ExtractResponseContent<
+  paths["/v1/organizations/{slug}"],
+  "get",
+  200
+>;
+
+export type ListOrganizationMembersResponseData = ExtractResponseContent<
+  paths["/v1/organizations/{slug}/members"],
+  "get",
+  200
+>;
+
+export type GetOrganizationProjectsQuery = ExtractRequestQuery<
+  paths["/v1/organizations/{slug}/projects"],
+  "get"
+>;
+
+export type GetOrganizationProjectsResponseData = ExtractResponseContent<
+  paths["/v1/organizations/{slug}/projects"],
+  "get",
+  200
+>;
+
+export type GetOrganizationProjectClaimResponseData = ExtractResponseContent<
+  paths["/v1/organizations/{slug}/project-claim/{token}"],
+  "get",
+  200
+>;

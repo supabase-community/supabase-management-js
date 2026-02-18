@@ -150,6 +150,25 @@ import {
   GetUsageApiRequestsCountResponseData,
   GetFunctionCombinedStatsQuery,
   GetFunctionCombinedStatsResponseData,
+  GetPerformanceAdvisorsResponseData,
+  GetSecurityAdvisorsQuery,
+  GetSecurityAdvisorsResponseData,
+  ListActionRunsQuery,
+  ListActionRunsResponseData,
+  GetActionRunResponseData,
+  UpdateActionRunStatusRequestBody,
+  UpdateActionRunStatusResponseData,
+  GetJitAccessConfigResponseData,
+  UpdateJitAccessConfigRequestBody,
+  UpdateJitAccessConfigResponseData,
+  CreateCliLoginRoleRequestBody,
+  CreateCliLoginRoleResponseData,
+  DeleteCliLoginRolesResponseData,
+  GetOrganizationBySlugResponseData,
+  ListOrganizationMembersResponseData,
+  GetOrganizationProjectsQuery,
+  GetOrganizationProjectsResponseData,
+  GetOrganizationProjectClaimResponseData,
 } from "./api/types";
 import { paths } from "./api/v1";
 
@@ -3114,6 +3133,289 @@ export class SupabaseManagementAPI {
     }
 
     return data;
+  }
+
+  /** Get performance advisors */
+  async getPerformanceAdvisors(
+    ref: string,
+  ): Promise<GetPerformanceAdvisorsResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/advisors/performance",
+      { params: { path: { ref } } },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "get performance advisors",
+      );
+    }
+
+    return data;
+  }
+
+  /** Get security advisors */
+  async getSecurityAdvisors(
+    ref: string,
+    query?: GetSecurityAdvisorsQuery,
+  ): Promise<GetSecurityAdvisorsResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/advisors/security",
+      { params: { path: { ref }, query } },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get security advisors");
+    }
+
+    return data;
+  }
+
+  /** List action runs */
+  async listActionRuns(
+    ref: string,
+    query?: ListActionRunsQuery,
+  ): Promise<ListActionRunsResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/actions",
+      { params: { path: { ref }, query } },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "list action runs");
+    }
+
+    return data;
+  }
+
+  /** Count action runs — returns the X-Total-Count header value */
+  async countActionRuns(ref: string): Promise<number> {
+    const { response } = await this.client.head("/v1/projects/{ref}/actions", {
+      params: { path: { ref } },
+    });
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "count action runs");
+    }
+
+    return Number(response.headers.get("X-Total-Count") ?? 0);
+  }
+
+  /** Get an action run */
+  async getActionRun(
+    ref: string,
+    run_id: string,
+  ): Promise<GetActionRunResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/actions/{run_id}",
+      { params: { path: { ref, run_id } } },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get action run");
+    }
+
+    return data;
+  }
+
+  /** Update action run status */
+  async updateActionRunStatus(
+    ref: string,
+    run_id: string,
+    body: UpdateActionRunStatusRequestBody,
+  ): Promise<UpdateActionRunStatusResponseData> {
+    const { data, response } = await this.client.patch(
+      "/v1/projects/{ref}/actions/{run_id}/status",
+      { params: { path: { ref, run_id } }, body },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "update action run status",
+      );
+    }
+
+    return data;
+  }
+
+  /** Get action run logs */
+  async getActionRunLogs(ref: string, run_id: string): Promise<string> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/actions/{run_id}/logs",
+      { params: { path: { ref, run_id } } },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get action run logs");
+    }
+
+    return data as unknown as string;
+  }
+
+  /** Get project JIT access config */
+  async getJitAccessConfig(
+    ref: string,
+  ): Promise<GetJitAccessConfigResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/jit-access",
+      { params: { path: { ref } } },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get JIT access config");
+    }
+
+    return data;
+  }
+
+  /** Update project JIT access config */
+  async updateJitAccessConfig(
+    ref: string,
+    body: UpdateJitAccessConfigRequestBody,
+  ): Promise<UpdateJitAccessConfigResponseData> {
+    const { data, response } = await this.client.put(
+      "/v1/projects/{ref}/jit-access",
+      { params: { path: { ref } }, body },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "update JIT access config",
+      );
+    }
+
+    return data;
+  }
+
+  /** Create CLI login role */
+  async createCliLoginRole(
+    ref: string,
+    body: CreateCliLoginRoleRequestBody,
+  ): Promise<CreateCliLoginRoleResponseData> {
+    const { data, response } = await this.client.post(
+      "/v1/projects/{ref}/cli/login-role",
+      { params: { path: { ref } }, body },
+    );
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(response, "create CLI login role");
+    }
+
+    return data;
+  }
+
+  /** Delete CLI login roles */
+  async deleteCliLoginRoles(
+    ref: string,
+  ): Promise<DeleteCliLoginRolesResponseData> {
+    const { data, response } = await this.client.del(
+      "/v1/projects/{ref}/cli/login-role",
+      { params: { path: { ref } } },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "delete CLI login roles");
+    }
+
+    return data;
+  }
+
+  /** Get organization by slug */
+  async getOrganizationBySlug(
+    slug: string,
+  ): Promise<GetOrganizationBySlugResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/organizations/{slug}",
+      { params: { path: { slug } } },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "get organization by slug",
+      );
+    }
+
+    return data;
+  }
+
+  /** List organization members */
+  async listOrganizationMembers(
+    slug: string,
+  ): Promise<ListOrganizationMembersResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/organizations/{slug}/members",
+      { params: { path: { slug } } },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "list organization members",
+      );
+    }
+
+    return data;
+  }
+
+  /** Get all projects for an organization */
+  async getOrganizationProjects(
+    slug: string,
+    query?: GetOrganizationProjectsQuery,
+  ): Promise<GetOrganizationProjectsResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/organizations/{slug}/projects",
+      { params: { path: { slug }, query } },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "get organization projects",
+      );
+    }
+
+    return data;
+  }
+
+  /** Get project claim details for an organization */
+  async getOrganizationProjectClaim(
+    slug: string,
+    token: string,
+  ): Promise<GetOrganizationProjectClaimResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/organizations/{slug}/project-claim/{token}",
+      { params: { path: { slug, token } } },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "get organization project claim",
+      );
+    }
+
+    return data;
+  }
+
+  /** Claim project for an organization */
+  async claimProjectForOrganization(
+    slug: string,
+    token: string,
+  ): Promise<void> {
+    const { response } = await this.client.post(
+      "/v1/organizations/{slug}/project-claim/{token}",
+      { params: { path: { slug, token } } },
+    );
+
+    if (response.status !== 204) {
+      throw await this.#createResponseError(
+        response,
+        "claim project for organization",
+      );
+    }
   }
 
   get client() {
