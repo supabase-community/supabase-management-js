@@ -101,6 +101,12 @@ export type RestoreBranchResponseData = ExtractResponseContent<
   200
 >;
 
+export type DeleteBranchResponseData = ExtractResponseContent<
+  paths["/v1/branches/{branch_id_or_ref}"],
+  "delete",
+  200
+>;
+
 export type DiffBranchQuery = ExtractRequestQuery<
   paths["/v1/branches/{branch_id_or_ref}/diff"],
   "get"
@@ -402,6 +408,12 @@ export type GetVanitySubdomainResponseData = ExtractResponseContent<
   paths["/v1/projects/{ref}/vanity-subdomain"],
   "get",
   200
+>;
+
+export type UpgradeProjectResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/upgrade"],
+  "post",
+  201
 >;
 
 export type GetUpgradeEligibilityResponseData = ExtractResponseContent<

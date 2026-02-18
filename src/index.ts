@@ -36,6 +36,7 @@ import {
   ResetBranchRequestBody,
   ResetBranchResponseData,
   RestoreBranchResponseData,
+  DeleteBranchResponseData,
   DiffBranchQuery,
   DiffBranchResponseData,
   GetCustomHostnameResponseData,
@@ -89,6 +90,7 @@ import {
   GetSecretsResponseData,
   GetTypescriptTypesResponseData,
   GetUpgradeEligibilityResponseData,
+  UpgradeProjectResponseData,
   GetUpgradeStatusResponseData,
   GetVanitySubdomainResponseData,
   RemoveNetworkBanRequestBody,
@@ -265,14 +267,18 @@ export class SupabaseManagementAPI {
     return data;
   }
 
-  async deleteBranch(branchId: string) {
-    const { response } = await this.client.del(
+  async deleteBranch(
+    branchId: string,
+    query?: { force?: boolean },
+  ): Promise<DeleteBranchResponseData> {
+    const { data, response } = await this.client.del(
       "/v1/branches/{branch_id_or_ref}",
       {
         params: {
           path: {
             branch_id_or_ref: branchId,
           },
+          query,
         },
       },
     );
@@ -280,6 +286,8 @@ export class SupabaseManagementAPI {
     if (response.status !== 200) {
       throw await this.#createResponseError(response, "delete branch");
     }
+
+    return data;
   }
 
   async updateBranch(
@@ -1756,21 +1764,29 @@ export class SupabaseManagementAPI {
   }
 
   /** Upgrades the project's Postgres version */
-  async upgradeProject(ref: string, targetVersion: string) {
-    const { response } = await this.client.post("/v1/projects/{ref}/upgrade", {
-      params: {
-        path: {
-          ref,
+  async upgradeProject(
+    ref: string,
+    targetVersion: string,
+  ): Promise<UpgradeProjectResponseData> {
+    const { data, response } = await this.client.post(
+      "/v1/projects/{ref}/upgrade",
+      {
+        params: {
+          path: {
+            ref,
+          },
+        },
+        body: {
+          target_version: targetVersion,
         },
       },
-      body: {
-        target_version: targetVersion,
-      },
-    });
+    );
 
-    if (response.status !== 200) {
+    if (response.status !== 201) {
       throw await this.#createResponseError(response, "upgrade project");
     }
+
+    return data;
   }
 
   /** Returns the project's eligibility for upgrades */
