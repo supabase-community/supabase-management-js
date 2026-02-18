@@ -20,7 +20,7 @@ const restoreNodeProtocolPlugin = (): Plugin => {
 export const options: Options = {
   name: "main",
   config: "tsconfig.json",
-  entry: ["./src/generated/index.ts"],
+  entry: ["./src/index.ts"],
   outDir: "./dist",
   platform: "node",
   format: ["cjs", "esm"],
