@@ -39,6 +39,80 @@ export type UpdateBranchResponseData = ExtractResponseContent<
   200
 >;
 
+export type ListBranchesResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/branches"],
+  "get",
+  200
+>;
+
+export type CreateBranchRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/branches"],
+  "post"
+>;
+
+export type CreateBranchResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/branches"],
+  "post",
+  201
+>;
+
+export type GetBranchByNameResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/branches/{name}"],
+  "get",
+  200
+>;
+
+export type PushBranchRequestBody = ExtractRequestBody<
+  paths["/v1/branches/{branch_id_or_ref}/push"],
+  "post"
+>;
+
+export type PushBranchResponseData = ExtractResponseContent<
+  paths["/v1/branches/{branch_id_or_ref}/push"],
+  "post",
+  201
+>;
+
+export type MergeBranchRequestBody = ExtractRequestBody<
+  paths["/v1/branches/{branch_id_or_ref}/merge"],
+  "post"
+>;
+
+export type MergeBranchResponseData = ExtractResponseContent<
+  paths["/v1/branches/{branch_id_or_ref}/merge"],
+  "post",
+  201
+>;
+
+export type ResetBranchRequestBody = ExtractRequestBody<
+  paths["/v1/branches/{branch_id_or_ref}/reset"],
+  "post"
+>;
+
+export type ResetBranchResponseData = ExtractResponseContent<
+  paths["/v1/branches/{branch_id_or_ref}/reset"],
+  "post",
+  201
+>;
+
+export type RestoreBranchResponseData = ExtractResponseContent<
+  paths["/v1/branches/{branch_id_or_ref}/restore"],
+  "post",
+  200
+>;
+
+export type DiffBranchQuery = ExtractRequestQuery<
+  paths["/v1/branches/{branch_id_or_ref}/diff"],
+  "get"
+>;
+
+export type DiffBranchResponseData = ExtractResponseContent<
+  paths["/v1/branches/{branch_id_or_ref}/diff"],
+  "get",
+  200,
+  "text/plain"
+>;
+
 export type GetProjectsResponseData = ExtractResponseContent<
   paths["/v1/projects"],
   "get",

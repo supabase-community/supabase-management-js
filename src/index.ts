@@ -25,6 +25,19 @@ import {
   DeleteSecretsRequestBody,
   DeleteSecretsResponseData,
   GetBranchDetailsResponseData,
+  GetBranchByNameResponseData,
+  ListBranchesResponseData,
+  CreateBranchRequestBody,
+  CreateBranchResponseData,
+  PushBranchRequestBody,
+  PushBranchResponseData,
+  MergeBranchRequestBody,
+  MergeBranchResponseData,
+  ResetBranchRequestBody,
+  ResetBranchResponseData,
+  RestoreBranchResponseData,
+  DiffBranchQuery,
+  DiffBranchResponseData,
   GetCustomHostnameResponseData,
   GetFunctionBodyResponseData,
   GetFunctionResponseData,
@@ -83,7 +96,7 @@ export class SupabaseManagementAPIError extends Error {
 }
 
 export function isSupabaseError(
-  error: unknown
+  error: unknown,
 ): error is SupabaseManagementAPIError {
   return error instanceof SupabaseManagementAPIError;
 }
@@ -101,7 +114,7 @@ export class SupabaseManagementAPI {
     if (response.status !== 200) {
       throw new SupabaseManagementAPIError(
         `Failed to get organizations: ${response.statusText} (${response.status})`,
-        response
+        response,
       );
     }
 
@@ -110,7 +123,7 @@ export class SupabaseManagementAPI {
 
   /** Create an organization */
   async createOrganization(
-    body: CreateOrganizationRequestBody
+    body: CreateOrganizationRequestBody,
   ): Promise<CreateOrganizationResponseData> {
     const { data, response } = await this.client.post("/v1/organizations", {
       body,
@@ -128,7 +141,7 @@ export class SupabaseManagementAPI {
    * @description Fetches configurations of the specified database branch
    */
   async getBranchDetails(
-    branchId: string
+    branchId: string,
   ): Promise<GetBranchDetailsResponseData> {
     const { data, response } = await this.client.get(
       "/v1/branches/{branch_id_or_ref}",
@@ -138,7 +151,7 @@ export class SupabaseManagementAPI {
             branch_id_or_ref: branchId,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -149,13 +162,16 @@ export class SupabaseManagementAPI {
   }
 
   async deleteBranch(branchId: string) {
-    const { response } = await this.client.del("/v1/branches/{branch_id_or_ref}", {
-      params: {
-        path: {
-          branch_id_or_ref: branchId,
+    const { response } = await this.client.del(
+      "/v1/branches/{branch_id_or_ref}",
+      {
+        params: {
+          path: {
+            branch_id_or_ref: branchId,
+          },
         },
       },
-    });
+    );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(response, "delete branch");
@@ -164,7 +180,7 @@ export class SupabaseManagementAPI {
 
   async updateBranch(
     branchId: string,
-    body: UpdateBranchRequestBody
+    body: UpdateBranchRequestBody,
   ): Promise<UpdateBranchResponseData> {
     const { data, response } = await this.client.patch(
       "/v1/branches/{branch_id_or_ref}",
@@ -175,11 +191,221 @@ export class SupabaseManagementAPI {
           },
         },
         body,
-      }
+      },
     );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(response, "update branch");
+    }
+
+    return data;
+  }
+
+  /**
+   * List all database branches
+   * @description Returns all database branches of the specified project.
+   */
+  async listBranches(ref: string): Promise<ListBranchesResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/branches",
+      {
+        params: {
+          path: { ref },
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "list branches");
+    }
+
+    return data;
+  }
+
+  /**
+   * Create a database branch
+   * @description Creates a database branch from the specified project.
+   */
+  async createBranch(
+    ref: string,
+    body: CreateBranchRequestBody,
+  ): Promise<CreateBranchResponseData> {
+    const { data, response } = await this.client.post(
+      "/v1/projects/{ref}/branches",
+      {
+        params: {
+          path: { ref },
+        },
+        body,
+      },
+    );
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(response, "create branch");
+    }
+
+    return data;
+  }
+
+  /**
+   * Disables preview branching
+   * @description Disables preview branching for the specified project.
+   */
+  async disablePreviewBranching(ref: string): Promise<void> {
+    const { response } = await this.client.del("/v1/projects/{ref}/branches", {
+      params: {
+        path: { ref },
+      },
+    });
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "disable preview branching",
+      );
+    }
+  }
+
+  /**
+   * Get a database branch by name
+   * @description Fetches the specified database branch by its name.
+   */
+  async getBranchByName(
+    ref: string,
+    name: string,
+  ): Promise<GetBranchByNameResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/branches/{name}",
+      {
+        params: {
+          path: { ref, name },
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get branch by name");
+    }
+
+    return data;
+  }
+
+  /**
+   * Push a database branch
+   * @description Pushes the specified database branch.
+   */
+  async pushBranch(
+    branchId: string,
+    body: PushBranchRequestBody,
+  ): Promise<PushBranchResponseData> {
+    const { data, response } = await this.client.post(
+      "/v1/branches/{branch_id_or_ref}/push",
+      {
+        params: {
+          path: { branch_id_or_ref: branchId },
+        },
+        body,
+      },
+    );
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(response, "push branch");
+    }
+
+    return data;
+  }
+
+  /**
+   * Merge a database branch
+   * @description Merges the specified database branch.
+   */
+  async mergeBranch(
+    branchId: string,
+    body: MergeBranchRequestBody,
+  ): Promise<MergeBranchResponseData> {
+    const { data, response } = await this.client.post(
+      "/v1/branches/{branch_id_or_ref}/merge",
+      {
+        params: {
+          path: { branch_id_or_ref: branchId },
+        },
+        body,
+      },
+    );
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(response, "merge branch");
+    }
+
+    return data;
+  }
+
+  /**
+   * Reset a database branch
+   * @description Resets the specified database branch.
+   */
+  async resetBranch(
+    branchId: string,
+    body: ResetBranchRequestBody,
+  ): Promise<ResetBranchResponseData> {
+    const { data, response } = await this.client.post(
+      "/v1/branches/{branch_id_or_ref}/reset",
+      {
+        params: {
+          path: { branch_id_or_ref: branchId },
+        },
+        body,
+      },
+    );
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(response, "reset branch");
+    }
+
+    return data;
+  }
+
+  /**
+   * Restore a scheduled branch deletion
+   * @description Cancels scheduled deletion and restores the branch to active state.
+   */
+  async restoreBranch(branchId: string): Promise<RestoreBranchResponseData> {
+    const { data, response } = await this.client.post(
+      "/v1/branches/{branch_id_or_ref}/restore",
+      {
+        params: {
+          path: { branch_id_or_ref: branchId },
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "restore branch");
+    }
+
+    return data;
+  }
+
+  /**
+   * Diff a database branch
+   * @description Diffs the specified database branch against production.
+   */
+  async diffBranch(
+    branchId: string,
+    query?: DiffBranchQuery,
+  ): Promise<DiffBranchResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/branches/{branch_id_or_ref}/diff",
+      {
+        params: {
+          path: { branch_id_or_ref: branchId },
+          ...(query ? { query } : {}),
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "diff branch");
     }
 
     return data;
@@ -201,7 +427,7 @@ export class SupabaseManagementAPI {
 
   /** Create a project */
   async createProject(
-    body: CreateProjectRequestBody
+    body: CreateProjectRequestBody,
   ): Promise<CreateProjectResponseData> {
     const { data, response } = await this.client.post("/v1/projects", {
       body,
@@ -237,7 +463,7 @@ export class SupabaseManagementAPI {
    */
   async checkServiceHealth(
     ref: string,
-    query: CheckServiceQuery
+    query: CheckServiceQuery,
   ): Promise<CheckServiceHealthResponseData> {
     const { data, response } = await this.client.get(
       "/v1/projects/{ref}/health",
@@ -248,7 +474,7 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -271,7 +497,7 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -287,7 +513,7 @@ export class SupabaseManagementAPI {
    */
   async bulkUpdateFunctions(
     ref: string,
-    body: BulkUpdateFunctionsRequestBody
+    body: BulkUpdateFunctionsRequestBody,
   ): Promise<BulkUpdateFunctionsResponseData> {
     const { data, response } = await this.client.put(
       "/v1/projects/{ref}/functions",
@@ -298,7 +524,7 @@ export class SupabaseManagementAPI {
           },
         },
         body,
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -315,7 +541,7 @@ export class SupabaseManagementAPI {
   async deployFunction(
     ref: string,
     body: DeployFunctionRequestBody,
-    slug?: string
+    slug?: string,
   ): Promise<DeployFunctionResponseData> {
     const { data, response } = await this.client.post(
       "/v1/projects/{ref}/functions/deploy",
@@ -329,7 +555,7 @@ export class SupabaseManagementAPI {
           },
         },
         body,
-      }
+      },
     );
 
     if (response.status !== 201) {
@@ -346,7 +572,7 @@ export class SupabaseManagementAPI {
    */
   async createFunction(
     ref: string,
-    body: CreateFunctionRequestBody
+    body: CreateFunctionRequestBody,
   ): Promise<CreateFunctionResponseData> {
     const { data, response } = await this.client.post(
       "/v1/projects/{ref}/functions",
@@ -357,7 +583,7 @@ export class SupabaseManagementAPI {
           },
         },
         body,
-      }
+      },
     );
 
     if (response.status !== 201) {
@@ -373,7 +599,7 @@ export class SupabaseManagementAPI {
    */
   async getFunction(
     ref: string,
-    slug: string
+    slug: string,
   ): Promise<GetFunctionResponseData> {
     const { data, response } = await this.client.get(
       "/v1/projects/{ref}/functions/{function_slug}",
@@ -384,7 +610,7 @@ export class SupabaseManagementAPI {
             function_slug: slug,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -401,7 +627,7 @@ export class SupabaseManagementAPI {
   async updateFunction(
     ref: string,
     slug: string,
-    body: UpdateFunctionRequestBody
+    body: UpdateFunctionRequestBody,
   ): Promise<UpdateFunctionResponseData> {
     const { data, response } = await this.client.patch(
       "/v1/projects/{ref}/functions/{function_slug}",
@@ -413,7 +639,7 @@ export class SupabaseManagementAPI {
           },
         },
         body,
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -437,7 +663,7 @@ export class SupabaseManagementAPI {
             function_slug: slug,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -451,7 +677,7 @@ export class SupabaseManagementAPI {
    */
   async getFunctionBody(
     ref: string,
-    slug: string
+    slug: string,
   ): Promise<GetFunctionBodyResponseData> {
     const { data, response } = await this.client.get(
       "/v1/projects/{ref}/functions/{function_slug}/body",
@@ -462,7 +688,7 @@ export class SupabaseManagementAPI {
             function_slug: slug,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -481,7 +707,7 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -493,7 +719,7 @@ export class SupabaseManagementAPI {
 
   /** Gets project's custom hostname config */
   async getCustomHostnameConfig(
-    ref: string
+    ref: string,
   ): Promise<GetCustomHostnameResponseData> {
     const { data, response } = await this.client.get(
       "/v1/projects/{ref}/custom-hostname",
@@ -503,7 +729,7 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -523,13 +749,13 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(
         response,
-        "remove custom hostname config"
+        "remove custom hostname config",
       );
     }
   }
@@ -537,7 +763,7 @@ export class SupabaseManagementAPI {
   /** Updates project's custom hostname configuration */
   async createCustomHostnameConfig(
     ref: string,
-    body: CreateCustomHostnameRequestBody
+    body: CreateCustomHostnameRequestBody,
   ): Promise<CreateCustomHostnameResponseData> {
     const { data, response } = await this.client.post(
       "/v1/projects/{ref}/custom-hostname/initialize",
@@ -548,13 +774,13 @@ export class SupabaseManagementAPI {
           },
         },
         body,
-      }
+      },
     );
 
     if (response.status !== 201) {
       throw await this.#createResponseError(
         response,
-        "create custom hostname config"
+        "create custom hostname config",
       );
     }
 
@@ -563,7 +789,7 @@ export class SupabaseManagementAPI {
 
   /** Attempts to verify the DNS configuration for project's custom hostname configuration */
   async reverifyCustomHostnameConfig(
-    ref: string
+    ref: string,
   ): Promise<ReverifyCustomHostnameResponseData> {
     const { data, response } = await this.client.post(
       "/v1/projects/{ref}/custom-hostname/reverify",
@@ -573,13 +799,13 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(
         response,
-        "reverify custom hostname config"
+        "reverify custom hostname config",
       );
     }
 
@@ -588,7 +814,7 @@ export class SupabaseManagementAPI {
 
   /** Activates a custom hostname for a project. */
   async activateCustomHostnameConfig(
-    ref: string
+    ref: string,
   ): Promise<ActivateCustomHostnameResponseData> {
     const { data, response } = await this.client.post(
       "/v1/projects/{ref}/custom-hostname/activate",
@@ -598,13 +824,13 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(
         response,
-        "activate custom hostname config"
+        "activate custom hostname config",
       );
     }
 
@@ -621,7 +847,7 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -642,7 +868,7 @@ export class SupabaseManagementAPI {
           },
         },
         body,
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -652,7 +878,7 @@ export class SupabaseManagementAPI {
 
   /** Gets project's network restrictions */
   async getNetworkRestrictions(
-    ref: string
+    ref: string,
   ): Promise<GetNetworkRestrictionsResponseData> {
     const { data, response } = await this.client.get(
       "/v1/projects/{ref}/network-restrictions",
@@ -662,13 +888,13 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(
         response,
-        "get network restrictions"
+        "get network restrictions",
       );
     }
 
@@ -678,7 +904,7 @@ export class SupabaseManagementAPI {
   /** Updates project's network restrictions */
   async applyNetworkRestrictions(
     ref: string,
-    body: ApplyNetworkRestrictionsRequestBody
+    body: ApplyNetworkRestrictionsRequestBody,
   ): Promise<ApplyNetworkRestrictionsResponseData> {
     const { data, response } = await this.client.post(
       "/v1/projects/{ref}/network-restrictions/apply",
@@ -689,13 +915,13 @@ export class SupabaseManagementAPI {
           },
         },
         body,
-      }
+      },
     );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(
         response,
-        "apply network restrictions"
+        "apply network restrictions",
       );
     }
 
@@ -712,7 +938,7 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -725,7 +951,7 @@ export class SupabaseManagementAPI {
   /** Updates project's pgsodium config. Updating the root_key can cause all data encrypted with the older key to become inaccessible. */
   async updatePgSodiumConfig(
     ref: string,
-    body: UpdatePgSodiumConfigRequestBody
+    body: UpdatePgSodiumConfigRequestBody,
   ): Promise<UpdatePgSodiumConfigResponseData> {
     const { data, response } = await this.client.put(
       "/v1/projects/{ref}/pgsodium",
@@ -736,13 +962,13 @@ export class SupabaseManagementAPI {
           },
         },
         body,
-      }
+      },
     );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(
         response,
-        "update pg sodium config"
+        "update pg sodium config",
       );
     }
 
@@ -751,7 +977,7 @@ export class SupabaseManagementAPI {
 
   /** Gets project's postgrest config */
   async getPostgRESTConfig(
-    ref: string
+    ref: string,
   ): Promise<GetPostgRESTConfigResponseData> {
     const { data, response } = await this.client.get(
       "/v1/projects/{ref}/postgrest",
@@ -761,7 +987,7 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -774,7 +1000,7 @@ export class SupabaseManagementAPI {
   /** Updates project's postgrest config */
   async updatePostgRESTConfig(
     ref: string,
-    body: UpdatePostgRESTConfigRequestBody
+    body: UpdatePostgRESTConfigRequestBody,
   ): Promise<UpdatePostgRESTConfigResponseData> {
     const { data, response } = await this.client.patch(
       "/v1/projects/{ref}/postgrest",
@@ -785,13 +1011,13 @@ export class SupabaseManagementAPI {
           },
         },
         body,
-      }
+      },
     );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(
         response,
-        "update postgrest config"
+        "update postgrest config",
       );
     }
 
@@ -811,7 +1037,7 @@ export class SupabaseManagementAPI {
         body: {
           query,
         },
-      }
+      },
     );
 
     if (response.status !== 201) {
@@ -830,7 +1056,7 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 201) {
@@ -851,7 +1077,7 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -886,7 +1112,7 @@ export class SupabaseManagementAPI {
    */
   async deleteSecrets(
     ref: string,
-    body: DeleteSecretsRequestBody
+    body: DeleteSecretsRequestBody,
   ): Promise<DeleteSecretsResponseData> {
     const { data, response } = await this.client.del(
       "/v1/projects/{ref}/secrets",
@@ -897,7 +1123,7 @@ export class SupabaseManagementAPI {
           },
         },
         body,
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -909,7 +1135,7 @@ export class SupabaseManagementAPI {
 
   /** Get project's SSL enforcement configuration. */
   async getSSLEnforcementConfig(
-    ref: string
+    ref: string,
   ): Promise<GetSSLEnforcementConfigResponseData> {
     const { data, response } = await this.client.get(
       "/v1/projects/{ref}/ssl-enforcement",
@@ -919,13 +1145,13 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(
         response,
-        "get ssl enforcement config"
+        "get ssl enforcement config",
       );
     }
 
@@ -935,7 +1161,7 @@ export class SupabaseManagementAPI {
   /** Update project's SSL enforcement configuration. */
   async updateSSLEnforcementConfig(
     ref: string,
-    body: UpdateSSLEnforcementConfigRequestBody
+    body: UpdateSSLEnforcementConfigRequestBody,
   ): Promise<UpdateSSLEnforcementConfigResponseData> {
     const { data, response } = await this.client.put(
       "/v1/projects/{ref}/ssl-enforcement",
@@ -946,13 +1172,13 @@ export class SupabaseManagementAPI {
           },
         },
         body,
-      }
+      },
     );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(
         response,
-        "update ssl enforcement config"
+        "update ssl enforcement config",
       );
     }
 
@@ -964,7 +1190,7 @@ export class SupabaseManagementAPI {
    * @description Returns the TypeScript types of your schema for use with supabase-js.
    */
   async getTypescriptTypes(
-    ref: string
+    ref: string,
   ): Promise<GetTypescriptTypesResponseData> {
     const { data, response } = await this.client.get(
       "/v1/projects/{ref}/types/typescript",
@@ -974,7 +1200,7 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -986,7 +1212,7 @@ export class SupabaseManagementAPI {
 
   /** Gets current vanity subdomain config */
   async getVanitySubdomainConfig(
-    ref: string
+    ref: string,
   ): Promise<GetVanitySubdomainResponseData> {
     const { data, response } = await this.client.get(
       "/v1/projects/{ref}/vanity-subdomain",
@@ -996,13 +1222,13 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(
         response,
-        "get vanity subdomain config"
+        "get vanity subdomain config",
       );
     }
 
@@ -1019,13 +1245,13 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(
         response,
-        "remove vanity subdomain config"
+        "remove vanity subdomain config",
       );
     }
   }
@@ -1033,7 +1259,7 @@ export class SupabaseManagementAPI {
   /** Checks vanity subdomain availability */
   async checkVanitySubdomainAvailability(
     ref: string,
-    subdomain: string
+    subdomain: string,
   ): Promise<boolean> {
     const { data, response } = await this.client.post(
       "/v1/projects/{ref}/vanity-subdomain/check-availability",
@@ -1046,13 +1272,13 @@ export class SupabaseManagementAPI {
         body: {
           vanity_subdomain: subdomain,
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(
         response,
-        "check vanity subdomain availability"
+        "check vanity subdomain availability",
       );
     }
 
@@ -1062,7 +1288,7 @@ export class SupabaseManagementAPI {
   /** Activates a vanity subdomain for a project. */
   async activateVanitySubdomainPlease(
     ref: string,
-    subdomain: string
+    subdomain: string,
   ): Promise<string | undefined> {
     const { response, data } = await this.client.post(
       "/v1/projects/{ref}/vanity-subdomain/activate",
@@ -1075,13 +1301,13 @@ export class SupabaseManagementAPI {
         body: {
           vanity_subdomain: subdomain,
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(
         response,
-        "activate vanity subdomain"
+        "activate vanity subdomain",
       );
     }
 
@@ -1108,7 +1334,7 @@ export class SupabaseManagementAPI {
 
   /** Returns the project's eligibility for upgrades */
   async getUpgradeEligibility(
-    ref: string
+    ref: string,
   ): Promise<GetUpgradeEligibilityResponseData> {
     const { data, response } = await this.client.get(
       "/v1/projects/{ref}/upgrade/eligibility",
@@ -1118,13 +1344,13 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(
         response,
-        "get upgrade eligibility"
+        "get upgrade eligibility",
       );
     }
 
@@ -1141,7 +1367,7 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -1153,7 +1379,7 @@ export class SupabaseManagementAPI {
 
   /** Returns project's readonly mode status */
   async getReadOnlyModeStatus(
-    ref: string
+    ref: string,
   ): Promise<GetReadonlyModeStatusResponseData> {
     const { data, response } = await this.client.get(
       "/v1/projects/{ref}/readonly",
@@ -1163,13 +1389,13 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(
         response,
-        "get readonly mode status"
+        "get readonly mode status",
       );
     }
 
@@ -1186,13 +1412,13 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(
         response,
-        "temporarily disable readonly mode"
+        "temporarily disable readonly mode",
       );
     }
   }
@@ -1207,7 +1433,7 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -1220,7 +1446,7 @@ export class SupabaseManagementAPI {
   /** Updates project's Postgres config */
   async updatePGConfig(
     ref: string,
-    body: UpdateProjectPGConfigRequestBody
+    body: UpdateProjectPGConfigRequestBody,
   ): Promise<UpdateProjectPGConfigResponseData> {
     const { data, response } = await this.client.put(
       "/v1/projects/{ref}/config/database/postgres",
@@ -1231,7 +1457,7 @@ export class SupabaseManagementAPI {
           },
         },
         body,
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -1243,7 +1469,7 @@ export class SupabaseManagementAPI {
 
   /** Gets project's pgbouncer config */
   async getPgBouncerConfig(
-    ref: string
+    ref: string,
   ): Promise<GetProjectPgBouncerConfigResponseData> {
     const { data, response } = await this.client.get(
       "/v1/projects/{ref}/config/database/pgbouncer",
@@ -1253,7 +1479,7 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -1265,7 +1491,7 @@ export class SupabaseManagementAPI {
 
   /** Gets project's auth config */
   async getProjectAuthConfig(
-    ref: string
+    ref: string,
   ): Promise<GetProjectAuthConfigResponseData> {
     const { data, response } = await this.client.get(
       "/v1/projects/{ref}/config/auth",
@@ -1275,13 +1501,13 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(
         response,
-        "get project auth config"
+        "get project auth config",
       );
     }
 
@@ -1291,7 +1517,7 @@ export class SupabaseManagementAPI {
   /** Updates a project's auth config */
   async updateProjectAuthConfig(
     ref: string,
-    body: UpdateProjectAuthConfigRequestBody
+    body: UpdateProjectAuthConfigRequestBody,
   ): Promise<UpdateProjectAuthConfigResponseData> {
     const { data, response } = await this.client.patch(
       "/v1/projects/{ref}/config/auth",
@@ -1302,13 +1528,13 @@ export class SupabaseManagementAPI {
           },
         },
         body,
-      }
+      },
     );
 
     if (response.status !== 200) {
       throw await this.#createResponseError(
         response,
-        "update project auth config"
+        "update project auth config",
       );
     }
 
@@ -1325,7 +1551,7 @@ export class SupabaseManagementAPI {
             ref,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -1338,7 +1564,7 @@ export class SupabaseManagementAPI {
   /** Creates a new SSO provider */
   async createSSOProvider(
     ref: string,
-    body: CreateSSOProviderRequestBody
+    body: CreateSSOProviderRequestBody,
   ): Promise<CreateSSOProviderResponseData> {
     const { data, response } = await this.client.post(
       "/v1/projects/{ref}/config/auth/sso/providers",
@@ -1349,7 +1575,7 @@ export class SupabaseManagementAPI {
           },
         },
         body,
-      }
+      },
     );
 
     if (response.status !== 201) {
@@ -1362,7 +1588,7 @@ export class SupabaseManagementAPI {
   /** Gets a SSO provider by its UUID */
   async getSSOProvider(
     ref: string,
-    uuid: string
+    uuid: string,
   ): Promise<GetSSOProviderResponseData> {
     const { data, response } = await this.client.get(
       "/v1/projects/{ref}/config/auth/sso/providers/{provider_id}",
@@ -1373,7 +1599,7 @@ export class SupabaseManagementAPI {
             provider_id: uuid,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -1387,7 +1613,7 @@ export class SupabaseManagementAPI {
   async updateSSOProvider(
     ref: string,
     uuid: string,
-    body: UpdateSSOProviderRequestBody
+    body: UpdateSSOProviderRequestBody,
   ): Promise<UpdateSSOProviderResponseData> {
     const { data, response } = await this.client.put(
       "/v1/projects/{ref}/config/auth/sso/providers/{provider_id}",
@@ -1399,7 +1625,7 @@ export class SupabaseManagementAPI {
           },
         },
         body,
-      }
+      },
     );
 
     if (response.status !== 200) {
@@ -1420,7 +1646,7 @@ export class SupabaseManagementAPI {
             provider_id: uuid,
           },
         },
-      }
+      },
     );
 
     if (response.status !== 204) {
@@ -1477,13 +1703,13 @@ export class SupabaseManagementAPI {
       `Failed to ${action}: ${response.statusText} (${response.status})${
         errorBody ? `: ${errorBody.message}` : ""
       }`,
-      response
+      response,
     );
   }
 }
 
 async function safeParseErrorResponseBody(
-  response: Response
+  response: Response,
 ): Promise<{ message: string } | undefined> {
   try {
     const body = await response.json();
