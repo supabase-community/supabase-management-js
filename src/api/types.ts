@@ -786,3 +786,94 @@ export type DeleteThirdPartyAuthResponseData = ExtractResponseContent<
   "delete",
   200
 >;
+
+// Networking
+export type GetEnrichedNetworkBansResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/network-bans/retrieve/enriched"],
+  "post",
+  201
+>;
+
+export type PatchNetworkRestrictionsRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/network-restrictions"],
+  "patch"
+>;
+
+export type PatchNetworkRestrictionsResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/network-restrictions"],
+  "patch",
+  200
+>;
+
+// Read Replicas
+export type SetUpReadReplicaRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/read-replicas/setup"],
+  "post"
+>;
+
+export type RemoveReadReplicaRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/read-replicas/remove"],
+  "post"
+>;
+
+// Billing & Addons
+export type ListProjectAddonsResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/billing/addons"],
+  "get",
+  200
+>;
+
+export type ApplyProjectAddonRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/billing/addons"],
+  "patch"
+>;
+
+export type RemoveProjectAddonPathParams =
+  paths["/v1/projects/{ref}/billing/addons/{addon_variant}"]["delete"]["parameters"]["path"];
+
+// Storage
+export type ListStorageBucketsResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/storage/buckets"],
+  "get",
+  200
+>;
+
+// Analytics
+export type GetProjectLogsQuery = ExtractRequestQuery<
+  paths["/v1/projects/{ref}/analytics/endpoints/logs.all"],
+  "get"
+>;
+
+export type GetProjectLogsResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/analytics/endpoints/logs.all"],
+  "get",
+  200
+>;
+
+export type GetUsageApiCountsQuery = ExtractRequestQuery<
+  paths["/v1/projects/{ref}/analytics/endpoints/usage.api-counts"],
+  "get"
+>;
+
+export type GetUsageApiCountsResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/analytics/endpoints/usage.api-counts"],
+  "get",
+  200
+>;
+
+export type GetUsageApiRequestsCountResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/analytics/endpoints/usage.api-requests-count"],
+  "get",
+  200
+>;
+
+export type GetFunctionCombinedStatsQuery = ExtractRequestQuery<
+  paths["/v1/projects/{ref}/analytics/endpoints/functions.combined-stats"],
+  "get"
+>;
+
+export type GetFunctionCombinedStatsResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/analytics/endpoints/functions.combined-stats"],
+  "get",
+  200
+>;

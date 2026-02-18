@@ -134,6 +134,22 @@ import {
   CreateThirdPartyAuthResponseData,
   GetThirdPartyAuthResponseData,
   DeleteThirdPartyAuthResponseData,
+  GetEnrichedNetworkBansResponseData,
+  PatchNetworkRestrictionsRequestBody,
+  PatchNetworkRestrictionsResponseData,
+  SetUpReadReplicaRequestBody,
+  RemoveReadReplicaRequestBody,
+  ListProjectAddonsResponseData,
+  ApplyProjectAddonRequestBody,
+  RemoveProjectAddonPathParams,
+  ListStorageBucketsResponseData,
+  GetProjectLogsQuery,
+  GetProjectLogsResponseData,
+  GetUsageApiCountsQuery,
+  GetUsageApiCountsResponseData,
+  GetUsageApiRequestsCountResponseData,
+  GetFunctionCombinedStatsQuery,
+  GetFunctionCombinedStatsResponseData,
 } from "./api/types";
 import { paths } from "./api/v1";
 
@@ -2879,6 +2895,221 @@ export class SupabaseManagementAPI {
       throw await this.#createResponseError(
         response,
         "delete third-party auth integration",
+      );
+    }
+
+    return data;
+  }
+
+  // ─── Networking ───────────────────────────────────────────────────────────
+
+  /** [Beta] Get enriched network bans */
+  async getEnrichedNetworkBans(
+    ref: string,
+  ): Promise<GetEnrichedNetworkBansResponseData> {
+    const { data, response } = await this.client.post(
+      "/v1/projects/{ref}/network-bans/retrieve/enriched",
+      { params: { path: { ref } } },
+    );
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(
+        response,
+        "get enriched network bans",
+      );
+    }
+
+    return data;
+  }
+
+  /** [Alpha] Patch network restrictions (add/remove CIDRs) */
+  async patchNetworkRestrictions(
+    ref: string,
+    body: PatchNetworkRestrictionsRequestBody,
+  ): Promise<PatchNetworkRestrictionsResponseData> {
+    const { data, response } = await this.client.patch(
+      "/v1/projects/{ref}/network-restrictions",
+      { params: { path: { ref } }, body },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "patch network restrictions",
+      );
+    }
+
+    return data;
+  }
+
+  // ─── Read Replicas ────────────────────────────────────────────────────────
+
+  /** [Beta] Set up a read replica */
+  async setupReadReplica(
+    ref: string,
+    body: SetUpReadReplicaRequestBody,
+  ): Promise<void> {
+    const { response } = await this.client.post(
+      "/v1/projects/{ref}/read-replicas/setup",
+      { params: { path: { ref } }, body },
+    );
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(response, "set up read replica");
+    }
+  }
+
+  /** [Beta] Remove a read replica */
+  async removeReadReplica(
+    ref: string,
+    body: RemoveReadReplicaRequestBody,
+  ): Promise<void> {
+    const { response } = await this.client.post(
+      "/v1/projects/{ref}/read-replicas/remove",
+      { params: { path: { ref } }, body },
+    );
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(response, "remove read replica");
+    }
+  }
+
+  // ─── Billing & Addons ─────────────────────────────────────────────────────
+
+  /**
+   * List billing addons and compute instance selections
+   * @description Returns the billing addons that are currently applied, including active compute instance size.
+   */
+  async listProjectAddons(ref: string): Promise<ListProjectAddonsResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/billing/addons",
+      { params: { path: { ref } } },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "list project addons");
+    }
+
+    return data;
+  }
+
+  /** Apply or update a billing addon */
+  async applyProjectAddon(
+    ref: string,
+    body: ApplyProjectAddonRequestBody,
+  ): Promise<void> {
+    const { response } = await this.client.patch(
+      "/v1/projects/{ref}/billing/addons",
+      { params: { path: { ref } }, body },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "apply project addon");
+    }
+  }
+
+  /** Remove a billing addon or revert compute instance sizing */
+  async removeProjectAddon(
+    ref: string,
+    addonVariant: RemoveProjectAddonPathParams["addon_variant"],
+  ): Promise<void> {
+    const { response } = await this.client.del(
+      "/v1/projects/{ref}/billing/addons/{addon_variant}",
+      { params: { path: { ref, addon_variant: addonVariant } } },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "remove project addon");
+    }
+  }
+
+  // ─── Storage ──────────────────────────────────────────────────────────────
+
+  /** List all storage buckets */
+  async listStorageBuckets(
+    ref: string,
+  ): Promise<ListStorageBucketsResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/storage/buckets",
+      { params: { path: { ref } } },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "list storage buckets");
+    }
+
+    return data;
+  }
+
+  // ─── Analytics ───────────────────────────────────────────────────────────
+
+  /** Get project logs */
+  async getProjectLogs(
+    ref: string,
+    query?: GetProjectLogsQuery,
+  ): Promise<GetProjectLogsResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/analytics/endpoints/logs.all",
+      { params: { path: { ref }, query } },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get project logs");
+    }
+
+    return data;
+  }
+
+  /** Get usage API counts */
+  async getUsageApiCounts(
+    ref: string,
+    query?: GetUsageApiCountsQuery,
+  ): Promise<GetUsageApiCountsResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/analytics/endpoints/usage.api-counts",
+      { params: { path: { ref }, query } },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get usage API counts");
+    }
+
+    return data;
+  }
+
+  /** Get usage API requests count */
+  async getUsageApiRequestsCount(
+    ref: string,
+  ): Promise<GetUsageApiRequestsCountResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/analytics/endpoints/usage.api-requests-count",
+      { params: { path: { ref } } },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "get usage API requests count",
+      );
+    }
+
+    return data;
+  }
+
+  /** Get function combined stats */
+  async getFunctionCombinedStats(
+    ref: string,
+    query: GetFunctionCombinedStatsQuery,
+  ): Promise<GetFunctionCombinedStatsResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/analytics/endpoints/functions.combined-stats",
+      { params: { path: { ref }, query } },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "get function combined stats",
       );
     }
 
