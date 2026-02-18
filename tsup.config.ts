@@ -20,7 +20,7 @@ const restoreNodeProtocolPlugin = (): Plugin => {
 export const options: Options = {
   name: "main",
   config: "tsconfig.json",
-  entry: ["./src/index.ts"],
+  entry: ["./src/generated/index.ts"],
   outDir: "./dist",
   platform: "node",
   format: ["cjs", "esm"],
@@ -34,7 +34,7 @@ export const options: Options = {
     preset: "recommended",
   },
   esbuildPlugins: [restoreNodeProtocolPlugin()],
-  noExternal: ["openapi-fetch"],
+  noExternal: [],
 };
 
 export default defineConfig(options);
