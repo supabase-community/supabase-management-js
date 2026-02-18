@@ -267,6 +267,10 @@ export class SupabaseManagementAPI {
     return data;
   }
 
+  /**
+   * Delete a database branch
+   * @description Deletes the specified database branch. By default, deletes immediately. Use force=false to schedule deletion with 1-hour grace period (only when soft deletion is enabled).
+   */
   async deleteBranch(
     branchId: string,
     query?: { force?: boolean },
@@ -290,6 +294,10 @@ export class SupabaseManagementAPI {
     return data;
   }
 
+  /**
+   * Update database branch config
+   * @description Updates the configuration of the specified database branch
+   */
   async updateBranch(
     branchId: string,
     body: UpdateBranchRequestBody,
@@ -1860,7 +1868,7 @@ export class SupabaseManagementAPI {
   }
 
   /** Disables project's readonly mode for the next 15 minutes */
-  async temporarilyDisableReadonlyMode(ref: string) {
+  async temporarilyDisableReadonlyMode(ref: string): Promise<void> {
     const { response } = await this.client.post(
       "/v1/projects/{ref}/readonly/temporary-disable",
       {
@@ -1872,7 +1880,7 @@ export class SupabaseManagementAPI {
       },
     );
 
-    if (response.status !== 200) {
+    if (response.status !== 201) {
       throw await this.#createResponseError(
         response,
         "temporarily disable readonly mode",
