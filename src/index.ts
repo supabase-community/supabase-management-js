@@ -51,6 +51,14 @@ import {
   GetProjectPGConfigResponseData,
   GetProjectPgBouncerConfigResponseData,
   GetProjectsResponseData,
+  GetAvailableRegionsQuery,
+  GetAvailableRegionsResponseData,
+  GetProjectResponseData,
+  UpdateProjectRequestBody,
+  UpdateProjectResponseData,
+  ListAvailableRestoreVersionsResponseData,
+  GetProjectClaimTokenResponseData,
+  CreateProjectClaimTokenResponseData,
   GetReadonlyModeStatusResponseData,
   GetSSLEnforcementConfigResponseData,
   GetSSOProviderResponseData,
@@ -455,6 +463,221 @@ export class SupabaseManagementAPI {
     }
 
     return data;
+  }
+
+  /**
+   * Get available regions
+   * @description Gets the list of available regions that can be used for a new project.
+   */
+  async getAvailableRegions(
+    query: GetAvailableRegionsQuery,
+  ): Promise<GetAvailableRegionsResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/available-regions",
+      {
+        params: { query },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get available regions");
+    }
+
+    return data;
+  }
+
+  /**
+   * Get a project
+   * @description Gets a specific project that belongs to the authenticated user.
+   */
+  async getProject(ref: string): Promise<GetProjectResponseData> {
+    const { data, response } = await this.client.get("/v1/projects/{ref}", {
+      params: {
+        path: { ref },
+      },
+    });
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get project");
+    }
+
+    return data;
+  }
+
+  /**
+   * Update a project
+   * @description Updates the given project.
+   */
+  async updateProject(
+    ref: string,
+    body: UpdateProjectRequestBody,
+  ): Promise<UpdateProjectResponseData> {
+    const { data, response } = await this.client.patch("/v1/projects/{ref}", {
+      params: {
+        path: { ref },
+      },
+      body,
+    });
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "update project");
+    }
+
+    return data;
+  }
+
+  /**
+   * Pause a project
+   * @description Pauses the given project.
+   */
+  async pauseProject(ref: string): Promise<void> {
+    const { response } = await this.client.post("/v1/projects/{ref}/pause", {
+      params: {
+        path: { ref },
+      },
+    });
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "pause project");
+    }
+  }
+
+  /**
+   * List available restore versions
+   * @description Lists available restore versions for the given project.
+   */
+  async listAvailableRestoreVersions(
+    ref: string,
+  ): Promise<ListAvailableRestoreVersionsResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/restore",
+      {
+        params: {
+          path: { ref },
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "list available restore versions",
+      );
+    }
+
+    return data;
+  }
+
+  /**
+   * Restore a project
+   * @description Restores the given project.
+   */
+  async restoreProject(ref: string): Promise<void> {
+    const { response } = await this.client.post("/v1/projects/{ref}/restore", {
+      params: {
+        path: { ref },
+      },
+    });
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "restore project");
+    }
+  }
+
+  /**
+   * Cancel a project restoration
+   * @description Cancels the given project restoration.
+   */
+  async cancelProjectRestoration(ref: string): Promise<void> {
+    const { response } = await this.client.post(
+      "/v1/projects/{ref}/restore/cancel",
+      {
+        params: {
+          path: { ref },
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "cancel project restoration",
+      );
+    }
+  }
+
+  /**
+   * Get project claim token
+   * @description Gets the project claim token.
+   */
+  async getProjectClaimToken(
+    ref: string,
+  ): Promise<GetProjectClaimTokenResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/claim-token",
+      {
+        params: {
+          path: { ref },
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "get project claim token",
+      );
+    }
+
+    return data;
+  }
+
+  /**
+   * Create project claim token
+   * @description Creates a project claim token.
+   */
+  async createProjectClaimToken(
+    ref: string,
+  ): Promise<CreateProjectClaimTokenResponseData> {
+    const { data, response } = await this.client.post(
+      "/v1/projects/{ref}/claim-token",
+      {
+        params: {
+          path: { ref },
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "create project claim token",
+      );
+    }
+
+    return data;
+  }
+
+  /**
+   * Revoke project claim token
+   * @description Revokes the project claim token.
+   */
+  async revokeProjectClaimToken(ref: string): Promise<void> {
+    const { response } = await this.client.del(
+      "/v1/projects/{ref}/claim-token",
+      {
+        params: {
+          path: { ref },
+        },
+      },
+    );
+
+    if (response.status !== 204) {
+      throw await this.#createResponseError(
+        response,
+        "revoke project claim token",
+      );
+    }
   }
 
   /**

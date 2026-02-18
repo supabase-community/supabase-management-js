@@ -467,3 +467,51 @@ export type CheckServiceHealthResponseData = ExtractResponseContent<
   "get",
   200
 >;
+
+// Projects (general)
+
+export type GetAvailableRegionsQuery = ExtractRequestQuery<
+  paths["/v1/projects/available-regions"],
+  "get"
+>;
+
+export type GetAvailableRegionsResponseData = ExtractResponseContent<
+  paths["/v1/projects/available-regions"],
+  "get",
+  200
+>;
+
+export type GetProjectResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}"],
+  "get",
+  200
+>;
+
+export type UpdateProjectRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}"],
+  "patch"
+>;
+
+export type UpdateProjectResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}"],
+  "patch",
+  200
+>;
+
+export type ListAvailableRestoreVersionsResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/restore"],
+  "get",
+  200
+>;
+
+export type GetProjectClaimTokenResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/claim-token"],
+  "get",
+  200
+>;
+
+export type CreateProjectClaimTokenResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/claim-token"],
+  "post",
+  200
+>;
