@@ -703,3 +703,86 @@ export type UpdateRealtimeConfigRequestBody = ExtractRequestBody<
   paths["/v1/projects/{ref}/config/realtime"],
   "patch"
 >;
+
+// Config — Auth: Signing Keys
+export type GetLegacySigningKeyResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/config/auth/signing-keys/legacy"],
+  "get",
+  200
+>;
+
+export type CreateLegacySigningKeyResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/config/auth/signing-keys/legacy"],
+  "post",
+  201
+>;
+
+export type ListSigningKeysResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/config/auth/signing-keys"],
+  "get",
+  200
+>;
+
+export type CreateSigningKeyRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/config/auth/signing-keys"],
+  "post"
+>;
+
+export type CreateSigningKeyResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/config/auth/signing-keys"],
+  "post",
+  201
+>;
+
+export type GetSigningKeyResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/config/auth/signing-keys/{id}"],
+  "get",
+  200
+>;
+
+export type RemoveSigningKeyResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/config/auth/signing-keys/{id}"],
+  "delete",
+  200
+>;
+
+export type UpdateSigningKeyRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/config/auth/signing-keys/{id}"],
+  "patch"
+>;
+
+export type UpdateSigningKeyResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/config/auth/signing-keys/{id}"],
+  "patch",
+  200
+>;
+
+// Config — Auth: Third-Party Auth (TPA)
+export type ListThirdPartyAuthResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/config/auth/third-party-auth"],
+  "get",
+  200
+>;
+
+export type CreateThirdPartyAuthRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/config/auth/third-party-auth"],
+  "post"
+>;
+
+export type CreateThirdPartyAuthResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/config/auth/third-party-auth"],
+  "post",
+  201
+>;
+
+export type GetThirdPartyAuthResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/config/auth/third-party-auth/{tpa_id}"],
+  "get",
+  200
+>;
+
+export type DeleteThirdPartyAuthResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/config/auth/third-party-auth/{tpa_id}"],
+  "delete",
+  200
+>;

@@ -120,6 +120,20 @@ import {
   UpdatePoolerConfigResponseData,
   GetRealtimeConfigResponseData,
   UpdateRealtimeConfigRequestBody,
+  GetLegacySigningKeyResponseData,
+  CreateLegacySigningKeyResponseData,
+  ListSigningKeysResponseData,
+  CreateSigningKeyRequestBody,
+  CreateSigningKeyResponseData,
+  GetSigningKeyResponseData,
+  RemoveSigningKeyResponseData,
+  UpdateSigningKeyRequestBody,
+  UpdateSigningKeyResponseData,
+  ListThirdPartyAuthResponseData,
+  CreateThirdPartyAuthRequestBody,
+  CreateThirdPartyAuthResponseData,
+  GetThirdPartyAuthResponseData,
+  DeleteThirdPartyAuthResponseData,
 } from "./api/types";
 import { paths } from "./api/v1";
 
@@ -2610,6 +2624,265 @@ export class SupabaseManagementAPI {
         "shutdown realtime connections",
       );
     }
+  }
+
+  // Config — Auth: Signing Keys
+
+  /**
+   * Get legacy signing key
+   * @description Returns the project's existing JWT secret as an in_use JWT signing key.
+   */
+  async getLegacySigningKey(
+    ref: string,
+  ): Promise<GetLegacySigningKeyResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/config/auth/signing-keys/legacy",
+      {
+        params: { path: { ref } },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get legacy signing key");
+    }
+
+    return data;
+  }
+
+  /**
+   * Create legacy signing key
+   * @description Sets up the project's existing JWT secret as an in_use JWT signing key.
+   */
+  async createLegacySigningKey(
+    ref: string,
+  ): Promise<CreateLegacySigningKeyResponseData> {
+    const { data, response } = await this.client.post(
+      "/v1/projects/{ref}/config/auth/signing-keys/legacy",
+      {
+        params: { path: { ref } },
+      },
+    );
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(
+        response,
+        "create legacy signing key",
+      );
+    }
+
+    return data;
+  }
+
+  /**
+   * List all signing keys
+   * @description Returns all signing keys for the given project.
+   */
+  async listSigningKeys(ref: string): Promise<ListSigningKeysResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/config/auth/signing-keys",
+      {
+        params: { path: { ref } },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "list signing keys");
+    }
+
+    return data;
+  }
+
+  /**
+   * Create a signing key
+   * @description Creates a new signing key for the project in standby status.
+   */
+  async createSigningKey(
+    ref: string,
+    body: CreateSigningKeyRequestBody,
+  ): Promise<CreateSigningKeyResponseData> {
+    const { data, response } = await this.client.post(
+      "/v1/projects/{ref}/config/auth/signing-keys",
+      {
+        params: { path: { ref } },
+        body,
+      },
+    );
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(response, "create signing key");
+    }
+
+    return data;
+  }
+
+  /**
+   * Get a signing key
+   * @description Returns information about a specific signing key.
+   */
+  async getSigningKey(
+    ref: string,
+    id: string,
+  ): Promise<GetSigningKeyResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/config/auth/signing-keys/{id}",
+      {
+        params: { path: { ref, id } },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get signing key");
+    }
+
+    return data;
+  }
+
+  /**
+   * Remove a signing key
+   * @description Removes a signing key from a project. Only possible if the key has been in revoked status for a while.
+   */
+  async removeSigningKey(
+    ref: string,
+    id: string,
+  ): Promise<RemoveSigningKeyResponseData> {
+    const { data, response } = await this.client.del(
+      "/v1/projects/{ref}/config/auth/signing-keys/{id}",
+      {
+        params: { path: { ref, id } },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "remove signing key");
+    }
+
+    return data;
+  }
+
+  /**
+   * Update a signing key
+   * @description Updates a signing key, mainly its status.
+   */
+  async updateSigningKey(
+    ref: string,
+    id: string,
+    body: UpdateSigningKeyRequestBody,
+  ): Promise<UpdateSigningKeyResponseData> {
+    const { data, response } = await this.client.patch(
+      "/v1/projects/{ref}/config/auth/signing-keys/{id}",
+      {
+        params: { path: { ref, id } },
+        body,
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "update signing key");
+    }
+
+    return data;
+  }
+
+  // Config — Auth: Third-Party Auth (TPA)
+
+  /**
+   * List TPA integrations
+   * @description Returns all third-party auth integrations for the given project.
+   */
+  async listThirdPartyAuth(
+    ref: string,
+  ): Promise<ListThirdPartyAuthResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/config/auth/third-party-auth",
+      {
+        params: { path: { ref } },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "list third-party auth integrations",
+      );
+    }
+
+    return data;
+  }
+
+  /**
+   * Create TPA integration
+   * @description Creates a new third-party auth integration for the given project.
+   */
+  async createThirdPartyAuth(
+    ref: string,
+    body: CreateThirdPartyAuthRequestBody,
+  ): Promise<CreateThirdPartyAuthResponseData> {
+    const { data, response } = await this.client.post(
+      "/v1/projects/{ref}/config/auth/third-party-auth",
+      {
+        params: { path: { ref } },
+        body,
+      },
+    );
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(
+        response,
+        "create third-party auth integration",
+      );
+    }
+
+    return data;
+  }
+
+  /**
+   * Get a TPA integration
+   * @description Returns a specific third-party auth integration.
+   */
+  async getThirdPartyAuth(
+    ref: string,
+    tpaId: string,
+  ): Promise<GetThirdPartyAuthResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/config/auth/third-party-auth/{tpa_id}",
+      {
+        params: { path: { ref, tpa_id: tpaId } },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "get third-party auth integration",
+      );
+    }
+
+    return data;
+  }
+
+  /**
+   * Delete a TPA integration
+   * @description Removes a specific third-party auth integration.
+   */
+  async deleteThirdPartyAuth(
+    ref: string,
+    tpaId: string,
+  ): Promise<DeleteThirdPartyAuthResponseData> {
+    const { data, response } = await this.client.del(
+      "/v1/projects/{ref}/config/auth/third-party-auth/{tpa_id}",
+      {
+        params: { path: { ref, tpa_id: tpaId } },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "delete third-party auth integration",
+      );
+    }
+
+    return data;
   }
 
   get client() {
