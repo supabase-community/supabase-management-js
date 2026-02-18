@@ -169,6 +169,11 @@ import {
   GetOrganizationProjectsQuery,
   GetOrganizationProjectsResponseData,
   GetOrganizationProjectClaimResponseData,
+  AuthorizeUserQuery,
+  ExchangeOAuthTokenRequestBody,
+  ExchangeOAuthTokenResponseData,
+  RevokeOAuthTokenRequestBody,
+  OAuthAuthorizeProjectClaimQuery,
 } from "./api/types";
 import { paths } from "./api/v1";
 
@@ -3414,6 +3419,80 @@ export class SupabaseManagementAPI {
       throw await this.#createResponseError(
         response,
         "claim project for organization",
+      );
+    }
+  }
+
+  /**
+   * [Beta] Authorize user through OAuth
+   * @description Initiates the OAuth authorization flow. Returns a redirect (204) to the OAuth provider.
+   */
+  async authorizeUser(query: AuthorizeUserQuery): Promise<void> {
+    const { response } = await this.client.get("/v1/oauth/authorize", {
+      params: { query },
+    });
+
+    if (response.status !== 204) {
+      throw await this.#createResponseError(
+        response,
+        "authorize user via OAuth",
+      );
+    }
+  }
+
+  /**
+   * [Beta] Exchange auth code for user's access and refresh token
+   */
+  async exchangeOAuthToken(
+    body: ExchangeOAuthTokenRequestBody,
+  ): Promise<ExchangeOAuthTokenResponseData> {
+    const { data, response } = await this.client.post("/v1/oauth/token", {
+      body,
+      bodySerializer: (b) => {
+        const params = new URLSearchParams();
+        for (const [key, value] of Object.entries(b)) {
+          if (value !== undefined) {
+            params.set(key, String(value));
+          }
+        }
+        return params;
+      },
+    });
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(response, "exchange OAuth token");
+    }
+
+    return data;
+  }
+
+  /**
+   * [Beta] Revoke OAuth app authorization and its corresponding tokens
+   */
+  async revokeOAuthToken(body: RevokeOAuthTokenRequestBody): Promise<void> {
+    const { response } = await this.client.post("/v1/oauth/revoke", { body });
+
+    if (response.status !== 204) {
+      throw await this.#createResponseError(response, "revoke OAuth token");
+    }
+  }
+
+  /**
+   * Authorize user through OAuth and claim a project
+   * @description Initiates the OAuth authorization flow. After successful authentication, the user can claim ownership of the specified project.
+   */
+  async oauthAuthorizeProjectClaim(
+    query: OAuthAuthorizeProjectClaimQuery,
+  ): Promise<void> {
+    const { response } = await this.client.get(
+      "/v1/oauth/authorize/project-claim",
+      { params: { query } },
+    );
+
+    if (response.status !== 204) {
+      throw await this.#createResponseError(
+        response,
+        "OAuth authorize project claim",
       );
     }
   }

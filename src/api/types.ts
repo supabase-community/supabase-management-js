@@ -990,3 +990,31 @@ export type GetOrganizationProjectClaimResponseData = ExtractResponseContent<
   "get",
   200
 >;
+
+// OAuth
+export type AuthorizeUserQuery = ExtractRequestQuery<
+  paths["/v1/oauth/authorize"],
+  "get"
+>;
+
+export type ExchangeOAuthTokenRequestBody = ExtractRequestBody<
+  paths["/v1/oauth/token"],
+  "post",
+  "application/x-www-form-urlencoded"
+>;
+
+export type ExchangeOAuthTokenResponseData = ExtractResponseContent<
+  paths["/v1/oauth/token"],
+  "post",
+  201
+>;
+
+export type RevokeOAuthTokenRequestBody = ExtractRequestBody<
+  paths["/v1/oauth/revoke"],
+  "post"
+>;
+
+export type OAuthAuthorizeProjectClaimQuery = ExtractRequestQuery<
+  paths["/v1/oauth/authorize/project-claim"],
+  "get"
+>;
