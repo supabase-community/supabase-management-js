@@ -4,277 +4,703 @@
  */
 
 
+/** OneOf type helpers */
+type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
+type XOR<T, U> = (T | U) extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
+type OneOf<T extends any[]> = T extends [infer Only] ? Only : T extends [infer A, infer B, ...infer Rest] ? OneOf<[XOR<A, B>, ...Rest]> : never;
+
 export interface paths {
-  "/v1/branches/{branch_id}": {
+  "/v1/branches/{branch_id_or_ref}": {
     /**
-     * Get database branch config 
+     * Get database branch config
      * @description Fetches configurations of the specified database branch
      */
-    get: operations["getBranchDetails"];
+    get: operations["v1-get-a-branch-config"];
     /**
-     * Delete a database branch 
-     * @description Deletes the specified database branch
+     * Delete a database branch
+     * @description Deletes the specified database branch. By default, deletes immediately. Use force=false to schedule deletion with 1-hour grace period (only when soft deletion is enabled).
      */
-    delete: operations["deleteBranch"];
+    delete: operations["v1-delete-a-branch"];
     /**
-     * Update database branch config 
+     * Update database branch config
      * @description Updates the configuration of the specified database branch
      */
-    patch: operations["updateBranch"];
+    patch: operations["v1-update-a-branch-config"];
+  };
+  "/v1/branches/{branch_id_or_ref}/push": {
+    /**
+     * Pushes a database branch
+     * @description Pushes the specified database branch
+     */
+    post: operations["v1-push-a-branch"];
+  };
+  "/v1/branches/{branch_id_or_ref}/merge": {
+    /**
+     * Merges a database branch
+     * @description Merges the specified database branch
+     */
+    post: operations["v1-merge-a-branch"];
+  };
+  "/v1/branches/{branch_id_or_ref}/reset": {
+    /**
+     * Resets a database branch
+     * @description Resets the specified database branch
+     */
+    post: operations["v1-reset-a-branch"];
+  };
+  "/v1/branches/{branch_id_or_ref}/restore": {
+    /**
+     * Restore a scheduled branch deletion
+     * @description Cancels scheduled deletion and restores the branch to active state
+     */
+    post: operations["v1-restore-a-branch"];
+  };
+  "/v1/branches/{branch_id_or_ref}/diff": {
+    /**
+     * [Beta] Diffs a database branch
+     * @description Diffs the specified database branch
+     */
+    get: operations["v1-diff-a-branch"];
   };
   "/v1/projects": {
     /**
-     * List all projects 
+     * List all projects
      * @description Returns a list of all projects you've previously created.
+     *
+     * Use `/v1/organizations/{slug}/projects` instead when possible to get more precise results and pagination support.
      */
-    get: operations["getProjects"];
+    get: operations["v1-list-all-projects"];
     /** Create a project */
-    post: operations["createProject"];
+    post: operations["v1-create-a-project"];
+  };
+  "/v1/projects/available-regions": {
+    /** [Beta] Gets the list of available regions that can be used for a new project */
+    get: operations["v1-get-available-regions"];
   };
   "/v1/organizations": {
     /**
-     * List all organizations 
+     * List all organizations
      * @description Returns a list of organizations that you currently belong to.
      */
-    get: operations["getOrganizations"];
+    get: operations["v1-list-all-organizations"];
     /** Create an organization */
-    post: operations["createOrganization"];
+    post: operations["v1-create-an-organization"];
   };
   "/v1/oauth/authorize": {
-    /** Authorize user through oauth */
-    get: operations["authorize"];
+    /** [Beta] Authorize user through oauth */
+    get: operations["v1-authorize-user"];
   };
   "/v1/oauth/token": {
-    /** Exchange auth code for user's access and refresh token */
-    post: operations["token"];
+    /** [Beta] Exchange auth code for user's access and refresh token */
+    post: operations["v1-exchange-oauth-token"];
+  };
+  "/v1/oauth/revoke": {
+    /** [Beta] Revoke oauth app authorization and it's corresponding tokens */
+    post: operations["v1-revoke-token"];
+  };
+  "/v1/oauth/authorize/project-claim": {
+    /**
+     * Authorize user through oauth and claim a project
+     * @description Initiates the OAuth authorization flow for the specified provider. After successful authentication, the user can claim ownership of the specified project.
+     */
+    get: operations["v1-oauth-authorize-project-claim"];
   };
   "/v1/snippets": {
     /** Lists SQL snippets for the logged in user */
-    get: operations["listSnippets"];
+    get: operations["v1-list-all-snippets"];
   };
   "/v1/snippets/{id}": {
     /** Gets a specific SQL snippet */
-    get: operations["getSnippet"];
+    get: operations["v1-get-a-snippet"];
+  };
+  "/v1/projects/{ref}/actions": {
+    /**
+     * List all action runs
+     * @description Returns a paginated list of action runs of the specified project.
+     */
+    get: operations["v1-list-action-runs"];
+    /**
+     * Count the number of action runs
+     * @description Returns the total number of action runs of the specified project.
+     */
+    head: operations["v1-count-action-runs"];
+  };
+  "/v1/projects/{ref}/actions/{run_id}": {
+    /**
+     * Get the status of an action run
+     * @description Returns the current status of the specified action run.
+     */
+    get: operations["v1-get-action-run"];
+  };
+  "/v1/projects/{ref}/actions/{run_id}/status": {
+    /**
+     * Update the status of an action run
+     * @description Updates the status of an ongoing action run.
+     */
+    patch: operations["v1-update-action-run-status"];
+  };
+  "/v1/projects/{ref}/actions/{run_id}/logs": {
+    /**
+     * Get the logs of an action run
+     * @description Returns the logs from the specified action run.
+     */
+    get: operations["v1-get-action-run-logs"];
   };
   "/v1/projects/{ref}/api-keys": {
-    get: operations["getProjectApiKeys"];
+    /** Get project api keys */
+    get: operations["v1-get-project-api-keys"];
+    /** Creates a new API key for the project */
+    post: operations["v1-create-project-api-key"];
+  };
+  "/v1/projects/{ref}/api-keys/legacy": {
+    /** Check whether JWT based legacy (anon, service_role) API keys are enabled. This API endpoint will be removed in the future, check for HTTP 404 Not Found. */
+    get: operations["v1-get-project-legacy-api-keys"];
+    /** Disable or re-enable JWT based legacy (anon, service_role) API keys. This API endpoint will be removed in the future, check for HTTP 404 Not Found. */
+    put: operations["v1-update-project-legacy-api-keys"];
+  };
+  "/v1/projects/{ref}/api-keys/{id}": {
+    /** Get API key */
+    get: operations["v1-get-project-api-key"];
+    /** Deletes an API key for the project */
+    delete: operations["v1-delete-project-api-key"];
+    /** Updates an API key for the project */
+    patch: operations["v1-update-project-api-key"];
   };
   "/v1/projects/{ref}/branches": {
     /**
-     * List all database branches 
+     * List all database branches
      * @description Returns all database branches of the specified project.
      */
-    get: operations["getBranches"];
+    get: operations["v1-list-all-branches"];
     /**
-     * Create a database branch 
+     * Create a database branch
      * @description Creates a database branch from the specified project.
      */
-    post: operations["createBranch"];
+    post: operations["v1-create-a-branch"];
     /**
-     * Disables preview branching 
+     * Disables preview branching
      * @description Disables preview branching for the specified project
      */
-    delete: operations["disableBranch"];
+    delete: operations["v1-disable-preview-branching"];
+  };
+  "/v1/projects/{ref}/branches/{name}": {
+    /**
+     * Get a database branch
+     * @description Fetches the specified database branch by its name.
+     */
+    get: operations["v1-get-a-branch"];
   };
   "/v1/projects/{ref}/custom-hostname": {
-    /** Gets project's custom hostname config */
-    get: operations["getCustomHostnameConfig"];
-    /** Deletes a project's custom hostname configuration */
-    delete: operations["removeCustomHostnameConfig"];
+    /** [Beta] Gets project's custom hostname config */
+    get: operations["v1-get-hostname-config"];
+    /** [Beta] Deletes a project's custom hostname configuration */
+    delete: operations["v1-Delete hostname config"];
   };
   "/v1/projects/{ref}/custom-hostname/initialize": {
-    /** Updates project's custom hostname configuration */
-    post: operations["createCustomHostnameConfig"];
+    /** [Beta] Updates project's custom hostname configuration */
+    post: operations["v1-update-hostname-config"];
   };
   "/v1/projects/{ref}/custom-hostname/reverify": {
-    /** Attempts to verify the DNS configuration for project's custom hostname configuration */
-    post: operations["reverify"];
+    /** [Beta] Attempts to verify the DNS configuration for project's custom hostname configuration */
+    post: operations["v1-verify-dns-config"];
   };
   "/v1/projects/{ref}/custom-hostname/activate": {
-    /** Activates a custom hostname for a project. */
-    post: operations["activate"];
+    /** [Beta] Activates a custom hostname for a project. */
+    post: operations["v1-activate-custom-hostname"];
+  };
+  "/v1/projects/{ref}/jit-access": {
+    /** [Beta] Get project's just-in-time access configuration. */
+    get: operations["v1-get-jit-access-config"];
+    /** [Beta] Update project's just-in-time access configuration. */
+    put: operations["v1-update-jit-access-config"];
   };
   "/v1/projects/{ref}/network-bans/retrieve": {
-    /** Gets project's network bans */
-    post: operations["getNetworkBans"];
+    /** [Beta] Gets project's network bans */
+    post: operations["v1-list-all-network-bans"];
+  };
+  "/v1/projects/{ref}/network-bans/retrieve/enriched": {
+    /** [Beta] Gets project's network bans with additional information about which databases they affect */
+    post: operations["v1-list-all-network-bans-enriched"];
   };
   "/v1/projects/{ref}/network-bans": {
-    /** Remove network bans. */
-    delete: operations["removeNetworkBan"];
+    /** [Beta] Remove network bans. */
+    delete: operations["v1-delete-network-bans"];
   };
   "/v1/projects/{ref}/network-restrictions": {
-    /** Gets project's network restrictions */
-    get: operations["getNetworkRestrictions"];
+    /** [Beta] Gets project's network restrictions */
+    get: operations["v1-get-network-restrictions"];
+    /** [Alpha] Updates project's network restrictions by adding or removing CIDRs */
+    patch: operations["v1-patch-network-restrictions"];
   };
   "/v1/projects/{ref}/network-restrictions/apply": {
-    /** Updates project's network restrictions */
-    post: operations["applyNetworkRestrictions"];
+    /** [Beta] Updates project's network restrictions */
+    post: operations["v1-update-network-restrictions"];
   };
   "/v1/projects/{ref}/pgsodium": {
-    /** Gets project's pgsodium config */
-    get: operations["getPgsodiumConfig"];
-    /** Updates project's pgsodium config. Updating the root_key can cause all data encrypted with the older key to become inaccessible. */
-    put: operations["updatePgsodiumConfig"];
+    /** [Beta] Gets project's pgsodium config */
+    get: operations["v1-get-pgsodium-config"];
+    /** [Beta] Updates project's pgsodium config. Updating the root_key can cause all data encrypted with the older key to become inaccessible. */
+    put: operations["v1-update-pgsodium-config"];
   };
   "/v1/projects/{ref}/postgrest": {
     /** Gets project's postgrest config */
-    get: operations["getPostgRESTConfig"];
+    get: operations["v1-get-postgrest-service-config"];
     /** Updates project's postgrest config */
-    patch: operations["updatePostgRESTConfig"];
+    patch: operations["v1-update-postgrest-service-config"];
   };
   "/v1/projects/{ref}": {
+    /** Gets a specific project that belongs to the authenticated user */
+    get: operations["v1-get-project"];
     /** Deletes the given project */
-    delete: operations["deleteProject"];
+    delete: operations["v1-delete-a-project"];
+    /** Updates the given project */
+    patch: operations["v1-update-a-project"];
   };
   "/v1/projects/{ref}/secrets": {
     /**
-     * List all secrets 
+     * List all secrets
      * @description Returns all secrets you've previously added to the specified project.
      */
-    get: operations["getSecrets"];
+    get: operations["v1-list-all-secrets"];
     /**
-     * Bulk create secrets 
+     * Bulk create secrets
      * @description Creates multiple secrets and adds them to the specified project.
      */
-    post: operations["createSecrets"];
+    post: operations["v1-bulk-create-secrets"];
     /**
-     * Bulk delete secrets 
+     * Bulk delete secrets
      * @description Deletes all secrets with the given names from the specified project
      */
-    delete: operations["deleteSecrets"];
+    delete: operations["v1-bulk-delete-secrets"];
   };
   "/v1/projects/{ref}/ssl-enforcement": {
-    /** Get project's SSL enforcement configuration. */
-    get: operations["getSslEnforcementConfig"];
-    /** Update project's SSL enforcement configuration. */
-    put: operations["updateSslEnforcementConfig"];
+    /** [Beta] Get project's SSL enforcement configuration. */
+    get: operations["v1-get-ssl-enforcement-config"];
+    /** [Beta] Update project's SSL enforcement configuration. */
+    put: operations["v1-update-ssl-enforcement-config"];
   };
   "/v1/projects/{ref}/types/typescript": {
     /**
-     * Generate TypeScript types 
+     * Generate TypeScript types
      * @description Returns the TypeScript types of your schema for use with supabase-js.
      */
-    get: operations["getTypescriptTypes"];
+    get: operations["v1-generate-typescript-types"];
   };
   "/v1/projects/{ref}/vanity-subdomain": {
-    /** Gets current vanity subdomain config */
-    get: operations["getVanitySubdomainConfig"];
-    /** Deletes a project's vanity subdomain configuration */
-    delete: operations["removeVanitySubdomainConfig"];
+    /** [Beta] Gets current vanity subdomain config */
+    get: operations["v1-get-vanity-subdomain-config"];
+    /** [Beta] Deletes a project's vanity subdomain configuration */
+    delete: operations["v1-deactivate-vanity-subdomain-config"];
   };
   "/v1/projects/{ref}/vanity-subdomain/check-availability": {
-    /** Checks vanity subdomain availability */
-    post: operations["checkVanitySubdomainAvailability"];
+    /** [Beta] Checks vanity subdomain availability */
+    post: operations["v1-check-vanity-subdomain-availability"];
   };
   "/v1/projects/{ref}/vanity-subdomain/activate": {
-    /** Activates a vanity subdomain for a project. */
-    post: operations["activateVanitySubdomainPlease"];
+    /** [Beta] Activates a vanity subdomain for a project. */
+    post: operations["v1-activate-vanity-subdomain-config"];
   };
   "/v1/projects/{ref}/upgrade": {
-    /** Upgrades the project's Postgres version */
-    post: operations["upgradeProject"];
+    /** [Beta] Upgrades the project's Postgres version */
+    post: operations["v1-upgrade-postgres-version"];
   };
   "/v1/projects/{ref}/upgrade/eligibility": {
-    /** Returns the project's eligibility for upgrades */
-    get: operations["upgradeEligibilityInformation"];
+    /** [Beta] Returns the project's eligibility for upgrades */
+    get: operations["v1-get-postgres-upgrade-eligibility"];
   };
   "/v1/projects/{ref}/upgrade/status": {
-    /** Gets the latest status of the project's upgrade */
-    get: operations["getUpgradeStatus"];
+    /** [Beta] Gets the latest status of the project's upgrade */
+    get: operations["v1-get-postgres-upgrade-status"];
   };
   "/v1/projects/{ref}/readonly": {
     /** Returns project's readonly mode status */
-    get: operations["getReadOnlyModeStatus"];
+    get: operations["v1-get-readonly-mode-status"];
   };
   "/v1/projects/{ref}/readonly/temporary-disable": {
     /** Disables project's readonly mode for the next 15 minutes */
-    post: operations["temporarilyDisableReadonlyMode"];
+    post: operations["v1-disable-readonly-mode-temporarily"];
+  };
+  "/v1/projects/{ref}/read-replicas/setup": {
+    /** [Beta] Set up a read replica */
+    post: operations["v1-setup-a-read-replica"];
+  };
+  "/v1/projects/{ref}/read-replicas/remove": {
+    /** [Beta] Remove a read replica */
+    post: operations["v1-remove-a-read-replica"];
   };
   "/v1/projects/{ref}/health": {
     /** Gets project's service health status */
-    get: operations["checkServiceHealth"];
+    get: operations["v1-get-services-health"];
   };
-  "/v1/projects/{ref}/config/database/postgres": {
-    /** Gets project's Postgres config */
-    get: operations["getConfig"];
-    /** Updates project's Postgres config */
-    put: operations["updateConfig"];
+  "/v1/projects/{ref}/config/auth/signing-keys/legacy": {
+    /** Get the signing key information for the JWT secret imported as signing key for this project. This endpoint will be removed in the future, check for HTTP 404 Not Found. */
+    get: operations["v1-get-legacy-signing-key"];
+    /** Set up the project's existing JWT secret as an in_use JWT signing key. This endpoint will be removed in the future always check for HTTP 404 Not Found. */
+    post: operations["v1-create-legacy-signing-key"];
   };
-  "/v1/projects/{ref}/config/database/pgbouncer": {
-    /** Get project's pgbouncer config */
-    get: operations["v1GetPgbouncerConfig"];
+  "/v1/projects/{ref}/config/auth/signing-keys": {
+    /** List all signing keys for the project */
+    get: operations["v1-get-project-signing-keys"];
+    /** Create a new signing key for the project in standby status */
+    post: operations["v1-create-project-signing-key"];
+  };
+  "/v1/projects/{ref}/config/auth/signing-keys/{id}": {
+    /** Get information about a signing key */
+    get: operations["v1-get-project-signing-key"];
+    /** Remove a signing key from a project. Only possible if the key has been in revoked status for a while. */
+    delete: operations["v1-remove-project-signing-key"];
+    /** Update a signing key, mainly its status */
+    patch: operations["v1-update-project-signing-key"];
   };
   "/v1/projects/{ref}/config/auth": {
     /** Gets project's auth config */
-    get: operations["getV1AuthConfig"];
+    get: operations["v1-get-auth-service-config"];
     /** Updates a project's auth config */
-    patch: operations["updateV1AuthConfig"];
+    patch: operations["v1-update-auth-service-config"];
+  };
+  "/v1/projects/{ref}/config/auth/third-party-auth": {
+    /** Lists all third-party auth integrations */
+    get: operations["v1-list-project-tpa-integrations"];
+    /** Creates a new third-party auth integration */
+    post: operations["v1-create-project-tpa-integration"];
+  };
+  "/v1/projects/{ref}/config/auth/third-party-auth/{tpa_id}": {
+    /** Get a third-party integration */
+    get: operations["v1-get-project-tpa-integration"];
+    /** Removes a third-party auth integration */
+    delete: operations["v1-delete-project-tpa-integration"];
+  };
+  "/v1/projects/{ref}/pause": {
+    /** Pauses the given project */
+    post: operations["v1-pause-a-project"];
+  };
+  "/v1/projects/{ref}/restore": {
+    /** Lists available restore versions for the given project */
+    get: operations["v1-list-available-restore-versions"];
+    /** Restores the given project */
+    post: operations["v1-restore-a-project"];
+  };
+  "/v1/projects/{ref}/restore/cancel": {
+    /** Cancels the given project restoration */
+    post: operations["v1-cancel-a-project-restoration"];
+  };
+  "/v1/projects/{ref}/billing/addons": {
+    /**
+     * List billing addons and compute instance selections
+     * @description Returns the billing addons that are currently applied, including the active compute instance size, and lists every addon option that can be provisioned with pricing metadata.
+     */
+    get: operations["v1-list-project-addons"];
+    /**
+     * Apply or update billing addons, including compute instance size
+     * @description Selects an addon variant, for example scaling the project’s compute instance up or down, and applies it to the project.
+     */
+    patch: operations["v1-apply-project-addon"];
+  };
+  "/v1/projects/{ref}/billing/addons/{addon_variant}": {
+    /**
+     * Remove billing addons or revert compute instance sizing
+     * @description Disables the selected addon variant, including rolling the compute instance back to its previous size.
+     */
+    delete: operations["v1-remove-project-addon"];
+  };
+  "/v1/projects/{ref}/claim-token": {
+    /** Gets project claim token */
+    get: operations["v1-get-project-claim-token"];
+    /** Creates project claim token */
+    post: operations["v1-create-project-claim-token"];
+    /** Revokes project claim token */
+    delete: operations["v1-delete-project-claim-token"];
+  };
+  "/v1/projects/{ref}/advisors/performance": {
+    /**
+     * Gets project performance advisors.
+     * @deprecated
+     * @description This is an **experimental** endpoint. It is subject to change or removal in future versions. Use it with caution, as it may not remain supported or stable.
+     */
+    get: operations["v1-get-performance-advisors"];
+  };
+  "/v1/projects/{ref}/advisors/security": {
+    /**
+     * Gets project security advisors.
+     * @deprecated
+     * @description This is an **experimental** endpoint. It is subject to change or removal in future versions. Use it with caution, as it may not remain supported or stable.
+     */
+    get: operations["v1-get-security-advisors"];
+  };
+  "/v1/projects/{ref}/analytics/endpoints/logs.all": {
+    /**
+     * Gets project's logs
+     * @description Executes a SQL query on the project's logs.
+     *
+     * Either the `iso_timestamp_start` and `iso_timestamp_end` parameters must be provided.
+     * If both are not provided, only the last 1 minute of logs will be queried.
+     * The timestamp range must be no more than 24 hours and is rounded to the nearest minute. If the range is more than 24 hours, a validation error will be thrown.
+     *
+     * Note: Unless the `sql` parameter is provided, only edge_logs will be queried. See the [log query docs](/docs/guides/telemetry/logs?queryGroups=product&product=postgres&queryGroups=source&source=edge_logs#querying-with-the-logs-explorer:~:text=logs%20from%20the-,Sources,-drop%2Ddown%3A) for all available sources.
+     */
+    get: operations["v1-get-project-logs"];
+  };
+  "/v1/projects/{ref}/analytics/endpoints/usage.api-counts": {
+    /** Gets project's usage api counts */
+    get: operations["v1-get-project-usage-api-count"];
+  };
+  "/v1/projects/{ref}/analytics/endpoints/usage.api-requests-count": {
+    /** Gets project's usage api requests count */
+    get: operations["v1-get-project-usage-request-count"];
+  };
+  "/v1/projects/{ref}/analytics/endpoints/functions.combined-stats": {
+    /** Gets a project's function combined statistics */
+    get: operations["v1-get-project-function-combined-stats"];
+  };
+  "/v1/projects/{ref}/cli/login-role": {
+    /** [Beta] Create a login role for CLI with temporary password */
+    post: operations["v1-create-login-role"];
+    /** [Beta] Delete existing login roles used by CLI */
+    delete: operations["v1-delete-login-roles"];
+  };
+  "/v1/projects/{ref}/database/migrations": {
+    /**
+     * [Beta] List applied migration versions
+     * @description Only available to selected partner OAuth apps
+     */
+    get: operations["v1-list-migration-history"];
+    /**
+     * [Beta] Upsert a database migration without applying
+     * @description Only available to selected partner OAuth apps
+     */
+    put: operations["v1-upsert-a-migration"];
+    /**
+     * [Beta] Apply a database migration
+     * @description Only available to selected partner OAuth apps
+     */
+    post: operations["v1-apply-a-migration"];
+    /**
+     * [Beta] Rollback database migrations and remove them from history table
+     * @description Only available to selected partner OAuth apps
+     */
+    delete: operations["v1-rollback-migrations"];
+  };
+  "/v1/projects/{ref}/database/migrations/{version}": {
+    /**
+     * [Beta] Fetch an existing entry from migration history
+     * @description Only available to selected partner OAuth apps
+     */
+    get: operations["v1-get-a-migration"];
+    /**
+     * [Beta] Patch an existing entry in migration history
+     * @description Only available to selected partner OAuth apps
+     */
+    patch: operations["v1-patch-a-migration"];
   };
   "/v1/projects/{ref}/database/query": {
-    /** Run sql query */
-    post: operations["v1RunQuery"];
+    /** [Beta] Run sql query */
+    post: operations["v1-run-a-query"];
+  };
+  "/v1/projects/{ref}/database/query/read-only": {
+    /**
+     * [Beta] Run a sql query as supabase_read_only_user
+     * @description All entity references must be schema qualified.
+     */
+    post: operations["v1-read-only-query"];
   };
   "/v1/projects/{ref}/database/webhooks/enable": {
-    /** Enables Database Webhooks on the project */
-    post: operations["v1EnableDatabaseWebhooks"];
+    /** [Beta] Enables Database Webhooks on the project */
+    post: operations["v1-enable-database-webhook"];
+  };
+  "/v1/projects/{ref}/database/context": {
+    /**
+     * Gets database metadata for the given project.
+     * @deprecated
+     * @description This is an **experimental** endpoint. It is subject to change or removal in future versions. Use it with caution, as it may not remain supported or stable.
+     */
+    get: operations["v1-get-database-metadata"];
+  };
+  "/v1/projects/{ref}/database/password": {
+    /** Updates the database password */
+    patch: operations["v1-update-database-password"];
+  };
+  "/v1/projects/{ref}/database/jit": {
+    /**
+     * Get user-id to role mappings for JIT access
+     * @description Mappings of roles a user can assume in the project database
+     */
+    get: operations["v1-get-jit-access"];
+    /**
+     * Updates a user mapping for JIT access
+     * @description Modifies the roles that can be assumed and for how long
+     */
+    put: operations["v1-update-jit-access"];
+    /**
+     * Authorize user-id to role mappings for JIT access
+     * @description Authorizes the request to assume a role in the project database
+     */
+    post: operations["v1-authorize-jit-access"];
+  };
+  "/v1/projects/{ref}/database/jit/list": {
+    /**
+     * List all user-id to role mappings for JIT access
+     * @description Mappings of roles a user can assume in the project database
+     */
+    get: operations["v1-list-jit-access"];
+  };
+  "/v1/projects/{ref}/database/jit/{user_id}": {
+    /**
+     * Delete JIT access by user-id
+     * @description Remove JIT mappings of a user, revoking all JIT database access
+     */
+    delete: operations["v1-delete-jit-access"];
   };
   "/v1/projects/{ref}/functions": {
     /**
-     * List all functions 
+     * List all functions
      * @description Returns all functions you've previously added to the specified project.
      */
-    get: operations["getFunctions"];
+    get: operations["v1-list-all-functions"];
     /**
-     * Create a function 
-     * @description Creates a function and adds it to the specified project.
+     * Bulk update functions
+     * @description Bulk update functions. It will create a new function or replace existing. The operation is idempotent. NOTE: You will need to manually bump the version.
      */
-    post: operations["createFunction"];
+    put: operations["v1-bulk-update-functions"];
+    /**
+     * Create a function
+     * @deprecated
+     * @description This endpoint is deprecated - use the deploy endpoint. Creates a function and adds it to the specified project.
+     */
+    post: operations["v1-create-a-function"];
+  };
+  "/v1/projects/{ref}/functions/deploy": {
+    /**
+     * Deploy a function
+     * @description A new endpoint to deploy functions. It will create if function does not exist.
+     */
+    post: operations["v1-deploy-a-function"];
   };
   "/v1/projects/{ref}/functions/{function_slug}": {
     /**
-     * Retrieve a function 
+     * Retrieve a function
      * @description Retrieves a function with the specified slug and project.
      */
-    get: operations["getFunction"];
+    get: operations["v1-get-a-function"];
     /**
-     * Delete a function 
+     * Delete a function
      * @description Deletes a function with the specified slug from the specified project.
      */
-    delete: operations["deleteFunction"];
+    delete: operations["v1-delete-a-function"];
     /**
-     * Update a function 
+     * Update a function
      * @description Updates a function with the specified slug and project.
      */
-    patch: operations["updateFunction"];
+    patch: operations["v1-update-a-function"];
   };
   "/v1/projects/{ref}/functions/{function_slug}/body": {
     /**
-     * Retrieve a function body 
+     * Retrieve a function body
      * @description Retrieves a function body for the specified slug and project.
      */
-    get: operations["getFunctionBody"];
+    get: operations["v1-get-a-function-body"];
+  };
+  "/v1/projects/{ref}/storage/buckets": {
+    /** Lists all buckets */
+    get: operations["v1-list-all-buckets"];
+  };
+  "/v1/projects/{ref}/config/disk/util": {
+    /** Get disk utilization */
+    get: operations["v1-get-disk-utilization"];
+  };
+  "/v1/projects/{ref}/config/disk": {
+    /** Modify database disk */
+    post: operations["v1-modify-database-disk"];
+  };
+  "/v1/projects/{ref}/config/disk/autoscale": {
+    /** Gets project disk autoscale config */
+    get: operations["v1-get-project-disk-autoscale-config"];
+  };
+  "/v1/projects/{ref}/config/storage": {
+    /** Gets project's storage config */
+    get: operations["v1-get-storage-config"];
+    /** Updates project's storage config */
+    patch: operations["v1-update-storage-config"];
+  };
+  "/v1/projects/{ref}/config/database/pgbouncer": {
+    /** Get project's pgbouncer config */
+    get: operations["v1-get-project-pgbouncer-config"];
+  };
+  "/v1/projects/{ref}/config/database/pooler": {
+    /** Gets project's supavisor config */
+    get: operations["v1-get-pooler-config"];
+    /** Updates project's supavisor config */
+    patch: operations["v1-update-pooler-config"];
+  };
+  "/v1/projects/{ref}/config/database/postgres": {
+    /** Gets project's Postgres config */
+    get: operations["v1-get-postgres-config"];
+    /** Updates project's Postgres config */
+    put: operations["v1-update-postgres-config"];
+  };
+  "/v1/projects/{ref}/config/realtime": {
+    /** Gets realtime configuration */
+    get: operations["v1-get-realtime-config"];
+    /** Updates realtime configuration */
+    patch: operations["v1-update-realtime-config"];
+  };
+  "/v1/projects/{ref}/config/realtime/shutdown": {
+    /** Shutdowns realtime connections for a project */
+    post: operations["v1-shutdown-realtime"];
   };
   "/v1/projects/{ref}/config/auth/sso/providers": {
     /** Lists all SSO providers */
-    get: operations["listAllProviders"];
+    get: operations["v1-list-all-sso-provider"];
     /** Creates a new SSO provider */
-    post: operations["createProviderForProject"];
+    post: operations["v1-create-a-sso-provider"];
   };
   "/v1/projects/{ref}/config/auth/sso/providers/{provider_id}": {
     /** Gets a SSO provider by its UUID */
-    get: operations["getProviderById"];
+    get: operations["v1-get-a-sso-provider"];
     /** Updates a SSO provider by its UUID */
-    put: operations["updateProviderById"];
+    put: operations["v1-update-a-sso-provider"];
     /** Removes a SSO provider by its UUID */
-    delete: operations["removeProviderById"];
+    delete: operations["v1-delete-a-sso-provider"];
+  };
+  "/v1/projects/{ref}/database/backups": {
+    /** Lists all backups */
+    get: operations["v1-list-all-backups"];
   };
   "/v1/projects/{ref}/database/backups/restore-pitr": {
     /** Restores a PITR backup for a database */
-    post: operations["v1RestorePitr"];
+    post: operations["v1-restore-pitr-backup"];
+  };
+  "/v1/projects/{ref}/database/backups/restore-point": {
+    /** Get restore points for project */
+    get: operations["v1-get-restore-point"];
+    /** Initiates a creation of a restore point for a database */
+    post: operations["v1-create-restore-point"];
+  };
+  "/v1/projects/{ref}/database/backups/undo": {
+    /** Initiates an undo to a given restore point */
+    post: operations["v1-undo"];
   };
   "/v1/organizations/{slug}/members": {
     /** List members of an organization */
-    get: operations["v1ListOrganizationMembers"];
+    get: operations["v1-list-organization-members"];
+  };
+  "/v1/organizations/{slug}": {
+    /** Gets information about the organization */
+    get: operations["v1-get-an-organization"];
+  };
+  "/v1/organizations/{slug}/project-claim/{token}": {
+    /** Gets project details for the specified organization and claim token */
+    get: operations["v1-get-organization-project-claim"];
+    /** Claims project for the specified organization */
+    post: operations["v1-claim-project-for-organization"];
+  };
+  "/v1/organizations/{slug}/projects": {
+    /**
+     * Gets all projects for the given organization
+     * @description Returns a paginated list of projects for the specified organization.
+     *
+     * This endpoint uses offset-based pagination. Use the `offset` parameter to skip a number of projects and the `limit` parameter to control the number of projects returned per page.
+     */
+    get: operations["v1-get-all-projects-for-organization"];
   };
 }
 
@@ -283,12 +709,14 @@ export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
     BranchDetailResponse: {
-      db_port: number;
       ref: string;
       postgres_version: string;
+      postgres_engine: string;
+      release_channel: string;
       /** @enum {string} */
-      status: "ACTIVE_HEALTHY" | "ACTIVE_UNHEALTHY" | "COMING_UP" | "GOING_DOWN" | "INACTIVE" | "INIT_FAILED" | "REMOVED" | "RESTORING" | "UNKNOWN" | "UPGRADING" | "PAUSING";
+      status: "INACTIVE" | "ACTIVE_HEALTHY" | "ACTIVE_UNHEALTHY" | "COMING_UP" | "UNKNOWN" | "GOING_DOWN" | "INIT_FAILED" | "REMOVED" | "RESTORING" | "UPGRADING" | "PAUSING" | "RESTORE_FAILED" | "RESTARTING" | "PAUSE_FAILED" | "RESIZING";
       db_host: string;
+      db_port: number;
       db_user?: string;
       db_pass?: string;
       jwt_secret?: string;
@@ -296,121 +724,350 @@ export interface components {
     UpdateBranchBody: {
       branch_name?: string;
       git_branch?: string;
+      /**
+       * @deprecated
+       * @description This field is deprecated and will be ignored. Use v1-reset-a-branch endpoint directly instead.
+       */
       reset_on_push?: boolean;
+      persistent?: boolean;
+      /** @enum {string} */
+      status?: "CREATING_PROJECT" | "RUNNING_MIGRATIONS" | "MIGRATIONS_PASSED" | "MIGRATIONS_FAILED" | "FUNCTIONS_DEPLOYED" | "FUNCTIONS_FAILED";
+      request_review?: boolean;
+      /**
+       * Format: uri
+       * @description HTTP endpoint to receive branch status updates.
+       */
+      notify_url?: string;
     };
     BranchResponse: {
+      /** Format: uuid */
       id: string;
       name: string;
       project_ref: string;
       parent_project_ref: string;
       is_default: boolean;
       git_branch?: string;
+      /** Format: int32 */
       pr_number?: number;
-      reset_on_push: boolean;
+      /**
+       * @deprecated
+       * @description This field is deprecated and will not be populated.
+       */
+      latest_check_run_id?: number;
+      persistent: boolean;
+      /** @enum {string} */
+      status: "CREATING_PROJECT" | "RUNNING_MIGRATIONS" | "MIGRATIONS_PASSED" | "MIGRATIONS_FAILED" | "FUNCTIONS_DEPLOYED" | "FUNCTIONS_FAILED";
+      /** Format: date-time */
       created_at: string;
+      /** Format: date-time */
       updated_at: string;
+      /** Format: date-time */
+      review_requested_at?: string;
+      with_data: boolean;
+      /** Format: uri */
+      notify_url?: string;
+      /** Format: date-time */
+      deletion_scheduled_at?: string;
+      /** @enum {string} */
+      preview_project_status?: "INACTIVE" | "ACTIVE_HEALTHY" | "ACTIVE_UNHEALTHY" | "COMING_UP" | "UNKNOWN" | "GOING_DOWN" | "INIT_FAILED" | "REMOVED" | "RESTORING" | "UPGRADING" | "PAUSING" | "RESTORE_FAILED" | "RESTARTING" | "PAUSE_FAILED" | "RESIZING";
     };
-    DatabaseResponse: {
-      /** @description Database host */
-      host: string;
-      /** @description Database version */
-      version: string;
+    BranchDeleteResponse: {
+      /** @enum {string} */
+      message: "ok";
     };
-    ProjectResponse: {
-      /** @description Id of your project */
+    BranchActionBody: {
+      migration_version?: string;
+    };
+    BranchUpdateResponse: {
+      workflow_run_id: string;
+      /** @enum {string} */
+      message: "ok";
+    };
+    BranchRestoreResponse: {
+      /** @enum {string} */
+      message: "Branch restoration initiated";
+    };
+    V1ListProjectsPaginatedResponse: {
+      projects: ({
+          id: number;
+          cloud_provider: string;
+          inserted_at: string | null;
+          name: string;
+          organization_id: number;
+          organization_slug: string;
+          ref: string;
+          region: string;
+          status: string;
+          subscription_id: string | null;
+          is_branch_enabled: boolean;
+          is_physical_backups_enabled: boolean | null;
+          preview_branch_refs: string[];
+          disk_volume_size_gb?: number;
+          /** @enum {string} */
+          infra_compute_size?: "pico" | "nano" | "micro" | "small" | "medium" | "large" | "xlarge" | "2xlarge" | "4xlarge" | "8xlarge" | "12xlarge" | "16xlarge" | "24xlarge" | "24xlarge_optimized_memory" | "24xlarge_optimized_cpu" | "24xlarge_high_memory" | "48xlarge" | "48xlarge_optimized_memory" | "48xlarge_optimized_cpu" | "48xlarge_high_memory";
+        })[];
+      pagination: {
+        /** @description Total number of projects. Use this to calculate the total number of pages. */
+        count: number;
+        /** @description Maximum number of projects per page (actual number may be less) */
+        limit: number;
+        /** @description Number of projects skipped in this response */
+        offset: number;
+      };
+    };
+    V1ProjectWithDatabaseResponse: {
+      /**
+       * @deprecated
+       * @description Deprecated: Use `ref` instead.
+       */
       id: string;
-      /** @description Slug of your organization */
+      /** @description Project ref */
+      ref: string;
+      /**
+       * @deprecated
+       * @description Deprecated: Use `organization_slug` instead.
+       */
       organization_id: string;
+      /** @description Organization slug */
+      organization_slug: string;
       /** @description Name of your project */
       name: string;
       /**
-       * @description Region of your project 
+       * @description Region of your project
        * @example us-east-1
        */
       region: string;
       /**
-       * @description Creation timestamp 
+       * @description Creation timestamp
        * @example 2023-03-29T16:32:59Z
        */
       created_at: string;
-      database?: components["schemas"]["DatabaseResponse"];
+      /** @enum {string} */
+      status: "INACTIVE" | "ACTIVE_HEALTHY" | "ACTIVE_UNHEALTHY" | "COMING_UP" | "UNKNOWN" | "GOING_DOWN" | "INIT_FAILED" | "REMOVED" | "RESTORING" | "UPGRADING" | "PAUSING" | "RESTORE_FAILED" | "RESTARTING" | "PAUSE_FAILED" | "RESIZING";
+      database: {
+        /** @description Database host */
+        host: string;
+        /** @description Database version */
+        version: string;
+        /** @description Database engine */
+        postgres_engine: string;
+        /** @description Release channel */
+        release_channel: string;
+      };
     };
-    CreateProjectBody: {
+    V1CreateProjectBody: {
       /** @description Database password */
       db_pass: string;
-      /** @description Name of your project, should not contain dots */
+      /** @description Name of your project */
       name: string;
-      /** @description Slug of your organization */
-      organization_id: string;
       /**
-       * @deprecated 
-       * @description Subscription plan is now set on organization level and is ignored in this request 
-       * @example free 
+       * @deprecated
+       * @description Deprecated: Use `organization_slug` instead.
+       */
+      organization_id?: string;
+      /** @description Organization slug */
+      organization_slug: string;
+      /**
+       * @deprecated
+       * @description Subscription Plan is now set on organization level and is ignored in this request
        * @enum {string}
        */
-      plan: "free" | "pro";
+      plan?: "free" | "pro";
       /**
-       * @description Region you want your server to reside in 
-       * @example us-east-1 
+       * @deprecated
+       * @description Region you want your server to reside in. Use region_selection instead.
        * @enum {string}
        */
-      region: "us-east-1" | "us-west-1" | "us-west-2" | "ap-southeast-1" | "ap-northeast-1" | "ap-northeast-2" | "ap-southeast-2" | "eu-west-1" | "eu-west-2" | "eu-west-3" | "eu-central-1" | "ca-central-1" | "ap-south-1" | "sa-east-1";
-      /** @deprecated */
+      region?: "us-east-1" | "us-east-2" | "us-west-1" | "us-west-2" | "ap-east-1" | "ap-southeast-1" | "ap-northeast-1" | "ap-northeast-2" | "ap-southeast-2" | "eu-west-1" | "eu-west-2" | "eu-west-3" | "eu-north-1" | "eu-central-1" | "eu-central-2" | "ca-central-1" | "ap-south-1" | "sa-east-1";
+      /**
+       * @description Region selection. Only one of region or region_selection can be specified.
+       * @example { type: 'smartGroup', code: 'americas' }
+       */
+      region_selection?: ({
+        /** @enum {string} */
+        type: "specific";
+        /**
+         * @description Specific region code. The codes supported are not a stable API, and should be retrieved from the /available-regions endpoint.
+         * @enum {string}
+         */
+        code: "us-east-1" | "us-east-2" | "us-west-1" | "us-west-2" | "ap-east-1" | "ap-southeast-1" | "ap-northeast-1" | "ap-northeast-2" | "ap-southeast-2" | "eu-west-1" | "eu-west-2" | "eu-west-3" | "eu-north-1" | "eu-central-1" | "eu-central-2" | "ca-central-1" | "ap-south-1" | "sa-east-1";
+      }) | ({
+        /** @enum {string} */
+        type: "smartGroup";
+        /**
+         * @description The Smart Region Group's code. The codes supported are not a stable API, and should be retrieved from the /available-regions endpoint.
+         * @example apac
+         * @enum {string}
+         */
+        code: "americas" | "emea" | "apac";
+      });
+      /**
+       * @deprecated
+       * @description This field is deprecated and is ignored in this request
+       */
       kps_enabled?: boolean;
+      /** @enum {string} */
+      desired_instance_size?: "pico" | "nano" | "micro" | "small" | "medium" | "large" | "xlarge" | "2xlarge" | "4xlarge" | "8xlarge" | "12xlarge" | "16xlarge" | "24xlarge" | "24xlarge_optimized_memory" | "24xlarge_optimized_cpu" | "24xlarge_high_memory" | "48xlarge" | "48xlarge_optimized_memory" | "48xlarge_optimized_cpu" | "48xlarge_high_memory";
+      /**
+       * Format: uri
+       * @description Template URL used to create the project from the CLI.
+       * @example https://github.com/supabase/supabase/tree/master/examples/slack-clone/nextjs-slack-clone
+       */
+      template_url?: string;
+      /**
+       * @deprecated
+       * @description Release channel. If not provided, GA will be used.
+       * @enum {string}
+       */
+      release_channel?: "internal" | "alpha" | "beta" | "ga" | "withdrawn" | "preview";
+      /**
+       * @deprecated
+       * @description Postgres engine version. If not provided, the latest version will be used.
+       * @enum {string}
+       */
+      postgres_engine?: "15" | "17" | "17-oriole";
+    };
+    V1ProjectResponse: {
+      /**
+       * @deprecated
+       * @description Deprecated: Use `ref` instead.
+       */
+      id: string;
+      /** @description Project ref */
+      ref: string;
+      /**
+       * @deprecated
+       * @description Deprecated: Use `organization_slug` instead.
+       */
+      organization_id: string;
+      /** @description Organization slug */
+      organization_slug: string;
+      /** @description Name of your project */
+      name: string;
+      /**
+       * @description Region of your project
+       * @example us-east-1
+       */
+      region: string;
+      /**
+       * @description Creation timestamp
+       * @example 2023-03-29T16:32:59Z
+       */
+      created_at: string;
+      /** @enum {string} */
+      status: "INACTIVE" | "ACTIVE_HEALTHY" | "ACTIVE_UNHEALTHY" | "COMING_UP" | "UNKNOWN" | "GOING_DOWN" | "INIT_FAILED" | "REMOVED" | "RESTORING" | "UPGRADING" | "PAUSING" | "RESTORE_FAILED" | "RESTARTING" | "PAUSE_FAILED" | "RESIZING";
+    };
+    RegionsInfo: {
+      recommendations: {
+        smartGroup: {
+          name: string;
+          /** @enum {string} */
+          code: "americas" | "emea" | "apac";
+          /** @enum {string} */
+          type: "smartGroup";
+        };
+        specific: ({
+            name: string;
+            /** @enum {string} */
+            code: "us-east-1" | "us-east-2" | "us-west-1" | "us-west-2" | "ap-southeast-1" | "ap-northeast-1" | "ap-northeast-2" | "ap-east-1" | "ap-southeast-2" | "eu-west-1" | "eu-west-2" | "eu-west-3" | "eu-north-1" | "eu-central-1" | "eu-central-2" | "ca-central-1" | "ap-south-1" | "sa-east-1";
+            /** @enum {string} */
+            type: "specific";
+            /** @enum {string} */
+            provider: "AWS" | "FLY" | "AWS_K8S" | "AWS_NIMBUS";
+            /** @enum {string} */
+            status?: "capacity" | "other";
+          })[];
+      };
+      all: {
+        smartGroup: ({
+            name: string;
+            /** @enum {string} */
+            code: "americas" | "emea" | "apac";
+            /** @enum {string} */
+            type: "smartGroup";
+          })[];
+        specific: ({
+            name: string;
+            /** @enum {string} */
+            code: "us-east-1" | "us-east-2" | "us-west-1" | "us-west-2" | "ap-southeast-1" | "ap-northeast-1" | "ap-northeast-2" | "ap-east-1" | "ap-southeast-2" | "eu-west-1" | "eu-west-2" | "eu-west-3" | "eu-north-1" | "eu-central-1" | "eu-central-2" | "ca-central-1" | "ap-south-1" | "sa-east-1";
+            /** @enum {string} */
+            type: "specific";
+            /** @enum {string} */
+            provider: "AWS" | "FLY" | "AWS_K8S" | "AWS_NIMBUS";
+            /** @enum {string} */
+            status?: "capacity" | "other";
+          })[];
+      };
     };
     OrganizationResponseV1: {
+      /**
+       * @deprecated
+       * @description Deprecated: Use `slug` instead.
+       */
       id: string;
+      /** @description Organization slug */
+      slug: string;
       name: string;
     };
-    CreateOrganizationBodyV1: {
+    CreateOrganizationV1: {
       name: string;
     };
     OAuthTokenBody: {
       /** @enum {string} */
-      grant_type: "authorization_code" | "refresh_token";
-      client_id: string;
-      client_secret: string;
+      grant_type?: "authorization_code" | "refresh_token";
+      /** Format: uuid */
+      client_id?: string;
+      client_secret?: string;
       code?: string;
       code_verifier?: string;
       redirect_uri?: string;
       refresh_token?: string;
+      /**
+       * Format: uri
+       * @description Resource indicator for MCP (Model Context Protocol) clients
+       */
+      resource?: string;
+      scope?: string;
     };
     OAuthTokenResponse: {
-      /** @enum {string} */
-      token_type: "Bearer";
       access_token: string;
       refresh_token: string;
       expires_in: number;
-    };
-    SnippetProject: {
-      id: number;
-      name: string;
-    };
-    SnippetUser: {
-      id: number;
-      username: string;
-    };
-    SnippetMeta: {
-      id: string;
-      inserted_at: string;
-      updated_at: string;
       /** @enum {string} */
-      type: "sql";
-      /** @enum {string} */
-      visibility: "user" | "project" | "org" | "public";
-      name: string;
-      description: string | null;
-      project: components["schemas"]["SnippetProject"];
-      owner: components["schemas"]["SnippetUser"];
-      updated_by: components["schemas"]["SnippetUser"];
+      token_type: "Bearer";
+    };
+    OAuthRevokeTokenBody: {
+      /** Format: uuid */
+      client_id: string;
+      client_secret: string;
+      refresh_token: string;
     };
     SnippetList: {
-      data: (components["schemas"]["SnippetMeta"])[];
-    };
-    SnippetContent: {
-      favorite: boolean;
-      schema_version: string;
-      sql: string;
+      data: ({
+          id: string;
+          inserted_at: string;
+          updated_at: string;
+          /** @enum {string} */
+          type: "sql";
+          /** @enum {string} */
+          visibility: "user" | "project" | "org" | "public";
+          name: string;
+          description: string | null;
+          project: {
+            id: number;
+            name: string;
+          };
+          owner: {
+            id: number;
+            username: string;
+          };
+          updated_by: {
+            id: number;
+            username: string;
+          };
+          favorite: boolean;
+        })[];
+      cursor?: string;
     };
     SnippetResponse: {
       id: string;
@@ -422,43 +1079,279 @@ export interface components {
       visibility: "user" | "project" | "org" | "public";
       name: string;
       description: string | null;
-      project: components["schemas"]["SnippetProject"];
-      owner: components["schemas"]["SnippetUser"];
-      updated_by: components["schemas"]["SnippetUser"];
-      content: components["schemas"]["SnippetContent"];
+      project: {
+        id: number;
+        name: string;
+      };
+      owner: {
+        id: number;
+        username: string;
+      };
+      updated_by: {
+        id: number;
+        username: string;
+      };
+      favorite: boolean;
+      content: {
+        /**
+         * @deprecated
+         * @description Deprecated: Rely on root-level favorite property instead.
+         */
+        favorite?: boolean;
+        schema_version: string;
+        sql: string;
+      };
+    };
+    ListActionRunResponse: ({
+        id: string;
+        branch_id: string;
+        run_steps: ({
+            /** @enum {string} */
+            name: "clone" | "pull" | "health" | "configure" | "migrate" | "seed" | "deploy";
+            /** @enum {string} */
+            status: "CREATED" | "DEAD" | "EXITED" | "PAUSED" | "REMOVING" | "RESTARTING" | "RUNNING";
+            created_at: string;
+            updated_at: string;
+          })[];
+        git_config?: unknown;
+        workdir: string | null;
+        check_run_id: number | null;
+        created_at: string;
+        updated_at: string;
+      })[];
+    ActionRunResponse: {
+      id: string;
+      branch_id: string;
+      run_steps: ({
+          /** @enum {string} */
+          name: "clone" | "pull" | "health" | "configure" | "migrate" | "seed" | "deploy";
+          /** @enum {string} */
+          status: "CREATED" | "DEAD" | "EXITED" | "PAUSED" | "REMOVING" | "RESTARTING" | "RUNNING";
+          created_at: string;
+          updated_at: string;
+        })[];
+      git_config?: unknown;
+      workdir: string | null;
+      check_run_id: number | null;
+      created_at: string;
+      updated_at: string;
+    };
+    UpdateRunStatusBody: {
+      /** @enum {string} */
+      clone?: "CREATED" | "DEAD" | "EXITED" | "PAUSED" | "REMOVING" | "RESTARTING" | "RUNNING";
+      /** @enum {string} */
+      pull?: "CREATED" | "DEAD" | "EXITED" | "PAUSED" | "REMOVING" | "RESTARTING" | "RUNNING";
+      /** @enum {string} */
+      health?: "CREATED" | "DEAD" | "EXITED" | "PAUSED" | "REMOVING" | "RESTARTING" | "RUNNING";
+      /** @enum {string} */
+      configure?: "CREATED" | "DEAD" | "EXITED" | "PAUSED" | "REMOVING" | "RESTARTING" | "RUNNING";
+      /** @enum {string} */
+      migrate?: "CREATED" | "DEAD" | "EXITED" | "PAUSED" | "REMOVING" | "RESTARTING" | "RUNNING";
+      /** @enum {string} */
+      seed?: "CREATED" | "DEAD" | "EXITED" | "PAUSED" | "REMOVING" | "RESTARTING" | "RUNNING";
+      /** @enum {string} */
+      deploy?: "CREATED" | "DEAD" | "EXITED" | "PAUSED" | "REMOVING" | "RESTARTING" | "RUNNING";
+    };
+    UpdateRunStatusResponse: {
+      /** @enum {string} */
+      message: "ok";
     };
     ApiKeyResponse: {
+      api_key?: string | null;
+      id?: string | null;
+      /** @enum {string|null} */
+      type?: "legacy" | "publishable" | "secret" | null;
+      prefix?: string | null;
       name: string;
-      api_key: string;
+      description?: string | null;
+      hash?: string | null;
+      secret_jwt_template?: {
+        [key: string]: unknown;
+      } | null;
+      /** Format: date-time */
+      inserted_at?: string | null;
+      /** Format: date-time */
+      updated_at?: string | null;
+    };
+    LegacyApiKeysResponse: {
+      enabled: boolean;
+    };
+    CreateApiKeyBody: {
+      /** @enum {string} */
+      type: "publishable" | "secret";
+      name: string;
+      description?: string | null;
+      secret_jwt_template?: {
+        [key: string]: unknown;
+      } | null;
+    };
+    UpdateApiKeyBody: {
+      name?: string;
+      description?: string | null;
+      secret_jwt_template?: {
+        [key: string]: unknown;
+      } | null;
     };
     CreateBranchBody: {
       branch_name: string;
       git_branch?: string;
+      is_default?: boolean;
+      persistent?: boolean;
       region?: string;
+      /** @enum {string} */
+      desired_instance_size?: "pico" | "nano" | "micro" | "small" | "medium" | "large" | "xlarge" | "2xlarge" | "4xlarge" | "8xlarge" | "12xlarge" | "16xlarge" | "24xlarge" | "24xlarge_optimized_memory" | "24xlarge_optimized_cpu" | "24xlarge_high_memory" | "48xlarge" | "48xlarge_optimized_memory" | "48xlarge_optimized_cpu" | "48xlarge_high_memory";
+      /**
+       * @description Release channel. If not provided, GA will be used.
+       * @enum {string}
+       */
+      release_channel?: "internal" | "alpha" | "beta" | "ga" | "withdrawn" | "preview";
+      /**
+       * @description Postgres engine version. If not provided, the latest version will be used.
+       * @enum {string}
+       */
+      postgres_engine?: "15" | "17" | "17-oriole";
+      secrets?: {
+        [key: string]: string;
+      };
+      with_data?: boolean;
+      /**
+       * Format: uri
+       * @description HTTP endpoint to receive branch status updates.
+       */
+      notify_url?: string;
     };
     UpdateCustomHostnameResponse: {
       /** @enum {string} */
       status: "1_not_started" | "2_initiated" | "3_challenge_verified" | "4_origin_setup_completed" | "5_services_reconfigured";
       custom_hostname: string;
-      data: Record<string, never>;
+      data: {
+        success: boolean;
+        errors: unknown[];
+        messages: unknown[];
+        result: {
+          id: string;
+          hostname: string;
+          ssl: {
+            status: string;
+            validation_records: {
+                txt_name: string;
+                txt_value: string;
+              }[];
+            validation_errors?: {
+                message: string;
+              }[];
+          };
+          ownership_verification: {
+            type: string;
+            name: string;
+            value: string;
+          };
+          custom_origin_server: string;
+          verification_errors?: string[];
+          status: string;
+        };
+      };
     };
     UpdateCustomHostnameBody: {
       custom_hostname: string;
     };
+    JitAccessResponse: {
+      /** Format: uuid */
+      user_id: string;
+      user_roles: {
+          role: string;
+          expires_at?: number;
+          allowed_networks?: {
+            allowed_cidrs?: {
+                cidr: string;
+              }[];
+            allowed_cidrs_v6?: {
+                cidr: string;
+              }[];
+          };
+        }[];
+    };
+    JitAccessRequestRequest: {
+      /** @enum {string} */
+      state: "enabled" | "disabled" | "unavailable";
+    };
     NetworkBanResponse: {
-      banned_ipv4_addresses: (string)[];
+      banned_ipv4_addresses: string[];
+    };
+    NetworkBanResponseEnriched: {
+      banned_ipv4_addresses: {
+          banned_address: string;
+          identifier: string;
+          type: string;
+        }[];
     };
     RemoveNetworkBanRequest: {
-      ipv4_addresses: (string)[];
-    };
-    NetworkRestrictionsRequest: {
-      dbAllowedCidrs: (string)[];
+      /** @description List of IP addresses to unban. */
+      ipv4_addresses: string[];
+      /**
+       * @description Include requester's public IP in the list of addresses to unban.
+       * @default false
+       */
+      requester_ip?: boolean;
+      identifier?: string;
     };
     NetworkRestrictionsResponse: {
       /** @enum {string} */
       entitlement: "disallowed" | "allowed";
-      config: components["schemas"]["NetworkRestrictionsRequest"];
-      old_config?: components["schemas"]["NetworkRestrictionsRequest"];
+      /** @description At any given point in time, this is the config that the user has requested be applied to their project. The `status` field indicates if it has been applied to the project, or is pending. When an updated config is received, the applied config is moved to `old_config`. */
+      config: {
+        dbAllowedCidrs?: string[];
+        dbAllowedCidrsV6?: string[];
+      };
+      /** @description Populated when a new config has been received, but not registered as successfully applied to a project. */
+      old_config?: {
+        dbAllowedCidrs?: string[];
+        dbAllowedCidrsV6?: string[];
+      };
+      /** @enum {string} */
+      status: "stored" | "applied";
+      /** Format: date-time */
+      updated_at?: string;
+      /** Format: date-time */
+      applied_at?: string;
+    };
+    NetworkRestrictionsRequest: {
+      dbAllowedCidrs?: string[];
+      dbAllowedCidrsV6?: string[];
+    };
+    NetworkRestrictionsPatchRequest: {
+      add?: {
+        dbAllowedCidrs?: string[];
+        dbAllowedCidrsV6?: string[];
+      };
+      remove?: {
+        dbAllowedCidrs?: string[];
+        dbAllowedCidrsV6?: string[];
+      };
+    };
+    NetworkRestrictionsV2Response: {
+      /** @enum {string} */
+      entitlement: "disallowed" | "allowed";
+      /** @description At any given point in time, this is the config that the user has requested be applied to their project. The `status` field indicates if it has been applied to the project, or is pending. When an updated config is received, the applied config is moved to `old_config`. */
+      config: {
+        dbAllowedCidrs?: ({
+            address: string;
+            /** @enum {string} */
+            type: "v4" | "v6";
+          })[];
+      };
+      /** @description Populated when a new config has been received, but not registered as successfully applied to a project. */
+      old_config?: {
+        dbAllowedCidrs?: ({
+            address: string;
+            /** @enum {string} */
+            type: "v4" | "v6";
+          })[];
+      };
+      /** Format: date-time */
+      updated_at?: string;
+      /** Format: date-time */
+      applied_at?: string;
       /** @enum {string} */
       status: "stored" | "applied";
     };
@@ -469,47 +1362,58 @@ export interface components {
       root_key: string;
     };
     PostgrestConfigWithJWTSecretResponse: {
-      max_rows: number;
       db_schema: string;
+      max_rows: number;
       db_extra_search_path: string;
+      /** @description If `null`, the value is automatically configured based on compute size. */
+      db_pool: number | null;
       jwt_secret?: string;
     };
-    UpdatePostgrestConfigBody: {
-      max_rows?: number;
+    V1UpdatePostgrestConfigBody: {
       db_extra_search_path?: string;
       db_schema?: string;
+      max_rows?: number;
+      db_pool?: number;
     };
-    PostgrestConfigResponse: {
-      max_rows: number;
+    V1PostgrestConfigResponse: {
       db_schema: string;
+      max_rows: number;
       db_extra_search_path: string;
+      /** @description If `null`, the value is automatically configured based on compute size. */
+      db_pool: number | null;
     };
-    ProjectRefResponse: {
+    V1ProjectRefResponse: {
       id: number;
       ref: string;
+      name: string;
+    };
+    V1UpdateProjectBody: {
       name: string;
     };
     SecretResponse: {
       name: string;
       value: string;
+      updated_at?: string;
     };
     CreateSecretBody: {
-      /**
-       * @description Secret name must not start with the SUPABASE_ prefix. 
-       * @example string
-       */
-      name: string;
-      value: string;
-    };
-    SslEnforcements: {
-      database: boolean;
-    };
+        /**
+         * @description Secret name must not start with the SUPABASE_ prefix.
+         * @example string
+         */
+        name: string;
+        value: string;
+      }[];
+    DeleteSecretsBody: string[];
     SslEnforcementResponse: {
-      currentConfig: components["schemas"]["SslEnforcements"];
+      currentConfig: {
+        database: boolean;
+      };
       appliedSuccessfully: boolean;
     };
     SslEnforcementRequest: {
-      requestedConfig: components["schemas"]["SslEnforcements"];
+      requestedConfig: {
+        database: boolean;
+      };
     };
     TypescriptResponse: {
       types: string;
@@ -529,124 +1433,1006 @@ export interface components {
       custom_domain: string;
     };
     UpgradeDatabaseBody: {
-      target_version: number;
+      target_version: string;
+      /** @enum {string} */
+      release_channel?: "internal" | "alpha" | "beta" | "ga" | "withdrawn" | "preview";
     };
     ProjectUpgradeInitiateResponse: {
       tracking_id: string;
     };
-    ProjectVersion: {
-      postgres_version: number;
-      app_version: string;
-    };
     ProjectUpgradeEligibilityResponse: {
       eligible: boolean;
       current_app_version: string;
+      /** @enum {string} */
+      current_app_version_release_channel: "internal" | "alpha" | "beta" | "ga" | "withdrawn" | "preview";
       latest_app_version: string;
-      target_upgrade_versions: (components["schemas"]["ProjectVersion"])[];
-      requires_manual_intervention: string | null;
-      potential_breaking_changes: (string)[];
+      target_upgrade_versions: ({
+          /** @enum {string} */
+          postgres_version: "13" | "14" | "15" | "17" | "17-oriole";
+          /** @enum {string} */
+          release_channel: "internal" | "alpha" | "beta" | "ga" | "withdrawn" | "preview";
+          app_version: string;
+        })[];
       duration_estimate_hours: number;
-      legacy_auth_custom_roles: (string)[];
-      extension_dependent_objects: (string)[];
-    };
-    DatabaseUpgradeStatus: {
-      initiated_at: string;
-      target_version: number;
-      /** @enum {string} */
-      error?: "1_upgraded_instance_launch_failed" | "2_volume_detachchment_from_upgraded_instance_failed" | "3_volume_attachment_to_original_instance_failed" | "4_data_upgrade_initiation_failed" | "5_data_upgrade_completion_failed" | "6_volume_detachchment_from_original_instance_failed" | "7_volume_attachment_to_upgraded_instance_failed" | "8_upgrade_completion_failed";
-      /** @enum {string} */
-      progress?: "1_started" | "2_launched_upgraded_instance" | "3_detached_volume_from_upgraded_instance" | "4_attached_volume_to_original_instance" | "5_initiated_data_upgrade" | "6_completed_data_upgrade" | "7_detached_volume_from_original_instance" | "8_attached_volume_to_upgraded_instance" | "9_completed_upgrade";
-      /** @enum {number} */
-      status: 0 | 1 | 2;
+      legacy_auth_custom_roles: string[];
+      /**
+       * @deprecated
+       * @description Use validation_errors instead.
+       */
+      objects_to_be_dropped: string[];
+      /**
+       * @deprecated
+       * @description Use validation_errors instead.
+       */
+      unsupported_extensions: string[];
+      /**
+       * @deprecated
+       * @description Use validation_errors instead.
+       */
+      user_defined_objects_in_internal_schemas: string[];
+      validation_errors: ({
+          /** @enum {string} */
+          type: "objects_depending_on_pg_cron";
+          dependents: string[];
+        } | {
+          /** @enum {string} */
+          type: "indexes_referencing_ll_to_earth";
+          schema_name: string;
+          table_name: string;
+          index_name: string;
+        } | {
+          /** @enum {string} */
+          type: "function_using_obsolete_lang";
+          schema_name: string;
+          function_name: string;
+          lang_name: string;
+        } | {
+          /** @enum {string} */
+          type: "unsupported_extension";
+          extension_name: string;
+        } | {
+          /** @enum {string} */
+          type: "unsupported_fdw_handler";
+          fdw_name: string;
+          fdw_handler_name: string;
+        } | {
+          /** @enum {string} */
+          type: "unlogged_table_with_persistent_sequence";
+          schema_name: string;
+          table_name: string;
+          sequence_name: string;
+        } | ({
+          /** @enum {string} */
+          type: "user_defined_objects_in_internal_schemas";
+          /** @enum {string} */
+          obj_type: "table" | "function";
+          schema_name: string;
+          obj_name: string;
+        }) | {
+          /** @enum {string} */
+          type: "active_replication_slot";
+          slot_name: string;
+        })[];
     };
     DatabaseUpgradeStatusResponse: {
-      databaseUpgradeStatus: components["schemas"]["DatabaseUpgradeStatus"] | null;
+      databaseUpgradeStatus: ({
+        initiated_at: string;
+        latest_status_at: string;
+        target_version: number;
+        /** @enum {string} */
+        error?: "1_upgraded_instance_launch_failed" | "2_volume_detachchment_from_upgraded_instance_failed" | "3_volume_attachment_to_original_instance_failed" | "4_data_upgrade_initiation_failed" | "5_data_upgrade_completion_failed" | "6_volume_detachchment_from_original_instance_failed" | "7_volume_attachment_to_upgraded_instance_failed" | "8_upgrade_completion_failed" | "9_post_physical_backup_failed";
+        /** @enum {string} */
+        progress?: "0_requested" | "1_started" | "2_launched_upgraded_instance" | "3_detached_volume_from_upgraded_instance" | "4_attached_volume_to_original_instance" | "5_initiated_data_upgrade" | "6_completed_data_upgrade" | "7_detached_volume_from_original_instance" | "8_attached_volume_to_upgraded_instance" | "9_completed_upgrade" | "10_completed_post_physical_backup";
+        status: number;
+      }) | null;
     };
     ReadOnlyStatusResponse: {
       enabled: boolean;
       override_enabled: boolean;
       override_active_until: string;
     };
-    AuthHealthResponse: {
-      name: string;
-      version: string;
-      description: string;
+    SetUpReadReplicaBody: {
+      /**
+       * @description Region you want your read replica to reside in
+       * @example us-east-1
+       * @enum {string}
+       */
+      read_replica_region: "us-east-1" | "us-east-2" | "us-west-1" | "us-west-2" | "ap-east-1" | "ap-southeast-1" | "ap-northeast-1" | "ap-northeast-2" | "ap-southeast-2" | "eu-west-1" | "eu-west-2" | "eu-west-3" | "eu-north-1" | "eu-central-1" | "eu-central-2" | "ca-central-1" | "ap-south-1" | "sa-east-1";
     };
-    RealtimeHealthResponse: {
-      healthy: boolean;
-      db_connected: boolean;
-      connected_cluster: number;
+    RemoveReadReplicaBody: {
+      database_identifier: string;
     };
-    ServiceHealthResponse: {
-      info?: components["schemas"]["AuthHealthResponse"] | components["schemas"]["RealtimeHealthResponse"];
+    V1ServiceHealthResponse: {
       /** @enum {string} */
-      name: "auth" | "db" | "realtime" | "rest" | "storage";
+      name: "auth" | "db" | "db_postgres_user" | "pooler" | "realtime" | "rest" | "storage" | "pg_bouncer";
+      /**
+       * @deprecated
+       * @description Deprecated. Use `status` instead.
+       */
       healthy: boolean;
+      /** @enum {string} */
+      status: "COMING_UP" | "ACTIVE_HEALTHY" | "UNHEALTHY";
+      info?: OneOf<[{
+        /** @enum {string} */
+        name: "GoTrue";
+        version: string;
+        description: string;
+      }, {
+        /**
+         * @deprecated
+         * @description Deprecated. Use `status` instead.
+         */
+        healthy: boolean;
+        db_connected: boolean;
+        connected_cluster: number;
+      }, {
+        db_schema: string;
+      }]>;
       error?: string;
     };
-    PostgresConfigResponse: {
-      statement_timeout?: string;
-      effective_cache_size?: string;
-      maintenance_work_mem?: string;
-      max_connections?: number;
-      max_parallel_maintenance_workers?: number;
-      max_parallel_workers?: number;
-      max_parallel_workers_per_gather?: number;
-      max_worker_processes?: number;
-      shared_buffers?: string;
-      work_mem?: string;
+    SigningKeyResponse: {
+      /** Format: uuid */
+      id: string;
       /** @enum {string} */
-      session_replication_role?: "origin" | "replica" | "local";
+      algorithm: "EdDSA" | "ES256" | "RS256" | "HS256";
+      /** @enum {string} */
+      status: "in_use" | "previously_used" | "revoked" | "standby";
+      public_jwk?: unknown;
+      /** Format: date-time */
+      created_at: string;
+      /** Format: date-time */
+      updated_at: string;
     };
-    UpdatePostgresConfigBody: {
-      statement_timeout?: string;
-      effective_cache_size?: string;
-      maintenance_work_mem?: string;
-      max_connections?: number;
-      max_parallel_maintenance_workers?: number;
-      max_parallel_workers?: number;
-      max_parallel_workers_per_gather?: number;
-      max_worker_processes?: number;
-      shared_buffers?: string;
-      work_mem?: string;
+    CreateSigningKeyBody: {
       /** @enum {string} */
-      session_replication_role?: "origin" | "replica" | "local";
+      algorithm: "EdDSA" | "ES256" | "RS256" | "HS256";
+      /** @enum {string} */
+      status?: "in_use" | "standby";
+      private_jwk?: ({
+        /** Format: uuid */
+        kid?: string;
+        /** @enum {string} */
+        use?: "sig";
+        key_ops?: ("sign" | "verify")[];
+        /** @enum {boolean} */
+        ext?: true;
+        /** @enum {string} */
+        kty: "RSA";
+        /** @enum {string} */
+        alg?: "RS256";
+        n: string;
+        /** @enum {string} */
+        e: "AQAB";
+        d: string;
+        p: string;
+        q: string;
+        dp: string;
+        dq: string;
+        qi: string;
+      }) | ({
+        /** Format: uuid */
+        kid?: string;
+        /** @enum {string} */
+        use?: "sig";
+        key_ops?: ("sign" | "verify")[];
+        /** @enum {boolean} */
+        ext?: true;
+        /** @enum {string} */
+        kty: "EC";
+        /** @enum {string} */
+        alg?: "ES256";
+        /** @enum {string} */
+        crv: "P-256";
+        x: string;
+        y: string;
+        d: string;
+      }) | ({
+        /** Format: uuid */
+        kid?: string;
+        /** @enum {string} */
+        use?: "sig";
+        key_ops?: ("sign" | "verify")[];
+        /** @enum {boolean} */
+        ext?: true;
+        /** @enum {string} */
+        kty: "OKP";
+        /** @enum {string} */
+        alg?: "EdDSA";
+        /** @enum {string} */
+        crv: "Ed25519";
+        x: string;
+        d: string;
+      }) | ({
+        /** Format: uuid */
+        kid?: string;
+        /** @enum {string} */
+        use?: "sig";
+        key_ops?: ("sign" | "verify")[];
+        /** @enum {boolean} */
+        ext?: true;
+        /** @enum {string} */
+        kty: "oct";
+        /** @enum {string} */
+        alg?: "HS256";
+        k: string;
+      });
     };
-    V1PgbouncerConfigResponse: {
+    SigningKeysResponse: {
+      keys: ({
+          /** Format: uuid */
+          id: string;
+          /** @enum {string} */
+          algorithm: "EdDSA" | "ES256" | "RS256" | "HS256";
+          /** @enum {string} */
+          status: "in_use" | "previously_used" | "revoked" | "standby";
+          public_jwk?: unknown;
+          /** Format: date-time */
+          created_at: string;
+          /** Format: date-time */
+          updated_at: string;
+        })[];
+    };
+    UpdateSigningKeyBody: {
       /** @enum {string} */
-      pool_mode?: "transaction" | "session" | "statement";
-      default_pool_size?: number;
-      ignore_startup_parameters?: string;
-      max_client_conn?: number;
+      status: "in_use" | "previously_used" | "revoked" | "standby";
     };
     AuthConfigResponse: {
-      smtp_admin_email?: string;
-      smtp_host?: string;
-      smtp_port?: string;
-      smtp_user?: string;
-      smtp_pass?: string;
-      smtp_max_frequency?: number;
-      smtp_sender_name?: string;
-      rate_limit_email_sent?: number;
+      api_max_request_duration: number | null;
+      db_max_pool_size: number | null;
+      /** @enum {string|null} */
+      db_max_pool_size_unit: "connections" | "percent" | null;
+      disable_signup: boolean | null;
+      external_anonymous_users_enabled: boolean | null;
+      external_apple_additional_client_ids: string | null;
+      external_apple_client_id: string | null;
+      external_apple_email_optional: boolean | null;
+      external_apple_enabled: boolean | null;
+      external_apple_secret: string | null;
+      external_azure_client_id: string | null;
+      external_azure_email_optional: boolean | null;
+      external_azure_enabled: boolean | null;
+      external_azure_secret: string | null;
+      external_azure_url: string | null;
+      external_bitbucket_client_id: string | null;
+      external_bitbucket_email_optional: boolean | null;
+      external_bitbucket_enabled: boolean | null;
+      external_bitbucket_secret: string | null;
+      external_discord_client_id: string | null;
+      external_discord_email_optional: boolean | null;
+      external_discord_enabled: boolean | null;
+      external_discord_secret: string | null;
+      external_email_enabled: boolean | null;
+      external_facebook_client_id: string | null;
+      external_facebook_email_optional: boolean | null;
+      external_facebook_enabled: boolean | null;
+      external_facebook_secret: string | null;
+      external_figma_client_id: string | null;
+      external_figma_email_optional: boolean | null;
+      external_figma_enabled: boolean | null;
+      external_figma_secret: string | null;
+      external_github_client_id: string | null;
+      external_github_email_optional: boolean | null;
+      external_github_enabled: boolean | null;
+      external_github_secret: string | null;
+      external_gitlab_client_id: string | null;
+      external_gitlab_email_optional: boolean | null;
+      external_gitlab_enabled: boolean | null;
+      external_gitlab_secret: string | null;
+      external_gitlab_url: string | null;
+      external_google_additional_client_ids: string | null;
+      external_google_client_id: string | null;
+      external_google_email_optional: boolean | null;
+      external_google_enabled: boolean | null;
+      external_google_secret: string | null;
+      external_google_skip_nonce_check: boolean | null;
+      external_kakao_client_id: string | null;
+      external_kakao_email_optional: boolean | null;
+      external_kakao_enabled: boolean | null;
+      external_kakao_secret: string | null;
+      external_keycloak_client_id: string | null;
+      external_keycloak_email_optional: boolean | null;
+      external_keycloak_enabled: boolean | null;
+      external_keycloak_secret: string | null;
+      external_keycloak_url: string | null;
+      external_linkedin_oidc_client_id: string | null;
+      external_linkedin_oidc_email_optional: boolean | null;
+      external_linkedin_oidc_enabled: boolean | null;
+      external_linkedin_oidc_secret: string | null;
+      external_slack_oidc_client_id: string | null;
+      external_slack_oidc_email_optional: boolean | null;
+      external_slack_oidc_enabled: boolean | null;
+      external_slack_oidc_secret: string | null;
+      external_notion_client_id: string | null;
+      external_notion_email_optional: boolean | null;
+      external_notion_enabled: boolean | null;
+      external_notion_secret: string | null;
+      external_phone_enabled: boolean | null;
+      external_slack_client_id: string | null;
+      external_slack_email_optional: boolean | null;
+      external_slack_enabled: boolean | null;
+      external_slack_secret: string | null;
+      external_spotify_client_id: string | null;
+      external_spotify_email_optional: boolean | null;
+      external_spotify_enabled: boolean | null;
+      external_spotify_secret: string | null;
+      external_twitch_client_id: string | null;
+      external_twitch_email_optional: boolean | null;
+      external_twitch_enabled: boolean | null;
+      external_twitch_secret: string | null;
+      external_twitter_client_id: string | null;
+      external_twitter_email_optional: boolean | null;
+      external_twitter_enabled: boolean | null;
+      external_twitter_secret: string | null;
+      external_x_client_id: string | null;
+      external_x_email_optional: boolean | null;
+      external_x_enabled: boolean | null;
+      external_x_secret: string | null;
+      external_workos_client_id: string | null;
+      external_workos_enabled: boolean | null;
+      external_workos_secret: string | null;
+      external_workos_url: string | null;
+      external_web3_solana_enabled: boolean | null;
+      external_web3_ethereum_enabled: boolean | null;
+      external_zoom_client_id: string | null;
+      external_zoom_email_optional: boolean | null;
+      external_zoom_enabled: boolean | null;
+      external_zoom_secret: string | null;
+      hook_custom_access_token_enabled: boolean | null;
+      hook_custom_access_token_uri: string | null;
+      hook_custom_access_token_secrets: string | null;
+      hook_mfa_verification_attempt_enabled: boolean | null;
+      hook_mfa_verification_attempt_uri: string | null;
+      hook_mfa_verification_attempt_secrets: string | null;
+      hook_password_verification_attempt_enabled: boolean | null;
+      hook_password_verification_attempt_uri: string | null;
+      hook_password_verification_attempt_secrets: string | null;
+      hook_send_sms_enabled: boolean | null;
+      hook_send_sms_uri: string | null;
+      hook_send_sms_secrets: string | null;
+      hook_send_email_enabled: boolean | null;
+      hook_send_email_uri: string | null;
+      hook_send_email_secrets: string | null;
+      hook_before_user_created_enabled: boolean | null;
+      hook_before_user_created_uri: string | null;
+      hook_before_user_created_secrets: string | null;
+      hook_after_user_created_enabled: boolean | null;
+      hook_after_user_created_uri: string | null;
+      hook_after_user_created_secrets: string | null;
+      jwt_exp: number | null;
+      mailer_allow_unverified_email_sign_ins: boolean | null;
+      mailer_autoconfirm: boolean | null;
+      mailer_otp_exp: number;
+      mailer_otp_length: number | null;
+      mailer_secure_email_change_enabled: boolean | null;
+      mailer_subjects_confirmation: string | null;
+      mailer_subjects_email_change: string | null;
+      mailer_subjects_invite: string | null;
+      mailer_subjects_magic_link: string | null;
+      mailer_subjects_reauthentication: string | null;
+      mailer_subjects_recovery: string | null;
+      mailer_subjects_password_changed_notification: string | null;
+      mailer_subjects_email_changed_notification: string | null;
+      mailer_subjects_phone_changed_notification: string | null;
+      mailer_subjects_mfa_factor_enrolled_notification: string | null;
+      mailer_subjects_mfa_factor_unenrolled_notification: string | null;
+      mailer_subjects_identity_linked_notification: string | null;
+      mailer_subjects_identity_unlinked_notification: string | null;
+      mailer_templates_confirmation_content: string | null;
+      mailer_templates_email_change_content: string | null;
+      mailer_templates_invite_content: string | null;
+      mailer_templates_magic_link_content: string | null;
+      mailer_templates_reauthentication_content: string | null;
+      mailer_templates_recovery_content: string | null;
+      mailer_templates_password_changed_notification_content: string | null;
+      mailer_templates_email_changed_notification_content: string | null;
+      mailer_templates_phone_changed_notification_content: string | null;
+      mailer_templates_mfa_factor_enrolled_notification_content: string | null;
+      mailer_templates_mfa_factor_unenrolled_notification_content: string | null;
+      mailer_templates_identity_linked_notification_content: string | null;
+      mailer_templates_identity_unlinked_notification_content: string | null;
+      mailer_notifications_password_changed_enabled: boolean | null;
+      mailer_notifications_email_changed_enabled: boolean | null;
+      mailer_notifications_phone_changed_enabled: boolean | null;
+      mailer_notifications_mfa_factor_enrolled_enabled: boolean | null;
+      mailer_notifications_mfa_factor_unenrolled_enabled: boolean | null;
+      mailer_notifications_identity_linked_enabled: boolean | null;
+      mailer_notifications_identity_unlinked_enabled: boolean | null;
+      mfa_max_enrolled_factors: number | null;
+      mfa_totp_enroll_enabled: boolean | null;
+      mfa_totp_verify_enabled: boolean | null;
+      mfa_phone_enroll_enabled: boolean | null;
+      mfa_phone_verify_enabled: boolean | null;
+      mfa_web_authn_enroll_enabled: boolean | null;
+      mfa_web_authn_verify_enabled: boolean | null;
+      mfa_phone_otp_length: number;
+      mfa_phone_template: string | null;
+      mfa_phone_max_frequency: number | null;
+      nimbus_oauth_client_id: string | null;
+      nimbus_oauth_email_optional: boolean | null;
+      nimbus_oauth_client_secret: string | null;
+      password_hibp_enabled: boolean | null;
+      password_min_length: number | null;
+      /** @enum {string|null} */
+      password_required_characters: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:0123456789" | "abcdefghijklmnopqrstuvwxyz:ABCDEFGHIJKLMNOPQRSTUVWXYZ:0123456789" | ("abcdefghijklmnopqrstuvwxyz:ABCDEFGHIJKLMNOPQRSTUVWXYZ:0123456789:!@#$%^&*()_+-=[]{};'\\:\"|<>?,./`~") | "" | null;
+      rate_limit_anonymous_users: number | null;
+      rate_limit_email_sent: number | null;
+      rate_limit_sms_sent: number | null;
+      rate_limit_token_refresh: number | null;
+      rate_limit_verify: number | null;
+      rate_limit_otp: number | null;
+      rate_limit_web3: number | null;
+      refresh_token_rotation_enabled: boolean | null;
+      saml_enabled: boolean | null;
+      saml_external_url: string | null;
+      saml_allow_encrypted_assertions: boolean | null;
+      security_sb_forwarded_for_enabled: boolean | null;
+      security_captcha_enabled: boolean | null;
+      /** @enum {string|null} */
+      security_captcha_provider: "turnstile" | "hcaptcha" | null;
+      security_captcha_secret: string | null;
+      security_manual_linking_enabled: boolean | null;
+      security_refresh_token_reuse_interval: number | null;
+      security_update_password_require_reauthentication: boolean | null;
+      sessions_inactivity_timeout: number | null;
+      sessions_single_per_user: boolean | null;
+      sessions_tags: string | null;
+      sessions_timebox: number | null;
+      site_url: string | null;
+      sms_autoconfirm: boolean | null;
+      sms_max_frequency: number | null;
+      sms_messagebird_access_key: string | null;
+      sms_messagebird_originator: string | null;
+      sms_otp_exp: number | null;
+      sms_otp_length: number;
+      /** @enum {string|null} */
+      sms_provider: "messagebird" | "textlocal" | "twilio" | "twilio_verify" | "vonage" | null;
+      sms_template: string | null;
+      sms_test_otp: string | null;
+      /** Format: date-time */
+      sms_test_otp_valid_until: string | null;
+      sms_textlocal_api_key: string | null;
+      sms_textlocal_sender: string | null;
+      sms_twilio_account_sid: string | null;
+      sms_twilio_auth_token: string | null;
+      sms_twilio_content_sid: string | null;
+      sms_twilio_message_service_sid: string | null;
+      sms_twilio_verify_account_sid: string | null;
+      sms_twilio_verify_auth_token: string | null;
+      sms_twilio_verify_message_service_sid: string | null;
+      sms_vonage_api_key: string | null;
+      sms_vonage_api_secret: string | null;
+      sms_vonage_from: string | null;
+      /** Format: email */
+      smtp_admin_email: string | null;
+      smtp_host: string | null;
+      smtp_max_frequency: number | null;
+      smtp_pass: string | null;
+      smtp_port: string | null;
+      smtp_sender_name: string | null;
+      smtp_user: string | null;
+      uri_allow_list: string | null;
+      oauth_server_enabled: boolean;
+      oauth_server_allow_dynamic_registration: boolean;
+      oauth_server_authorization_path: string | null;
     };
     UpdateAuthConfigBody: {
-      smtp_admin_email?: string;
-      smtp_host?: string;
-      smtp_port?: string;
-      smtp_user?: string;
-      smtp_pass?: string;
-      smtp_max_frequency?: number;
-      smtp_sender_name?: string;
-      rate_limit_email_sent?: number;
+      site_url?: string | null;
+      disable_signup?: boolean | null;
+      jwt_exp?: number | null;
+      /** Format: email */
+      smtp_admin_email?: string | null;
+      smtp_host?: string | null;
+      smtp_port?: string | null;
+      smtp_user?: string | null;
+      smtp_pass?: string | null;
+      smtp_max_frequency?: number | null;
+      smtp_sender_name?: string | null;
+      mailer_allow_unverified_email_sign_ins?: boolean | null;
+      mailer_autoconfirm?: boolean | null;
+      mailer_subjects_invite?: string | null;
+      mailer_subjects_confirmation?: string | null;
+      mailer_subjects_recovery?: string | null;
+      mailer_subjects_email_change?: string | null;
+      mailer_subjects_magic_link?: string | null;
+      mailer_subjects_reauthentication?: string | null;
+      mailer_subjects_password_changed_notification?: string | null;
+      mailer_subjects_email_changed_notification?: string | null;
+      mailer_subjects_phone_changed_notification?: string | null;
+      mailer_subjects_mfa_factor_enrolled_notification?: string | null;
+      mailer_subjects_mfa_factor_unenrolled_notification?: string | null;
+      mailer_subjects_identity_linked_notification?: string | null;
+      mailer_subjects_identity_unlinked_notification?: string | null;
+      mailer_templates_invite_content?: string | null;
+      mailer_templates_confirmation_content?: string | null;
+      mailer_templates_recovery_content?: string | null;
+      mailer_templates_email_change_content?: string | null;
+      mailer_templates_magic_link_content?: string | null;
+      mailer_templates_reauthentication_content?: string | null;
+      mailer_templates_password_changed_notification_content?: string | null;
+      mailer_templates_email_changed_notification_content?: string | null;
+      mailer_templates_phone_changed_notification_content?: string | null;
+      mailer_templates_mfa_factor_enrolled_notification_content?: string | null;
+      mailer_templates_mfa_factor_unenrolled_notification_content?: string | null;
+      mailer_templates_identity_linked_notification_content?: string | null;
+      mailer_templates_identity_unlinked_notification_content?: string | null;
+      mailer_notifications_password_changed_enabled?: boolean | null;
+      mailer_notifications_email_changed_enabled?: boolean | null;
+      mailer_notifications_phone_changed_enabled?: boolean | null;
+      mailer_notifications_mfa_factor_enrolled_enabled?: boolean | null;
+      mailer_notifications_mfa_factor_unenrolled_enabled?: boolean | null;
+      mailer_notifications_identity_linked_enabled?: boolean | null;
+      mailer_notifications_identity_unlinked_enabled?: boolean | null;
+      mfa_max_enrolled_factors?: number | null;
+      uri_allow_list?: string | null;
+      external_anonymous_users_enabled?: boolean | null;
+      external_email_enabled?: boolean | null;
+      external_phone_enabled?: boolean | null;
+      saml_enabled?: boolean | null;
+      saml_external_url?: string | null;
+      security_sb_forwarded_for_enabled?: boolean | null;
+      security_captcha_enabled?: boolean | null;
+      /** @enum {string|null} */
+      security_captcha_provider?: "turnstile" | "hcaptcha" | null;
+      security_captcha_secret?: string | null;
+      sessions_timebox?: number | null;
+      sessions_inactivity_timeout?: number | null;
+      sessions_single_per_user?: boolean | null;
+      sessions_tags?: string | null;
+      rate_limit_anonymous_users?: number | null;
+      rate_limit_email_sent?: number | null;
+      rate_limit_sms_sent?: number | null;
+      rate_limit_verify?: number | null;
+      rate_limit_token_refresh?: number | null;
+      rate_limit_otp?: number | null;
+      rate_limit_web3?: number | null;
+      mailer_secure_email_change_enabled?: boolean | null;
+      refresh_token_rotation_enabled?: boolean | null;
+      password_hibp_enabled?: boolean | null;
+      password_min_length?: number | null;
+      /** @enum {string|null} */
+      password_required_characters?: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:0123456789" | "abcdefghijklmnopqrstuvwxyz:ABCDEFGHIJKLMNOPQRSTUVWXYZ:0123456789" | ("abcdefghijklmnopqrstuvwxyz:ABCDEFGHIJKLMNOPQRSTUVWXYZ:0123456789:!@#$%^&*()_+-=[]{};'\\:\"|<>?,./`~") | "" | null;
+      security_manual_linking_enabled?: boolean | null;
+      security_update_password_require_reauthentication?: boolean | null;
+      security_refresh_token_reuse_interval?: number | null;
+      mailer_otp_exp?: number;
+      mailer_otp_length?: number | null;
+      sms_autoconfirm?: boolean | null;
+      sms_max_frequency?: number | null;
+      sms_otp_exp?: number | null;
+      sms_otp_length?: number;
+      /** @enum {string|null} */
+      sms_provider?: "messagebird" | "textlocal" | "twilio" | "twilio_verify" | "vonage" | null;
+      sms_messagebird_access_key?: string | null;
+      sms_messagebird_originator?: string | null;
+      sms_test_otp?: string | null;
+      /** Format: date-time */
+      sms_test_otp_valid_until?: string | null;
+      sms_textlocal_api_key?: string | null;
+      sms_textlocal_sender?: string | null;
+      sms_twilio_account_sid?: string | null;
+      sms_twilio_auth_token?: string | null;
+      sms_twilio_content_sid?: string | null;
+      sms_twilio_message_service_sid?: string | null;
+      sms_twilio_verify_account_sid?: string | null;
+      sms_twilio_verify_auth_token?: string | null;
+      sms_twilio_verify_message_service_sid?: string | null;
+      sms_vonage_api_key?: string | null;
+      sms_vonage_api_secret?: string | null;
+      sms_vonage_from?: string | null;
+      sms_template?: string | null;
+      hook_mfa_verification_attempt_enabled?: boolean | null;
+      hook_mfa_verification_attempt_uri?: string | null;
+      hook_mfa_verification_attempt_secrets?: string | null;
+      hook_password_verification_attempt_enabled?: boolean | null;
+      hook_password_verification_attempt_uri?: string | null;
+      hook_password_verification_attempt_secrets?: string | null;
+      hook_custom_access_token_enabled?: boolean | null;
+      hook_custom_access_token_uri?: string | null;
+      hook_custom_access_token_secrets?: string | null;
+      hook_send_sms_enabled?: boolean | null;
+      hook_send_sms_uri?: string | null;
+      hook_send_sms_secrets?: string | null;
+      hook_send_email_enabled?: boolean | null;
+      hook_send_email_uri?: string | null;
+      hook_send_email_secrets?: string | null;
+      hook_before_user_created_enabled?: boolean | null;
+      hook_before_user_created_uri?: string | null;
+      hook_before_user_created_secrets?: string | null;
+      hook_after_user_created_enabled?: boolean | null;
+      hook_after_user_created_uri?: string | null;
+      hook_after_user_created_secrets?: string | null;
+      external_apple_enabled?: boolean | null;
+      external_apple_client_id?: string | null;
+      external_apple_email_optional?: boolean | null;
+      external_apple_secret?: string | null;
+      external_apple_additional_client_ids?: string | null;
+      external_azure_enabled?: boolean | null;
+      external_azure_client_id?: string | null;
+      external_azure_email_optional?: boolean | null;
+      external_azure_secret?: string | null;
+      external_azure_url?: string | null;
+      external_bitbucket_enabled?: boolean | null;
+      external_bitbucket_client_id?: string | null;
+      external_bitbucket_email_optional?: boolean | null;
+      external_bitbucket_secret?: string | null;
+      external_discord_enabled?: boolean | null;
+      external_discord_client_id?: string | null;
+      external_discord_email_optional?: boolean | null;
+      external_discord_secret?: string | null;
+      external_facebook_enabled?: boolean | null;
+      external_facebook_client_id?: string | null;
+      external_facebook_email_optional?: boolean | null;
+      external_facebook_secret?: string | null;
+      external_figma_enabled?: boolean | null;
+      external_figma_client_id?: string | null;
+      external_figma_email_optional?: boolean | null;
+      external_figma_secret?: string | null;
+      external_github_enabled?: boolean | null;
+      external_github_client_id?: string | null;
+      external_github_email_optional?: boolean | null;
+      external_github_secret?: string | null;
+      external_gitlab_enabled?: boolean | null;
+      external_gitlab_client_id?: string | null;
+      external_gitlab_email_optional?: boolean | null;
+      external_gitlab_secret?: string | null;
+      external_gitlab_url?: string | null;
+      external_google_enabled?: boolean | null;
+      external_google_client_id?: string | null;
+      external_google_email_optional?: boolean | null;
+      external_google_secret?: string | null;
+      external_google_additional_client_ids?: string | null;
+      external_google_skip_nonce_check?: boolean | null;
+      external_kakao_enabled?: boolean | null;
+      external_kakao_client_id?: string | null;
+      external_kakao_email_optional?: boolean | null;
+      external_kakao_secret?: string | null;
+      external_keycloak_enabled?: boolean | null;
+      external_keycloak_client_id?: string | null;
+      external_keycloak_email_optional?: boolean | null;
+      external_keycloak_secret?: string | null;
+      external_keycloak_url?: string | null;
+      external_linkedin_oidc_enabled?: boolean | null;
+      external_linkedin_oidc_client_id?: string | null;
+      external_linkedin_oidc_email_optional?: boolean | null;
+      external_linkedin_oidc_secret?: string | null;
+      external_slack_oidc_enabled?: boolean | null;
+      external_slack_oidc_client_id?: string | null;
+      external_slack_oidc_email_optional?: boolean | null;
+      external_slack_oidc_secret?: string | null;
+      external_notion_enabled?: boolean | null;
+      external_notion_client_id?: string | null;
+      external_notion_email_optional?: boolean | null;
+      external_notion_secret?: string | null;
+      external_slack_enabled?: boolean | null;
+      external_slack_client_id?: string | null;
+      external_slack_email_optional?: boolean | null;
+      external_slack_secret?: string | null;
+      external_spotify_enabled?: boolean | null;
+      external_spotify_client_id?: string | null;
+      external_spotify_email_optional?: boolean | null;
+      external_spotify_secret?: string | null;
+      external_twitch_enabled?: boolean | null;
+      external_twitch_client_id?: string | null;
+      external_twitch_email_optional?: boolean | null;
+      external_twitch_secret?: string | null;
+      external_twitter_enabled?: boolean | null;
+      external_twitter_client_id?: string | null;
+      external_twitter_email_optional?: boolean | null;
+      external_twitter_secret?: string | null;
+      external_x_enabled?: boolean | null;
+      external_x_client_id?: string | null;
+      external_x_email_optional?: boolean | null;
+      external_x_secret?: string | null;
+      external_workos_enabled?: boolean | null;
+      external_workos_client_id?: string | null;
+      external_workos_secret?: string | null;
+      external_workos_url?: string | null;
+      external_web3_solana_enabled?: boolean | null;
+      external_web3_ethereum_enabled?: boolean | null;
+      external_zoom_enabled?: boolean | null;
+      external_zoom_client_id?: string | null;
+      external_zoom_email_optional?: boolean | null;
+      external_zoom_secret?: string | null;
+      db_max_pool_size?: number | null;
+      /** @enum {string|null} */
+      db_max_pool_size_unit?: "connections" | "percent" | null;
+      api_max_request_duration?: number | null;
+      mfa_totp_enroll_enabled?: boolean | null;
+      mfa_totp_verify_enabled?: boolean | null;
+      mfa_web_authn_enroll_enabled?: boolean | null;
+      mfa_web_authn_verify_enabled?: boolean | null;
+      mfa_phone_enroll_enabled?: boolean | null;
+      mfa_phone_verify_enabled?: boolean | null;
+      mfa_phone_max_frequency?: number | null;
+      mfa_phone_otp_length?: number | null;
+      mfa_phone_template?: string | null;
+      nimbus_oauth_client_id?: string | null;
+      nimbus_oauth_client_secret?: string | null;
+      oauth_server_enabled?: boolean | null;
+      oauth_server_allow_dynamic_registration?: boolean | null;
+      oauth_server_authorization_path?: string | null;
     };
-    RunQueryBody: {
+    CreateThirdPartyAuthBody: {
+      oidc_issuer_url?: string;
+      jwks_url?: string;
+      custom_jwks?: unknown;
+    };
+    ThirdPartyAuth: {
+      /** Format: uuid */
+      id: string;
+      type: string;
+      oidc_issuer_url?: string | null;
+      jwks_url?: string | null;
+      custom_jwks?: unknown;
+      resolved_jwks?: unknown;
+      inserted_at: string;
+      updated_at: string;
+      resolved_at?: string | null;
+    };
+    GetProjectAvailableRestoreVersionsResponse: {
+      available_versions: ({
+          version: string;
+          /** @enum {string} */
+          release_channel: "internal" | "alpha" | "beta" | "ga" | "withdrawn" | "preview";
+          /** @enum {string} */
+          postgres_engine: "13" | "14" | "15" | "17" | "17-oriole";
+        })[];
+    };
+    ListProjectAddonsResponse: {
+      selected_addons: ({
+          /** @enum {string} */
+          type: "custom_domain" | "compute_instance" | "pitr" | "ipv4" | "auth_mfa_phone" | "auth_mfa_web_authn" | "log_drain";
+          variant: {
+            id: ("ci_micro" | "ci_small" | "ci_medium" | "ci_large" | "ci_xlarge" | "ci_2xlarge" | "ci_4xlarge" | "ci_8xlarge" | "ci_12xlarge" | "ci_16xlarge" | "ci_24xlarge" | "ci_24xlarge_optimized_cpu" | "ci_24xlarge_optimized_memory" | "ci_24xlarge_high_memory" | "ci_48xlarge" | "ci_48xlarge_optimized_cpu" | "ci_48xlarge_optimized_memory" | "ci_48xlarge_high_memory") | "cd_default" | ("pitr_7" | "pitr_14" | "pitr_28") | "ipv4_default" | "auth_mfa_phone_default" | "auth_mfa_web_authn_default" | "log_drain_default";
+            name: string;
+            price: {
+              description: string;
+              /** @enum {string} */
+              type: "fixed" | "usage";
+              /** @enum {string} */
+              interval: "monthly" | "hourly";
+              amount: number;
+            };
+            /** @description Any JSON-serializable value */
+            meta?: unknown;
+          };
+        })[];
+      available_addons: ({
+          /** @enum {string} */
+          type: "custom_domain" | "compute_instance" | "pitr" | "ipv4" | "auth_mfa_phone" | "auth_mfa_web_authn" | "log_drain";
+          name: string;
+          variants: ({
+              id: ("ci_micro" | "ci_small" | "ci_medium" | "ci_large" | "ci_xlarge" | "ci_2xlarge" | "ci_4xlarge" | "ci_8xlarge" | "ci_12xlarge" | "ci_16xlarge" | "ci_24xlarge" | "ci_24xlarge_optimized_cpu" | "ci_24xlarge_optimized_memory" | "ci_24xlarge_high_memory" | "ci_48xlarge" | "ci_48xlarge_optimized_cpu" | "ci_48xlarge_optimized_memory" | "ci_48xlarge_high_memory") | "cd_default" | ("pitr_7" | "pitr_14" | "pitr_28") | "ipv4_default" | "auth_mfa_phone_default" | "auth_mfa_web_authn_default" | "log_drain_default";
+              name: string;
+              price: {
+                description: string;
+                /** @enum {string} */
+                type: "fixed" | "usage";
+                /** @enum {string} */
+                interval: "monthly" | "hourly";
+                amount: number;
+              };
+              /** @description Any JSON-serializable value */
+              meta?: unknown;
+            })[];
+        })[];
+    };
+    ApplyProjectAddonBody: {
+      addon_variant: ("ci_micro" | "ci_small" | "ci_medium" | "ci_large" | "ci_xlarge" | "ci_2xlarge" | "ci_4xlarge" | "ci_8xlarge" | "ci_12xlarge" | "ci_16xlarge" | "ci_24xlarge" | "ci_24xlarge_optimized_cpu" | "ci_24xlarge_optimized_memory" | "ci_24xlarge_high_memory" | "ci_48xlarge" | "ci_48xlarge_optimized_cpu" | "ci_48xlarge_optimized_memory" | "ci_48xlarge_high_memory") | "cd_default" | ("pitr_7" | "pitr_14" | "pitr_28") | "ipv4_default";
+      /** @enum {string} */
+      addon_type: "custom_domain" | "compute_instance" | "pitr" | "ipv4" | "auth_mfa_phone" | "auth_mfa_web_authn" | "log_drain";
+    };
+    ProjectClaimTokenResponse: {
+      token_alias: string;
+      expires_at: string;
+      created_at: string;
+      /** Format: uuid */
+      created_by: string;
+    };
+    CreateProjectClaimTokenResponse: {
+      token: string;
+      token_alias: string;
+      expires_at: string;
+      created_at: string;
+      /** Format: uuid */
+      created_by: string;
+    };
+    V1ProjectAdvisorsResponse: {
+      lints: ({
+          /** @enum {string} */
+          name: "unindexed_foreign_keys" | "auth_users_exposed" | "auth_rls_initplan" | "no_primary_key" | "unused_index" | "multiple_permissive_policies" | "policy_exists_rls_disabled" | "rls_enabled_no_policy" | "duplicate_index" | "security_definer_view" | "function_search_path_mutable" | "rls_disabled_in_public" | "extension_in_public" | "rls_references_user_metadata" | "materialized_view_in_api" | "foreign_table_in_api" | "unsupported_reg_types" | "auth_otp_long_expiry" | "auth_otp_short_length" | "ssl_not_enforced" | "network_restrictions_not_set" | "password_requirements_min_length" | "pitr_not_enabled" | "auth_leaked_password_protection" | "auth_insufficient_mfa_options" | "auth_password_policy_missing" | "leaked_service_key" | "no_backup_admin" | "vulnerable_postgres_version";
+          title: string;
+          /** @enum {string} */
+          level: "ERROR" | "WARN" | "INFO";
+          /** @enum {string} */
+          facing: "EXTERNAL";
+          categories: ("PERFORMANCE" | "SECURITY")[];
+          description: string;
+          detail: string;
+          remediation: string;
+          metadata?: {
+            schema?: string;
+            name?: string;
+            entity?: string;
+            /** @enum {string} */
+            type?: "table" | "view" | "auth" | "function" | "extension" | "compliance";
+            fkey_name?: string;
+            fkey_columns?: number[];
+          };
+          cache_key: string;
+        })[];
+    };
+    AnalyticsResponse: {
+      result?: unknown[];
+      error?: OneOf<[string, {
+        code: number;
+        errors: {
+            domain: string;
+            location: string;
+            locationType: string;
+            message: string;
+            reason: string;
+          }[];
+        message: string;
+        status: string;
+      }]>;
+    };
+    V1GetUsageApiCountResponse: {
+      result?: {
+          /** Format: date-time */
+          timestamp: string;
+          total_auth_requests: number;
+          total_realtime_requests: number;
+          total_rest_requests: number;
+          total_storage_requests: number;
+        }[];
+      error?: OneOf<[string, {
+        code: number;
+        errors: {
+            domain: string;
+            location: string;
+            locationType: string;
+            message: string;
+            reason: string;
+          }[];
+        message: string;
+        status: string;
+      }]>;
+    };
+    V1GetUsageApiRequestsCountResponse: {
+      result?: {
+          count: number;
+        }[];
+      error?: OneOf<[string, {
+        code: number;
+        errors: {
+            domain: string;
+            location: string;
+            locationType: string;
+            message: string;
+            reason: string;
+          }[];
+        message: string;
+        status: string;
+      }]>;
+    };
+    CreateRoleBody: {
+      read_only: boolean;
+    };
+    CreateRoleResponse: {
+      role: string;
+      password: string;
+      /** Format: int64 */
+      ttl_seconds: number;
+    };
+    DeleteRolesResponse: {
+      /** @enum {string} */
+      message: "ok";
+    };
+    V1ListMigrationsResponse: {
+        version: string;
+        name?: string;
+      }[];
+    V1CreateMigrationBody: {
       query: string;
+      name?: string;
+      rollback?: string;
     };
-    CreateFunctionBody: {
-      slug: string;
-      name: string;
-      body: string;
-      verify_jwt?: boolean;
+    V1UpsertMigrationBody: {
+      query: string;
+      name?: string;
+      rollback?: string;
+    };
+    V1GetMigrationResponse: {
+      version: string;
+      name?: string;
+      statements?: string[];
+      rollback?: string[];
+      created_by?: string;
+      idempotency_key?: string;
+    };
+    V1PatchMigrationBody: {
+      name?: string;
+      rollback?: string;
+    };
+    V1RunQueryBody: {
+      query: string;
+      parameters?: unknown[];
+      read_only?: boolean;
+    };
+    V1ReadOnlyQueryBody: {
+      query: string;
+      parameters?: unknown[];
+    };
+    GetProjectDbMetadataResponse: {
+      databases: {
+          name: string;
+          schemas: {
+              name: string;
+              [key: string]: unknown;
+            }[];
+          [key: string]: unknown;
+        }[];
+    };
+    V1UpdatePasswordBody: {
+      password: string;
+    };
+    V1UpdatePasswordResponse: {
+      message: string;
+    };
+    AuthorizeJitAccessBody: {
+      role: string;
+      rhost: string;
+    };
+    JitAuthorizeAccessResponse: {
+      /** Format: uuid */
+      user_id: string;
+      user_role: {
+        role: string;
+        expires_at?: number;
+        allowed_networks?: {
+          allowed_cidrs?: {
+              cidr: string;
+            }[];
+          allowed_cidrs_v6?: {
+              cidr: string;
+            }[];
+        };
+      };
+    };
+    JitListAccessResponse: {
+      items: {
+          /** Format: uuid */
+          user_id: string;
+          user_roles: {
+              role: string;
+              expires_at?: number;
+              allowed_networks?: {
+                allowed_cidrs?: {
+                    cidr: string;
+                  }[];
+                allowed_cidrs_v6?: {
+                    cidr: string;
+                  }[];
+              };
+            }[];
+        }[];
+    };
+    UpdateJitAccessBody: {
+      /** Format: uuid */
+      user_id: string;
+      roles: {
+          role: string;
+          expires_at?: number;
+          allowed_networks?: {
+            allowed_cidrs?: {
+                cidr: string;
+              }[];
+            allowed_cidrs_v6?: {
+                cidr: string;
+              }[];
+          };
+        }[];
     };
     FunctionResponse: {
       id: string;
@@ -655,12 +2441,82 @@ export interface components {
       /** @enum {string} */
       status: "ACTIVE" | "REMOVED" | "THROTTLED";
       version: number;
+      /** Format: int64 */
       created_at: number;
+      /** Format: int64 */
       updated_at: number;
       verify_jwt?: boolean;
       import_map?: boolean;
       entrypoint_path?: string;
       import_map_path?: string;
+      ezbr_sha256?: string;
+    };
+    V1CreateFunctionBody: {
+      slug: string;
+      name: string;
+      body: string;
+      verify_jwt?: boolean;
+    };
+    BulkUpdateFunctionBody: ({
+        id: string;
+        slug: string;
+        name: string;
+        /** @enum {string} */
+        status: "ACTIVE" | "REMOVED" | "THROTTLED";
+        version: number;
+        /** Format: int64 */
+        created_at?: number;
+        verify_jwt?: boolean;
+        import_map?: boolean;
+        entrypoint_path?: string;
+        import_map_path?: string;
+        ezbr_sha256?: string;
+      })[];
+    BulkUpdateFunctionResponse: {
+      functions: ({
+          id: string;
+          slug: string;
+          name: string;
+          /** @enum {string} */
+          status: "ACTIVE" | "REMOVED" | "THROTTLED";
+          version: number;
+          /** Format: int64 */
+          created_at: number;
+          /** Format: int64 */
+          updated_at: number;
+          verify_jwt?: boolean;
+          import_map?: boolean;
+          entrypoint_path?: string;
+          import_map_path?: string;
+          ezbr_sha256?: string;
+        })[];
+    };
+    FunctionDeployBody: {
+      file?: string[];
+      metadata: {
+        entrypoint_path: string;
+        import_map_path?: string;
+        static_patterns?: string[];
+        verify_jwt?: boolean;
+        name?: string;
+      };
+    };
+    DeployFunctionResponse: {
+      id: string;
+      slug: string;
+      name: string;
+      /** @enum {string} */
+      status: "ACTIVE" | "REMOVED" | "THROTTLED";
+      version: number;
+      /** Format: int64 */
+      created_at?: number;
+      /** Format: int64 */
+      updated_at?: number;
+      verify_jwt?: boolean;
+      import_map?: boolean;
+      entrypoint_path?: string;
+      import_map_path?: string;
+      ezbr_sha256?: string;
     };
     FunctionSlugResponse: {
       id: string;
@@ -669,98 +2525,483 @@ export interface components {
       /** @enum {string} */
       status: "ACTIVE" | "REMOVED" | "THROTTLED";
       version: number;
+      /** Format: int64 */
       created_at: number;
+      /** Format: int64 */
       updated_at: number;
       verify_jwt?: boolean;
       import_map?: boolean;
       entrypoint_path?: string;
       import_map_path?: string;
+      ezbr_sha256?: string;
     };
-    UpdateFunctionBody: {
+    StreamableFile: Record<string, never>;
+    V1UpdateFunctionBody: {
       name?: string;
       body?: string;
       verify_jwt?: boolean;
     };
-    AttributeValue: {
-      default?: Record<string, never> | number | string | boolean;
-      name?: string;
-      names?: (string)[];
+    V1StorageBucketResponse: {
+      id: string;
+      name: string;
+      owner: string;
+      created_at: string;
+      updated_at: string;
+      public: boolean;
     };
-    AttributeMapping: {
-      keys: {
-        [key: string]: components["schemas"]["AttributeValue"] | undefined;
+    DiskUtilMetricsResponse: {
+      timestamp: string;
+      metrics: {
+        fs_size_bytes: number;
+        fs_avail_bytes: number;
+        fs_used_bytes: number;
       };
+    };
+    DiskRequestBody: {
+      attributes: {
+        iops: number;
+        size_gb: number;
+        throughput_mibps?: number;
+        /** @enum {string} */
+        type: "gp3";
+      } | {
+        iops: number;
+        size_gb: number;
+        /** @enum {string} */
+        type: "io2";
+      };
+    };
+    DiskAutoscaleConfig: {
+      /** @description Growth percentage for disk autoscaling */
+      growth_percent: number | null;
+      /** @description Minimum increment size for disk autoscaling in GB */
+      min_increment_gb: number | null;
+      /** @description Maximum limit the disk size will grow to in GB */
+      max_size_gb: number | null;
+    };
+    StorageConfigResponse: {
+      /** Format: int64 */
+      fileSizeLimit: number;
+      features: {
+        imageTransformation: {
+          enabled: boolean;
+        };
+        s3Protocol: {
+          enabled: boolean;
+        };
+        icebergCatalog: {
+          enabled: boolean;
+          maxNamespaces: number;
+          maxTables: number;
+          maxCatalogs: number;
+        };
+        vectorBuckets: {
+          enabled: boolean;
+          maxBuckets: number;
+          maxIndexes: number;
+        };
+      };
+      capabilities: {
+        list_v2: boolean;
+        iceberg_catalog: boolean;
+      };
+      external: {
+        /** @enum {string} */
+        upstreamTarget: "main" | "canary";
+      };
+      migrationVersion: string;
+      databasePoolMode: string;
+    };
+    UpdateStorageConfigBody: {
+      /** Format: int64 */
+      fileSizeLimit?: number;
+      features?: {
+        imageTransformation?: {
+          enabled: boolean;
+        };
+        s3Protocol?: {
+          enabled: boolean;
+        };
+        icebergCatalog?: {
+          enabled: boolean;
+          maxNamespaces: number;
+          maxTables: number;
+          maxCatalogs: number;
+        };
+        vectorBuckets?: {
+          enabled: boolean;
+          maxBuckets: number;
+          maxIndexes: number;
+        };
+      };
+      external?: {
+        /** @enum {string} */
+        upstreamTarget: "main" | "canary";
+      };
+    };
+    V1PgbouncerConfigResponse: {
+      default_pool_size?: number;
+      ignore_startup_parameters?: string;
+      max_client_conn?: number;
+      /** @enum {string} */
+      pool_mode?: "transaction" | "session" | "statement";
+      connection_string?: string;
+      server_idle_timeout?: number;
+      server_lifetime?: number;
+      query_wait_timeout?: number;
+      reserve_pool_size?: number;
+    };
+    SupavisorConfigResponse: {
+      identifier: string;
+      /** @enum {string} */
+      database_type: "PRIMARY" | "READ_REPLICA";
+      is_using_scram_auth: boolean;
+      db_user: string;
+      db_host: string;
+      db_port: number;
+      db_name: string;
+      connection_string: string;
+      /** @description Use connection_string instead */
+      connectionString: string;
+      default_pool_size: number | null;
+      max_client_conn: number | null;
+      /** @enum {string} */
+      pool_mode: "transaction" | "session";
+    };
+    UpdateSupavisorConfigBody: {
+      default_pool_size?: number | null;
+      /**
+       * @description Dedicated pooler mode for the project
+       * @enum {string}
+       */
+      pool_mode?: "transaction" | "session";
+    };
+    UpdateSupavisorConfigResponse: {
+      default_pool_size: number | null;
+      pool_mode: string;
+    };
+    PostgresConfigResponse: {
+      effective_cache_size?: string;
+      logical_decoding_work_mem?: string;
+      maintenance_work_mem?: string;
+      track_activity_query_size?: string;
+      max_connections?: number;
+      max_locks_per_transaction?: number;
+      max_parallel_maintenance_workers?: number;
+      max_parallel_workers?: number;
+      max_parallel_workers_per_gather?: number;
+      max_replication_slots?: number;
+      max_slot_wal_keep_size?: string;
+      max_standby_archive_delay?: string;
+      max_standby_streaming_delay?: string;
+      max_wal_size?: string;
+      max_wal_senders?: number;
+      max_worker_processes?: number;
+      /** @enum {string} */
+      session_replication_role?: "origin" | "replica" | "local";
+      shared_buffers?: string;
+      /** @description Default unit: ms */
+      statement_timeout?: string;
+      track_commit_timestamp?: boolean;
+      wal_keep_size?: string;
+      /** @description Default unit: ms */
+      wal_sender_timeout?: string;
+      work_mem?: string;
+      /** @description Default unit: s */
+      checkpoint_timeout?: string;
+      hot_standby_feedback?: boolean;
+    };
+    UpdatePostgresConfigBody: {
+      effective_cache_size?: string;
+      logical_decoding_work_mem?: string;
+      maintenance_work_mem?: string;
+      track_activity_query_size?: string;
+      max_connections?: number;
+      max_locks_per_transaction?: number;
+      max_parallel_maintenance_workers?: number;
+      max_parallel_workers?: number;
+      max_parallel_workers_per_gather?: number;
+      max_replication_slots?: number;
+      max_slot_wal_keep_size?: string;
+      max_standby_archive_delay?: string;
+      max_standby_streaming_delay?: string;
+      max_wal_size?: string;
+      max_wal_senders?: number;
+      max_worker_processes?: number;
+      /** @enum {string} */
+      session_replication_role?: "origin" | "replica" | "local";
+      shared_buffers?: string;
+      /** @description Default unit: ms */
+      statement_timeout?: string;
+      track_commit_timestamp?: boolean;
+      wal_keep_size?: string;
+      /** @description Default unit: ms */
+      wal_sender_timeout?: string;
+      work_mem?: string;
+      /** @description Default unit: s */
+      checkpoint_timeout?: string;
+      hot_standby_feedback?: boolean;
+      restart_database?: boolean;
+    };
+    RealtimeConfigResponse: {
+      /** @description Whether to only allow private channels */
+      private_only: boolean | null;
+      /** @description Sets connection pool size for Realtime Authorization */
+      connection_pool: number | null;
+      /** @description Sets maximum number of concurrent users rate limit */
+      max_concurrent_users: number | null;
+      /** @description Sets maximum number of events per second rate per channel limit */
+      max_events_per_second: number | null;
+      /** @description Sets maximum number of bytes per second rate per channel limit */
+      max_bytes_per_second: number | null;
+      /** @description Sets maximum number of channels per client rate limit */
+      max_channels_per_client: number | null;
+      /** @description Sets maximum number of joins per second rate limit */
+      max_joins_per_second: number | null;
+      /** @description Sets maximum number of presence events per second rate limit */
+      max_presence_events_per_second: number | null;
+      /** @description Sets maximum number of payload size in KB rate limit */
+      max_payload_size_in_kb: number | null;
+      /** @description Whether to suspend realtime */
+      suspend: boolean | null;
+    };
+    UpdateRealtimeConfigBody: {
+      /** @description Whether to only allow private channels */
+      private_only?: boolean;
+      /** @description Sets connection pool size for Realtime Authorization */
+      connection_pool?: number;
+      /** @description Sets maximum number of concurrent users rate limit */
+      max_concurrent_users?: number;
+      /** @description Sets maximum number of events per second rate per channel limit */
+      max_events_per_second?: number;
+      /** @description Sets maximum number of bytes per second rate per channel limit */
+      max_bytes_per_second?: number;
+      /** @description Sets maximum number of channels per client rate limit */
+      max_channels_per_client?: number;
+      /** @description Sets maximum number of joins per second rate limit */
+      max_joins_per_second?: number;
+      /** @description Sets maximum number of presence events per second rate limit */
+      max_presence_events_per_second?: number;
+      /** @description Sets maximum number of payload size in KB rate limit */
+      max_payload_size_in_kb?: number;
+      /** @description Whether to suspend realtime */
+      suspend?: boolean;
     };
     CreateProviderBody: {
       /**
-       * @description What type of provider will be created 
+       * @description What type of provider will be created
        * @enum {string}
        */
       type: "saml";
       metadata_xml?: string;
       metadata_url?: string;
-      domains?: (string)[];
-      attribute_mapping?: components["schemas"]["AttributeMapping"];
-    };
-    SamlDescriptor: {
-      id: string;
-      entity_id: string;
-      metadata_url?: string;
-      metadata_xml?: string;
-      attribute_mapping?: components["schemas"]["AttributeMapping"];
-    };
-    Domain: {
-      id: string;
-      domain?: string;
-      created_at?: string;
-      updated_at?: string;
+      domains?: string[];
+      attribute_mapping?: {
+        keys: {
+          [key: string]: {
+            name?: string;
+            names?: string[];
+            default?: Record<string, never> | number | string | boolean;
+            array?: boolean;
+          };
+        };
+      };
+      /** @enum {string} */
+      name_id_format?: "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified" | "urn:oasis:names:tc:SAML:2.0:nameid-format:transient" | "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress" | "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent";
     };
     CreateProviderResponse: {
       id: string;
-      saml?: components["schemas"]["SamlDescriptor"];
-      domains?: (components["schemas"]["Domain"])[];
-      created_at?: string;
-      updated_at?: string;
-    };
-    Provider: {
-      id: string;
-      saml?: components["schemas"]["SamlDescriptor"];
-      domains?: (components["schemas"]["Domain"])[];
+      saml?: {
+        id: string;
+        entity_id: string;
+        metadata_url?: string;
+        metadata_xml?: string;
+        attribute_mapping?: {
+          keys: {
+            [key: string]: {
+              name?: string;
+              names?: string[];
+              default?: Record<string, never> | number | string | boolean;
+              array?: boolean;
+            };
+          };
+        };
+        /** @enum {string} */
+        name_id_format?: "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified" | "urn:oasis:names:tc:SAML:2.0:nameid-format:transient" | "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress" | "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent";
+      };
+      domains?: {
+          id: string;
+          domain?: string;
+          created_at?: string;
+          updated_at?: string;
+        }[];
       created_at?: string;
       updated_at?: string;
     };
     ListProvidersResponse: {
-      items: (components["schemas"]["Provider"])[];
+      items: ({
+          id: string;
+          saml?: {
+            id: string;
+            entity_id: string;
+            metadata_url?: string;
+            metadata_xml?: string;
+            attribute_mapping?: {
+              keys: {
+                [key: string]: {
+                  name?: string;
+                  names?: string[];
+                  default?: Record<string, never> | number | string | boolean;
+                  array?: boolean;
+                };
+              };
+            };
+            /** @enum {string} */
+            name_id_format?: "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified" | "urn:oasis:names:tc:SAML:2.0:nameid-format:transient" | "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress" | "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent";
+          };
+          domains?: {
+              id: string;
+              domain?: string;
+              created_at?: string;
+              updated_at?: string;
+            }[];
+          created_at?: string;
+          updated_at?: string;
+        })[];
     };
     GetProviderResponse: {
       id: string;
-      saml?: components["schemas"]["SamlDescriptor"];
-      domains?: (components["schemas"]["Domain"])[];
+      saml?: {
+        id: string;
+        entity_id: string;
+        metadata_url?: string;
+        metadata_xml?: string;
+        attribute_mapping?: {
+          keys: {
+            [key: string]: {
+              name?: string;
+              names?: string[];
+              default?: Record<string, never> | number | string | boolean;
+              array?: boolean;
+            };
+          };
+        };
+        /** @enum {string} */
+        name_id_format?: "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified" | "urn:oasis:names:tc:SAML:2.0:nameid-format:transient" | "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress" | "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent";
+      };
+      domains?: {
+          id: string;
+          domain?: string;
+          created_at?: string;
+          updated_at?: string;
+        }[];
       created_at?: string;
       updated_at?: string;
     };
     UpdateProviderBody: {
       metadata_xml?: string;
       metadata_url?: string;
-      domains?: (string)[];
-      attribute_mapping?: components["schemas"]["AttributeMapping"];
+      domains?: string[];
+      attribute_mapping?: {
+        keys: {
+          [key: string]: {
+            name?: string;
+            names?: string[];
+            default?: Record<string, never> | number | string | boolean;
+            array?: boolean;
+          };
+        };
+      };
+      /** @enum {string} */
+      name_id_format?: "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified" | "urn:oasis:names:tc:SAML:2.0:nameid-format:transient" | "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress" | "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent";
     };
     UpdateProviderResponse: {
       id: string;
-      saml?: components["schemas"]["SamlDescriptor"];
-      domains?: (components["schemas"]["Domain"])[];
+      saml?: {
+        id: string;
+        entity_id: string;
+        metadata_url?: string;
+        metadata_xml?: string;
+        attribute_mapping?: {
+          keys: {
+            [key: string]: {
+              name?: string;
+              names?: string[];
+              default?: Record<string, never> | number | string | boolean;
+              array?: boolean;
+            };
+          };
+        };
+        /** @enum {string} */
+        name_id_format?: "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified" | "urn:oasis:names:tc:SAML:2.0:nameid-format:transient" | "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress" | "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent";
+      };
+      domains?: {
+          id: string;
+          domain?: string;
+          created_at?: string;
+          updated_at?: string;
+        }[];
       created_at?: string;
       updated_at?: string;
     };
     DeleteProviderResponse: {
       id: string;
-      saml?: components["schemas"]["SamlDescriptor"];
-      domains?: (components["schemas"]["Domain"])[];
+      saml?: {
+        id: string;
+        entity_id: string;
+        metadata_url?: string;
+        metadata_xml?: string;
+        attribute_mapping?: {
+          keys: {
+            [key: string]: {
+              name?: string;
+              names?: string[];
+              default?: Record<string, never> | number | string | boolean;
+              array?: boolean;
+            };
+          };
+        };
+        /** @enum {string} */
+        name_id_format?: "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified" | "urn:oasis:names:tc:SAML:2.0:nameid-format:transient" | "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress" | "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent";
+      };
+      domains?: {
+          id: string;
+          domain?: string;
+          created_at?: string;
+          updated_at?: string;
+        }[];
       created_at?: string;
       updated_at?: string;
     };
+    V1BackupsResponse: {
+      region: string;
+      walg_enabled: boolean;
+      pitr_enabled: boolean;
+      backups: ({
+          is_physical_backup: boolean;
+          /** @enum {string} */
+          status: "COMPLETED" | "FAILED" | "PENDING" | "REMOVED" | "ARCHIVED" | "CANCELLED";
+          inserted_at: string;
+        })[];
+      physical_backup_data: {
+        earliest_physical_backup_date_unix?: number;
+        latest_physical_backup_date_unix?: number;
+      };
+    };
     V1RestorePitrBody: {
+      /** Format: int64 */
       recovery_time_target_unix: number;
+    };
+    V1RestorePointPostBody: {
+      name: string;
+    };
+    V1RestorePointResponse: {
+      name: string;
+      /** @enum {string} */
+      status: "AVAILABLE" | "PENDING" | "REMOVED" | "FAILED";
+    };
+    V1UndoBody: {
+      name: string;
     };
     V1OrganizationMemberResponse: {
       user_id: string;
@@ -768,6 +3009,83 @@ export interface components {
       email?: string;
       role_name: string;
       mfa_enabled: boolean;
+    };
+    V1OrganizationSlugResponse: {
+      id: string;
+      name: string;
+      /** @enum {string} */
+      plan?: "free" | "pro" | "team" | "enterprise" | "platform";
+      opt_in_tags: ("AI_SQL_GENERATOR_OPT_IN" | "AI_DATA_GENERATOR_OPT_IN" | "AI_LOG_GENERATOR_OPT_IN")[];
+      allowed_release_channels: ("internal" | "alpha" | "beta" | "ga" | "withdrawn" | "preview")[];
+    };
+    OrganizationProjectClaimResponse: {
+      project: {
+        ref: string;
+        name: string;
+      };
+      preview: {
+        valid: boolean;
+        warnings: {
+            key: string;
+            message: string;
+          }[];
+        errors: {
+            key: string;
+            message: string;
+          }[];
+        info: {
+            key: string;
+            message: string;
+          }[];
+        members_exceeding_free_project_limit: {
+            name: string;
+            limit: number;
+          }[];
+        /** @enum {string} */
+        source_subscription_plan: "free" | "pro" | "team" | "enterprise" | "platform";
+        /** @enum {string|null} */
+        target_subscription_plan: "free" | "pro" | "team" | "enterprise" | "platform" | null;
+      };
+      expires_at: string;
+      created_at: string;
+      /** Format: uuid */
+      created_by: string;
+    };
+    OrganizationProjectsResponse: {
+      projects: ({
+          ref: string;
+          name: string;
+          cloud_provider: string;
+          region: string;
+          is_branch: boolean;
+          /** @enum {string} */
+          status: "INACTIVE" | "ACTIVE_HEALTHY" | "ACTIVE_UNHEALTHY" | "COMING_UP" | "UNKNOWN" | "GOING_DOWN" | "INIT_FAILED" | "REMOVED" | "RESTORING" | "UPGRADING" | "PAUSING" | "RESTORE_FAILED" | "RESTARTING" | "PAUSE_FAILED" | "RESIZING";
+          inserted_at: string;
+          databases: ({
+              /** @enum {string} */
+              infra_compute_size?: "pico" | "nano" | "micro" | "small" | "medium" | "large" | "xlarge" | "2xlarge" | "4xlarge" | "8xlarge" | "12xlarge" | "16xlarge" | "24xlarge" | "24xlarge_optimized_memory" | "24xlarge_optimized_cpu" | "24xlarge_high_memory" | "48xlarge" | "48xlarge_optimized_memory" | "48xlarge_optimized_cpu" | "48xlarge_high_memory";
+              region: string;
+              /** @enum {string} */
+              status: "ACTIVE_HEALTHY" | "ACTIVE_UNHEALTHY" | "COMING_UP" | "GOING_DOWN" | "INIT_FAILED" | "REMOVED" | "RESTORING" | "UNKNOWN" | "INIT_READ_REPLICA" | "INIT_READ_REPLICA_FAILED" | "RESTARTING" | "RESIZING";
+              cloud_provider: string;
+              identifier: string;
+              /** @enum {string} */
+              type: "PRIMARY" | "READ_REPLICA";
+              disk_volume_size_gb?: number;
+              /** @enum {string} */
+              disk_type?: "gp3" | "io2";
+              disk_throughput_mbps?: number;
+              disk_last_modified_at?: string;
+            })[];
+        })[];
+      pagination: {
+        /** @description Total number of projects. Use this to calculate the total number of pages. */
+        count: number;
+        /** @description Maximum number of projects per page */
+        limit: number;
+        /** @description Number of projects skipped in this response */
+        offset: number;
+      };
     };
   };
   responses: never;
@@ -777,19 +3095,21 @@ export interface components {
   pathItems: never;
 }
 
+export type $defs = Record<string, never>;
+
 export type external = Record<string, never>;
 
 export interface operations {
 
   /**
-   * Get database branch config 
+   * Get database branch config
    * @description Fetches configurations of the specified database branch
    */
-  getBranchDetails: {
+  "v1-get-a-branch-config": {
     parameters: {
       path: {
         /** @description Branch ID */
-        branch_id: string;
+        branch_id_or_ref: string;
       };
     };
     responses: {
@@ -799,35 +3119,47 @@ export interface operations {
         };
       };
       /** @description Failed to retrieve database branch */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /**
-   * Delete a database branch 
-   * @description Deletes the specified database branch
+   * Delete a database branch
+   * @description Deletes the specified database branch. By default, deletes immediately. Use force=false to schedule deletion with 1-hour grace period (only when soft deletion is enabled).
    */
-  deleteBranch: {
+  "v1-delete-a-branch": {
     parameters: {
+      query?: {
+        /** @description If set to false, schedule deletion with 1-hour grace period (only when soft deletion is enabled). */
+        force?: boolean;
+      };
       path: {
         /** @description Branch ID */
-        branch_id: string;
+        branch_id_or_ref: string;
       };
     };
     responses: {
-      200: never;
+      200: {
+        content: {
+          "application/json": components["schemas"]["BranchDeleteResponse"];
+        };
+      };
       /** @description Failed to delete database branch */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /**
-   * Update database branch config 
+   * Update database branch config
    * @description Updates the configuration of the specified database branch
    */
-  updateBranch: {
+  "v1-update-a-branch-config": {
     parameters: {
       path: {
         /** @description Branch ID */
-        branch_id: string;
+        branch_id_or_ref: string;
       };
     };
     requestBody: {
@@ -842,62 +3174,216 @@ export interface operations {
         };
       };
       /** @description Failed to update database branch */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /**
-   * List all projects 
-   * @description Returns a list of all projects you've previously created.
+   * Pushes a database branch
+   * @description Pushes the specified database branch
    */
-  getProjects: {
+  "v1-push-a-branch": {
+    parameters: {
+      path: {
+        /** @description Branch ID */
+        branch_id_or_ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["BranchActionBody"];
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["BranchUpdateResponse"];
+        };
+      };
+      /** @description Failed to push database branch */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Merges a database branch
+   * @description Merges the specified database branch
+   */
+  "v1-merge-a-branch": {
+    parameters: {
+      path: {
+        /** @description Branch ID */
+        branch_id_or_ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["BranchActionBody"];
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["BranchUpdateResponse"];
+        };
+      };
+      /** @description Failed to merge database branch */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Resets a database branch
+   * @description Resets the specified database branch
+   */
+  "v1-reset-a-branch": {
+    parameters: {
+      path: {
+        /** @description Branch ID */
+        branch_id_or_ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["BranchActionBody"];
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["BranchUpdateResponse"];
+        };
+      };
+      /** @description Failed to reset database branch */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Restore a scheduled branch deletion
+   * @description Cancels scheduled deletion and restores the branch to active state
+   */
+  "v1-restore-a-branch": {
+    parameters: {
+      path: {
+        /** @description Branch ID */
+        branch_id_or_ref: string;
+      };
+    };
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["ProjectResponse"])[];
+          "application/json": components["schemas"]["BranchRestoreResponse"];
+        };
+      };
+      /** @description Failed to restore database branch */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * [Beta] Diffs a database branch
+   * @description Diffs the specified database branch
+   */
+  "v1-diff-a-branch": {
+    parameters: {
+      query?: {
+        included_schemas?: string;
+      };
+      path: {
+        /** @description Branch ID */
+        branch_id_or_ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** @description Failed to diff database branch */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * List all projects
+   * @description Returns a list of all projects you've previously created.
+   *
+   * Use `/v1/organizations/{slug}/projects` instead when possible to get more precise results and pagination support.
+   */
+  "v1-list-all-projects": {
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["V1ProjectWithDatabaseResponse"][];
         };
       };
     };
   };
   /** Create a project */
-  createProject: {
+  "v1-create-a-project": {
     requestBody: {
       content: {
-        "application/json": components["schemas"]["CreateProjectBody"];
+        "application/json": components["schemas"]["V1CreateProjectBody"];
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["V1ProjectResponse"];
+        };
+      };
+    };
+  };
+  /** [Beta] Gets the list of available regions that can be used for a new project */
+  "v1-get-available-regions": {
+    parameters: {
+      query: {
+        /** @description Slug of your organization */
+        organization_slug: string;
+        /** @description Continent code to determine regional recommendations: NA (North America), SA (South America), EU (Europe), AF (Africa), AS (Asia), OC (Oceania), AN (Antarctica) */
+        continent?: "NA" | "SA" | "EU" | "AF" | "AS" | "OC" | "AN";
+        /** @description Desired instance size */
+        desired_instance_size?: "pico" | "nano" | "micro" | "small" | "medium" | "large" | "xlarge" | "2xlarge" | "4xlarge" | "8xlarge" | "12xlarge" | "16xlarge" | "24xlarge" | "24xlarge_optimized_memory" | "24xlarge_optimized_cpu" | "24xlarge_high_memory" | "48xlarge" | "48xlarge_optimized_memory" | "48xlarge_optimized_cpu" | "48xlarge_high_memory";
       };
     };
     responses: {
       200: {
         content: {
-          "application/json": components["schemas"]["ProjectResponse"];
-        };
-      };
-      201: {
-        content: {
-          "application/json": components["schemas"]["ProjectResponse"];
+          "application/json": components["schemas"]["RegionsInfo"];
         };
       };
     };
   };
   /**
-   * List all organizations 
+   * List all organizations
    * @description Returns a list of organizations that you currently belong to.
    */
-  getOrganizations: {
+  "v1-list-all-organizations": {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["OrganizationResponseV1"])[];
+          "application/json": components["schemas"]["OrganizationResponseV1"][];
         };
       };
       /** @description Unexpected error listing organizations */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /** Create an organization */
-  createOrganization: {
+  "v1-create-an-organization": {
     requestBody: {
       content: {
-        "application/json": components["schemas"]["CreateOrganizationBodyV1"];
+        "application/json": components["schemas"]["CreateOrganizationV1"];
       };
     };
     responses: {
@@ -907,11 +3393,13 @@ export interface operations {
         };
       };
       /** @description Unexpected error creating an organization */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Authorize user through oauth */
-  authorize: {
+  /** [Beta] Authorize user through oauth */
+  "v1-authorize-user": {
     parameters: {
       query: {
         client_id: string;
@@ -922,14 +3410,20 @@ export interface operations {
         response_mode?: string;
         code_challenge?: string;
         code_challenge_method?: "plain" | "sha256" | "S256";
+        /** @description Organization slug */
+        organization_slug?: string;
+        /** @description Resource indicator for MCP (Model Context Protocol) clients */
+        resource?: string;
       };
     };
     responses: {
-      303: never;
+      204: {
+        content: never;
+      };
     };
   };
-  /** Exchange auth code for user's access and refresh token */
-  token: {
+  /** [Beta] Exchange auth code for user's access and refresh token */
+  "v1-exchange-oauth-token": {
     requestBody: {
       content: {
         "application/x-www-form-urlencoded": components["schemas"]["OAuthTokenBody"];
@@ -943,11 +3437,53 @@ export interface operations {
       };
     };
   };
+  /** [Beta] Revoke oauth app authorization and it's corresponding tokens */
+  "v1-revoke-token": {
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["OAuthRevokeTokenBody"];
+      };
+    };
+    responses: {
+      204: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Authorize user through oauth and claim a project
+   * @description Initiates the OAuth authorization flow for the specified provider. After successful authentication, the user can claim ownership of the specified project.
+   */
+  "v1-oauth-authorize-project-claim": {
+    parameters: {
+      query: {
+        /** @description Project ref */
+        project_ref: string;
+        client_id: string;
+        response_type: "code" | "token" | "id_token token";
+        redirect_uri: string;
+        state?: string;
+        response_mode?: string;
+        code_challenge?: string;
+        code_challenge_method?: "plain" | "sha256" | "S256";
+      };
+    };
+    responses: {
+      204: {
+        content: never;
+      };
+    };
+  };
   /** Lists SQL snippets for the logged in user */
-  listSnippets: {
+  "v1-list-all-snippets": {
     parameters: {
       query?: {
+        /** @description Project ref */
         project_ref?: string;
+        cursor?: string;
+        limit?: string;
+        sort_by?: "name" | "inserted_at";
+        sort_order?: "asc" | "desc";
       };
     };
     responses: {
@@ -957,11 +3493,13 @@ export interface operations {
         };
       };
       /** @description Failed to list user's SQL snippets */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /** Gets a specific SQL snippet */
-  getSnippet: {
+  "v1-get-a-snippet": {
     parameters: {
       path: {
         id: string;
@@ -974,10 +3512,274 @@ export interface operations {
         };
       };
       /** @description Failed to retrieve SQL snippet */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  getProjectApiKeys: {
+  /**
+   * List all action runs
+   * @description Returns a paginated list of action runs of the specified project.
+   */
+  "v1-list-action-runs": {
+    parameters: {
+      query?: {
+        offset?: number;
+        limit?: number;
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["ListActionRunResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to list action runs */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Count the number of action runs
+   * @description Returns the total number of action runs of the specified project.
+   */
+  "v1-count-action-runs": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          /** @description total count value */
+          "X-Total-Count"?: number;
+        };
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to count action runs */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Get the status of an action run
+   * @description Returns the current status of the specified action run.
+   */
+  "v1-get-action-run": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+        /** @description Action Run ID */
+        run_id: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["ActionRunResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to get action run status */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Update the status of an action run
+   * @description Updates the status of an ongoing action run.
+   */
+  "v1-update-action-run-status": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+        /** @description Action Run ID */
+        run_id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateRunStatusBody"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["UpdateRunStatusResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to update action run status */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Get the logs of an action run
+   * @description Returns the logs from the specified action run.
+   */
+  "v1-get-action-run-logs": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+        /** @description Action Run ID */
+        run_id: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "text/plain": string;
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to get action run logs */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** Get project api keys */
+  "v1-get-project-api-keys": {
+    parameters: {
+      query?: {
+        /** @description Boolean string, true or false */
+        reveal?: boolean;
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["ApiKeyResponse"][];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Creates a new API key for the project */
+  "v1-create-project-api-key": {
+    parameters: {
+      query?: {
+        /** @description Boolean string, true or false */
+        reveal?: boolean;
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateApiKeyBody"];
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["ApiKeyResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Check whether JWT based legacy (anon, service_role) API keys are enabled. This API endpoint will be removed in the future, check for HTTP 404 Not Found. */
+  "v1-get-project-legacy-api-keys": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -987,17 +3789,167 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["ApiKeyResponse"])[];
+          "application/json": components["schemas"]["LegacyApiKeysResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Disable or re-enable JWT based legacy (anon, service_role) API keys. This API endpoint will be removed in the future, check for HTTP 404 Not Found. */
+  "v1-update-project-legacy-api-keys": {
+    parameters: {
+      query: {
+        /** @description Boolean string, true or false */
+        enabled: boolean;
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["LegacyApiKeysResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Get API key */
+  "v1-get-project-api-key": {
+    parameters: {
+      query?: {
+        /** @description Boolean string, true or false */
+        reveal?: boolean;
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
+        id: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["ApiKeyResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Deletes an API key for the project */
+  "v1-delete-project-api-key": {
+    parameters: {
+      query?: {
+        /** @description Boolean string, true or false */
+        reveal?: boolean;
+        /** @description Boolean string, true or false */
+        was_compromised?: boolean;
+        reason?: string;
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
+        id: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["ApiKeyResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Updates an API key for the project */
+  "v1-update-project-api-key": {
+    parameters: {
+      query?: {
+        /** @description Boolean string, true or false */
+        reveal?: boolean;
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
+        id: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateApiKeyBody"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["ApiKeyResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
     };
   };
   /**
-   * List all database branches 
+   * List all database branches
    * @description Returns all database branches of the specified project.
    */
-  getBranches: {
+  "v1-list-all-branches": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1007,18 +3959,32 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["BranchResponse"])[];
+          "application/json": components["schemas"]["BranchResponse"][];
         };
       };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to retrieve database branches */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /**
-   * Create a database branch 
+   * Create a database branch
    * @description Creates a database branch from the specified project.
    */
-  createBranch: {
+  "v1-create-a-branch": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1036,15 +4002,29 @@ export interface operations {
           "application/json": components["schemas"]["BranchResponse"];
         };
       };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to create database branch */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /**
-   * Disables preview branching 
+   * Disables preview branching
    * @description Disables preview branching for the specified project
    */
-  disableBranch: {
+  "v1-disable-preview-branching": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1052,13 +4032,65 @@ export interface operations {
       };
     };
     responses: {
-      200: never;
+      200: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to disable preview branching */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Gets project's custom hostname config */
-  getCustomHostnameConfig: {
+  /**
+   * Get a database branch
+   * @description Fetches the specified database branch by its name.
+   */
+  "v1-get-a-branch": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+        name: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["BranchResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to fetch database branch */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** [Beta] Gets project's custom hostname config */
+  "v1-get-hostname-config": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1071,13 +4103,26 @@ export interface operations {
           "application/json": components["schemas"]["UpdateCustomHostnameResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to retrieve project's custom hostname config */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Deletes a project's custom hostname configuration */
-  removeCustomHostnameConfig: {
+  /** [Beta] Deletes a project's custom hostname configuration */
+  "v1-Delete hostname config": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1085,14 +4130,29 @@ export interface operations {
       };
     };
     responses: {
-      200: never;
-      403: never;
+      200: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to delete project custom hostname configuration */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Updates project's custom hostname configuration */
-  createCustomHostnameConfig: {
+  /** [Beta] Updates project's custom hostname configuration */
+  "v1-update-hostname-config": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1110,13 +4170,26 @@ export interface operations {
           "application/json": components["schemas"]["UpdateCustomHostnameResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to update project custom hostname configuration */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Attempts to verify the DNS configuration for project's custom hostname configuration */
-  reverify: {
+  /** [Beta] Attempts to verify the DNS configuration for project's custom hostname configuration */
+  "v1-verify-dns-config": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1129,13 +4202,26 @@ export interface operations {
           "application/json": components["schemas"]["UpdateCustomHostnameResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to verify project custom hostname configuration */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Activates a custom hostname for a project. */
-  activate: {
+  /** [Beta] Activates a custom hostname for a project. */
+  "v1-activate-custom-hostname": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1148,13 +4234,95 @@ export interface operations {
           "application/json": components["schemas"]["UpdateCustomHostnameResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to activate project custom hostname configuration */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Gets project's network bans */
-  getNetworkBans: {
+  /** [Beta] Get project's just-in-time access configuration. */
+  "v1-get-jit-access-config": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["JitAccessResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to retrieve project's JIT access config */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** [Beta] Update project's just-in-time access configuration. */
+  "v1-update-jit-access-config": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["JitAccessRequestRequest"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["JitAccessResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to update project's just-in-time access configuration. */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** [Beta] Gets project's network bans */
+  "v1-list-all-network-bans": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1167,13 +4335,58 @@ export interface operations {
           "application/json": components["schemas"]["NetworkBanResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to retrieve project's network bans */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Remove network bans. */
-  removeNetworkBan: {
+  /** [Beta] Gets project's network bans with additional information about which databases they affect */
+  "v1-list-all-network-bans-enriched": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["NetworkBanResponseEnriched"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to retrieve project's enriched network bans */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** [Beta] Remove network bans. */
+  "v1-delete-network-bans": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1186,14 +4399,29 @@ export interface operations {
       };
     };
     responses: {
-      200: never;
-      403: never;
+      200: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to remove network bans. */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Gets project's network restrictions */
-  getNetworkRestrictions: {
+  /** [Beta] Gets project's network restrictions */
+  "v1-get-network-restrictions": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1206,13 +4434,63 @@ export interface operations {
           "application/json": components["schemas"]["NetworkRestrictionsResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to retrieve project's network restrictions */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Updates project's network restrictions */
-  applyNetworkRestrictions: {
+  /** [Alpha] Updates project's network restrictions by adding or removing CIDRs */
+  "v1-patch-network-restrictions": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["NetworkRestrictionsPatchRequest"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["NetworkRestrictionsV2Response"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to update project network restrictions */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** [Beta] Updates project's network restrictions */
+  "v1-update-network-restrictions": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1230,13 +4508,26 @@ export interface operations {
           "application/json": components["schemas"]["NetworkRestrictionsResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to update project network restrictions */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Gets project's pgsodium config */
-  getPgsodiumConfig: {
+  /** [Beta] Gets project's pgsodium config */
+  "v1-get-pgsodium-config": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1249,13 +4540,26 @@ export interface operations {
           "application/json": components["schemas"]["PgsodiumConfigResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to retrieve project's pgsodium config */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Updates project's pgsodium config. Updating the root_key can cause all data encrypted with the older key to become inaccessible. */
-  updatePgsodiumConfig: {
+  /** [Beta] Updates project's pgsodium config. Updating the root_key can cause all data encrypted with the older key to become inaccessible. */
+  "v1-update-pgsodium-config": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1273,13 +4577,26 @@ export interface operations {
           "application/json": components["schemas"]["PgsodiumConfigResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to update project's pgsodium config */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /** Gets project's postgrest config */
-  getPostgRESTConfig: {
+  "v1-get-postgrest-service-config": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1292,13 +4609,26 @@ export interface operations {
           "application/json": components["schemas"]["PostgrestConfigWithJWTSecretResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to retrieve project's postgrest config */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /** Updates project's postgrest config */
-  updatePostgRESTConfig: {
+  "v1-update-postgrest-service-config": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1307,22 +4637,67 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["UpdatePostgrestConfigBody"];
+        "application/json": components["schemas"]["V1UpdatePostgrestConfigBody"];
       };
     };
     responses: {
       200: {
         content: {
-          "application/json": components["schemas"]["PostgrestConfigResponse"];
+          "application/json": components["schemas"]["V1PostgrestConfigResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to update project's postgrest config */
-      500: never;
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** Gets a specific project that belongs to the authenticated user */
+  "v1-get-project": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["V1ProjectWithDatabaseResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to retrieve project */
+      500: {
+        content: never;
+      };
     };
   };
   /** Deletes the given project */
-  deleteProject: {
+  "v1-delete-a-project": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1332,17 +4707,65 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": components["schemas"]["ProjectRefResponse"];
+          "application/json": components["schemas"]["V1ProjectRefResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Updates the given project */
+  "v1-update-a-project": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["V1UpdateProjectBody"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["V1ProjectRefResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to update project */
+      500: {
+        content: never;
+      };
     };
   };
   /**
-   * List all secrets 
+   * List all secrets
    * @description Returns all secrets you've previously added to the specified project.
    */
-  getSecrets: {
+  "v1-list-all-secrets": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1352,19 +4775,32 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["SecretResponse"])[];
+          "application/json": components["schemas"]["SecretResponse"][];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to retrieve project's secrets */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /**
-   * Bulk create secrets 
+   * Bulk create secrets
    * @description Creates multiple secrets and adds them to the specified project.
    */
-  createSecrets: {
+  "v1-bulk-create-secrets": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1373,21 +4809,36 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (components["schemas"]["CreateSecretBody"])[];
+        "application/json": components["schemas"]["CreateSecretBody"];
       };
     };
     responses: {
-      201: never;
-      403: never;
+      201: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to create project's secrets */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /**
-   * Bulk delete secrets 
+   * Bulk delete secrets
    * @description Deletes all secrets with the given names from the specified project
    */
-  deleteSecrets: {
+  "v1-bulk-delete-secrets": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1396,22 +4847,33 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": (string)[];
+        "application/json": components["schemas"]["DeleteSecretsBody"];
       };
     };
     responses: {
       200: {
-        content: {
-          "application/json": Record<string, never>;
-        };
+        content: never;
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to delete secrets with given names */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Get project's SSL enforcement configuration. */
-  getSslEnforcementConfig: {
+  /** [Beta] Get project's SSL enforcement configuration. */
+  "v1-get-ssl-enforcement-config": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1424,13 +4886,26 @@ export interface operations {
           "application/json": components["schemas"]["SslEnforcementResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to retrieve project's SSL enforcement config */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Update project's SSL enforcement configuration. */
-  updateSslEnforcementConfig: {
+  /** [Beta] Update project's SSL enforcement configuration. */
+  "v1-update-ssl-enforcement-config": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1448,16 +4923,29 @@ export interface operations {
           "application/json": components["schemas"]["SslEnforcementResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to update project's SSL enforcement configuration. */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /**
-   * Generate TypeScript types 
+   * Generate TypeScript types
    * @description Returns the TypeScript types of your schema for use with supabase-js.
    */
-  getTypescriptTypes: {
+  "v1-generate-typescript-types": {
     parameters: {
       query?: {
         included_schemas?: string;
@@ -1473,13 +4961,26 @@ export interface operations {
           "application/json": components["schemas"]["TypescriptResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to generate TypeScript types */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Gets current vanity subdomain config */
-  getVanitySubdomainConfig: {
+  /** [Beta] Gets current vanity subdomain config */
+  "v1-get-vanity-subdomain-config": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1492,13 +4993,26 @@ export interface operations {
           "application/json": components["schemas"]["VanitySubdomainConfigResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to get project vanity subdomain configuration */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Deletes a project's vanity subdomain configuration */
-  removeVanitySubdomainConfig: {
+  /** [Beta] Deletes a project's vanity subdomain configuration */
+  "v1-deactivate-vanity-subdomain-config": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1506,14 +5020,29 @@ export interface operations {
       };
     };
     responses: {
-      200: never;
-      403: never;
+      200: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to delete project vanity subdomain configuration */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Checks vanity subdomain availability */
-  checkVanitySubdomainAvailability: {
+  /** [Beta] Checks vanity subdomain availability */
+  "v1-check-vanity-subdomain-availability": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1531,13 +5060,26 @@ export interface operations {
           "application/json": components["schemas"]["SubdomainAvailabilityResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to check project vanity subdomain configuration */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Activates a vanity subdomain for a project. */
-  activateVanitySubdomainPlease: {
+  /** [Beta] Activates a vanity subdomain for a project. */
+  "v1-activate-vanity-subdomain-config": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1555,13 +5097,26 @@ export interface operations {
           "application/json": components["schemas"]["ActivateVanitySubdomainResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to activate project vanity subdomain configuration */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Upgrades the project's Postgres version */
-  upgradeProject: {
+  /** [Beta] Upgrades the project's Postgres version */
+  "v1-upgrade-postgres-version": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1579,13 +5134,26 @@ export interface operations {
           "application/json": components["schemas"]["ProjectUpgradeInitiateResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to initiate project upgrade */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Returns the project's eligibility for upgrades */
-  upgradeEligibilityInformation: {
+  /** [Beta] Returns the project's eligibility for upgrades */
+  "v1-get-postgres-upgrade-eligibility": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1598,14 +5166,30 @@ export interface operations {
           "application/json": components["schemas"]["ProjectUpgradeEligibilityResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to determine project upgrade eligibility */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Gets the latest status of the project's upgrade */
-  getUpgradeStatus: {
+  /** [Beta] Gets the latest status of the project's upgrade */
+  "v1-get-postgres-upgrade-status": {
     parameters: {
+      query?: {
+        tracking_id?: string;
+      };
       path: {
         /** @description Project ref */
         ref: string;
@@ -1617,13 +5201,26 @@ export interface operations {
           "application/json": components["schemas"]["DatabaseUpgradeStatusResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to retrieve project upgrade status */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /** Returns project's readonly mode status */
-  getReadOnlyModeStatus: {
+  "v1-get-readonly-mode-status": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1636,12 +5233,26 @@ export interface operations {
           "application/json": components["schemas"]["ReadOnlyStatusResponse"];
         };
       };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to get project readonly mode status */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /** Disables project's readonly mode for the next 15 minutes */
-  temporarilyDisableReadonlyMode: {
+  "v1-disable-readonly-mode-temporarily": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1649,53 +5260,29 @@ export interface operations {
       };
     };
     responses: {
-      201: never;
+      201: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to disable project's readonly mode */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Gets project's service health status */
-  checkServiceHealth: {
-    parameters: {
-      query: {
-        timeout_ms?: number;
-        services: ("auth" | "db" | "realtime" | "rest" | "storage")[];
-      };
-      path: {
-        /** @description Project ref */
-        ref: string;
-      };
-    };
-    responses: {
-      200: {
-        content: {
-          "application/json": (components["schemas"]["ServiceHealthResponse"])[];
-        };
-      };
-      /** @description Failed to retrieve project's service health status */
-      500: never;
-    };
-  };
-  /** Gets project's Postgres config */
-  getConfig: {
-    parameters: {
-      path: {
-        /** @description Project ref */
-        ref: string;
-      };
-    };
-    responses: {
-      200: {
-        content: {
-          "application/json": components["schemas"]["PostgresConfigResponse"];
-        };
-      };
-      /** @description Failed to retrieve project's Postgres config */
-      500: never;
-    };
-  };
-  /** Updates project's Postgres config */
-  updateConfig: {
+  /** [Beta] Set up a read replica */
+  "v1-setup-a-read-replica": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1704,21 +5291,104 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["UpdatePostgresConfigBody"];
+        "application/json": components["schemas"]["SetUpReadReplicaBody"];
+      };
+    };
+    responses: {
+      201: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to set up read replica */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** [Beta] Remove a read replica */
+  "v1-remove-a-read-replica": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["RemoveReadReplicaBody"];
+      };
+    };
+    responses: {
+      201: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to remove read replica */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** Gets project's service health status */
+  "v1-get-services-health": {
+    parameters: {
+      query: {
+        services: ("auth" | "db" | "db_postgres_user" | "pooler" | "realtime" | "rest" | "storage" | "pg_bouncer")[];
+        timeout_ms?: number;
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
       };
     };
     responses: {
       200: {
         content: {
-          "application/json": components["schemas"]["PostgresConfigResponse"];
+          "application/json": components["schemas"]["V1ServiceHealthResponse"][];
         };
       };
-      /** @description Failed to update project's Postgres config */
-      500: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to retrieve project's service health status */
+      500: {
+        content: never;
+      };
     };
   };
-  /** Get project's pgbouncer config */
-  v1GetPgbouncerConfig: {
+  /** Get the signing key information for the JWT secret imported as signing key for this project. This endpoint will be removed in the future, check for HTTP 404 Not Found. */
+  "v1-get-legacy-signing-key": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1728,15 +5398,206 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": components["schemas"]["V1PgbouncerConfigResponse"];
+          "application/json": components["schemas"]["SigningKeyResponse"];
         };
       };
-      /** @description Failed to retrieve project's pgbouncer config */
-      500: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Set up the project's existing JWT secret as an in_use JWT signing key. This endpoint will be removed in the future always check for HTTP 404 Not Found. */
+  "v1-create-legacy-signing-key": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["SigningKeyResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** List all signing keys for the project */
+  "v1-get-project-signing-keys": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["SigningKeysResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Create a new signing key for the project in standby status */
+  "v1-create-project-signing-key": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateSigningKeyBody"];
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["SigningKeyResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Get information about a signing key */
+  "v1-get-project-signing-key": {
+    parameters: {
+      path: {
+        id: string;
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["SigningKeyResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Remove a signing key from a project. Only possible if the key has been in revoked status for a while. */
+  "v1-remove-project-signing-key": {
+    parameters: {
+      path: {
+        id: string;
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["SigningKeyResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Update a signing key, mainly its status */
+  "v1-update-project-signing-key": {
+    parameters: {
+      path: {
+        id: string;
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateSigningKeyBody"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["SigningKeyResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
     };
   };
   /** Gets project's auth config */
-  getV1AuthConfig: {
+  "v1-get-auth-service-config": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1749,13 +5610,26 @@ export interface operations {
           "application/json": components["schemas"]["AuthConfigResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to retrieve project's auth config */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /** Updates a project's auth config */
-  updateV1AuthConfig: {
+  "v1-update-auth-service-config": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1773,55 +5647,26 @@ export interface operations {
           "application/json": components["schemas"]["AuthConfigResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to update project's auth config */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
-  /** Run sql query */
-  v1RunQuery: {
-    parameters: {
-      path: {
-        /** @description Project ref */
-        ref: string;
-      };
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["RunQueryBody"];
-      };
-    };
-    responses: {
-      201: {
-        content: {
-          "application/json": Record<string, never>;
-        };
-      };
-      403: never;
-      /** @description Failed to run sql query */
-      500: never;
-    };
-  };
-  /** Enables Database Webhooks on the project */
-  v1EnableDatabaseWebhooks: {
-    parameters: {
-      path: {
-        /** @description Project ref */
-        ref: string;
-      };
-    };
-    responses: {
-      201: never;
-      403: never;
-      /** @description Failed to enable Database Webhooks on the project */
-      500: never;
-    };
-  };
-  /**
-   * List all functions 
-   * @description Returns all functions you've previously added to the specified project.
-   */
-  getFunctions: {
+  /** Lists all third-party auth integrations */
+  "v1-list-project-tpa-integrations": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1831,27 +5676,735 @@ export interface operations {
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["FunctionResponse"])[];
+          "application/json": components["schemas"]["ThirdPartyAuth"][];
         };
       };
-      403: never;
-      /** @description Failed to retrieve project's functions */
-      500: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Creates a new third-party auth integration */
+  "v1-create-project-tpa-integration": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateThirdPartyAuthBody"];
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["ThirdPartyAuth"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Get a third-party integration */
+  "v1-get-project-tpa-integration": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+        tpa_id: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["ThirdPartyAuth"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Removes a third-party auth integration */
+  "v1-delete-project-tpa-integration": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+        tpa_id: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["ThirdPartyAuth"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Pauses the given project */
+  "v1-pause-a-project": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Lists available restore versions for the given project */
+  "v1-list-available-restore-versions": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["GetProjectAvailableRestoreVersionsResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Restores the given project */
+  "v1-restore-a-project": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Cancels the given project restoration */
+  "v1-cancel-a-project-restoration": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
     };
   };
   /**
-   * Create a function 
-   * @description Creates a function and adds it to the specified project.
+   * List billing addons and compute instance selections
+   * @description Returns the billing addons that are currently applied, including the active compute instance size, and lists every addon option that can be provisioned with pricing metadata.
    */
-  createFunction: {
+  "v1-list-project-addons": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["ListProjectAddonsResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to list project addons */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Apply or update billing addons, including compute instance size
+   * @description Selects an addon variant, for example scaling the project’s compute instance up or down, and applies it to the project.
+   */
+  "v1-apply-project-addon": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ApplyProjectAddonBody"];
+      };
+    };
+    responses: {
+      200: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to apply project addon */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Remove billing addons or revert compute instance sizing
+   * @description Disables the selected addon variant, including rolling the compute instance back to its previous size.
+   */
+  "v1-remove-project-addon": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+        addon_variant: ("ci_micro" | "ci_small" | "ci_medium" | "ci_large" | "ci_xlarge" | "ci_2xlarge" | "ci_4xlarge" | "ci_8xlarge" | "ci_12xlarge" | "ci_16xlarge" | "ci_24xlarge" | "ci_24xlarge_optimized_cpu" | "ci_24xlarge_optimized_memory" | "ci_24xlarge_high_memory" | "ci_48xlarge" | "ci_48xlarge_optimized_cpu" | "ci_48xlarge_optimized_memory" | "ci_48xlarge_high_memory") | "cd_default" | ("pitr_7" | "pitr_14" | "pitr_28") | "ipv4_default";
+      };
+    };
+    responses: {
+      200: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to remove project addon */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** Gets project claim token */
+  "v1-get-project-claim-token": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["ProjectClaimTokenResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Creates project claim token */
+  "v1-create-project-claim-token": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["CreateProjectClaimTokenResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Revokes project claim token */
+  "v1-delete-project-claim-token": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      204: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Gets project performance advisors.
+   * @deprecated
+   * @description This is an **experimental** endpoint. It is subject to change or removal in future versions. Use it with caution, as it may not remain supported or stable.
+   */
+  "v1-get-performance-advisors": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["V1ProjectAdvisorsResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Gets project security advisors.
+   * @deprecated
+   * @description This is an **experimental** endpoint. It is subject to change or removal in future versions. Use it with caution, as it may not remain supported or stable.
+   */
+  "v1-get-security-advisors": {
     parameters: {
       query?: {
-        slug?: string;
-        name?: string;
-        verify_jwt?: boolean;
-        import_map?: boolean;
-        entrypoint_path?: string;
-        import_map_path?: string;
+        lint_type?: "sql";
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["V1ProjectAdvisorsResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Gets project's logs
+   * @description Executes a SQL query on the project's logs.
+   *
+   * Either the `iso_timestamp_start` and `iso_timestamp_end` parameters must be provided.
+   * If both are not provided, only the last 1 minute of logs will be queried.
+   * The timestamp range must be no more than 24 hours and is rounded to the nearest minute. If the range is more than 24 hours, a validation error will be thrown.
+   *
+   * Note: Unless the `sql` parameter is provided, only edge_logs will be queried. See the [log query docs](/docs/guides/telemetry/logs?queryGroups=product&product=postgres&queryGroups=source&source=edge_logs#querying-with-the-logs-explorer:~:text=logs%20from%20the-,Sources,-drop%2Ddown%3A) for all available sources.
+   */
+  "v1-get-project-logs": {
+    parameters: {
+      query?: {
+        /** @description Custom SQL query to execute on the logs. See [querying logs](/docs/guides/telemetry/logs?queryGroups=product&product=postgres&queryGroups=source&source=edge_logs#querying-with-the-logs-explorer) for more details. */
+        sql?: string;
+        iso_timestamp_start?: string;
+        iso_timestamp_end?: string;
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["AnalyticsResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Gets project's usage api counts */
+  "v1-get-project-usage-api-count": {
+    parameters: {
+      query?: {
+        interval?: "15min" | "30min" | "1hr" | "3hr" | "1day" | "3day" | "7day";
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["V1GetUsageApiCountResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to get project's usage api counts */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** Gets project's usage api requests count */
+  "v1-get-project-usage-request-count": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["V1GetUsageApiRequestsCountResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to get project's usage api requests count */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** Gets a project's function combined statistics */
+  "v1-get-project-function-combined-stats": {
+    parameters: {
+      query: {
+        interval: "15min" | "1hr" | "3hr" | "1day";
+        function_id: string;
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["AnalyticsResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to get project's function combined statistics */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** [Beta] Create a login role for CLI with temporary password */
+  "v1-create-login-role": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateRoleBody"];
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["CreateRoleResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to create login role */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** [Beta] Delete existing login roles used by CLI */
+  "v1-delete-login-roles": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["DeleteRolesResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to delete login roles */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * [Beta] List applied migration versions
+   * @description Only available to selected partner OAuth apps
+   */
+  "v1-list-migration-history": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["V1ListMigrationsResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to list database migrations */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * [Beta] Upsert a database migration without applying
+   * @description Only available to selected partner OAuth apps
+   */
+  "v1-upsert-a-migration": {
+    parameters: {
+      header?: {
+        /** @description A unique key to ensure the same migration is tracked only once. */
+        "Idempotency-Key"?: string;
       };
       path: {
         /** @description Project ref */
@@ -1860,8 +6413,647 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["CreateFunctionBody"];
-        "application/vnd.denoland.eszip": components["schemas"]["CreateFunctionBody"];
+        "application/json": components["schemas"]["V1UpsertMigrationBody"];
+      };
+    };
+    responses: {
+      200: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to upsert database migration */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * [Beta] Apply a database migration
+   * @description Only available to selected partner OAuth apps
+   */
+  "v1-apply-a-migration": {
+    parameters: {
+      header?: {
+        /** @description A unique key to ensure the same migration is tracked only once. */
+        "Idempotency-Key"?: string;
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["V1CreateMigrationBody"];
+      };
+    };
+    responses: {
+      200: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to apply database migration */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * [Beta] Rollback database migrations and remove them from history table
+   * @description Only available to selected partner OAuth apps
+   */
+  "v1-rollback-migrations": {
+    parameters: {
+      query: {
+        /** @description Rollback migrations greater or equal to this version */
+        gte: string;
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to rollback database migration */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * [Beta] Fetch an existing entry from migration history
+   * @description Only available to selected partner OAuth apps
+   */
+  "v1-get-a-migration": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+        version: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["V1GetMigrationResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to get database migration */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * [Beta] Patch an existing entry in migration history
+   * @description Only available to selected partner OAuth apps
+   */
+  "v1-patch-a-migration": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+        version: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["V1PatchMigrationBody"];
+      };
+    };
+    responses: {
+      200: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to patch database migration */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** [Beta] Run sql query */
+  "v1-run-a-query": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["V1RunQueryBody"];
+      };
+    };
+    responses: {
+      201: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to run sql query */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * [Beta] Run a sql query as supabase_read_only_user
+   * @description All entity references must be schema qualified.
+   */
+  "v1-read-only-query": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["V1ReadOnlyQueryBody"];
+      };
+    };
+    responses: {
+      201: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to run read-only sql query */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** [Beta] Enables Database Webhooks on the project */
+  "v1-enable-database-webhook": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      201: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to enable Database Webhooks on the project */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Gets database metadata for the given project.
+   * @deprecated
+   * @description This is an **experimental** endpoint. It is subject to change or removal in future versions. Use it with caution, as it may not remain supported or stable.
+   */
+  "v1-get-database-metadata": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["GetProjectDbMetadataResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Updates the database password */
+  "v1-update-database-password": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["V1UpdatePasswordBody"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["V1UpdatePasswordResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to update database password */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Get user-id to role mappings for JIT access
+   * @description Mappings of roles a user can assume in the project database
+   */
+  "v1-get-jit-access": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["JitAccessResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to list database jit access */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Updates a user mapping for JIT access
+   * @description Modifies the roles that can be assumed and for how long
+   */
+  "v1-update-jit-access": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateJitAccessBody"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["JitAccessResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to upsert database migration */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Authorize user-id to role mappings for JIT access
+   * @description Authorizes the request to assume a role in the project database
+   */
+  "v1-authorize-jit-access": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AuthorizeJitAccessBody"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["JitAuthorizeAccessResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to authorize database jit access */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * List all user-id to role mappings for JIT access
+   * @description Mappings of roles a user can assume in the project database
+   */
+  "v1-list-jit-access": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["JitListAccessResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to list database jit access */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Delete JIT access by user-id
+   * @description Remove JIT mappings of a user, revoking all JIT database access
+   */
+  "v1-delete-jit-access": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+        user_id: string;
+      };
+    };
+    responses: {
+      200: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to remove JIT access */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * List all functions
+   * @description Returns all functions you've previously added to the specified project.
+   */
+  "v1-list-all-functions": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["FunctionResponse"][];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to retrieve project's functions */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Bulk update functions
+   * @description Bulk update functions. It will create a new function or replace existing. The operation is idempotent. NOTE: You will need to manually bump the version.
+   */
+  "v1-bulk-update-functions": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["BulkUpdateFunctionBody"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["BulkUpdateFunctionResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Maximum number of functions reached for Plan */
+      402: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to update functions */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Create a function
+   * @deprecated
+   * @description This endpoint is deprecated - use the deploy endpoint. Creates a function and adds it to the specified project.
+   */
+  "v1-create-a-function": {
+    parameters: {
+      query?: {
+        slug?: string;
+        name?: string;
+        /** @description Boolean string, true or false */
+        verify_jwt?: boolean;
+        /** @description Boolean string, true or false */
+        import_map?: boolean;
+        entrypoint_path?: string;
+        import_map_path?: string;
+        ezbr_sha256?: string;
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/vnd.denoland.eszip": string;
+        "application/json": components["schemas"]["V1CreateFunctionBody"];
       };
     };
     responses: {
@@ -1870,16 +7062,82 @@ export interface operations {
           "application/json": components["schemas"]["FunctionResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Maximum number of functions reached for Plan */
+      402: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to create project's function */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /**
-   * Retrieve a function 
+   * Deploy a function
+   * @description A new endpoint to deploy functions. It will create if function does not exist.
+   */
+  "v1-deploy-a-function": {
+    parameters: {
+      query?: {
+        slug?: string;
+        /** @description Boolean string, true or false */
+        bundleOnly?: boolean;
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "multipart/form-data": components["schemas"]["FunctionDeployBody"];
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["DeployFunctionResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Maximum number of functions reached for Plan */
+      402: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to deploy function */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Retrieve a function
    * @description Retrieves a function with the specified slug and project.
    */
-  getFunction: {
+  "v1-get-a-function": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1894,16 +7152,29 @@ export interface operations {
           "application/json": components["schemas"]["FunctionSlugResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to retrieve function with given slug */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /**
-   * Delete a function 
+   * Delete a function
    * @description Deletes a function with the specified slug from the specified project.
    */
-  deleteFunction: {
+  "v1-delete-a-function": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1913,25 +7184,43 @@ export interface operations {
       };
     };
     responses: {
-      200: never;
-      403: never;
+      200: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to delete function with given slug */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /**
-   * Update a function 
+   * Update a function
    * @description Updates a function with the specified slug and project.
    */
-  updateFunction: {
+  "v1-update-a-function": {
     parameters: {
       query?: {
         slug?: string;
         name?: string;
+        /** @description Boolean string, true or false */
         verify_jwt?: boolean;
+        /** @description Boolean string, true or false */
         import_map?: boolean;
         entrypoint_path?: string;
         import_map_path?: string;
+        ezbr_sha256?: string;
       };
       path: {
         /** @description Project ref */
@@ -1942,8 +7231,8 @@ export interface operations {
     };
     requestBody: {
       content: {
-        "application/json": components["schemas"]["UpdateFunctionBody"];
-        "application/vnd.denoland.eszip": components["schemas"]["UpdateFunctionBody"];
+        "application/vnd.denoland.eszip": string;
+        "application/json": components["schemas"]["V1UpdateFunctionBody"];
       };
     };
     responses: {
@@ -1952,16 +7241,29 @@ export interface operations {
           "application/json": components["schemas"]["FunctionResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to update function with given slug */
-      500: never;
+      500: {
+        content: never;
+      };
     };
   };
   /**
-   * Retrieve a function body 
+   * Retrieve a function body
    * @description Retrieves a function body for the specified slug and project.
    */
-  getFunctionBody: {
+  "v1-get-a-function-body": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1971,14 +7273,490 @@ export interface operations {
       };
     };
     responses: {
-      200: never;
-      403: never;
+      200: {
+        content: {
+          "application/json": components["schemas"]["StreamableFile"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
       /** @description Failed to retrieve function body with given slug */
-      500: never;
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** Lists all buckets */
+  "v1-list-all-buckets": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["V1StorageBucketResponse"][];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to get list of buckets */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** Get disk utilization */
+  "v1-get-disk-utilization": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["DiskUtilMetricsResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to get disk utilization */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** Modify database disk */
+  "v1-modify-database-disk": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["DiskRequestBody"];
+      };
+    };
+    responses: {
+      201: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to modify database disk */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** Gets project disk autoscale config */
+  "v1-get-project-disk-autoscale-config": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["DiskAutoscaleConfig"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to get project disk autoscale config */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** Gets project's storage config */
+  "v1-get-storage-config": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["StorageConfigResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to retrieve project's storage config */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** Updates project's storage config */
+  "v1-update-storage-config": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateStorageConfigBody"];
+      };
+    };
+    responses: {
+      200: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to update project's storage config */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** Get project's pgbouncer config */
+  "v1-get-project-pgbouncer-config": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["V1PgbouncerConfigResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to retrieve project's pgbouncer config */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** Gets project's supavisor config */
+  "v1-get-pooler-config": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["SupavisorConfigResponse"][];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to retrieve project's supavisor config */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** Updates project's supavisor config */
+  "v1-update-pooler-config": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateSupavisorConfigBody"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["UpdateSupavisorConfigResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to update project's supavisor config */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** Gets project's Postgres config */
+  "v1-get-postgres-config": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["PostgresConfigResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to retrieve project's Postgres config */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** Updates project's Postgres config */
+  "v1-update-postgres-config": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdatePostgresConfigBody"];
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["PostgresConfigResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to update project's Postgres config */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** Gets realtime configuration */
+  "v1-get-realtime-config": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      /** @description Gets project's realtime configuration */
+      200: {
+        content: {
+          "application/json": components["schemas"]["RealtimeConfigResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Updates realtime configuration */
+  "v1-update-realtime-config": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateRealtimeConfigBody"];
+      };
+    };
+    responses: {
+      204: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Shutdowns realtime connections for a project */
+  "v1-shutdown-realtime": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      /** @description Realtime connections shutdown successfully */
+      204: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Tenant not found */
+      404: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
     };
   };
   /** Lists all SSO providers */
-  listAllProviders: {
+  "v1-list-all-sso-provider": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -1991,13 +7769,26 @@ export interface operations {
           "application/json": components["schemas"]["ListProvidersResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
       /** @description SAML 2.0 support is not enabled for this project */
-      404: never;
+      404: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
     };
   };
   /** Creates a new SSO provider */
-  createProviderForProject: {
+  "v1-create-a-sso-provider": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -2015,13 +7806,26 @@ export interface operations {
           "application/json": components["schemas"]["CreateProviderResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
       /** @description SAML 2.0 support is not enabled for this project */
-      404: never;
+      404: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
     };
   };
   /** Gets a SSO provider by its UUID */
-  getProviderById: {
+  "v1-get-a-sso-provider": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -2035,13 +7839,26 @@ export interface operations {
           "application/json": components["schemas"]["GetProviderResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
       /** @description Either SAML 2.0 was not enabled for this project, or the provider does not exist */
-      404: never;
+      404: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
     };
   };
   /** Updates a SSO provider by its UUID */
-  updateProviderById: {
+  "v1-update-a-sso-provider": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -2060,13 +7877,26 @@ export interface operations {
           "application/json": components["schemas"]["UpdateProviderResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
       /** @description Either SAML 2.0 was not enabled for this project, or the provider does not exist */
-      404: never;
+      404: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
     };
   };
   /** Removes a SSO provider by its UUID */
-  removeProviderById: {
+  "v1-delete-a-sso-provider": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -2080,13 +7910,58 @@ export interface operations {
           "application/json": components["schemas"]["DeleteProviderResponse"];
         };
       };
-      403: never;
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
       /** @description Either SAML 2.0 was not enabled for this project, or the provider does not exist */
-      404: never;
+      404: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Lists all backups */
+  "v1-list-all-backups": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["V1BackupsResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to get backups */
+      500: {
+        content: never;
+      };
     };
   };
   /** Restores a PITR backup for a database */
-  v1RestorePitr: {
+  "v1-restore-pitr-backup": {
     parameters: {
       path: {
         /** @description Project ref */
@@ -2099,21 +7974,260 @@ export interface operations {
       };
     };
     responses: {
-      201: never;
+      201: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Get restore points for project */
+  "v1-get-restore-point": {
+    parameters: {
+      query?: {
+        name?: string;
+      };
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["V1RestorePointResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+      /** @description Failed to get requested restore points */
+      500: {
+        content: never;
+      };
+    };
+  };
+  /** Initiates a creation of a restore point for a database */
+  "v1-create-restore-point": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["V1RestorePointPostBody"];
+      };
+    };
+    responses: {
+      201: {
+        content: {
+          "application/json": components["schemas"]["V1RestorePointResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Initiates an undo to a given restore point */
+  "v1-undo": {
+    parameters: {
+      path: {
+        /** @description Project ref */
+        ref: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["V1UndoBody"];
+      };
+    };
+    responses: {
+      201: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
     };
   };
   /** List members of an organization */
-  v1ListOrganizationMembers: {
+  "v1-list-organization-members": {
     parameters: {
       path: {
+        /** @description Organization slug */
         slug: string;
       };
     };
     responses: {
       200: {
         content: {
-          "application/json": (components["schemas"]["V1OrganizationMemberResponse"])[];
+          "application/json": components["schemas"]["V1OrganizationMemberResponse"][];
         };
+      };
+    };
+  };
+  /** Gets information about the organization */
+  "v1-get-an-organization": {
+    parameters: {
+      path: {
+        /** @description Organization slug */
+        slug: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["V1OrganizationSlugResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Gets project details for the specified organization and claim token */
+  "v1-get-organization-project-claim": {
+    parameters: {
+      path: {
+        /** @description Organization slug */
+        slug: string;
+        token: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["OrganizationProjectClaimResponse"];
+        };
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /** Claims project for the specified organization */
+  "v1-claim-project-for-organization": {
+    parameters: {
+      path: {
+        /** @description Organization slug */
+        slug: string;
+        token: string;
+      };
+    };
+    responses: {
+      204: {
+        content: never;
+      };
+      /** @description Unauthorized */
+      401: {
+        content: never;
+      };
+      /** @description Forbidden action */
+      403: {
+        content: never;
+      };
+      /** @description Rate limit exceeded */
+      429: {
+        content: never;
+      };
+    };
+  };
+  /**
+   * Gets all projects for the given organization
+   * @description Returns a paginated list of projects for the specified organization.
+   *
+   * This endpoint uses offset-based pagination. Use the `offset` parameter to skip a number of projects and the `limit` parameter to control the number of projects returned per page.
+   */
+  "v1-get-all-projects-for-organization": {
+    parameters: {
+      query?: {
+        /** @description Number of projects to skip */
+        offset?: number;
+        /** @description Number of projects to return per page */
+        limit?: number;
+        /** @description Search projects by name */
+        search?: string;
+        /** @description Sort order for projects */
+        sort?: "name_asc" | "name_desc" | "created_asc" | "created_desc";
+        /**
+         * @description A comma-separated list of project statuses to filter by.
+         *
+         * The following values are supported: `ACTIVE_HEALTHY`, `INACTIVE`.
+         */
+        statuses?: string;
+      };
+      path: {
+        /** @description Organization slug */
+        slug: string;
+      };
+    };
+    responses: {
+      200: {
+        content: {
+          "application/json": components["schemas"]["OrganizationProjectsResponse"];
+        };
+      };
+      /** @description Failed to retrieve projects */
+      500: {
+        content: never;
       };
     };
   };
