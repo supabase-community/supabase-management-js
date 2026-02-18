@@ -23,261 +23,1020 @@ import type {
   V1ListActionRunsParams
 } from './supabaseAPIV1.schemas';
 
-import { customInstance } from '../mutator';
 
 
-
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
-  export const getEnvironments = () => {
 /**
  * Fetches configurations of the specified database branch
  * @summary Get database branch config
  */
-const v1GetABranchConfig = (
-    branchIdOrRef: string,
- options?: SecondParameter<typeof customInstance<BranchDetailResponse>>,) => {
-      return customInstance<BranchDetailResponse>(
-      {url: `/v1/branches/${branchIdOrRef}`, method: 'GET'
-    },
-      options);
-    }
-  /**
+export type v1GetABranchConfigResponse200 = {
+  data: BranchDetailResponse
+  status: 200
+}
+
+export type v1GetABranchConfigResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1GetABranchConfigResponseSuccess = (v1GetABranchConfigResponse200) & {
+  headers: Headers;
+};
+export type v1GetABranchConfigResponseError = (v1GetABranchConfigResponse500) & {
+  headers: Headers;
+};
+
+export type v1GetABranchConfigResponse = (v1GetABranchConfigResponseSuccess | v1GetABranchConfigResponseError)
+
+export const getV1GetABranchConfigUrl = (branchIdOrRef: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/branches/${branchIdOrRef}`
+}
+
+export const v1GetABranchConfig = async (branchIdOrRef: string, options?: RequestInit): Promise<v1GetABranchConfigResponse> => {
+  
+  const res = await fetch(getV1GetABranchConfigUrl(branchIdOrRef),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetABranchConfigResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetABranchConfigResponse
+}
+
+
+/**
  * Updates the configuration of the specified database branch
  * @summary Update database branch config
  */
-const v1UpdateABranchConfig = (
-    branchIdOrRef: string,
-    updateBranchBody: UpdateBranchBody,
- options?: SecondParameter<typeof customInstance<BranchResponse>>,) => {
-      return customInstance<BranchResponse>(
-      {url: `/v1/branches/${branchIdOrRef}`, method: 'PATCH',
-      headers: {'Content-Type': 'application/json', },
-      data: updateBranchBody
-    },
-      options);
-    }
-  /**
+export type v1UpdateABranchConfigResponse200 = {
+  data: BranchResponse
+  status: 200
+}
+
+export type v1UpdateABranchConfigResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1UpdateABranchConfigResponseSuccess = (v1UpdateABranchConfigResponse200) & {
+  headers: Headers;
+};
+export type v1UpdateABranchConfigResponseError = (v1UpdateABranchConfigResponse500) & {
+  headers: Headers;
+};
+
+export type v1UpdateABranchConfigResponse = (v1UpdateABranchConfigResponseSuccess | v1UpdateABranchConfigResponseError)
+
+export const getV1UpdateABranchConfigUrl = (branchIdOrRef: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/branches/${branchIdOrRef}`
+}
+
+export const v1UpdateABranchConfig = async (branchIdOrRef: string,
+    updateBranchBody: UpdateBranchBody, options?: RequestInit): Promise<v1UpdateABranchConfigResponse> => {
+  
+  const res = await fetch(getV1UpdateABranchConfigUrl(branchIdOrRef),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateBranchBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1UpdateABranchConfigResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1UpdateABranchConfigResponse
+}
+
+
+/**
  * Deletes the specified database branch. By default, deletes immediately. Use force=false to schedule deletion with 1-hour grace period (only when soft deletion is enabled).
  * @summary Delete a database branch
  */
-const v1DeleteABranch = (
-    branchIdOrRef: string,
-    params?: V1DeleteABranchParams,
- options?: SecondParameter<typeof customInstance<BranchDeleteResponse>>,) => {
-      return customInstance<BranchDeleteResponse>(
-      {url: `/v1/branches/${branchIdOrRef}`, method: 'DELETE',
-        params
-    },
-      options);
+export type v1DeleteABranchResponse200 = {
+  data: BranchDeleteResponse
+  status: 200
+}
+
+export type v1DeleteABranchResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1DeleteABranchResponseSuccess = (v1DeleteABranchResponse200) & {
+  headers: Headers;
+};
+export type v1DeleteABranchResponseError = (v1DeleteABranchResponse500) & {
+  headers: Headers;
+};
+
+export type v1DeleteABranchResponse = (v1DeleteABranchResponseSuccess | v1DeleteABranchResponseError)
+
+export const getV1DeleteABranchUrl = (branchIdOrRef: string,
+    params?: V1DeleteABranchParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
     }
-  /**
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/branches/${branchIdOrRef}?${stringifiedParams}` : `https://api.supabase.com/v1/branches/${branchIdOrRef}`
+}
+
+export const v1DeleteABranch = async (branchIdOrRef: string,
+    params?: V1DeleteABranchParams, options?: RequestInit): Promise<v1DeleteABranchResponse> => {
+  
+  const res = await fetch(getV1DeleteABranchUrl(branchIdOrRef,params),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1DeleteABranchResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1DeleteABranchResponse
+}
+
+
+/**
  * Pushes the specified database branch
  * @summary Pushes a database branch
  */
-const v1PushABranch = (
-    branchIdOrRef: string,
-    branchActionBody: BranchActionBody,
- options?: SecondParameter<typeof customInstance<BranchUpdateResponse>>,) => {
-      return customInstance<BranchUpdateResponse>(
-      {url: `/v1/branches/${branchIdOrRef}/push`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: branchActionBody
-    },
-      options);
-    }
-  /**
+export type v1PushABranchResponse201 = {
+  data: BranchUpdateResponse
+  status: 201
+}
+
+export type v1PushABranchResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1PushABranchResponseSuccess = (v1PushABranchResponse201) & {
+  headers: Headers;
+};
+export type v1PushABranchResponseError = (v1PushABranchResponse500) & {
+  headers: Headers;
+};
+
+export type v1PushABranchResponse = (v1PushABranchResponseSuccess | v1PushABranchResponseError)
+
+export const getV1PushABranchUrl = (branchIdOrRef: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/branches/${branchIdOrRef}/push`
+}
+
+export const v1PushABranch = async (branchIdOrRef: string,
+    branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1PushABranchResponse> => {
+  
+  const res = await fetch(getV1PushABranchUrl(branchIdOrRef),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      branchActionBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1PushABranchResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1PushABranchResponse
+}
+
+
+/**
  * Merges the specified database branch
  * @summary Merges a database branch
  */
-const v1MergeABranch = (
-    branchIdOrRef: string,
-    branchActionBody: BranchActionBody,
- options?: SecondParameter<typeof customInstance<BranchUpdateResponse>>,) => {
-      return customInstance<BranchUpdateResponse>(
-      {url: `/v1/branches/${branchIdOrRef}/merge`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: branchActionBody
-    },
-      options);
-    }
-  /**
+export type v1MergeABranchResponse201 = {
+  data: BranchUpdateResponse
+  status: 201
+}
+
+export type v1MergeABranchResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1MergeABranchResponseSuccess = (v1MergeABranchResponse201) & {
+  headers: Headers;
+};
+export type v1MergeABranchResponseError = (v1MergeABranchResponse500) & {
+  headers: Headers;
+};
+
+export type v1MergeABranchResponse = (v1MergeABranchResponseSuccess | v1MergeABranchResponseError)
+
+export const getV1MergeABranchUrl = (branchIdOrRef: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/branches/${branchIdOrRef}/merge`
+}
+
+export const v1MergeABranch = async (branchIdOrRef: string,
+    branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1MergeABranchResponse> => {
+  
+  const res = await fetch(getV1MergeABranchUrl(branchIdOrRef),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      branchActionBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1MergeABranchResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1MergeABranchResponse
+}
+
+
+/**
  * Resets the specified database branch
  * @summary Resets a database branch
  */
-const v1ResetABranch = (
-    branchIdOrRef: string,
-    branchActionBody: BranchActionBody,
- options?: SecondParameter<typeof customInstance<BranchUpdateResponse>>,) => {
-      return customInstance<BranchUpdateResponse>(
-      {url: `/v1/branches/${branchIdOrRef}/reset`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: branchActionBody
-    },
-      options);
-    }
-  /**
+export type v1ResetABranchResponse201 = {
+  data: BranchUpdateResponse
+  status: 201
+}
+
+export type v1ResetABranchResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1ResetABranchResponseSuccess = (v1ResetABranchResponse201) & {
+  headers: Headers;
+};
+export type v1ResetABranchResponseError = (v1ResetABranchResponse500) & {
+  headers: Headers;
+};
+
+export type v1ResetABranchResponse = (v1ResetABranchResponseSuccess | v1ResetABranchResponseError)
+
+export const getV1ResetABranchUrl = (branchIdOrRef: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/branches/${branchIdOrRef}/reset`
+}
+
+export const v1ResetABranch = async (branchIdOrRef: string,
+    branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1ResetABranchResponse> => {
+  
+  const res = await fetch(getV1ResetABranchUrl(branchIdOrRef),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      branchActionBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1ResetABranchResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1ResetABranchResponse
+}
+
+
+/**
  * Cancels scheduled deletion and restores the branch to active state
  * @summary Restore a scheduled branch deletion
  */
-const v1RestoreABranch = (
-    branchIdOrRef: string,
- options?: SecondParameter<typeof customInstance<BranchRestoreResponse>>,) => {
-      return customInstance<BranchRestoreResponse>(
-      {url: `/v1/branches/${branchIdOrRef}/restore`, method: 'POST'
-    },
-      options);
-    }
-  /**
+export type v1RestoreABranchResponse200 = {
+  data: BranchRestoreResponse
+  status: 200
+}
+
+export type v1RestoreABranchResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1RestoreABranchResponseSuccess = (v1RestoreABranchResponse200) & {
+  headers: Headers;
+};
+export type v1RestoreABranchResponseError = (v1RestoreABranchResponse500) & {
+  headers: Headers;
+};
+
+export type v1RestoreABranchResponse = (v1RestoreABranchResponseSuccess | v1RestoreABranchResponseError)
+
+export const getV1RestoreABranchUrl = (branchIdOrRef: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/branches/${branchIdOrRef}/restore`
+}
+
+export const v1RestoreABranch = async (branchIdOrRef: string, options?: RequestInit): Promise<v1RestoreABranchResponse> => {
+  
+  const res = await fetch(getV1RestoreABranchUrl(branchIdOrRef),
+  {      
+    ...options,
+    method: 'POST'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1RestoreABranchResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1RestoreABranchResponse
+}
+
+
+/**
  * Diffs the specified database branch
  * @summary [Beta] Diffs a database branch
  */
-const v1DiffABranch = (
-    branchIdOrRef: string,
-    params?: V1DiffABranchParams,
- options?: SecondParameter<typeof customInstance<string>>,) => {
-      return customInstance<string>(
-      {url: `/v1/branches/${branchIdOrRef}/diff`, method: 'GET',
-        params
-    },
-      options);
+export type v1DiffABranchResponse200 = {
+  data: string
+  status: 200
+}
+
+export type v1DiffABranchResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1DiffABranchResponseSuccess = (v1DiffABranchResponse200) & {
+  headers: Headers;
+};
+export type v1DiffABranchResponseError = (v1DiffABranchResponse500) & {
+  headers: Headers;
+};
+
+export type v1DiffABranchResponse = (v1DiffABranchResponseSuccess | v1DiffABranchResponseError)
+
+export const getV1DiffABranchUrl = (branchIdOrRef: string,
+    params?: V1DiffABranchParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
     }
-  /**
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/branches/${branchIdOrRef}/diff?${stringifiedParams}` : `https://api.supabase.com/v1/branches/${branchIdOrRef}/diff`
+}
+
+export const v1DiffABranch = async (branchIdOrRef: string,
+    params?: V1DiffABranchParams, options?: RequestInit): Promise<v1DiffABranchResponse> => {
+  
+  const res = await fetch(getV1DiffABranchUrl(branchIdOrRef,params),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1DiffABranchResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1DiffABranchResponse
+}
+
+
+/**
  * Returns a paginated list of action runs of the specified project.
  * @summary List all action runs
  */
-const v1ListActionRuns = (
-    ref: string,
-    params?: V1ListActionRunsParams,
- options?: SecondParameter<typeof customInstance<ListActionRunResponse>>,) => {
-      return customInstance<ListActionRunResponse>(
-      {url: `/v1/projects/${ref}/actions`, method: 'GET',
-        params
-    },
-      options);
+export type v1ListActionRunsResponse200 = {
+  data: ListActionRunResponse
+  status: 200
+}
+
+export type v1ListActionRunsResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1ListActionRunsResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1ListActionRunsResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1ListActionRunsResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1ListActionRunsResponseSuccess = (v1ListActionRunsResponse200) & {
+  headers: Headers;
+};
+export type v1ListActionRunsResponseError = (v1ListActionRunsResponse401 | v1ListActionRunsResponse403 | v1ListActionRunsResponse429 | v1ListActionRunsResponse500) & {
+  headers: Headers;
+};
+
+export type v1ListActionRunsResponse = (v1ListActionRunsResponseSuccess | v1ListActionRunsResponseError)
+
+export const getV1ListActionRunsUrl = (ref: string,
+    params?: V1ListActionRunsParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
     }
-  /**
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/actions?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/actions`
+}
+
+export const v1ListActionRuns = async (ref: string,
+    params?: V1ListActionRunsParams, options?: RequestInit): Promise<v1ListActionRunsResponse> => {
+  
+  const res = await fetch(getV1ListActionRunsUrl(ref,params),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1ListActionRunsResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1ListActionRunsResponse
+}
+
+
+/**
  * Returns the total number of action runs of the specified project.
  * @summary Count the number of action runs
  */
-const v1CountActionRuns = (
-    ref: string,
- options?: SecondParameter<typeof customInstance<void>>,) => {
-      return customInstance<void>(
-      {url: `/v1/projects/${ref}/actions`, method: 'HEAD'
-    },
-      options);
-    }
-  /**
+export type v1CountActionRunsResponse200 = {
+  data: void
+  status: 200
+}
+
+export type v1CountActionRunsResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1CountActionRunsResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1CountActionRunsResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1CountActionRunsResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1CountActionRunsResponseSuccess = (v1CountActionRunsResponse200) & {
+  headers: Headers;
+};
+export type v1CountActionRunsResponseError = (v1CountActionRunsResponse401 | v1CountActionRunsResponse403 | v1CountActionRunsResponse429 | v1CountActionRunsResponse500) & {
+  headers: Headers;
+};
+
+export type v1CountActionRunsResponse = (v1CountActionRunsResponseSuccess | v1CountActionRunsResponseError)
+
+export const getV1CountActionRunsUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/actions`
+}
+
+export const v1CountActionRuns = async (ref: string, options?: RequestInit): Promise<v1CountActionRunsResponse> => {
+  
+  const res = await fetch(getV1CountActionRunsUrl(ref),
+  {      
+    ...options,
+    method: 'HEAD'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1CountActionRunsResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1CountActionRunsResponse
+}
+
+
+/**
  * Returns the current status of the specified action run.
  * @summary Get the status of an action run
  */
-const v1GetActionRun = (
-    ref: string,
-    runId: string,
- options?: SecondParameter<typeof customInstance<ActionRunResponse>>,) => {
-      return customInstance<ActionRunResponse>(
-      {url: `/v1/projects/${ref}/actions/${runId}`, method: 'GET'
-    },
-      options);
-    }
-  /**
+export type v1GetActionRunResponse200 = {
+  data: ActionRunResponse
+  status: 200
+}
+
+export type v1GetActionRunResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1GetActionRunResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1GetActionRunResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1GetActionRunResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1GetActionRunResponseSuccess = (v1GetActionRunResponse200) & {
+  headers: Headers;
+};
+export type v1GetActionRunResponseError = (v1GetActionRunResponse401 | v1GetActionRunResponse403 | v1GetActionRunResponse429 | v1GetActionRunResponse500) & {
+  headers: Headers;
+};
+
+export type v1GetActionRunResponse = (v1GetActionRunResponseSuccess | v1GetActionRunResponseError)
+
+export const getV1GetActionRunUrl = (ref: string,
+    runId: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/actions/${runId}`
+}
+
+export const v1GetActionRun = async (ref: string,
+    runId: string, options?: RequestInit): Promise<v1GetActionRunResponse> => {
+  
+  const res = await fetch(getV1GetActionRunUrl(ref,runId),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetActionRunResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetActionRunResponse
+}
+
+
+/**
  * Updates the status of an ongoing action run.
  * @summary Update the status of an action run
  */
-const v1UpdateActionRunStatus = (
-    ref: string,
+export type v1UpdateActionRunStatusResponse200 = {
+  data: UpdateRunStatusResponse
+  status: 200
+}
+
+export type v1UpdateActionRunStatusResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1UpdateActionRunStatusResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1UpdateActionRunStatusResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1UpdateActionRunStatusResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1UpdateActionRunStatusResponseSuccess = (v1UpdateActionRunStatusResponse200) & {
+  headers: Headers;
+};
+export type v1UpdateActionRunStatusResponseError = (v1UpdateActionRunStatusResponse401 | v1UpdateActionRunStatusResponse403 | v1UpdateActionRunStatusResponse429 | v1UpdateActionRunStatusResponse500) & {
+  headers: Headers;
+};
+
+export type v1UpdateActionRunStatusResponse = (v1UpdateActionRunStatusResponseSuccess | v1UpdateActionRunStatusResponseError)
+
+export const getV1UpdateActionRunStatusUrl = (ref: string,
+    runId: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/actions/${runId}/status`
+}
+
+export const v1UpdateActionRunStatus = async (ref: string,
     runId: string,
-    updateRunStatusBody: UpdateRunStatusBody,
- options?: SecondParameter<typeof customInstance<UpdateRunStatusResponse>>,) => {
-      return customInstance<UpdateRunStatusResponse>(
-      {url: `/v1/projects/${ref}/actions/${runId}/status`, method: 'PATCH',
-      headers: {'Content-Type': 'application/json', },
-      data: updateRunStatusBody
-    },
-      options);
-    }
-  /**
+    updateRunStatusBody: UpdateRunStatusBody, options?: RequestInit): Promise<v1UpdateActionRunStatusResponse> => {
+  
+  const res = await fetch(getV1UpdateActionRunStatusUrl(ref,runId),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateRunStatusBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1UpdateActionRunStatusResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1UpdateActionRunStatusResponse
+}
+
+
+/**
  * Returns the logs from the specified action run.
  * @summary Get the logs of an action run
  */
-const v1GetActionRunLogs = (
-    ref: string,
-    runId: string,
- options?: SecondParameter<typeof customInstance<string>>,) => {
-      return customInstance<string>(
-      {url: `/v1/projects/${ref}/actions/${runId}/logs`, method: 'GET'
-    },
-      options);
-    }
-  /**
+export type v1GetActionRunLogsResponse200 = {
+  data: string
+  status: 200
+}
+
+export type v1GetActionRunLogsResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1GetActionRunLogsResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1GetActionRunLogsResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1GetActionRunLogsResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1GetActionRunLogsResponseSuccess = (v1GetActionRunLogsResponse200) & {
+  headers: Headers;
+};
+export type v1GetActionRunLogsResponseError = (v1GetActionRunLogsResponse401 | v1GetActionRunLogsResponse403 | v1GetActionRunLogsResponse429 | v1GetActionRunLogsResponse500) & {
+  headers: Headers;
+};
+
+export type v1GetActionRunLogsResponse = (v1GetActionRunLogsResponseSuccess | v1GetActionRunLogsResponseError)
+
+export const getV1GetActionRunLogsUrl = (ref: string,
+    runId: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/actions/${runId}/logs`
+}
+
+export const v1GetActionRunLogs = async (ref: string,
+    runId: string, options?: RequestInit): Promise<v1GetActionRunLogsResponse> => {
+  
+  const res = await fetch(getV1GetActionRunLogsUrl(ref,runId),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetActionRunLogsResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetActionRunLogsResponse
+}
+
+
+/**
  * Returns all database branches of the specified project.
  * @summary List all database branches
  */
-const v1ListAllBranches = (
-    ref: string,
- options?: SecondParameter<typeof customInstance<BranchResponse[]>>,) => {
-      return customInstance<BranchResponse[]>(
-      {url: `/v1/projects/${ref}/branches`, method: 'GET'
-    },
-      options);
-    }
-  /**
+export type v1ListAllBranchesResponse200 = {
+  data: BranchResponse[]
+  status: 200
+}
+
+export type v1ListAllBranchesResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1ListAllBranchesResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1ListAllBranchesResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1ListAllBranchesResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1ListAllBranchesResponseSuccess = (v1ListAllBranchesResponse200) & {
+  headers: Headers;
+};
+export type v1ListAllBranchesResponseError = (v1ListAllBranchesResponse401 | v1ListAllBranchesResponse403 | v1ListAllBranchesResponse429 | v1ListAllBranchesResponse500) & {
+  headers: Headers;
+};
+
+export type v1ListAllBranchesResponse = (v1ListAllBranchesResponseSuccess | v1ListAllBranchesResponseError)
+
+export const getV1ListAllBranchesUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/branches`
+}
+
+export const v1ListAllBranches = async (ref: string, options?: RequestInit): Promise<v1ListAllBranchesResponse> => {
+  
+  const res = await fetch(getV1ListAllBranchesUrl(ref),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1ListAllBranchesResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1ListAllBranchesResponse
+}
+
+
+/**
  * Creates a database branch from the specified project.
  * @summary Create a database branch
  */
-const v1CreateABranch = (
-    ref: string,
-    createBranchBody: CreateBranchBody,
- options?: SecondParameter<typeof customInstance<BranchResponse>>,) => {
-      return customInstance<BranchResponse>(
-      {url: `/v1/projects/${ref}/branches`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: createBranchBody
-    },
-      options);
-    }
-  /**
+export type v1CreateABranchResponse201 = {
+  data: BranchResponse
+  status: 201
+}
+
+export type v1CreateABranchResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1CreateABranchResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1CreateABranchResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1CreateABranchResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1CreateABranchResponseSuccess = (v1CreateABranchResponse201) & {
+  headers: Headers;
+};
+export type v1CreateABranchResponseError = (v1CreateABranchResponse401 | v1CreateABranchResponse403 | v1CreateABranchResponse429 | v1CreateABranchResponse500) & {
+  headers: Headers;
+};
+
+export type v1CreateABranchResponse = (v1CreateABranchResponseSuccess | v1CreateABranchResponseError)
+
+export const getV1CreateABranchUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/branches`
+}
+
+export const v1CreateABranch = async (ref: string,
+    createBranchBody: CreateBranchBody, options?: RequestInit): Promise<v1CreateABranchResponse> => {
+  
+  const res = await fetch(getV1CreateABranchUrl(ref),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createBranchBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1CreateABranchResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1CreateABranchResponse
+}
+
+
+/**
  * Disables preview branching for the specified project
  * @summary Disables preview branching
  */
-const v1DisablePreviewBranching = (
-    ref: string,
- options?: SecondParameter<typeof customInstance<void>>,) => {
-      return customInstance<void>(
-      {url: `/v1/projects/${ref}/branches`, method: 'DELETE'
-    },
-      options);
-    }
-  /**
+export type v1DisablePreviewBranchingResponse200 = {
+  data: void
+  status: 200
+}
+
+export type v1DisablePreviewBranchingResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1DisablePreviewBranchingResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1DisablePreviewBranchingResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1DisablePreviewBranchingResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1DisablePreviewBranchingResponseSuccess = (v1DisablePreviewBranchingResponse200) & {
+  headers: Headers;
+};
+export type v1DisablePreviewBranchingResponseError = (v1DisablePreviewBranchingResponse401 | v1DisablePreviewBranchingResponse403 | v1DisablePreviewBranchingResponse429 | v1DisablePreviewBranchingResponse500) & {
+  headers: Headers;
+};
+
+export type v1DisablePreviewBranchingResponse = (v1DisablePreviewBranchingResponseSuccess | v1DisablePreviewBranchingResponseError)
+
+export const getV1DisablePreviewBranchingUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/branches`
+}
+
+export const v1DisablePreviewBranching = async (ref: string, options?: RequestInit): Promise<v1DisablePreviewBranchingResponse> => {
+  
+  const res = await fetch(getV1DisablePreviewBranchingUrl(ref),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1DisablePreviewBranchingResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1DisablePreviewBranchingResponse
+}
+
+
+/**
  * Fetches the specified database branch by its name.
  * @summary Get a database branch
  */
-const v1GetABranch = (
-    ref: string,
-    name: string,
- options?: SecondParameter<typeof customInstance<BranchResponse>>,) => {
-      return customInstance<BranchResponse>(
-      {url: `/v1/projects/${ref}/branches/${name}`, method: 'GET'
-    },
-      options);
-    }
-  return {v1GetABranchConfig,v1UpdateABranchConfig,v1DeleteABranch,v1PushABranch,v1MergeABranch,v1ResetABranch,v1RestoreABranch,v1DiffABranch,v1ListActionRuns,v1CountActionRuns,v1GetActionRun,v1UpdateActionRunStatus,v1GetActionRunLogs,v1ListAllBranches,v1CreateABranch,v1DisablePreviewBranching,v1GetABranch}};
-export type V1GetABranchConfigResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEnvironments>['v1GetABranchConfig']>>>
-export type V1UpdateABranchConfigResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEnvironments>['v1UpdateABranchConfig']>>>
-export type V1DeleteABranchResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEnvironments>['v1DeleteABranch']>>>
-export type V1PushABranchResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEnvironments>['v1PushABranch']>>>
-export type V1MergeABranchResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEnvironments>['v1MergeABranch']>>>
-export type V1ResetABranchResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEnvironments>['v1ResetABranch']>>>
-export type V1RestoreABranchResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEnvironments>['v1RestoreABranch']>>>
-export type V1DiffABranchResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEnvironments>['v1DiffABranch']>>>
-export type V1ListActionRunsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEnvironments>['v1ListActionRuns']>>>
-export type V1CountActionRunsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEnvironments>['v1CountActionRuns']>>>
-export type V1GetActionRunResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEnvironments>['v1GetActionRun']>>>
-export type V1UpdateActionRunStatusResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEnvironments>['v1UpdateActionRunStatus']>>>
-export type V1GetActionRunLogsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEnvironments>['v1GetActionRunLogs']>>>
-export type V1ListAllBranchesResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEnvironments>['v1ListAllBranches']>>>
-export type V1CreateABranchResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEnvironments>['v1CreateABranch']>>>
-export type V1DisablePreviewBranchingResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEnvironments>['v1DisablePreviewBranching']>>>
-export type V1GetABranchResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEnvironments>['v1GetABranch']>>>
+export type v1GetABranchResponse200 = {
+  data: BranchResponse
+  status: 200
+}
+
+export type v1GetABranchResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1GetABranchResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1GetABranchResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1GetABranchResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1GetABranchResponseSuccess = (v1GetABranchResponse200) & {
+  headers: Headers;
+};
+export type v1GetABranchResponseError = (v1GetABranchResponse401 | v1GetABranchResponse403 | v1GetABranchResponse429 | v1GetABranchResponse500) & {
+  headers: Headers;
+};
+
+export type v1GetABranchResponse = (v1GetABranchResponseSuccess | v1GetABranchResponseError)
+
+export const getV1GetABranchUrl = (ref: string,
+    name: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/branches/${name}`
+}
+
+export const v1GetABranch = async (ref: string,
+    name: string, options?: RequestInit): Promise<v1GetABranchResponse> => {
+  
+  const res = await fetch(getV1GetABranchUrl(ref,name),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetABranchResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetABranchResponse
+}
+
+

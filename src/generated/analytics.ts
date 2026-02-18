@@ -14,14 +14,8 @@ import type {
   V1GetUsageApiRequestsCountResponse
 } from './supabaseAPIV1.schemas';
 
-import { customInstance } from '../mutator';
 
 
-
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
-  export const getAnalytics = () => {
 /**
  * Executes a SQL query on the project's logs.
 
@@ -33,55 +27,274 @@ Note: Unless the `sql` parameter is provided, only edge_logs will be queried. Se
 
  * @summary Gets project's logs
  */
-const v1GetProjectLogs = (
-    ref: string,
-    params?: V1GetProjectLogsParams,
- options?: SecondParameter<typeof customInstance<AnalyticsResponse>>,) => {
-      return customInstance<AnalyticsResponse>(
-      {url: `/v1/projects/${ref}/analytics/endpoints/logs.all`, method: 'GET',
-        params
-    },
-      options);
+export type v1GetProjectLogsResponse200 = {
+  data: AnalyticsResponse
+  status: 200
+}
+
+export type v1GetProjectLogsResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1GetProjectLogsResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1GetProjectLogsResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1GetProjectLogsResponseSuccess = (v1GetProjectLogsResponse200) & {
+  headers: Headers;
+};
+export type v1GetProjectLogsResponseError = (v1GetProjectLogsResponse401 | v1GetProjectLogsResponse403 | v1GetProjectLogsResponse429) & {
+  headers: Headers;
+};
+
+export type v1GetProjectLogsResponse = (v1GetProjectLogsResponseSuccess | v1GetProjectLogsResponseError)
+
+export const getV1GetProjectLogsUrl = (ref: string,
+    params?: V1GetProjectLogsParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
     }
-  /**
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/logs.all?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/logs.all`
+}
+
+export const v1GetProjectLogs = async (ref: string,
+    params?: V1GetProjectLogsParams, options?: RequestInit): Promise<v1GetProjectLogsResponse> => {
+  
+  const res = await fetch(getV1GetProjectLogsUrl(ref,params),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetProjectLogsResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetProjectLogsResponse
+}
+
+
+/**
  * @summary Gets project's usage api counts
  */
-const v1GetProjectUsageApiCount = (
-    ref: string,
-    params?: V1GetProjectUsageApiCountParams,
- options?: SecondParameter<typeof customInstance<V1GetUsageApiCountResponse>>,) => {
-      return customInstance<V1GetUsageApiCountResponse>(
-      {url: `/v1/projects/${ref}/analytics/endpoints/usage.api-counts`, method: 'GET',
-        params
-    },
-      options);
+export type v1GetProjectUsageApiCountResponse200 = {
+  data: V1GetUsageApiCountResponse
+  status: 200
+}
+
+export type v1GetProjectUsageApiCountResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1GetProjectUsageApiCountResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1GetProjectUsageApiCountResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1GetProjectUsageApiCountResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1GetProjectUsageApiCountResponseSuccess = (v1GetProjectUsageApiCountResponse200) & {
+  headers: Headers;
+};
+export type v1GetProjectUsageApiCountResponseError = (v1GetProjectUsageApiCountResponse401 | v1GetProjectUsageApiCountResponse403 | v1GetProjectUsageApiCountResponse429 | v1GetProjectUsageApiCountResponse500) & {
+  headers: Headers;
+};
+
+export type v1GetProjectUsageApiCountResponse = (v1GetProjectUsageApiCountResponseSuccess | v1GetProjectUsageApiCountResponseError)
+
+export const getV1GetProjectUsageApiCountUrl = (ref: string,
+    params?: V1GetProjectUsageApiCountParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
     }
-  /**
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/usage.api-counts?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/usage.api-counts`
+}
+
+export const v1GetProjectUsageApiCount = async (ref: string,
+    params?: V1GetProjectUsageApiCountParams, options?: RequestInit): Promise<v1GetProjectUsageApiCountResponse> => {
+  
+  const res = await fetch(getV1GetProjectUsageApiCountUrl(ref,params),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetProjectUsageApiCountResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetProjectUsageApiCountResponse
+}
+
+
+/**
  * @summary Gets project's usage api requests count
  */
-const v1GetProjectUsageRequestCount = (
-    ref: string,
- options?: SecondParameter<typeof customInstance<V1GetUsageApiRequestsCountResponse>>,) => {
-      return customInstance<V1GetUsageApiRequestsCountResponse>(
-      {url: `/v1/projects/${ref}/analytics/endpoints/usage.api-requests-count`, method: 'GET'
-    },
-      options);
-    }
-  /**
+export type v1GetProjectUsageRequestCountResponse200 = {
+  data: V1GetUsageApiRequestsCountResponse
+  status: 200
+}
+
+export type v1GetProjectUsageRequestCountResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1GetProjectUsageRequestCountResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1GetProjectUsageRequestCountResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1GetProjectUsageRequestCountResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1GetProjectUsageRequestCountResponseSuccess = (v1GetProjectUsageRequestCountResponse200) & {
+  headers: Headers;
+};
+export type v1GetProjectUsageRequestCountResponseError = (v1GetProjectUsageRequestCountResponse401 | v1GetProjectUsageRequestCountResponse403 | v1GetProjectUsageRequestCountResponse429 | v1GetProjectUsageRequestCountResponse500) & {
+  headers: Headers;
+};
+
+export type v1GetProjectUsageRequestCountResponse = (v1GetProjectUsageRequestCountResponseSuccess | v1GetProjectUsageRequestCountResponseError)
+
+export const getV1GetProjectUsageRequestCountUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/usage.api-requests-count`
+}
+
+export const v1GetProjectUsageRequestCount = async (ref: string, options?: RequestInit): Promise<v1GetProjectUsageRequestCountResponse> => {
+  
+  const res = await fetch(getV1GetProjectUsageRequestCountUrl(ref),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetProjectUsageRequestCountResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetProjectUsageRequestCountResponse
+}
+
+
+/**
  * @summary Gets a project's function combined statistics
  */
-const v1GetProjectFunctionCombinedStats = (
-    ref: string,
-    params: V1GetProjectFunctionCombinedStatsParams,
- options?: SecondParameter<typeof customInstance<AnalyticsResponse>>,) => {
-      return customInstance<AnalyticsResponse>(
-      {url: `/v1/projects/${ref}/analytics/endpoints/functions.combined-stats`, method: 'GET',
-        params
-    },
-      options);
+export type v1GetProjectFunctionCombinedStatsResponse200 = {
+  data: AnalyticsResponse
+  status: 200
+}
+
+export type v1GetProjectFunctionCombinedStatsResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1GetProjectFunctionCombinedStatsResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1GetProjectFunctionCombinedStatsResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1GetProjectFunctionCombinedStatsResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1GetProjectFunctionCombinedStatsResponseSuccess = (v1GetProjectFunctionCombinedStatsResponse200) & {
+  headers: Headers;
+};
+export type v1GetProjectFunctionCombinedStatsResponseError = (v1GetProjectFunctionCombinedStatsResponse401 | v1GetProjectFunctionCombinedStatsResponse403 | v1GetProjectFunctionCombinedStatsResponse429 | v1GetProjectFunctionCombinedStatsResponse500) & {
+  headers: Headers;
+};
+
+export type v1GetProjectFunctionCombinedStatsResponse = (v1GetProjectFunctionCombinedStatsResponseSuccess | v1GetProjectFunctionCombinedStatsResponseError)
+
+export const getV1GetProjectFunctionCombinedStatsUrl = (ref: string,
+    params: V1GetProjectFunctionCombinedStatsParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
     }
-  return {v1GetProjectLogs,v1GetProjectUsageApiCount,v1GetProjectUsageRequestCount,v1GetProjectFunctionCombinedStats}};
-export type V1GetProjectLogsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getAnalytics>['v1GetProjectLogs']>>>
-export type V1GetProjectUsageApiCountResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getAnalytics>['v1GetProjectUsageApiCount']>>>
-export type V1GetProjectUsageRequestCountResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getAnalytics>['v1GetProjectUsageRequestCount']>>>
-export type V1GetProjectFunctionCombinedStatsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getAnalytics>['v1GetProjectFunctionCombinedStats']>>>
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/functions.combined-stats?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/functions.combined-stats`
+}
+
+export const v1GetProjectFunctionCombinedStats = async (ref: string,
+    params: V1GetProjectFunctionCombinedStatsParams, options?: RequestInit): Promise<v1GetProjectFunctionCombinedStatsResponse> => {
+  
+  const res = await fetch(getV1GetProjectFunctionCombinedStatsUrl(ref,params),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetProjectFunctionCombinedStatsResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetProjectFunctionCombinedStatsResponse
+}
+
+

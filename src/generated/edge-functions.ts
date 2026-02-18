@@ -22,181 +22,739 @@ import type {
   V1UpdateFunctionBody
 } from './supabaseAPIV1.schemas';
 
-import { customInstance } from '../mutator';
 
 
-
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
-  export const getEdgeFunctions = () => {
 /**
  * Returns all functions you've previously added to the specified project.
  * @summary List all functions
  */
-const v1ListAllFunctions = (
-    ref: string,
- options?: SecondParameter<typeof customInstance<FunctionResponse[]>>,) => {
-      return customInstance<FunctionResponse[]>(
-      {url: `/v1/projects/${ref}/functions`, method: 'GET'
-    },
-      options);
-    }
-  /**
+export type v1ListAllFunctionsResponse200 = {
+  data: FunctionResponse[]
+  status: 200
+}
+
+export type v1ListAllFunctionsResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1ListAllFunctionsResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1ListAllFunctionsResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1ListAllFunctionsResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1ListAllFunctionsResponseSuccess = (v1ListAllFunctionsResponse200) & {
+  headers: Headers;
+};
+export type v1ListAllFunctionsResponseError = (v1ListAllFunctionsResponse401 | v1ListAllFunctionsResponse403 | v1ListAllFunctionsResponse429 | v1ListAllFunctionsResponse500) & {
+  headers: Headers;
+};
+
+export type v1ListAllFunctionsResponse = (v1ListAllFunctionsResponseSuccess | v1ListAllFunctionsResponseError)
+
+export const getV1ListAllFunctionsUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/functions`
+}
+
+export const v1ListAllFunctions = async (ref: string, options?: RequestInit): Promise<v1ListAllFunctionsResponse> => {
+  
+  const res = await fetch(getV1ListAllFunctionsUrl(ref),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1ListAllFunctionsResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1ListAllFunctionsResponse
+}
+
+
+/**
  * This endpoint is deprecated - use the deploy endpoint. Creates a function and adds it to the specified project.
  * @deprecated
  * @summary Create a function
  */
-const v1CreateAFunctionWithApplicationVndDenolandEszip = (
-    ref: string,
+export type v1CreateAFunctionWithApplicationVndDenolandEszipResponse201 = {
+  data: FunctionResponse
+  status: 201
+}
+
+export type v1CreateAFunctionWithApplicationVndDenolandEszipResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1CreateAFunctionWithApplicationVndDenolandEszipResponse402 = {
+  data: void
+  status: 402
+}
+
+export type v1CreateAFunctionWithApplicationVndDenolandEszipResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1CreateAFunctionWithApplicationVndDenolandEszipResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1CreateAFunctionWithApplicationVndDenolandEszipResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1CreateAFunctionWithApplicationVndDenolandEszipResponseSuccess = (v1CreateAFunctionWithApplicationVndDenolandEszipResponse201) & {
+  headers: Headers;
+};
+export type v1CreateAFunctionWithApplicationVndDenolandEszipResponseError = (v1CreateAFunctionWithApplicationVndDenolandEszipResponse401 | v1CreateAFunctionWithApplicationVndDenolandEszipResponse402 | v1CreateAFunctionWithApplicationVndDenolandEszipResponse403 | v1CreateAFunctionWithApplicationVndDenolandEszipResponse429 | v1CreateAFunctionWithApplicationVndDenolandEszipResponse500) & {
+  headers: Headers;
+};
+
+export type v1CreateAFunctionWithApplicationVndDenolandEszipResponse = (v1CreateAFunctionWithApplicationVndDenolandEszipResponseSuccess | v1CreateAFunctionWithApplicationVndDenolandEszipResponseError)
+
+export const getV1CreateAFunctionWithApplicationVndDenolandEszipUrl = (ref: string,
+    params?: V1CreateAFunctionWithApplicationVndDenolandEszipParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/functions?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/functions`
+}
+
+export const v1CreateAFunctionWithApplicationVndDenolandEszip = async (ref: string,
     v1CreateAFunctionWithApplicationVndDenolandEszipBody: Blob,
-    params?: V1CreateAFunctionWithApplicationVndDenolandEszipParams,
- options?: SecondParameter<typeof customInstance<FunctionResponse>>,) => {
-      return customInstance<FunctionResponse>(
-      {url: `/v1/projects/${ref}/functions`, method: 'POST',
-      headers: {'Content-Type': 'application/vnd.denoland.eszip', },
-      data: v1CreateAFunctionWithApplicationVndDenolandEszipBody,
-        params
-    },
-      options);
-    }
-  /**
+    params?: V1CreateAFunctionWithApplicationVndDenolandEszipParams, options?: RequestInit): Promise<v1CreateAFunctionWithApplicationVndDenolandEszipResponse> => {
+  
+  const res = await fetch(getV1CreateAFunctionWithApplicationVndDenolandEszipUrl(ref,params),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/vnd.denoland.eszip', ...options?.headers },
+    body: JSON.stringify(
+      v1CreateAFunctionWithApplicationVndDenolandEszipBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1CreateAFunctionWithApplicationVndDenolandEszipResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1CreateAFunctionWithApplicationVndDenolandEszipResponse
+}
+
+
+/**
  * This endpoint is deprecated - use the deploy endpoint. Creates a function and adds it to the specified project.
  * @deprecated
  * @summary Create a function
  */
-const v1CreateAFunctionWithJson = (
-    ref: string,
-    v1CreateFunctionBody: V1CreateFunctionBody,
-    params?: V1CreateAFunctionWithJsonParams,
- options?: SecondParameter<typeof customInstance<FunctionResponse>>,) => {
-      return customInstance<FunctionResponse>(
-      {url: `/v1/projects/${ref}/functions`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: v1CreateFunctionBody,
-        params
-    },
-      options);
+export type v1CreateAFunctionWithJsonResponse201 = {
+  data: FunctionResponse
+  status: 201
+}
+
+export type v1CreateAFunctionWithJsonResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1CreateAFunctionWithJsonResponse402 = {
+  data: void
+  status: 402
+}
+
+export type v1CreateAFunctionWithJsonResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1CreateAFunctionWithJsonResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1CreateAFunctionWithJsonResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1CreateAFunctionWithJsonResponseSuccess = (v1CreateAFunctionWithJsonResponse201) & {
+  headers: Headers;
+};
+export type v1CreateAFunctionWithJsonResponseError = (v1CreateAFunctionWithJsonResponse401 | v1CreateAFunctionWithJsonResponse402 | v1CreateAFunctionWithJsonResponse403 | v1CreateAFunctionWithJsonResponse429 | v1CreateAFunctionWithJsonResponse500) & {
+  headers: Headers;
+};
+
+export type v1CreateAFunctionWithJsonResponse = (v1CreateAFunctionWithJsonResponseSuccess | v1CreateAFunctionWithJsonResponseError)
+
+export const getV1CreateAFunctionWithJsonUrl = (ref: string,
+    params?: V1CreateAFunctionWithJsonParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
     }
-  /**
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/functions?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/functions`
+}
+
+export const v1CreateAFunctionWithJson = async (ref: string,
+    v1CreateFunctionBody: V1CreateFunctionBody,
+    params?: V1CreateAFunctionWithJsonParams, options?: RequestInit): Promise<v1CreateAFunctionWithJsonResponse> => {
+  
+  const res = await fetch(getV1CreateAFunctionWithJsonUrl(ref,params),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      v1CreateFunctionBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1CreateAFunctionWithJsonResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1CreateAFunctionWithJsonResponse
+}
+
+
+/**
  * Bulk update functions. It will create a new function or replace existing. The operation is idempotent. NOTE: You will need to manually bump the version.
  * @summary Bulk update functions
  */
-const v1BulkUpdateFunctions = (
-    ref: string,
-    bulkUpdateFunctionBody: BulkUpdateFunctionBody,
- options?: SecondParameter<typeof customInstance<BulkUpdateFunctionResponse>>,) => {
-      return customInstance<BulkUpdateFunctionResponse>(
-      {url: `/v1/projects/${ref}/functions`, method: 'PUT',
-      headers: {'Content-Type': 'application/json', },
-      data: bulkUpdateFunctionBody
-    },
-      options);
-    }
-  /**
+export type v1BulkUpdateFunctionsResponse200 = {
+  data: BulkUpdateFunctionResponse
+  status: 200
+}
+
+export type v1BulkUpdateFunctionsResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1BulkUpdateFunctionsResponse402 = {
+  data: void
+  status: 402
+}
+
+export type v1BulkUpdateFunctionsResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1BulkUpdateFunctionsResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1BulkUpdateFunctionsResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1BulkUpdateFunctionsResponseSuccess = (v1BulkUpdateFunctionsResponse200) & {
+  headers: Headers;
+};
+export type v1BulkUpdateFunctionsResponseError = (v1BulkUpdateFunctionsResponse401 | v1BulkUpdateFunctionsResponse402 | v1BulkUpdateFunctionsResponse403 | v1BulkUpdateFunctionsResponse429 | v1BulkUpdateFunctionsResponse500) & {
+  headers: Headers;
+};
+
+export type v1BulkUpdateFunctionsResponse = (v1BulkUpdateFunctionsResponseSuccess | v1BulkUpdateFunctionsResponseError)
+
+export const getV1BulkUpdateFunctionsUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/functions`
+}
+
+export const v1BulkUpdateFunctions = async (ref: string,
+    bulkUpdateFunctionBody: BulkUpdateFunctionBody, options?: RequestInit): Promise<v1BulkUpdateFunctionsResponse> => {
+  
+  const res = await fetch(getV1BulkUpdateFunctionsUrl(ref),
+  {      
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      bulkUpdateFunctionBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1BulkUpdateFunctionsResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1BulkUpdateFunctionsResponse
+}
+
+
+/**
  * A new endpoint to deploy functions. It will create if function does not exist.
  * @summary Deploy a function
  */
-const v1DeployAFunction = (
-    ref: string,
+export type v1DeployAFunctionResponse201 = {
+  data: DeployFunctionResponse
+  status: 201
+}
+
+export type v1DeployAFunctionResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1DeployAFunctionResponse402 = {
+  data: void
+  status: 402
+}
+
+export type v1DeployAFunctionResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1DeployAFunctionResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1DeployAFunctionResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1DeployAFunctionResponseSuccess = (v1DeployAFunctionResponse201) & {
+  headers: Headers;
+};
+export type v1DeployAFunctionResponseError = (v1DeployAFunctionResponse401 | v1DeployAFunctionResponse402 | v1DeployAFunctionResponse403 | v1DeployAFunctionResponse429 | v1DeployAFunctionResponse500) & {
+  headers: Headers;
+};
+
+export type v1DeployAFunctionResponse = (v1DeployAFunctionResponseSuccess | v1DeployAFunctionResponseError)
+
+export const getV1DeployAFunctionUrl = (ref: string,
+    params?: V1DeployAFunctionParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/functions/deploy?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/functions/deploy`
+}
+
+export const v1DeployAFunction = async (ref: string,
     functionDeployBody: FunctionDeployBody,
-    params?: V1DeployAFunctionParams,
- options?: SecondParameter<typeof customInstance<DeployFunctionResponse>>,) => {const formData = new FormData();
+    params?: V1DeployAFunctionParams, options?: RequestInit): Promise<v1DeployAFunctionResponse> => {
+    const formData = new FormData();
 if(functionDeployBody.file !== undefined) {
  functionDeployBody.file.forEach(value => formData.append(`file`, value));
  }
 formData.append(`metadata`, JSON.stringify(functionDeployBody.metadata));
 
-      return customInstance<DeployFunctionResponse>(
-      {url: `/v1/projects/${ref}/functions/deploy`, method: 'POST',
-       data: formData,
-        params
-    },
-      options);
-    }
-  /**
+  const res = await fetch(getV1DeployAFunctionUrl(ref,params),
+  {      
+    ...options,
+    method: 'POST'
+    ,
+    body: 
+      formData,
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1DeployAFunctionResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1DeployAFunctionResponse
+}
+
+
+/**
  * Retrieves a function with the specified slug and project.
  * @summary Retrieve a function
  */
-const v1GetAFunction = (
-    ref: string,
-    functionSlug: string,
- options?: SecondParameter<typeof customInstance<FunctionSlugResponse>>,) => {
-      return customInstance<FunctionSlugResponse>(
-      {url: `/v1/projects/${ref}/functions/${functionSlug}`, method: 'GET'
-    },
-      options);
-    }
-  /**
+export type v1GetAFunctionResponse200 = {
+  data: FunctionSlugResponse
+  status: 200
+}
+
+export type v1GetAFunctionResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1GetAFunctionResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1GetAFunctionResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1GetAFunctionResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1GetAFunctionResponseSuccess = (v1GetAFunctionResponse200) & {
+  headers: Headers;
+};
+export type v1GetAFunctionResponseError = (v1GetAFunctionResponse401 | v1GetAFunctionResponse403 | v1GetAFunctionResponse429 | v1GetAFunctionResponse500) & {
+  headers: Headers;
+};
+
+export type v1GetAFunctionResponse = (v1GetAFunctionResponseSuccess | v1GetAFunctionResponseError)
+
+export const getV1GetAFunctionUrl = (ref: string,
+    functionSlug: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}`
+}
+
+export const v1GetAFunction = async (ref: string,
+    functionSlug: string, options?: RequestInit): Promise<v1GetAFunctionResponse> => {
+  
+  const res = await fetch(getV1GetAFunctionUrl(ref,functionSlug),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetAFunctionResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetAFunctionResponse
+}
+
+
+/**
  * Updates a function with the specified slug and project.
  * @summary Update a function
  */
-const v1UpdateAFunctionWithApplicationVndDenolandEszip = (
-    ref: string,
+export type v1UpdateAFunctionWithApplicationVndDenolandEszipResponse200 = {
+  data: FunctionResponse
+  status: 200
+}
+
+export type v1UpdateAFunctionWithApplicationVndDenolandEszipResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1UpdateAFunctionWithApplicationVndDenolandEszipResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1UpdateAFunctionWithApplicationVndDenolandEszipResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1UpdateAFunctionWithApplicationVndDenolandEszipResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1UpdateAFunctionWithApplicationVndDenolandEszipResponseSuccess = (v1UpdateAFunctionWithApplicationVndDenolandEszipResponse200) & {
+  headers: Headers;
+};
+export type v1UpdateAFunctionWithApplicationVndDenolandEszipResponseError = (v1UpdateAFunctionWithApplicationVndDenolandEszipResponse401 | v1UpdateAFunctionWithApplicationVndDenolandEszipResponse403 | v1UpdateAFunctionWithApplicationVndDenolandEszipResponse429 | v1UpdateAFunctionWithApplicationVndDenolandEszipResponse500) & {
+  headers: Headers;
+};
+
+export type v1UpdateAFunctionWithApplicationVndDenolandEszipResponse = (v1UpdateAFunctionWithApplicationVndDenolandEszipResponseSuccess | v1UpdateAFunctionWithApplicationVndDenolandEszipResponseError)
+
+export const getV1UpdateAFunctionWithApplicationVndDenolandEszipUrl = (ref: string,
+    functionSlug: string,
+    params?: V1UpdateAFunctionWithApplicationVndDenolandEszipParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}`
+}
+
+export const v1UpdateAFunctionWithApplicationVndDenolandEszip = async (ref: string,
     functionSlug: string,
     v1UpdateAFunctionWithApplicationVndDenolandEszipBody: Blob,
-    params?: V1UpdateAFunctionWithApplicationVndDenolandEszipParams,
- options?: SecondParameter<typeof customInstance<FunctionResponse>>,) => {
-      return customInstance<FunctionResponse>(
-      {url: `/v1/projects/${ref}/functions/${functionSlug}`, method: 'PATCH',
-      headers: {'Content-Type': 'application/vnd.denoland.eszip', },
-      data: v1UpdateAFunctionWithApplicationVndDenolandEszipBody,
-        params
-    },
-      options);
-    }
-  /**
+    params?: V1UpdateAFunctionWithApplicationVndDenolandEszipParams, options?: RequestInit): Promise<v1UpdateAFunctionWithApplicationVndDenolandEszipResponse> => {
+  
+  const res = await fetch(getV1UpdateAFunctionWithApplicationVndDenolandEszipUrl(ref,functionSlug,params),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/vnd.denoland.eszip', ...options?.headers },
+    body: JSON.stringify(
+      v1UpdateAFunctionWithApplicationVndDenolandEszipBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1UpdateAFunctionWithApplicationVndDenolandEszipResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1UpdateAFunctionWithApplicationVndDenolandEszipResponse
+}
+
+
+/**
  * Updates a function with the specified slug and project.
  * @summary Update a function
  */
-const v1UpdateAFunctionWithJson = (
-    ref: string,
+export type v1UpdateAFunctionWithJsonResponse200 = {
+  data: FunctionResponse
+  status: 200
+}
+
+export type v1UpdateAFunctionWithJsonResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1UpdateAFunctionWithJsonResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1UpdateAFunctionWithJsonResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1UpdateAFunctionWithJsonResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1UpdateAFunctionWithJsonResponseSuccess = (v1UpdateAFunctionWithJsonResponse200) & {
+  headers: Headers;
+};
+export type v1UpdateAFunctionWithJsonResponseError = (v1UpdateAFunctionWithJsonResponse401 | v1UpdateAFunctionWithJsonResponse403 | v1UpdateAFunctionWithJsonResponse429 | v1UpdateAFunctionWithJsonResponse500) & {
+  headers: Headers;
+};
+
+export type v1UpdateAFunctionWithJsonResponse = (v1UpdateAFunctionWithJsonResponseSuccess | v1UpdateAFunctionWithJsonResponseError)
+
+export const getV1UpdateAFunctionWithJsonUrl = (ref: string,
+    functionSlug: string,
+    params?: V1UpdateAFunctionWithJsonParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}`
+}
+
+export const v1UpdateAFunctionWithJson = async (ref: string,
     functionSlug: string,
     v1UpdateFunctionBody: V1UpdateFunctionBody,
-    params?: V1UpdateAFunctionWithJsonParams,
- options?: SecondParameter<typeof customInstance<FunctionResponse>>,) => {
-      return customInstance<FunctionResponse>(
-      {url: `/v1/projects/${ref}/functions/${functionSlug}`, method: 'PATCH',
-      headers: {'Content-Type': 'application/json', },
-      data: v1UpdateFunctionBody,
-        params
-    },
-      options);
-    }
-  /**
+    params?: V1UpdateAFunctionWithJsonParams, options?: RequestInit): Promise<v1UpdateAFunctionWithJsonResponse> => {
+  
+  const res = await fetch(getV1UpdateAFunctionWithJsonUrl(ref,functionSlug,params),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      v1UpdateFunctionBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1UpdateAFunctionWithJsonResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1UpdateAFunctionWithJsonResponse
+}
+
+
+/**
  * Deletes a function with the specified slug from the specified project.
  * @summary Delete a function
  */
-const v1DeleteAFunction = (
-    ref: string,
-    functionSlug: string,
- options?: SecondParameter<typeof customInstance<void>>,) => {
-      return customInstance<void>(
-      {url: `/v1/projects/${ref}/functions/${functionSlug}`, method: 'DELETE'
-    },
-      options);
-    }
-  /**
+export type v1DeleteAFunctionResponse200 = {
+  data: void
+  status: 200
+}
+
+export type v1DeleteAFunctionResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1DeleteAFunctionResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1DeleteAFunctionResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1DeleteAFunctionResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1DeleteAFunctionResponseSuccess = (v1DeleteAFunctionResponse200) & {
+  headers: Headers;
+};
+export type v1DeleteAFunctionResponseError = (v1DeleteAFunctionResponse401 | v1DeleteAFunctionResponse403 | v1DeleteAFunctionResponse429 | v1DeleteAFunctionResponse500) & {
+  headers: Headers;
+};
+
+export type v1DeleteAFunctionResponse = (v1DeleteAFunctionResponseSuccess | v1DeleteAFunctionResponseError)
+
+export const getV1DeleteAFunctionUrl = (ref: string,
+    functionSlug: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}`
+}
+
+export const v1DeleteAFunction = async (ref: string,
+    functionSlug: string, options?: RequestInit): Promise<v1DeleteAFunctionResponse> => {
+  
+  const res = await fetch(getV1DeleteAFunctionUrl(ref,functionSlug),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1DeleteAFunctionResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1DeleteAFunctionResponse
+}
+
+
+/**
  * Retrieves a function body for the specified slug and project.
  * @summary Retrieve a function body
  */
-const v1GetAFunctionBody = (
-    ref: string,
-    functionSlug: string,
- options?: SecondParameter<typeof customInstance<StreamableFile>>,) => {
-      return customInstance<StreamableFile>(
-      {url: `/v1/projects/${ref}/functions/${functionSlug}/body`, method: 'GET'
-    },
-      options);
-    }
-  return {v1ListAllFunctions,v1CreateAFunctionWithApplicationVndDenolandEszip,v1CreateAFunctionWithJson,v1BulkUpdateFunctions,v1DeployAFunction,v1GetAFunction,v1UpdateAFunctionWithApplicationVndDenolandEszip,v1UpdateAFunctionWithJson,v1DeleteAFunction,v1GetAFunctionBody}};
-export type V1ListAllFunctionsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEdgeFunctions>['v1ListAllFunctions']>>>
-export type V1CreateAFunctionWithApplicationVndDenolandEszipResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEdgeFunctions>['v1CreateAFunctionWithApplicationVndDenolandEszip']>>>
-export type V1CreateAFunctionWithJsonResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEdgeFunctions>['v1CreateAFunctionWithJson']>>>
-export type V1BulkUpdateFunctionsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEdgeFunctions>['v1BulkUpdateFunctions']>>>
-export type V1DeployAFunctionResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEdgeFunctions>['v1DeployAFunction']>>>
-export type V1GetAFunctionResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEdgeFunctions>['v1GetAFunction']>>>
-export type V1UpdateAFunctionWithApplicationVndDenolandEszipResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEdgeFunctions>['v1UpdateAFunctionWithApplicationVndDenolandEszip']>>>
-export type V1UpdateAFunctionWithJsonResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEdgeFunctions>['v1UpdateAFunctionWithJson']>>>
-export type V1DeleteAFunctionResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEdgeFunctions>['v1DeleteAFunction']>>>
-export type V1GetAFunctionBodyResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getEdgeFunctions>['v1GetAFunctionBody']>>>
+export type v1GetAFunctionBodyResponse200 = {
+  data: StreamableFile
+  status: 200
+}
+
+export type v1GetAFunctionBodyResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1GetAFunctionBodyResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1GetAFunctionBodyResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1GetAFunctionBodyResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1GetAFunctionBodyResponseSuccess = (v1GetAFunctionBodyResponse200) & {
+  headers: Headers;
+};
+export type v1GetAFunctionBodyResponseError = (v1GetAFunctionBodyResponse401 | v1GetAFunctionBodyResponse403 | v1GetAFunctionBodyResponse429 | v1GetAFunctionBodyResponse500) & {
+  headers: Headers;
+};
+
+export type v1GetAFunctionBodyResponse = (v1GetAFunctionBodyResponseSuccess | v1GetAFunctionBodyResponseError)
+
+export const getV1GetAFunctionBodyUrl = (ref: string,
+    functionSlug: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}/body`
+}
+
+export const v1GetAFunctionBody = async (ref: string,
+    functionSlug: string, options?: RequestInit): Promise<v1GetAFunctionBodyResponse> => {
+  
+  const res = await fetch(getV1GetAFunctionBodyUrl(ref,functionSlug),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetAFunctionBodyResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetAFunctionBodyResponse
+}
+
+

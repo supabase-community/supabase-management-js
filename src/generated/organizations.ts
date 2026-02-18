@@ -13,89 +13,322 @@ import type {
   V1OrganizationSlugResponse
 } from './supabaseAPIV1.schemas';
 
-import { customInstance } from '../mutator';
 
 
-
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
-  export const getOrganizations = () => {
 /**
  * Returns a list of organizations that you currently belong to.
  * @summary List all organizations
  */
-const v1ListAllOrganizations = (
+export type v1ListAllOrganizationsResponse200 = {
+  data: OrganizationResponseV1[]
+  status: 200
+}
+
+export type v1ListAllOrganizationsResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1ListAllOrganizationsResponseSuccess = (v1ListAllOrganizationsResponse200) & {
+  headers: Headers;
+};
+export type v1ListAllOrganizationsResponseError = (v1ListAllOrganizationsResponse500) & {
+  headers: Headers;
+};
+
+export type v1ListAllOrganizationsResponse = (v1ListAllOrganizationsResponseSuccess | v1ListAllOrganizationsResponseError)
+
+export const getV1ListAllOrganizationsUrl = () => {
+
+
+  
+
+  return `https://api.supabase.com/v1/organizations`
+}
+
+export const v1ListAllOrganizations = async ( options?: RequestInit): Promise<v1ListAllOrganizationsResponse> => {
+  
+  const res = await fetch(getV1ListAllOrganizationsUrl(),
+  {      
+    ...options,
+    method: 'GET'
     
- options?: SecondParameter<typeof customInstance<OrganizationResponseV1[]>>,) => {
-      return customInstance<OrganizationResponseV1[]>(
-      {url: `/v1/organizations`, method: 'GET'
-    },
-      options);
-    }
-  /**
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1ListAllOrganizationsResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1ListAllOrganizationsResponse
+}
+
+
+/**
  * @summary Create an organization
  */
-const v1CreateAnOrganization = (
-    createOrganizationV1: CreateOrganizationV1,
- options?: SecondParameter<typeof customInstance<OrganizationResponseV1>>,) => {
-      return customInstance<OrganizationResponseV1>(
-      {url: `/v1/organizations`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: createOrganizationV1
-    },
-      options);
-    }
-  /**
+export type v1CreateAnOrganizationResponse201 = {
+  data: OrganizationResponseV1
+  status: 201
+}
+
+export type v1CreateAnOrganizationResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1CreateAnOrganizationResponseSuccess = (v1CreateAnOrganizationResponse201) & {
+  headers: Headers;
+};
+export type v1CreateAnOrganizationResponseError = (v1CreateAnOrganizationResponse500) & {
+  headers: Headers;
+};
+
+export type v1CreateAnOrganizationResponse = (v1CreateAnOrganizationResponseSuccess | v1CreateAnOrganizationResponseError)
+
+export const getV1CreateAnOrganizationUrl = () => {
+
+
+  
+
+  return `https://api.supabase.com/v1/organizations`
+}
+
+export const v1CreateAnOrganization = async (createOrganizationV1: CreateOrganizationV1, options?: RequestInit): Promise<v1CreateAnOrganizationResponse> => {
+  
+  const res = await fetch(getV1CreateAnOrganizationUrl(),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createOrganizationV1,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1CreateAnOrganizationResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1CreateAnOrganizationResponse
+}
+
+
+/**
  * @summary List members of an organization
  */
-const v1ListOrganizationMembers = (
-    slug: string,
- options?: SecondParameter<typeof customInstance<V1OrganizationMemberResponse[]>>,) => {
-      return customInstance<V1OrganizationMemberResponse[]>(
-      {url: `/v1/organizations/${slug}/members`, method: 'GET'
-    },
-      options);
-    }
-  /**
+export type v1ListOrganizationMembersResponse200 = {
+  data: V1OrganizationMemberResponse[]
+  status: 200
+}
+
+export type v1ListOrganizationMembersResponseSuccess = (v1ListOrganizationMembersResponse200) & {
+  headers: Headers;
+};
+;
+
+export type v1ListOrganizationMembersResponse = (v1ListOrganizationMembersResponseSuccess)
+
+export const getV1ListOrganizationMembersUrl = (slug: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/organizations/${slug}/members`
+}
+
+export const v1ListOrganizationMembers = async (slug: string, options?: RequestInit): Promise<v1ListOrganizationMembersResponse> => {
+  
+  const res = await fetch(getV1ListOrganizationMembersUrl(slug),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1ListOrganizationMembersResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1ListOrganizationMembersResponse
+}
+
+
+/**
  * @summary Gets information about the organization
  */
-const v1GetAnOrganization = (
-    slug: string,
- options?: SecondParameter<typeof customInstance<V1OrganizationSlugResponse>>,) => {
-      return customInstance<V1OrganizationSlugResponse>(
-      {url: `/v1/organizations/${slug}`, method: 'GET'
-    },
-      options);
-    }
-  /**
+export type v1GetAnOrganizationResponse200 = {
+  data: V1OrganizationSlugResponse
+  status: 200
+}
+
+export type v1GetAnOrganizationResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1GetAnOrganizationResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1GetAnOrganizationResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1GetAnOrganizationResponseSuccess = (v1GetAnOrganizationResponse200) & {
+  headers: Headers;
+};
+export type v1GetAnOrganizationResponseError = (v1GetAnOrganizationResponse401 | v1GetAnOrganizationResponse403 | v1GetAnOrganizationResponse429) & {
+  headers: Headers;
+};
+
+export type v1GetAnOrganizationResponse = (v1GetAnOrganizationResponseSuccess | v1GetAnOrganizationResponseError)
+
+export const getV1GetAnOrganizationUrl = (slug: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/organizations/${slug}`
+}
+
+export const v1GetAnOrganization = async (slug: string, options?: RequestInit): Promise<v1GetAnOrganizationResponse> => {
+  
+  const res = await fetch(getV1GetAnOrganizationUrl(slug),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetAnOrganizationResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetAnOrganizationResponse
+}
+
+
+/**
  * @summary Gets project details for the specified organization and claim token
  */
-const v1GetOrganizationProjectClaim = (
-    slug: string,
-    token: string,
- options?: SecondParameter<typeof customInstance<OrganizationProjectClaimResponse>>,) => {
-      return customInstance<OrganizationProjectClaimResponse>(
-      {url: `/v1/organizations/${slug}/project-claim/${token}`, method: 'GET'
-    },
-      options);
-    }
-  /**
+export type v1GetOrganizationProjectClaimResponse200 = {
+  data: OrganizationProjectClaimResponse
+  status: 200
+}
+
+export type v1GetOrganizationProjectClaimResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1GetOrganizationProjectClaimResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1GetOrganizationProjectClaimResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1GetOrganizationProjectClaimResponseSuccess = (v1GetOrganizationProjectClaimResponse200) & {
+  headers: Headers;
+};
+export type v1GetOrganizationProjectClaimResponseError = (v1GetOrganizationProjectClaimResponse401 | v1GetOrganizationProjectClaimResponse403 | v1GetOrganizationProjectClaimResponse429) & {
+  headers: Headers;
+};
+
+export type v1GetOrganizationProjectClaimResponse = (v1GetOrganizationProjectClaimResponseSuccess | v1GetOrganizationProjectClaimResponseError)
+
+export const getV1GetOrganizationProjectClaimUrl = (slug: string,
+    token: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/organizations/${slug}/project-claim/${token}`
+}
+
+export const v1GetOrganizationProjectClaim = async (slug: string,
+    token: string, options?: RequestInit): Promise<v1GetOrganizationProjectClaimResponse> => {
+  
+  const res = await fetch(getV1GetOrganizationProjectClaimUrl(slug,token),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetOrganizationProjectClaimResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetOrganizationProjectClaimResponse
+}
+
+
+/**
  * @summary Claims project for the specified organization
  */
-const v1ClaimProjectForOrganization = (
-    slug: string,
-    token: string,
- options?: SecondParameter<typeof customInstance<void>>,) => {
-      return customInstance<void>(
-      {url: `/v1/organizations/${slug}/project-claim/${token}`, method: 'POST'
-    },
-      options);
-    }
-  return {v1ListAllOrganizations,v1CreateAnOrganization,v1ListOrganizationMembers,v1GetAnOrganization,v1GetOrganizationProjectClaim,v1ClaimProjectForOrganization}};
-export type V1ListAllOrganizationsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getOrganizations>['v1ListAllOrganizations']>>>
-export type V1CreateAnOrganizationResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getOrganizations>['v1CreateAnOrganization']>>>
-export type V1ListOrganizationMembersResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getOrganizations>['v1ListOrganizationMembers']>>>
-export type V1GetAnOrganizationResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getOrganizations>['v1GetAnOrganization']>>>
-export type V1GetOrganizationProjectClaimResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getOrganizations>['v1GetOrganizationProjectClaim']>>>
-export type V1ClaimProjectForOrganizationResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getOrganizations>['v1ClaimProjectForOrganization']>>>
+export type v1ClaimProjectForOrganizationResponse204 = {
+  data: void
+  status: 204
+}
+
+export type v1ClaimProjectForOrganizationResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1ClaimProjectForOrganizationResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1ClaimProjectForOrganizationResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1ClaimProjectForOrganizationResponseSuccess = (v1ClaimProjectForOrganizationResponse204) & {
+  headers: Headers;
+};
+export type v1ClaimProjectForOrganizationResponseError = (v1ClaimProjectForOrganizationResponse401 | v1ClaimProjectForOrganizationResponse403 | v1ClaimProjectForOrganizationResponse429) & {
+  headers: Headers;
+};
+
+export type v1ClaimProjectForOrganizationResponse = (v1ClaimProjectForOrganizationResponseSuccess | v1ClaimProjectForOrganizationResponseError)
+
+export const getV1ClaimProjectForOrganizationUrl = (slug: string,
+    token: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/organizations/${slug}/project-claim/${token}`
+}
+
+export const v1ClaimProjectForOrganization = async (slug: string,
+    token: string, options?: RequestInit): Promise<v1ClaimProjectForOrganizationResponse> => {
+  
+  const res = await fetch(getV1ClaimProjectForOrganizationUrl(slug,token),
+  {      
+    ...options,
+    method: 'POST'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1ClaimProjectForOrganizationResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1ClaimProjectForOrganizationResponse
+}
+
+

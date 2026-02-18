@@ -10,55 +10,201 @@ import type {
   ListProjectAddonsResponse
 } from './supabaseAPIV1.schemas';
 
-import { customInstance } from '../mutator';
 
 
-
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
-  export const getBilling = () => {
 /**
  * Returns the billing addons that are currently applied, including the active compute instance size, and lists every addon option that can be provisioned with pricing metadata.
  * @summary List billing addons and compute instance selections
  */
-const v1ListProjectAddons = (
-    ref: string,
- options?: SecondParameter<typeof customInstance<ListProjectAddonsResponse>>,) => {
-      return customInstance<ListProjectAddonsResponse>(
-      {url: `/v1/projects/${ref}/billing/addons`, method: 'GET'
-    },
-      options);
-    }
-  /**
+export type v1ListProjectAddonsResponse200 = {
+  data: ListProjectAddonsResponse
+  status: 200
+}
+
+export type v1ListProjectAddonsResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1ListProjectAddonsResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1ListProjectAddonsResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1ListProjectAddonsResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1ListProjectAddonsResponseSuccess = (v1ListProjectAddonsResponse200) & {
+  headers: Headers;
+};
+export type v1ListProjectAddonsResponseError = (v1ListProjectAddonsResponse401 | v1ListProjectAddonsResponse403 | v1ListProjectAddonsResponse429 | v1ListProjectAddonsResponse500) & {
+  headers: Headers;
+};
+
+export type v1ListProjectAddonsResponse = (v1ListProjectAddonsResponseSuccess | v1ListProjectAddonsResponseError)
+
+export const getV1ListProjectAddonsUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/billing/addons`
+}
+
+export const v1ListProjectAddons = async (ref: string, options?: RequestInit): Promise<v1ListProjectAddonsResponse> => {
+  
+  const res = await fetch(getV1ListProjectAddonsUrl(ref),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1ListProjectAddonsResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1ListProjectAddonsResponse
+}
+
+
+/**
  * Selects an addon variant, for example scaling the project’s compute instance up or down, and applies it to the project.
  * @summary Apply or update billing addons, including compute instance size
  */
-const v1ApplyProjectAddon = (
-    ref: string,
-    applyProjectAddonBody: ApplyProjectAddonBody,
- options?: SecondParameter<typeof customInstance<void>>,) => {
-      return customInstance<void>(
-      {url: `/v1/projects/${ref}/billing/addons`, method: 'PATCH',
-      headers: {'Content-Type': 'application/json', },
-      data: applyProjectAddonBody
-    },
-      options);
-    }
-  /**
+export type v1ApplyProjectAddonResponse200 = {
+  data: void
+  status: 200
+}
+
+export type v1ApplyProjectAddonResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1ApplyProjectAddonResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1ApplyProjectAddonResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1ApplyProjectAddonResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1ApplyProjectAddonResponseSuccess = (v1ApplyProjectAddonResponse200) & {
+  headers: Headers;
+};
+export type v1ApplyProjectAddonResponseError = (v1ApplyProjectAddonResponse401 | v1ApplyProjectAddonResponse403 | v1ApplyProjectAddonResponse429 | v1ApplyProjectAddonResponse500) & {
+  headers: Headers;
+};
+
+export type v1ApplyProjectAddonResponse = (v1ApplyProjectAddonResponseSuccess | v1ApplyProjectAddonResponseError)
+
+export const getV1ApplyProjectAddonUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/billing/addons`
+}
+
+export const v1ApplyProjectAddon = async (ref: string,
+    applyProjectAddonBody: ApplyProjectAddonBody, options?: RequestInit): Promise<v1ApplyProjectAddonResponse> => {
+  
+  const res = await fetch(getV1ApplyProjectAddonUrl(ref),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      applyProjectAddonBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1ApplyProjectAddonResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1ApplyProjectAddonResponse
+}
+
+
+/**
  * Disables the selected addon variant, including rolling the compute instance back to its previous size.
  * @summary Remove billing addons or revert compute instance sizing
  */
-const v1RemoveProjectAddon = (
-    ref: string,
-    addonVariant: 'ci_micro' | 'ci_small' | 'ci_medium' | 'ci_large' | 'ci_xlarge' | 'ci_2xlarge' | 'ci_4xlarge' | 'ci_8xlarge' | 'ci_12xlarge' | 'ci_16xlarge' | 'ci_24xlarge' | 'ci_24xlarge_optimized_cpu' | 'ci_24xlarge_optimized_memory' | 'ci_24xlarge_high_memory' | 'ci_48xlarge' | 'ci_48xlarge_optimized_cpu' | 'ci_48xlarge_optimized_memory' | 'ci_48xlarge_high_memory' | 'cd_default' | 'pitr_7' | 'pitr_14' | 'pitr_28' | 'ipv4_default',
- options?: SecondParameter<typeof customInstance<void>>,) => {
-      return customInstance<void>(
-      {url: `/v1/projects/${ref}/billing/addons/${addonVariant}`, method: 'DELETE'
-    },
-      options);
-    }
-  return {v1ListProjectAddons,v1ApplyProjectAddon,v1RemoveProjectAddon}};
-export type V1ListProjectAddonsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getBilling>['v1ListProjectAddons']>>>
-export type V1ApplyProjectAddonResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getBilling>['v1ApplyProjectAddon']>>>
-export type V1RemoveProjectAddonResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getBilling>['v1RemoveProjectAddon']>>>
+export type v1RemoveProjectAddonResponse200 = {
+  data: void
+  status: 200
+}
+
+export type v1RemoveProjectAddonResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1RemoveProjectAddonResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1RemoveProjectAddonResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1RemoveProjectAddonResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1RemoveProjectAddonResponseSuccess = (v1RemoveProjectAddonResponse200) & {
+  headers: Headers;
+};
+export type v1RemoveProjectAddonResponseError = (v1RemoveProjectAddonResponse401 | v1RemoveProjectAddonResponse403 | v1RemoveProjectAddonResponse429 | v1RemoveProjectAddonResponse500) & {
+  headers: Headers;
+};
+
+export type v1RemoveProjectAddonResponse = (v1RemoveProjectAddonResponseSuccess | v1RemoveProjectAddonResponseError)
+
+export const getV1RemoveProjectAddonUrl = (ref: string,
+    addonVariant: 'ci_micro' | 'ci_small' | 'ci_medium' | 'ci_large' | 'ci_xlarge' | 'ci_2xlarge' | 'ci_4xlarge' | 'ci_8xlarge' | 'ci_12xlarge' | 'ci_16xlarge' | 'ci_24xlarge' | 'ci_24xlarge_optimized_cpu' | 'ci_24xlarge_optimized_memory' | 'ci_24xlarge_high_memory' | 'ci_48xlarge' | 'ci_48xlarge_optimized_cpu' | 'ci_48xlarge_optimized_memory' | 'ci_48xlarge_high_memory' | 'cd_default' | 'pitr_7' | 'pitr_14' | 'pitr_28' | 'ipv4_default',) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/billing/addons/${addonVariant}`
+}
+
+export const v1RemoveProjectAddon = async (ref: string,
+    addonVariant: 'ci_micro' | 'ci_small' | 'ci_medium' | 'ci_large' | 'ci_xlarge' | 'ci_2xlarge' | 'ci_4xlarge' | 'ci_8xlarge' | 'ci_12xlarge' | 'ci_16xlarge' | 'ci_24xlarge' | 'ci_24xlarge_optimized_cpu' | 'ci_24xlarge_optimized_memory' | 'ci_24xlarge_high_memory' | 'ci_48xlarge' | 'ci_48xlarge_optimized_cpu' | 'ci_48xlarge_optimized_memory' | 'ci_48xlarge_high_memory' | 'cd_default' | 'pitr_7' | 'pitr_14' | 'pitr_28' | 'ipv4_default', options?: RequestInit): Promise<v1RemoveProjectAddonResponse> => {
+  
+  const res = await fetch(getV1RemoveProjectAddonUrl(ref,addonVariant),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1RemoveProjectAddonResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1RemoveProjectAddonResponse
+}
+
+

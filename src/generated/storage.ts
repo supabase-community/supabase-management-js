@@ -11,51 +11,196 @@ import type {
   V1StorageBucketResponse
 } from './supabaseAPIV1.schemas';
 
-import { customInstance } from '../mutator';
 
 
-
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
-  export const getStorage = () => {
 /**
  * @summary Lists all buckets
  */
-const v1ListAllBuckets = (
-    ref: string,
- options?: SecondParameter<typeof customInstance<V1StorageBucketResponse[]>>,) => {
-      return customInstance<V1StorageBucketResponse[]>(
-      {url: `/v1/projects/${ref}/storage/buckets`, method: 'GET'
-    },
-      options);
-    }
-  /**
+export type v1ListAllBucketsResponse200 = {
+  data: V1StorageBucketResponse[]
+  status: 200
+}
+
+export type v1ListAllBucketsResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1ListAllBucketsResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1ListAllBucketsResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1ListAllBucketsResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1ListAllBucketsResponseSuccess = (v1ListAllBucketsResponse200) & {
+  headers: Headers;
+};
+export type v1ListAllBucketsResponseError = (v1ListAllBucketsResponse401 | v1ListAllBucketsResponse403 | v1ListAllBucketsResponse429 | v1ListAllBucketsResponse500) & {
+  headers: Headers;
+};
+
+export type v1ListAllBucketsResponse = (v1ListAllBucketsResponseSuccess | v1ListAllBucketsResponseError)
+
+export const getV1ListAllBucketsUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/storage/buckets`
+}
+
+export const v1ListAllBuckets = async (ref: string, options?: RequestInit): Promise<v1ListAllBucketsResponse> => {
+  
+  const res = await fetch(getV1ListAllBucketsUrl(ref),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1ListAllBucketsResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1ListAllBucketsResponse
+}
+
+
+/**
  * @summary Gets project's storage config
  */
-const v1GetStorageConfig = (
-    ref: string,
- options?: SecondParameter<typeof customInstance<StorageConfigResponse>>,) => {
-      return customInstance<StorageConfigResponse>(
-      {url: `/v1/projects/${ref}/config/storage`, method: 'GET'
-    },
-      options);
-    }
-  /**
+export type v1GetStorageConfigResponse200 = {
+  data: StorageConfigResponse
+  status: 200
+}
+
+export type v1GetStorageConfigResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1GetStorageConfigResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1GetStorageConfigResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1GetStorageConfigResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1GetStorageConfigResponseSuccess = (v1GetStorageConfigResponse200) & {
+  headers: Headers;
+};
+export type v1GetStorageConfigResponseError = (v1GetStorageConfigResponse401 | v1GetStorageConfigResponse403 | v1GetStorageConfigResponse429 | v1GetStorageConfigResponse500) & {
+  headers: Headers;
+};
+
+export type v1GetStorageConfigResponse = (v1GetStorageConfigResponseSuccess | v1GetStorageConfigResponseError)
+
+export const getV1GetStorageConfigUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/config/storage`
+}
+
+export const v1GetStorageConfig = async (ref: string, options?: RequestInit): Promise<v1GetStorageConfigResponse> => {
+  
+  const res = await fetch(getV1GetStorageConfigUrl(ref),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetStorageConfigResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetStorageConfigResponse
+}
+
+
+/**
  * @summary Updates project's storage config
  */
-const v1UpdateStorageConfig = (
-    ref: string,
-    updateStorageConfigBody: UpdateStorageConfigBody,
- options?: SecondParameter<typeof customInstance<void>>,) => {
-      return customInstance<void>(
-      {url: `/v1/projects/${ref}/config/storage`, method: 'PATCH',
-      headers: {'Content-Type': 'application/json', },
-      data: updateStorageConfigBody
-    },
-      options);
-    }
-  return {v1ListAllBuckets,v1GetStorageConfig,v1UpdateStorageConfig}};
-export type V1ListAllBucketsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getStorage>['v1ListAllBuckets']>>>
-export type V1GetStorageConfigResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getStorage>['v1GetStorageConfig']>>>
-export type V1UpdateStorageConfigResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getStorage>['v1UpdateStorageConfig']>>>
+export type v1UpdateStorageConfigResponse200 = {
+  data: void
+  status: 200
+}
+
+export type v1UpdateStorageConfigResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1UpdateStorageConfigResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1UpdateStorageConfigResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1UpdateStorageConfigResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1UpdateStorageConfigResponseSuccess = (v1UpdateStorageConfigResponse200) & {
+  headers: Headers;
+};
+export type v1UpdateStorageConfigResponseError = (v1UpdateStorageConfigResponse401 | v1UpdateStorageConfigResponse403 | v1UpdateStorageConfigResponse429 | v1UpdateStorageConfigResponse500) & {
+  headers: Headers;
+};
+
+export type v1UpdateStorageConfigResponse = (v1UpdateStorageConfigResponseSuccess | v1UpdateStorageConfigResponseError)
+
+export const getV1UpdateStorageConfigUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/config/storage`
+}
+
+export const v1UpdateStorageConfig = async (ref: string,
+    updateStorageConfigBody: UpdateStorageConfigBody, options?: RequestInit): Promise<v1UpdateStorageConfigResponse> => {
+  
+  const res = await fetch(getV1UpdateStorageConfigUrl(ref),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateStorageConfigBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1UpdateStorageConfigResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1UpdateStorageConfigResponse
+}
+
+

@@ -14,129 +14,578 @@ import type {
   VanitySubdomainConfigResponse
 } from './supabaseAPIV1.schemas';
 
-import { customInstance } from '../mutator';
 
 
-
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
-  export const getDomains = () => {
 /**
  * @summary [Beta] Gets project's custom hostname config
  */
-const v1GetHostnameConfig = (
-    ref: string,
- options?: SecondParameter<typeof customInstance<UpdateCustomHostnameResponse>>,) => {
-      return customInstance<UpdateCustomHostnameResponse>(
-      {url: `/v1/projects/${ref}/custom-hostname`, method: 'GET'
-    },
-      options);
-    }
-  /**
+export type v1GetHostnameConfigResponse200 = {
+  data: UpdateCustomHostnameResponse
+  status: 200
+}
+
+export type v1GetHostnameConfigResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1GetHostnameConfigResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1GetHostnameConfigResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1GetHostnameConfigResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1GetHostnameConfigResponseSuccess = (v1GetHostnameConfigResponse200) & {
+  headers: Headers;
+};
+export type v1GetHostnameConfigResponseError = (v1GetHostnameConfigResponse401 | v1GetHostnameConfigResponse403 | v1GetHostnameConfigResponse429 | v1GetHostnameConfigResponse500) & {
+  headers: Headers;
+};
+
+export type v1GetHostnameConfigResponse = (v1GetHostnameConfigResponseSuccess | v1GetHostnameConfigResponseError)
+
+export const getV1GetHostnameConfigUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/custom-hostname`
+}
+
+export const v1GetHostnameConfig = async (ref: string, options?: RequestInit): Promise<v1GetHostnameConfigResponse> => {
+  
+  const res = await fetch(getV1GetHostnameConfigUrl(ref),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetHostnameConfigResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetHostnameConfigResponse
+}
+
+
+/**
  * @summary [Beta] Deletes a project's custom hostname configuration
  */
-const v1DeleteHostnameConfig = (
-    ref: string,
- options?: SecondParameter<typeof customInstance<void>>,) => {
-      return customInstance<void>(
-      {url: `/v1/projects/${ref}/custom-hostname`, method: 'DELETE'
-    },
-      options);
-    }
-  /**
+export type v1DeleteHostnameConfigResponse200 = {
+  data: void
+  status: 200
+}
+
+export type v1DeleteHostnameConfigResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1DeleteHostnameConfigResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1DeleteHostnameConfigResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1DeleteHostnameConfigResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1DeleteHostnameConfigResponseSuccess = (v1DeleteHostnameConfigResponse200) & {
+  headers: Headers;
+};
+export type v1DeleteHostnameConfigResponseError = (v1DeleteHostnameConfigResponse401 | v1DeleteHostnameConfigResponse403 | v1DeleteHostnameConfigResponse429 | v1DeleteHostnameConfigResponse500) & {
+  headers: Headers;
+};
+
+export type v1DeleteHostnameConfigResponse = (v1DeleteHostnameConfigResponseSuccess | v1DeleteHostnameConfigResponseError)
+
+export const getV1DeleteHostnameConfigUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/custom-hostname`
+}
+
+export const v1DeleteHostnameConfig = async (ref: string, options?: RequestInit): Promise<v1DeleteHostnameConfigResponse> => {
+  
+  const res = await fetch(getV1DeleteHostnameConfigUrl(ref),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1DeleteHostnameConfigResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1DeleteHostnameConfigResponse
+}
+
+
+/**
  * @summary [Beta] Updates project's custom hostname configuration
  */
-const v1UpdateHostnameConfig = (
-    ref: string,
-    updateCustomHostnameBody: UpdateCustomHostnameBody,
- options?: SecondParameter<typeof customInstance<UpdateCustomHostnameResponse>>,) => {
-      return customInstance<UpdateCustomHostnameResponse>(
-      {url: `/v1/projects/${ref}/custom-hostname/initialize`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: updateCustomHostnameBody
-    },
-      options);
-    }
-  /**
+export type v1UpdateHostnameConfigResponse201 = {
+  data: UpdateCustomHostnameResponse
+  status: 201
+}
+
+export type v1UpdateHostnameConfigResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1UpdateHostnameConfigResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1UpdateHostnameConfigResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1UpdateHostnameConfigResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1UpdateHostnameConfigResponseSuccess = (v1UpdateHostnameConfigResponse201) & {
+  headers: Headers;
+};
+export type v1UpdateHostnameConfigResponseError = (v1UpdateHostnameConfigResponse401 | v1UpdateHostnameConfigResponse403 | v1UpdateHostnameConfigResponse429 | v1UpdateHostnameConfigResponse500) & {
+  headers: Headers;
+};
+
+export type v1UpdateHostnameConfigResponse = (v1UpdateHostnameConfigResponseSuccess | v1UpdateHostnameConfigResponseError)
+
+export const getV1UpdateHostnameConfigUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/custom-hostname/initialize`
+}
+
+export const v1UpdateHostnameConfig = async (ref: string,
+    updateCustomHostnameBody: UpdateCustomHostnameBody, options?: RequestInit): Promise<v1UpdateHostnameConfigResponse> => {
+  
+  const res = await fetch(getV1UpdateHostnameConfigUrl(ref),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateCustomHostnameBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1UpdateHostnameConfigResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1UpdateHostnameConfigResponse
+}
+
+
+/**
  * @summary [Beta] Attempts to verify the DNS configuration for project's custom hostname configuration
  */
-const v1VerifyDnsConfig = (
-    ref: string,
- options?: SecondParameter<typeof customInstance<UpdateCustomHostnameResponse>>,) => {
-      return customInstance<UpdateCustomHostnameResponse>(
-      {url: `/v1/projects/${ref}/custom-hostname/reverify`, method: 'POST'
-    },
-      options);
-    }
-  /**
+export type v1VerifyDnsConfigResponse201 = {
+  data: UpdateCustomHostnameResponse
+  status: 201
+}
+
+export type v1VerifyDnsConfigResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1VerifyDnsConfigResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1VerifyDnsConfigResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1VerifyDnsConfigResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1VerifyDnsConfigResponseSuccess = (v1VerifyDnsConfigResponse201) & {
+  headers: Headers;
+};
+export type v1VerifyDnsConfigResponseError = (v1VerifyDnsConfigResponse401 | v1VerifyDnsConfigResponse403 | v1VerifyDnsConfigResponse429 | v1VerifyDnsConfigResponse500) & {
+  headers: Headers;
+};
+
+export type v1VerifyDnsConfigResponse = (v1VerifyDnsConfigResponseSuccess | v1VerifyDnsConfigResponseError)
+
+export const getV1VerifyDnsConfigUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/custom-hostname/reverify`
+}
+
+export const v1VerifyDnsConfig = async (ref: string, options?: RequestInit): Promise<v1VerifyDnsConfigResponse> => {
+  
+  const res = await fetch(getV1VerifyDnsConfigUrl(ref),
+  {      
+    ...options,
+    method: 'POST'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1VerifyDnsConfigResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1VerifyDnsConfigResponse
+}
+
+
+/**
  * @summary [Beta] Activates a custom hostname for a project.
  */
-const v1ActivateCustomHostname = (
-    ref: string,
- options?: SecondParameter<typeof customInstance<UpdateCustomHostnameResponse>>,) => {
-      return customInstance<UpdateCustomHostnameResponse>(
-      {url: `/v1/projects/${ref}/custom-hostname/activate`, method: 'POST'
-    },
-      options);
-    }
-  /**
+export type v1ActivateCustomHostnameResponse201 = {
+  data: UpdateCustomHostnameResponse
+  status: 201
+}
+
+export type v1ActivateCustomHostnameResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1ActivateCustomHostnameResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1ActivateCustomHostnameResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1ActivateCustomHostnameResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1ActivateCustomHostnameResponseSuccess = (v1ActivateCustomHostnameResponse201) & {
+  headers: Headers;
+};
+export type v1ActivateCustomHostnameResponseError = (v1ActivateCustomHostnameResponse401 | v1ActivateCustomHostnameResponse403 | v1ActivateCustomHostnameResponse429 | v1ActivateCustomHostnameResponse500) & {
+  headers: Headers;
+};
+
+export type v1ActivateCustomHostnameResponse = (v1ActivateCustomHostnameResponseSuccess | v1ActivateCustomHostnameResponseError)
+
+export const getV1ActivateCustomHostnameUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/custom-hostname/activate`
+}
+
+export const v1ActivateCustomHostname = async (ref: string, options?: RequestInit): Promise<v1ActivateCustomHostnameResponse> => {
+  
+  const res = await fetch(getV1ActivateCustomHostnameUrl(ref),
+  {      
+    ...options,
+    method: 'POST'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1ActivateCustomHostnameResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1ActivateCustomHostnameResponse
+}
+
+
+/**
  * @summary [Beta] Gets current vanity subdomain config
  */
-const v1GetVanitySubdomainConfig = (
-    ref: string,
- options?: SecondParameter<typeof customInstance<VanitySubdomainConfigResponse>>,) => {
-      return customInstance<VanitySubdomainConfigResponse>(
-      {url: `/v1/projects/${ref}/vanity-subdomain`, method: 'GET'
-    },
-      options);
-    }
-  /**
+export type v1GetVanitySubdomainConfigResponse200 = {
+  data: VanitySubdomainConfigResponse
+  status: 200
+}
+
+export type v1GetVanitySubdomainConfigResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1GetVanitySubdomainConfigResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1GetVanitySubdomainConfigResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1GetVanitySubdomainConfigResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1GetVanitySubdomainConfigResponseSuccess = (v1GetVanitySubdomainConfigResponse200) & {
+  headers: Headers;
+};
+export type v1GetVanitySubdomainConfigResponseError = (v1GetVanitySubdomainConfigResponse401 | v1GetVanitySubdomainConfigResponse403 | v1GetVanitySubdomainConfigResponse429 | v1GetVanitySubdomainConfigResponse500) & {
+  headers: Headers;
+};
+
+export type v1GetVanitySubdomainConfigResponse = (v1GetVanitySubdomainConfigResponseSuccess | v1GetVanitySubdomainConfigResponseError)
+
+export const getV1GetVanitySubdomainConfigUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/vanity-subdomain`
+}
+
+export const v1GetVanitySubdomainConfig = async (ref: string, options?: RequestInit): Promise<v1GetVanitySubdomainConfigResponse> => {
+  
+  const res = await fetch(getV1GetVanitySubdomainConfigUrl(ref),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetVanitySubdomainConfigResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetVanitySubdomainConfigResponse
+}
+
+
+/**
  * @summary [Beta] Deletes a project's vanity subdomain configuration
  */
-const v1DeactivateVanitySubdomainConfig = (
-    ref: string,
- options?: SecondParameter<typeof customInstance<void>>,) => {
-      return customInstance<void>(
-      {url: `/v1/projects/${ref}/vanity-subdomain`, method: 'DELETE'
-    },
-      options);
-    }
-  /**
+export type v1DeactivateVanitySubdomainConfigResponse200 = {
+  data: void
+  status: 200
+}
+
+export type v1DeactivateVanitySubdomainConfigResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1DeactivateVanitySubdomainConfigResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1DeactivateVanitySubdomainConfigResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1DeactivateVanitySubdomainConfigResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1DeactivateVanitySubdomainConfigResponseSuccess = (v1DeactivateVanitySubdomainConfigResponse200) & {
+  headers: Headers;
+};
+export type v1DeactivateVanitySubdomainConfigResponseError = (v1DeactivateVanitySubdomainConfigResponse401 | v1DeactivateVanitySubdomainConfigResponse403 | v1DeactivateVanitySubdomainConfigResponse429 | v1DeactivateVanitySubdomainConfigResponse500) & {
+  headers: Headers;
+};
+
+export type v1DeactivateVanitySubdomainConfigResponse = (v1DeactivateVanitySubdomainConfigResponseSuccess | v1DeactivateVanitySubdomainConfigResponseError)
+
+export const getV1DeactivateVanitySubdomainConfigUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/vanity-subdomain`
+}
+
+export const v1DeactivateVanitySubdomainConfig = async (ref: string, options?: RequestInit): Promise<v1DeactivateVanitySubdomainConfigResponse> => {
+  
+  const res = await fetch(getV1DeactivateVanitySubdomainConfigUrl(ref),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1DeactivateVanitySubdomainConfigResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1DeactivateVanitySubdomainConfigResponse
+}
+
+
+/**
  * @summary [Beta] Checks vanity subdomain availability
  */
-const v1CheckVanitySubdomainAvailability = (
-    ref: string,
-    vanitySubdomainBody: VanitySubdomainBody,
- options?: SecondParameter<typeof customInstance<SubdomainAvailabilityResponse>>,) => {
-      return customInstance<SubdomainAvailabilityResponse>(
-      {url: `/v1/projects/${ref}/vanity-subdomain/check-availability`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: vanitySubdomainBody
-    },
-      options);
-    }
-  /**
+export type v1CheckVanitySubdomainAvailabilityResponse201 = {
+  data: SubdomainAvailabilityResponse
+  status: 201
+}
+
+export type v1CheckVanitySubdomainAvailabilityResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1CheckVanitySubdomainAvailabilityResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1CheckVanitySubdomainAvailabilityResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1CheckVanitySubdomainAvailabilityResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1CheckVanitySubdomainAvailabilityResponseSuccess = (v1CheckVanitySubdomainAvailabilityResponse201) & {
+  headers: Headers;
+};
+export type v1CheckVanitySubdomainAvailabilityResponseError = (v1CheckVanitySubdomainAvailabilityResponse401 | v1CheckVanitySubdomainAvailabilityResponse403 | v1CheckVanitySubdomainAvailabilityResponse429 | v1CheckVanitySubdomainAvailabilityResponse500) & {
+  headers: Headers;
+};
+
+export type v1CheckVanitySubdomainAvailabilityResponse = (v1CheckVanitySubdomainAvailabilityResponseSuccess | v1CheckVanitySubdomainAvailabilityResponseError)
+
+export const getV1CheckVanitySubdomainAvailabilityUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/vanity-subdomain/check-availability`
+}
+
+export const v1CheckVanitySubdomainAvailability = async (ref: string,
+    vanitySubdomainBody: VanitySubdomainBody, options?: RequestInit): Promise<v1CheckVanitySubdomainAvailabilityResponse> => {
+  
+  const res = await fetch(getV1CheckVanitySubdomainAvailabilityUrl(ref),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      vanitySubdomainBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1CheckVanitySubdomainAvailabilityResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1CheckVanitySubdomainAvailabilityResponse
+}
+
+
+/**
  * @summary [Beta] Activates a vanity subdomain for a project.
  */
-const v1ActivateVanitySubdomainConfig = (
-    ref: string,
-    vanitySubdomainBody: VanitySubdomainBody,
- options?: SecondParameter<typeof customInstance<ActivateVanitySubdomainResponse>>,) => {
-      return customInstance<ActivateVanitySubdomainResponse>(
-      {url: `/v1/projects/${ref}/vanity-subdomain/activate`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: vanitySubdomainBody
-    },
-      options);
-    }
-  return {v1GetHostnameConfig,v1DeleteHostnameConfig,v1UpdateHostnameConfig,v1VerifyDnsConfig,v1ActivateCustomHostname,v1GetVanitySubdomainConfig,v1DeactivateVanitySubdomainConfig,v1CheckVanitySubdomainAvailability,v1ActivateVanitySubdomainConfig}};
-export type V1GetHostnameConfigResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getDomains>['v1GetHostnameConfig']>>>
-export type V1DeleteHostnameConfigResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getDomains>['v1DeleteHostnameConfig']>>>
-export type V1UpdateHostnameConfigResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getDomains>['v1UpdateHostnameConfig']>>>
-export type V1VerifyDnsConfigResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getDomains>['v1VerifyDnsConfig']>>>
-export type V1ActivateCustomHostnameResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getDomains>['v1ActivateCustomHostname']>>>
-export type V1GetVanitySubdomainConfigResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getDomains>['v1GetVanitySubdomainConfig']>>>
-export type V1DeactivateVanitySubdomainConfigResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getDomains>['v1DeactivateVanitySubdomainConfig']>>>
-export type V1CheckVanitySubdomainAvailabilityResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getDomains>['v1CheckVanitySubdomainAvailability']>>>
-export type V1ActivateVanitySubdomainConfigResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getDomains>['v1ActivateVanitySubdomainConfig']>>>
+export type v1ActivateVanitySubdomainConfigResponse201 = {
+  data: ActivateVanitySubdomainResponse
+  status: 201
+}
+
+export type v1ActivateVanitySubdomainConfigResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1ActivateVanitySubdomainConfigResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1ActivateVanitySubdomainConfigResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1ActivateVanitySubdomainConfigResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1ActivateVanitySubdomainConfigResponseSuccess = (v1ActivateVanitySubdomainConfigResponse201) & {
+  headers: Headers;
+};
+export type v1ActivateVanitySubdomainConfigResponseError = (v1ActivateVanitySubdomainConfigResponse401 | v1ActivateVanitySubdomainConfigResponse403 | v1ActivateVanitySubdomainConfigResponse429 | v1ActivateVanitySubdomainConfigResponse500) & {
+  headers: Headers;
+};
+
+export type v1ActivateVanitySubdomainConfigResponse = (v1ActivateVanitySubdomainConfigResponseSuccess | v1ActivateVanitySubdomainConfigResponseError)
+
+export const getV1ActivateVanitySubdomainConfigUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/vanity-subdomain/activate`
+}
+
+export const v1ActivateVanitySubdomainConfig = async (ref: string,
+    vanitySubdomainBody: VanitySubdomainBody, options?: RequestInit): Promise<v1ActivateVanitySubdomainConfigResponse> => {
+  
+  const res = await fetch(getV1ActivateVanitySubdomainConfigUrl(ref),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      vanitySubdomainBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1ActivateVanitySubdomainConfigResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1ActivateVanitySubdomainConfigResponse
+}
+
+

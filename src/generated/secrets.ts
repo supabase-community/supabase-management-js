@@ -23,189 +23,799 @@ import type {
   V1UpdateProjectLegacyApiKeysParams
 } from './supabaseAPIV1.schemas';
 
-import { customInstance } from '../mutator';
 
 
-
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
-  export const getSecrets = () => {
 /**
  * @summary Get project api keys
  */
-const v1GetProjectApiKeys = (
-    ref: string,
-    params?: V1GetProjectApiKeysParams,
- options?: SecondParameter<typeof customInstance<ApiKeyResponse[]>>,) => {
-      return customInstance<ApiKeyResponse[]>(
-      {url: `/v1/projects/${ref}/api-keys`, method: 'GET',
-        params
-    },
-      options);
+export type v1GetProjectApiKeysResponse200 = {
+  data: ApiKeyResponse[]
+  status: 200
+}
+
+export type v1GetProjectApiKeysResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1GetProjectApiKeysResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1GetProjectApiKeysResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1GetProjectApiKeysResponseSuccess = (v1GetProjectApiKeysResponse200) & {
+  headers: Headers;
+};
+export type v1GetProjectApiKeysResponseError = (v1GetProjectApiKeysResponse401 | v1GetProjectApiKeysResponse403 | v1GetProjectApiKeysResponse429) & {
+  headers: Headers;
+};
+
+export type v1GetProjectApiKeysResponse = (v1GetProjectApiKeysResponseSuccess | v1GetProjectApiKeysResponseError)
+
+export const getV1GetProjectApiKeysUrl = (ref: string,
+    params?: V1GetProjectApiKeysParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
     }
-  /**
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/api-keys?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/api-keys`
+}
+
+export const v1GetProjectApiKeys = async (ref: string,
+    params?: V1GetProjectApiKeysParams, options?: RequestInit): Promise<v1GetProjectApiKeysResponse> => {
+  
+  const res = await fetch(getV1GetProjectApiKeysUrl(ref,params),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetProjectApiKeysResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetProjectApiKeysResponse
+}
+
+
+/**
  * @summary Creates a new API key for the project
  */
-const v1CreateProjectApiKey = (
-    ref: string,
-    createApiKeyBody: CreateApiKeyBody,
-    params?: V1CreateProjectApiKeyParams,
- options?: SecondParameter<typeof customInstance<ApiKeyResponse>>,) => {
-      return customInstance<ApiKeyResponse>(
-      {url: `/v1/projects/${ref}/api-keys`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: createApiKeyBody,
-        params
-    },
-      options);
+export type v1CreateProjectApiKeyResponse201 = {
+  data: ApiKeyResponse
+  status: 201
+}
+
+export type v1CreateProjectApiKeyResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1CreateProjectApiKeyResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1CreateProjectApiKeyResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1CreateProjectApiKeyResponseSuccess = (v1CreateProjectApiKeyResponse201) & {
+  headers: Headers;
+};
+export type v1CreateProjectApiKeyResponseError = (v1CreateProjectApiKeyResponse401 | v1CreateProjectApiKeyResponse403 | v1CreateProjectApiKeyResponse429) & {
+  headers: Headers;
+};
+
+export type v1CreateProjectApiKeyResponse = (v1CreateProjectApiKeyResponseSuccess | v1CreateProjectApiKeyResponseError)
+
+export const getV1CreateProjectApiKeyUrl = (ref: string,
+    params?: V1CreateProjectApiKeyParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
     }
-  /**
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/api-keys?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/api-keys`
+}
+
+export const v1CreateProjectApiKey = async (ref: string,
+    createApiKeyBody: CreateApiKeyBody,
+    params?: V1CreateProjectApiKeyParams, options?: RequestInit): Promise<v1CreateProjectApiKeyResponse> => {
+  
+  const res = await fetch(getV1CreateProjectApiKeyUrl(ref,params),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createApiKeyBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1CreateProjectApiKeyResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1CreateProjectApiKeyResponse
+}
+
+
+/**
  * @summary Check whether JWT based legacy (anon, service_role) API keys are enabled. This API endpoint will be removed in the future, check for HTTP 404 Not Found.
  */
-const v1GetProjectLegacyApiKeys = (
-    ref: string,
- options?: SecondParameter<typeof customInstance<LegacyApiKeysResponse>>,) => {
-      return customInstance<LegacyApiKeysResponse>(
-      {url: `/v1/projects/${ref}/api-keys/legacy`, method: 'GET'
-    },
-      options);
-    }
-  /**
+export type v1GetProjectLegacyApiKeysResponse200 = {
+  data: LegacyApiKeysResponse
+  status: 200
+}
+
+export type v1GetProjectLegacyApiKeysResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1GetProjectLegacyApiKeysResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1GetProjectLegacyApiKeysResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1GetProjectLegacyApiKeysResponseSuccess = (v1GetProjectLegacyApiKeysResponse200) & {
+  headers: Headers;
+};
+export type v1GetProjectLegacyApiKeysResponseError = (v1GetProjectLegacyApiKeysResponse401 | v1GetProjectLegacyApiKeysResponse403 | v1GetProjectLegacyApiKeysResponse429) & {
+  headers: Headers;
+};
+
+export type v1GetProjectLegacyApiKeysResponse = (v1GetProjectLegacyApiKeysResponseSuccess | v1GetProjectLegacyApiKeysResponseError)
+
+export const getV1GetProjectLegacyApiKeysUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/api-keys/legacy`
+}
+
+export const v1GetProjectLegacyApiKeys = async (ref: string, options?: RequestInit): Promise<v1GetProjectLegacyApiKeysResponse> => {
+  
+  const res = await fetch(getV1GetProjectLegacyApiKeysUrl(ref),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetProjectLegacyApiKeysResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetProjectLegacyApiKeysResponse
+}
+
+
+/**
  * @summary Disable or re-enable JWT based legacy (anon, service_role) API keys. This API endpoint will be removed in the future, check for HTTP 404 Not Found.
  */
-const v1UpdateProjectLegacyApiKeys = (
-    ref: string,
-    params: V1UpdateProjectLegacyApiKeysParams,
- options?: SecondParameter<typeof customInstance<LegacyApiKeysResponse>>,) => {
-      return customInstance<LegacyApiKeysResponse>(
-      {url: `/v1/projects/${ref}/api-keys/legacy`, method: 'PUT',
-        params
-    },
-      options);
+export type v1UpdateProjectLegacyApiKeysResponse200 = {
+  data: LegacyApiKeysResponse
+  status: 200
+}
+
+export type v1UpdateProjectLegacyApiKeysResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1UpdateProjectLegacyApiKeysResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1UpdateProjectLegacyApiKeysResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1UpdateProjectLegacyApiKeysResponseSuccess = (v1UpdateProjectLegacyApiKeysResponse200) & {
+  headers: Headers;
+};
+export type v1UpdateProjectLegacyApiKeysResponseError = (v1UpdateProjectLegacyApiKeysResponse401 | v1UpdateProjectLegacyApiKeysResponse403 | v1UpdateProjectLegacyApiKeysResponse429) & {
+  headers: Headers;
+};
+
+export type v1UpdateProjectLegacyApiKeysResponse = (v1UpdateProjectLegacyApiKeysResponseSuccess | v1UpdateProjectLegacyApiKeysResponseError)
+
+export const getV1UpdateProjectLegacyApiKeysUrl = (ref: string,
+    params: V1UpdateProjectLegacyApiKeysParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
     }
-  /**
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/api-keys/legacy?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/api-keys/legacy`
+}
+
+export const v1UpdateProjectLegacyApiKeys = async (ref: string,
+    params: V1UpdateProjectLegacyApiKeysParams, options?: RequestInit): Promise<v1UpdateProjectLegacyApiKeysResponse> => {
+  
+  const res = await fetch(getV1UpdateProjectLegacyApiKeysUrl(ref,params),
+  {      
+    ...options,
+    method: 'PUT'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1UpdateProjectLegacyApiKeysResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1UpdateProjectLegacyApiKeysResponse
+}
+
+
+/**
  * @summary Updates an API key for the project
  */
-const v1UpdateProjectApiKey = (
-    ref: string,
+export type v1UpdateProjectApiKeyResponse200 = {
+  data: ApiKeyResponse
+  status: 200
+}
+
+export type v1UpdateProjectApiKeyResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1UpdateProjectApiKeyResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1UpdateProjectApiKeyResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1UpdateProjectApiKeyResponseSuccess = (v1UpdateProjectApiKeyResponse200) & {
+  headers: Headers;
+};
+export type v1UpdateProjectApiKeyResponseError = (v1UpdateProjectApiKeyResponse401 | v1UpdateProjectApiKeyResponse403 | v1UpdateProjectApiKeyResponse429) & {
+  headers: Headers;
+};
+
+export type v1UpdateProjectApiKeyResponse = (v1UpdateProjectApiKeyResponseSuccess | v1UpdateProjectApiKeyResponseError)
+
+export const getV1UpdateProjectApiKeyUrl = (ref: string,
+    id: string,
+    params?: V1UpdateProjectApiKeyParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
+    }
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/api-keys/${id}?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/api-keys/${id}`
+}
+
+export const v1UpdateProjectApiKey = async (ref: string,
     id: string,
     updateApiKeyBody: UpdateApiKeyBody,
-    params?: V1UpdateProjectApiKeyParams,
- options?: SecondParameter<typeof customInstance<ApiKeyResponse>>,) => {
-      return customInstance<ApiKeyResponse>(
-      {url: `/v1/projects/${ref}/api-keys/${id}`, method: 'PATCH',
-      headers: {'Content-Type': 'application/json', },
-      data: updateApiKeyBody,
-        params
-    },
-      options);
-    }
-  /**
+    params?: V1UpdateProjectApiKeyParams, options?: RequestInit): Promise<v1UpdateProjectApiKeyResponse> => {
+  
+  const res = await fetch(getV1UpdateProjectApiKeyUrl(ref,id,params),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updateApiKeyBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1UpdateProjectApiKeyResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1UpdateProjectApiKeyResponse
+}
+
+
+/**
  * @summary Get API key
  */
-const v1GetProjectApiKey = (
-    ref: string,
+export type v1GetProjectApiKeyResponse200 = {
+  data: ApiKeyResponse
+  status: 200
+}
+
+export type v1GetProjectApiKeyResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1GetProjectApiKeyResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1GetProjectApiKeyResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1GetProjectApiKeyResponseSuccess = (v1GetProjectApiKeyResponse200) & {
+  headers: Headers;
+};
+export type v1GetProjectApiKeyResponseError = (v1GetProjectApiKeyResponse401 | v1GetProjectApiKeyResponse403 | v1GetProjectApiKeyResponse429) & {
+  headers: Headers;
+};
+
+export type v1GetProjectApiKeyResponse = (v1GetProjectApiKeyResponseSuccess | v1GetProjectApiKeyResponseError)
+
+export const getV1GetProjectApiKeyUrl = (ref: string,
     id: string,
-    params?: V1GetProjectApiKeyParams,
- options?: SecondParameter<typeof customInstance<ApiKeyResponse>>,) => {
-      return customInstance<ApiKeyResponse>(
-      {url: `/v1/projects/${ref}/api-keys/${id}`, method: 'GET',
-        params
-    },
-      options);
+    params?: V1GetProjectApiKeyParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
     }
-  /**
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/api-keys/${id}?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/api-keys/${id}`
+}
+
+export const v1GetProjectApiKey = async (ref: string,
+    id: string,
+    params?: V1GetProjectApiKeyParams, options?: RequestInit): Promise<v1GetProjectApiKeyResponse> => {
+  
+  const res = await fetch(getV1GetProjectApiKeyUrl(ref,id,params),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetProjectApiKeyResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetProjectApiKeyResponse
+}
+
+
+/**
  * @summary Deletes an API key for the project
  */
-const v1DeleteProjectApiKey = (
-    ref: string,
+export type v1DeleteProjectApiKeyResponse200 = {
+  data: ApiKeyResponse
+  status: 200
+}
+
+export type v1DeleteProjectApiKeyResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1DeleteProjectApiKeyResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1DeleteProjectApiKeyResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1DeleteProjectApiKeyResponseSuccess = (v1DeleteProjectApiKeyResponse200) & {
+  headers: Headers;
+};
+export type v1DeleteProjectApiKeyResponseError = (v1DeleteProjectApiKeyResponse401 | v1DeleteProjectApiKeyResponse403 | v1DeleteProjectApiKeyResponse429) & {
+  headers: Headers;
+};
+
+export type v1DeleteProjectApiKeyResponse = (v1DeleteProjectApiKeyResponseSuccess | v1DeleteProjectApiKeyResponseError)
+
+export const getV1DeleteProjectApiKeyUrl = (ref: string,
     id: string,
-    params?: V1DeleteProjectApiKeyParams,
- options?: SecondParameter<typeof customInstance<ApiKeyResponse>>,) => {
-      return customInstance<ApiKeyResponse>(
-      {url: `/v1/projects/${ref}/api-keys/${id}`, method: 'DELETE',
-        params
-    },
-      options);
+    params?: V1DeleteProjectApiKeyParams,) => {
+  const normalizedParams = new URLSearchParams();
+
+  Object.entries(params || {}).forEach(([key, value]) => {
+    
+    if (value !== undefined) {
+      normalizedParams.append(key, value === null ? 'null' : value.toString())
     }
-  /**
+  });
+
+  const stringifiedParams = normalizedParams.toString();
+
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/api-keys/${id}?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/api-keys/${id}`
+}
+
+export const v1DeleteProjectApiKey = async (ref: string,
+    id: string,
+    params?: V1DeleteProjectApiKeyParams, options?: RequestInit): Promise<v1DeleteProjectApiKeyResponse> => {
+  
+  const res = await fetch(getV1DeleteProjectApiKeyUrl(ref,id,params),
+  {      
+    ...options,
+    method: 'DELETE'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1DeleteProjectApiKeyResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1DeleteProjectApiKeyResponse
+}
+
+
+/**
  * @summary [Beta] Gets project's pgsodium config
  */
-const v1GetPgsodiumConfig = (
-    ref: string,
- options?: SecondParameter<typeof customInstance<PgsodiumConfigResponse>>,) => {
-      return customInstance<PgsodiumConfigResponse>(
-      {url: `/v1/projects/${ref}/pgsodium`, method: 'GET'
-    },
-      options);
-    }
-  /**
+export type v1GetPgsodiumConfigResponse200 = {
+  data: PgsodiumConfigResponse
+  status: 200
+}
+
+export type v1GetPgsodiumConfigResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1GetPgsodiumConfigResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1GetPgsodiumConfigResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1GetPgsodiumConfigResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1GetPgsodiumConfigResponseSuccess = (v1GetPgsodiumConfigResponse200) & {
+  headers: Headers;
+};
+export type v1GetPgsodiumConfigResponseError = (v1GetPgsodiumConfigResponse401 | v1GetPgsodiumConfigResponse403 | v1GetPgsodiumConfigResponse429 | v1GetPgsodiumConfigResponse500) & {
+  headers: Headers;
+};
+
+export type v1GetPgsodiumConfigResponse = (v1GetPgsodiumConfigResponseSuccess | v1GetPgsodiumConfigResponseError)
+
+export const getV1GetPgsodiumConfigUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/pgsodium`
+}
+
+export const v1GetPgsodiumConfig = async (ref: string, options?: RequestInit): Promise<v1GetPgsodiumConfigResponse> => {
+  
+  const res = await fetch(getV1GetPgsodiumConfigUrl(ref),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetPgsodiumConfigResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetPgsodiumConfigResponse
+}
+
+
+/**
  * @summary [Beta] Updates project's pgsodium config. Updating the root_key can cause all data encrypted with the older key to become inaccessible.
  */
-const v1UpdatePgsodiumConfig = (
-    ref: string,
-    updatePgsodiumConfigBody: UpdatePgsodiumConfigBody,
- options?: SecondParameter<typeof customInstance<PgsodiumConfigResponse>>,) => {
-      return customInstance<PgsodiumConfigResponse>(
-      {url: `/v1/projects/${ref}/pgsodium`, method: 'PUT',
-      headers: {'Content-Type': 'application/json', },
-      data: updatePgsodiumConfigBody
-    },
-      options);
-    }
-  /**
+export type v1UpdatePgsodiumConfigResponse200 = {
+  data: PgsodiumConfigResponse
+  status: 200
+}
+
+export type v1UpdatePgsodiumConfigResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1UpdatePgsodiumConfigResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1UpdatePgsodiumConfigResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1UpdatePgsodiumConfigResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1UpdatePgsodiumConfigResponseSuccess = (v1UpdatePgsodiumConfigResponse200) & {
+  headers: Headers;
+};
+export type v1UpdatePgsodiumConfigResponseError = (v1UpdatePgsodiumConfigResponse401 | v1UpdatePgsodiumConfigResponse403 | v1UpdatePgsodiumConfigResponse429 | v1UpdatePgsodiumConfigResponse500) & {
+  headers: Headers;
+};
+
+export type v1UpdatePgsodiumConfigResponse = (v1UpdatePgsodiumConfigResponseSuccess | v1UpdatePgsodiumConfigResponseError)
+
+export const getV1UpdatePgsodiumConfigUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/pgsodium`
+}
+
+export const v1UpdatePgsodiumConfig = async (ref: string,
+    updatePgsodiumConfigBody: UpdatePgsodiumConfigBody, options?: RequestInit): Promise<v1UpdatePgsodiumConfigResponse> => {
+  
+  const res = await fetch(getV1UpdatePgsodiumConfigUrl(ref),
+  {      
+    ...options,
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      updatePgsodiumConfigBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1UpdatePgsodiumConfigResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1UpdatePgsodiumConfigResponse
+}
+
+
+/**
  * Returns all secrets you've previously added to the specified project.
  * @summary List all secrets
  */
-const v1ListAllSecrets = (
-    ref: string,
- options?: SecondParameter<typeof customInstance<SecretResponse[]>>,) => {
-      return customInstance<SecretResponse[]>(
-      {url: `/v1/projects/${ref}/secrets`, method: 'GET'
-    },
-      options);
-    }
-  /**
+export type v1ListAllSecretsResponse200 = {
+  data: SecretResponse[]
+  status: 200
+}
+
+export type v1ListAllSecretsResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1ListAllSecretsResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1ListAllSecretsResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1ListAllSecretsResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1ListAllSecretsResponseSuccess = (v1ListAllSecretsResponse200) & {
+  headers: Headers;
+};
+export type v1ListAllSecretsResponseError = (v1ListAllSecretsResponse401 | v1ListAllSecretsResponse403 | v1ListAllSecretsResponse429 | v1ListAllSecretsResponse500) & {
+  headers: Headers;
+};
+
+export type v1ListAllSecretsResponse = (v1ListAllSecretsResponseSuccess | v1ListAllSecretsResponseError)
+
+export const getV1ListAllSecretsUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/secrets`
+}
+
+export const v1ListAllSecrets = async (ref: string, options?: RequestInit): Promise<v1ListAllSecretsResponse> => {
+  
+  const res = await fetch(getV1ListAllSecretsUrl(ref),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1ListAllSecretsResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1ListAllSecretsResponse
+}
+
+
+/**
  * Creates multiple secrets and adds them to the specified project.
  * @summary Bulk create secrets
  */
-const v1BulkCreateSecrets = (
-    ref: string,
-    createSecretBody: CreateSecretBody,
- options?: SecondParameter<typeof customInstance<void>>,) => {
-      return customInstance<void>(
-      {url: `/v1/projects/${ref}/secrets`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: createSecretBody
-    },
-      options);
-    }
-  /**
+export type v1BulkCreateSecretsResponse201 = {
+  data: void
+  status: 201
+}
+
+export type v1BulkCreateSecretsResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1BulkCreateSecretsResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1BulkCreateSecretsResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1BulkCreateSecretsResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1BulkCreateSecretsResponseSuccess = (v1BulkCreateSecretsResponse201) & {
+  headers: Headers;
+};
+export type v1BulkCreateSecretsResponseError = (v1BulkCreateSecretsResponse401 | v1BulkCreateSecretsResponse403 | v1BulkCreateSecretsResponse429 | v1BulkCreateSecretsResponse500) & {
+  headers: Headers;
+};
+
+export type v1BulkCreateSecretsResponse = (v1BulkCreateSecretsResponseSuccess | v1BulkCreateSecretsResponseError)
+
+export const getV1BulkCreateSecretsUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/secrets`
+}
+
+export const v1BulkCreateSecrets = async (ref: string,
+    createSecretBody: CreateSecretBody, options?: RequestInit): Promise<v1BulkCreateSecretsResponse> => {
+  
+  const res = await fetch(getV1BulkCreateSecretsUrl(ref),
+  {      
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      createSecretBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1BulkCreateSecretsResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1BulkCreateSecretsResponse
+}
+
+
+/**
  * Deletes all secrets with the given names from the specified project
  * @summary Bulk delete secrets
  */
-const v1BulkDeleteSecrets = (
-    ref: string,
-    deleteSecretsBody: DeleteSecretsBody,
- options?: SecondParameter<typeof customInstance<void>>,) => {
-      return customInstance<void>(
-      {url: `/v1/projects/${ref}/secrets`, method: 'DELETE',
-      headers: {'Content-Type': 'application/json', },
-      data: deleteSecretsBody
-    },
-      options);
-    }
-  return {v1GetProjectApiKeys,v1CreateProjectApiKey,v1GetProjectLegacyApiKeys,v1UpdateProjectLegacyApiKeys,v1UpdateProjectApiKey,v1GetProjectApiKey,v1DeleteProjectApiKey,v1GetPgsodiumConfig,v1UpdatePgsodiumConfig,v1ListAllSecrets,v1BulkCreateSecrets,v1BulkDeleteSecrets}};
-export type V1GetProjectApiKeysResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getSecrets>['v1GetProjectApiKeys']>>>
-export type V1CreateProjectApiKeyResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getSecrets>['v1CreateProjectApiKey']>>>
-export type V1GetProjectLegacyApiKeysResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getSecrets>['v1GetProjectLegacyApiKeys']>>>
-export type V1UpdateProjectLegacyApiKeysResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getSecrets>['v1UpdateProjectLegacyApiKeys']>>>
-export type V1UpdateProjectApiKeyResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getSecrets>['v1UpdateProjectApiKey']>>>
-export type V1GetProjectApiKeyResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getSecrets>['v1GetProjectApiKey']>>>
-export type V1DeleteProjectApiKeyResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getSecrets>['v1DeleteProjectApiKey']>>>
-export type V1GetPgsodiumConfigResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getSecrets>['v1GetPgsodiumConfig']>>>
-export type V1UpdatePgsodiumConfigResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getSecrets>['v1UpdatePgsodiumConfig']>>>
-export type V1ListAllSecretsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getSecrets>['v1ListAllSecrets']>>>
-export type V1BulkCreateSecretsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getSecrets>['v1BulkCreateSecrets']>>>
-export type V1BulkDeleteSecretsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getSecrets>['v1BulkDeleteSecrets']>>>
+export type v1BulkDeleteSecretsResponse200 = {
+  data: void
+  status: 200
+}
+
+export type v1BulkDeleteSecretsResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1BulkDeleteSecretsResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1BulkDeleteSecretsResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1BulkDeleteSecretsResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1BulkDeleteSecretsResponseSuccess = (v1BulkDeleteSecretsResponse200) & {
+  headers: Headers;
+};
+export type v1BulkDeleteSecretsResponseError = (v1BulkDeleteSecretsResponse401 | v1BulkDeleteSecretsResponse403 | v1BulkDeleteSecretsResponse429 | v1BulkDeleteSecretsResponse500) & {
+  headers: Headers;
+};
+
+export type v1BulkDeleteSecretsResponse = (v1BulkDeleteSecretsResponseSuccess | v1BulkDeleteSecretsResponseError)
+
+export const getV1BulkDeleteSecretsUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/secrets`
+}
+
+export const v1BulkDeleteSecrets = async (ref: string,
+    deleteSecretsBody: DeleteSecretsBody, options?: RequestInit): Promise<v1BulkDeleteSecretsResponse> => {
+  
+  const res = await fetch(getV1BulkDeleteSecretsUrl(ref),
+  {      
+    ...options,
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      deleteSecretsBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1BulkDeleteSecretsResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1BulkDeleteSecretsResponse
+}
+
+

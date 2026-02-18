@@ -11,39 +11,133 @@ import type {
   V1UpdatePostgrestConfigBody
 } from './supabaseAPIV1.schemas';
 
-import { customInstance } from '../mutator';
 
 
-
-type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
-
-
-  export const getRest = () => {
 /**
  * @summary Gets project's postgrest config
  */
-const v1GetPostgrestServiceConfig = (
-    ref: string,
- options?: SecondParameter<typeof customInstance<PostgrestConfigWithJWTSecretResponse>>,) => {
-      return customInstance<PostgrestConfigWithJWTSecretResponse>(
-      {url: `/v1/projects/${ref}/postgrest`, method: 'GET'
-    },
-      options);
-    }
-  /**
+export type v1GetPostgrestServiceConfigResponse200 = {
+  data: PostgrestConfigWithJWTSecretResponse
+  status: 200
+}
+
+export type v1GetPostgrestServiceConfigResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1GetPostgrestServiceConfigResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1GetPostgrestServiceConfigResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1GetPostgrestServiceConfigResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1GetPostgrestServiceConfigResponseSuccess = (v1GetPostgrestServiceConfigResponse200) & {
+  headers: Headers;
+};
+export type v1GetPostgrestServiceConfigResponseError = (v1GetPostgrestServiceConfigResponse401 | v1GetPostgrestServiceConfigResponse403 | v1GetPostgrestServiceConfigResponse429 | v1GetPostgrestServiceConfigResponse500) & {
+  headers: Headers;
+};
+
+export type v1GetPostgrestServiceConfigResponse = (v1GetPostgrestServiceConfigResponseSuccess | v1GetPostgrestServiceConfigResponseError)
+
+export const getV1GetPostgrestServiceConfigUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/postgrest`
+}
+
+export const v1GetPostgrestServiceConfig = async (ref: string, options?: RequestInit): Promise<v1GetPostgrestServiceConfigResponse> => {
+  
+  const res = await fetch(getV1GetPostgrestServiceConfigUrl(ref),
+  {      
+    ...options,
+    method: 'GET'
+    
+    
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1GetPostgrestServiceConfigResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1GetPostgrestServiceConfigResponse
+}
+
+
+/**
  * @summary Updates project's postgrest config
  */
-const v1UpdatePostgrestServiceConfig = (
-    ref: string,
-    v1UpdatePostgrestConfigBody: V1UpdatePostgrestConfigBody,
- options?: SecondParameter<typeof customInstance<V1PostgrestConfigResponse>>,) => {
-      return customInstance<V1PostgrestConfigResponse>(
-      {url: `/v1/projects/${ref}/postgrest`, method: 'PATCH',
-      headers: {'Content-Type': 'application/json', },
-      data: v1UpdatePostgrestConfigBody
-    },
-      options);
-    }
-  return {v1GetPostgrestServiceConfig,v1UpdatePostgrestServiceConfig}};
-export type V1GetPostgrestServiceConfigResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getRest>['v1GetPostgrestServiceConfig']>>>
-export type V1UpdatePostgrestServiceConfigResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getRest>['v1UpdatePostgrestServiceConfig']>>>
+export type v1UpdatePostgrestServiceConfigResponse200 = {
+  data: V1PostgrestConfigResponse
+  status: 200
+}
+
+export type v1UpdatePostgrestServiceConfigResponse401 = {
+  data: void
+  status: 401
+}
+
+export type v1UpdatePostgrestServiceConfigResponse403 = {
+  data: void
+  status: 403
+}
+
+export type v1UpdatePostgrestServiceConfigResponse429 = {
+  data: void
+  status: 429
+}
+
+export type v1UpdatePostgrestServiceConfigResponse500 = {
+  data: void
+  status: 500
+}
+
+export type v1UpdatePostgrestServiceConfigResponseSuccess = (v1UpdatePostgrestServiceConfigResponse200) & {
+  headers: Headers;
+};
+export type v1UpdatePostgrestServiceConfigResponseError = (v1UpdatePostgrestServiceConfigResponse401 | v1UpdatePostgrestServiceConfigResponse403 | v1UpdatePostgrestServiceConfigResponse429 | v1UpdatePostgrestServiceConfigResponse500) & {
+  headers: Headers;
+};
+
+export type v1UpdatePostgrestServiceConfigResponse = (v1UpdatePostgrestServiceConfigResponseSuccess | v1UpdatePostgrestServiceConfigResponseError)
+
+export const getV1UpdatePostgrestServiceConfigUrl = (ref: string,) => {
+
+
+  
+
+  return `https://api.supabase.com/v1/projects/${ref}/postgrest`
+}
+
+export const v1UpdatePostgrestServiceConfig = async (ref: string,
+    v1UpdatePostgrestConfigBody: V1UpdatePostgrestConfigBody, options?: RequestInit): Promise<v1UpdatePostgrestServiceConfigResponse> => {
+  
+  const res = await fetch(getV1UpdatePostgrestServiceConfigUrl(ref),
+  {      
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      v1UpdatePostgrestConfigBody,)
+  }
+)
+
+  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
+  
+  const data: v1UpdatePostgrestServiceConfigResponse['data'] = body ? JSON.parse(body) : {}
+  return { data, status: res.status, headers: res.headers } as v1UpdatePostgrestServiceConfigResponse
+}
+
+

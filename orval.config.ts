@@ -6,14 +6,11 @@ export default defineConfig({
       target: "./openapi/v1.json",
     },
     output: {
-      client: "axios",
+      client: "fetch",
+      baseUrl: "https://api.supabase.com",
       mode: "tags",
       target: "./src/generated",
       override: {
-        mutator: {
-          path: "./src/mutator.ts",
-          name: "customInstance",
-        },
         zod: {
           generate: {
             response: true,
