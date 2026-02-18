@@ -246,6 +246,165 @@ import type {
   V1UpdateProjectLegacyApiKeysParams,
   V1UpsertMigrationBody,
   VanitySubdomainBody,
+  v1ActivateCustomHostnameResponse,
+  v1ActivateVanitySubdomainConfigResponse,
+  v1ApplyAMigrationResponse,
+  v1ApplyProjectAddonResponse,
+  v1AuthorizeJitAccessResponse,
+  v1AuthorizeUserResponse,
+  v1BulkCreateSecretsResponse,
+  v1BulkDeleteSecretsResponse,
+  v1BulkUpdateFunctionsResponse,
+  v1CancelAProjectRestorationResponse,
+  v1CheckVanitySubdomainAvailabilityResponse,
+  v1ClaimProjectForOrganizationResponse,
+  v1CountActionRunsResponse,
+  v1CreateABranchResponse,
+  v1CreateAFunctionWithApplicationVndDenolandEszipResponse,
+  v1CreateAFunctionWithJsonResponse,
+  v1CreateAProjectResponse,
+  v1CreateASsoProviderResponse,
+  v1CreateAnOrganizationResponse,
+  v1CreateLegacySigningKeyResponse,
+  v1CreateLoginRoleResponse,
+  v1CreateProjectApiKeyResponse,
+  v1CreateProjectClaimTokenResponse,
+  v1CreateProjectSigningKeyResponse,
+  v1CreateProjectTpaIntegrationResponse,
+  v1CreateRestorePointResponse,
+  v1DeactivateVanitySubdomainConfigResponse,
+  v1DeleteABranchResponse,
+  v1DeleteAFunctionResponse,
+  v1DeleteAProjectResponse,
+  v1DeleteASsoProviderResponse,
+  v1DeleteHostnameConfigResponse,
+  v1DeleteJitAccessResponse,
+  v1DeleteLoginRolesResponse,
+  v1DeleteNetworkBansResponse,
+  v1DeleteProjectApiKeyResponse,
+  v1DeleteProjectClaimTokenResponse,
+  v1DeleteProjectTpaIntegrationResponse,
+  v1DeployAFunctionResponse,
+  v1DiffABranchResponse,
+  v1DisablePreviewBranchingResponse,
+  v1DisableReadonlyModeTemporarilyResponse,
+  v1EnableDatabaseWebhookResponse,
+  v1ExchangeOauthTokenResponse,
+  v1GenerateTypescriptTypesResponse,
+  v1GetABranchConfigResponse,
+  v1GetABranchResponse,
+  v1GetAFunctionBodyResponse,
+  v1GetAFunctionResponse,
+  v1GetAMigrationResponse,
+  v1GetASnippetResponse,
+  v1GetASsoProviderResponse,
+  v1GetActionRunLogsResponse,
+  v1GetActionRunResponse,
+  v1GetAllProjectsForOrganizationResponse,
+  v1GetAnOrganizationResponse,
+  v1GetAuthServiceConfigResponse,
+  v1GetAvailableRegionsResponse,
+  v1GetDatabaseMetadataResponse,
+  v1GetDiskUtilizationResponse,
+  v1GetHostnameConfigResponse,
+  v1GetJitAccessConfigResponse,
+  v1GetJitAccessResponse,
+  v1GetLegacySigningKeyResponse,
+  v1GetNetworkRestrictionsResponse,
+  v1GetOrganizationProjectClaimResponse,
+  v1GetPerformanceAdvisorsResponse,
+  v1GetPgsodiumConfigResponse,
+  v1GetPoolerConfigResponse,
+  v1GetPostgresConfigResponse,
+  v1GetPostgresUpgradeEligibilityResponse,
+  v1GetPostgresUpgradeStatusResponse,
+  v1GetPostgrestServiceConfigResponse,
+  v1GetProjectApiKeyResponse,
+  v1GetProjectApiKeysResponse,
+  v1GetProjectClaimTokenResponse,
+  v1GetProjectDiskAutoscaleConfigResponse,
+  v1GetProjectFunctionCombinedStatsResponse,
+  v1GetProjectLegacyApiKeysResponse,
+  v1GetProjectLogsResponse,
+  v1GetProjectPgbouncerConfigResponse,
+  v1GetProjectResponse,
+  v1GetProjectSigningKeyResponse,
+  v1GetProjectSigningKeysResponse,
+  v1GetProjectTpaIntegrationResponse,
+  v1GetProjectUsageApiCountResponse,
+  v1GetProjectUsageRequestCountResponse,
+  v1GetReadonlyModeStatusResponse,
+  v1GetRealtimeConfigResponse,
+  v1GetRestorePointResponse,
+  v1GetSecurityAdvisorsResponse,
+  v1GetServicesHealthResponse,
+  v1GetSslEnforcementConfigResponse,
+  v1GetStorageConfigResponse,
+  v1GetVanitySubdomainConfigResponse,
+  v1ListActionRunsResponse,
+  v1ListAllBackupsResponse,
+  v1ListAllBranchesResponse,
+  v1ListAllBucketsResponse,
+  v1ListAllFunctionsResponse,
+  v1ListAllNetworkBansEnrichedResponse,
+  v1ListAllNetworkBansResponse,
+  v1ListAllOrganizationsResponse,
+  v1ListAllProjectsResponse,
+  v1ListAllSecretsResponse,
+  v1ListAllSnippetsResponse,
+  v1ListAllSsoProviderResponse,
+  v1ListAvailableRestoreVersionsResponse,
+  v1ListJitAccessResponse,
+  v1ListMigrationHistoryResponse,
+  v1ListOrganizationMembersResponse,
+  v1ListProjectAddonsResponse,
+  v1ListProjectTpaIntegrationsResponse,
+  v1MergeABranchResponse,
+  v1ModifyDatabaseDiskResponse,
+  v1OauthAuthorizeProjectClaimResponse,
+  v1PatchAMigrationResponse,
+  v1PatchNetworkRestrictionsResponse,
+  v1PauseAProjectResponse,
+  v1PushABranchResponse,
+  v1ReadOnlyQueryResponse,
+  v1RemoveAReadReplicaResponse,
+  v1RemoveProjectAddonResponse,
+  v1RemoveProjectSigningKeyResponse,
+  v1ResetABranchResponse,
+  v1RestoreABranchResponse,
+  v1RestoreAProjectResponse,
+  v1RestorePitrBackupResponse,
+  v1RevokeTokenResponse,
+  v1RollbackMigrationsResponse,
+  v1RunAQueryResponse,
+  v1SetupAReadReplicaResponse,
+  v1ShutdownRealtimeResponse,
+  v1UndoResponse,
+  v1UpdateABranchConfigResponse,
+  v1UpdateAFunctionWithApplicationVndDenolandEszipResponse,
+  v1UpdateAFunctionWithJsonResponse,
+  v1UpdateAProjectResponse,
+  v1UpdateASsoProviderResponse,
+  v1UpdateActionRunStatusResponse,
+  v1UpdateAuthServiceConfigResponse,
+  v1UpdateDatabasePasswordResponse,
+  v1UpdateHostnameConfigResponse,
+  v1UpdateJitAccessConfigResponse,
+  v1UpdateJitAccessResponse,
+  v1UpdateNetworkRestrictionsResponse,
+  v1UpdatePgsodiumConfigResponse,
+  v1UpdatePoolerConfigResponse,
+  v1UpdatePostgresConfigResponse,
+  v1UpdatePostgrestServiceConfigResponse,
+  v1UpdateProjectApiKeyResponse,
+  v1UpdateProjectLegacyApiKeysResponse,
+  v1UpdateProjectSigningKeyResponse,
+  v1UpdateRealtimeConfigResponse,
+  v1UpdateSslEnforcementConfigResponse,
+  v1UpdateStorageConfigResponse,
+  v1UpgradePostgresVersionResponse,
+  v1UpsertAMigrationResponse,
+  v1VerifyDnsConfigResponse,
 } from './generated';
 
 export class SupabaseManagementAPI {
@@ -259,1113 +418,1113 @@ export class SupabaseManagementAPI {
     return { Authorization: `Bearer ${this.accessToken}` };
   }
 
-  getPerformanceAdvisors(ref: string, options?: RequestInit) {
+  getPerformanceAdvisors(ref: string, options?: RequestInit): Promise<v1GetPerformanceAdvisorsResponse> {
     return v1GetPerformanceAdvisors(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getSecurityAdvisors(ref: string, params?: V1GetSecurityAdvisorsParams, options?: RequestInit) {
+  getSecurityAdvisors(ref: string, params?: V1GetSecurityAdvisorsParams, options?: RequestInit): Promise<v1GetSecurityAdvisorsResponse> {
     return v1GetSecurityAdvisors(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getProjectLogs(ref: string, params?: V1GetProjectLogsParams, options?: RequestInit) {
+  getProjectLogs(ref: string, params?: V1GetProjectLogsParams, options?: RequestInit): Promise<v1GetProjectLogsResponse> {
     return v1GetProjectLogs(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getProjectUsageApiCount(ref: string, params?: V1GetProjectUsageApiCountParams, options?: RequestInit) {
+  getProjectUsageApiCount(ref: string, params?: V1GetProjectUsageApiCountParams, options?: RequestInit): Promise<v1GetProjectUsageApiCountResponse> {
     return v1GetProjectUsageApiCount(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getProjectUsageRequestCount(ref: string, options?: RequestInit) {
+  getProjectUsageRequestCount(ref: string, options?: RequestInit): Promise<v1GetProjectUsageRequestCountResponse> {
     return v1GetProjectUsageRequestCount(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getProjectFunctionCombinedStats(ref: string, params: V1GetProjectFunctionCombinedStatsParams, options?: RequestInit) {
+  getProjectFunctionCombinedStats(ref: string, params: V1GetProjectFunctionCombinedStatsParams, options?: RequestInit): Promise<v1GetProjectFunctionCombinedStatsResponse> {
     return v1GetProjectFunctionCombinedStats(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  createLegacySigningKey(ref: string, options?: RequestInit) {
+  createLegacySigningKey(ref: string, options?: RequestInit): Promise<v1CreateLegacySigningKeyResponse> {
     return v1CreateLegacySigningKey(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getLegacySigningKey(ref: string, options?: RequestInit) {
+  getLegacySigningKey(ref: string, options?: RequestInit): Promise<v1GetLegacySigningKeyResponse> {
     return v1GetLegacySigningKey(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  createProjectSigningKey(ref: string, createSigningKeyBody: CreateSigningKeyBody, options?: RequestInit) {
+  createProjectSigningKey(ref: string, createSigningKeyBody: CreateSigningKeyBody, options?: RequestInit): Promise<v1CreateProjectSigningKeyResponse> {
     return v1CreateProjectSigningKey(ref, createSigningKeyBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getProjectSigningKeys(ref: string, options?: RequestInit) {
+  getProjectSigningKeys(ref: string, options?: RequestInit): Promise<v1GetProjectSigningKeysResponse> {
     return v1GetProjectSigningKeys(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getProjectSigningKey(ref: string, id: string, options?: RequestInit) {
+  getProjectSigningKey(ref: string, id: string, options?: RequestInit): Promise<v1GetProjectSigningKeyResponse> {
     return v1GetProjectSigningKey(ref, id, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  removeProjectSigningKey(ref: string, id: string, options?: RequestInit) {
+  removeProjectSigningKey(ref: string, id: string, options?: RequestInit): Promise<v1RemoveProjectSigningKeyResponse> {
     return v1RemoveProjectSigningKey(ref, id, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updateProjectSigningKey(ref: string, id: string, updateSigningKeyBody: UpdateSigningKeyBody, options?: RequestInit) {
+  updateProjectSigningKey(ref: string, id: string, updateSigningKeyBody: UpdateSigningKeyBody, options?: RequestInit): Promise<v1UpdateProjectSigningKeyResponse> {
     return v1UpdateProjectSigningKey(ref, id, updateSigningKeyBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getAuthServiceConfig(ref: string, options?: RequestInit) {
+  getAuthServiceConfig(ref: string, options?: RequestInit): Promise<v1GetAuthServiceConfigResponse> {
     return v1GetAuthServiceConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updateAuthServiceConfig(ref: string, updateAuthConfigBody: UpdateAuthConfigBody, options?: RequestInit) {
+  updateAuthServiceConfig(ref: string, updateAuthConfigBody: UpdateAuthConfigBody, options?: RequestInit): Promise<v1UpdateAuthServiceConfigResponse> {
     return v1UpdateAuthServiceConfig(ref, updateAuthConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  createProjectTpaIntegration(ref: string, createThirdPartyAuthBody: CreateThirdPartyAuthBody, options?: RequestInit) {
+  createProjectTpaIntegration(ref: string, createThirdPartyAuthBody: CreateThirdPartyAuthBody, options?: RequestInit): Promise<v1CreateProjectTpaIntegrationResponse> {
     return v1CreateProjectTpaIntegration(ref, createThirdPartyAuthBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  listProjectTpaIntegrations(ref: string, options?: RequestInit) {
+  listProjectTpaIntegrations(ref: string, options?: RequestInit): Promise<v1ListProjectTpaIntegrationsResponse> {
     return v1ListProjectTpaIntegrations(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  deleteProjectTpaIntegration(ref: string, tpaId: string, options?: RequestInit) {
+  deleteProjectTpaIntegration(ref: string, tpaId: string, options?: RequestInit): Promise<v1DeleteProjectTpaIntegrationResponse> {
     return v1DeleteProjectTpaIntegration(ref, tpaId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getProjectTpaIntegration(ref: string, tpaId: string, options?: RequestInit) {
+  getProjectTpaIntegration(ref: string, tpaId: string, options?: RequestInit): Promise<v1GetProjectTpaIntegrationResponse> {
     return v1GetProjectTpaIntegration(ref, tpaId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  createASsoProvider(ref: string, createProviderBody: CreateProviderBody, options?: RequestInit) {
+  createASsoProvider(ref: string, createProviderBody: CreateProviderBody, options?: RequestInit): Promise<v1CreateASsoProviderResponse> {
     return v1CreateASsoProvider(ref, createProviderBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  listAllSsoProvider(ref: string, options?: RequestInit) {
+  listAllSsoProvider(ref: string, options?: RequestInit): Promise<v1ListAllSsoProviderResponse> {
     return v1ListAllSsoProvider(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getASsoProvider(ref: string, providerId: string, options?: RequestInit) {
+  getASsoProvider(ref: string, providerId: string, options?: RequestInit): Promise<v1GetASsoProviderResponse> {
     return v1GetASsoProvider(ref, providerId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updateASsoProvider(ref: string, providerId: string, updateProviderBody: UpdateProviderBody, options?: RequestInit) {
+  updateASsoProvider(ref: string, providerId: string, updateProviderBody: UpdateProviderBody, options?: RequestInit): Promise<v1UpdateASsoProviderResponse> {
     return v1UpdateASsoProvider(ref, providerId, updateProviderBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  deleteASsoProvider(ref: string, providerId: string, options?: RequestInit) {
+  deleteASsoProvider(ref: string, providerId: string, options?: RequestInit): Promise<v1DeleteASsoProviderResponse> {
     return v1DeleteASsoProvider(ref, providerId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  listProjectAddons(ref: string, options?: RequestInit) {
+  listProjectAddons(ref: string, options?: RequestInit): Promise<v1ListProjectAddonsResponse> {
     return v1ListProjectAddons(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  applyProjectAddon(ref: string, applyProjectAddonBody: ApplyProjectAddonBody, options?: RequestInit) {
+  applyProjectAddon(ref: string, applyProjectAddonBody: ApplyProjectAddonBody, options?: RequestInit): Promise<v1ApplyProjectAddonResponse> {
     return v1ApplyProjectAddon(ref, applyProjectAddonBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  removeProjectAddon(ref: string, addonVariant: 'ci_micro' | 'ci_small' | 'ci_medium' | 'ci_large' | 'ci_xlarge' | 'ci_2xlarge' | 'ci_4xlarge' | 'ci_8xlarge' | 'ci_12xlarge' | 'ci_16xlarge' | 'ci_24xlarge' | 'ci_24xlarge_optimized_cpu' | 'ci_24xlarge_optimized_memory' | 'ci_24xlarge_high_memory' | 'ci_48xlarge' | 'ci_48xlarge_optimized_cpu' | 'ci_48xlarge_optimized_memory' | 'ci_48xlarge_high_memory' | 'cd_default' | 'pitr_7' | 'pitr_14' | 'pitr_28' | 'ipv4_default', options?: RequestInit) {
+  removeProjectAddon(ref: string, addonVariant: 'ci_micro' | 'ci_small' | 'ci_medium' | 'ci_large' | 'ci_xlarge' | 'ci_2xlarge' | 'ci_4xlarge' | 'ci_8xlarge' | 'ci_12xlarge' | 'ci_16xlarge' | 'ci_24xlarge' | 'ci_24xlarge_optimized_cpu' | 'ci_24xlarge_optimized_memory' | 'ci_24xlarge_high_memory' | 'ci_48xlarge' | 'ci_48xlarge_optimized_cpu' | 'ci_48xlarge_optimized_memory' | 'ci_48xlarge_high_memory' | 'cd_default' | 'pitr_7' | 'pitr_14' | 'pitr_28' | 'ipv4_default', options?: RequestInit): Promise<v1RemoveProjectAddonResponse> {
     return v1RemoveProjectAddon(ref, addonVariant, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  listAllSnippets(params?: V1ListAllSnippetsParams, options?: RequestInit) {
+  listAllSnippets(params?: V1ListAllSnippetsParams, options?: RequestInit): Promise<v1ListAllSnippetsResponse> {
     return v1ListAllSnippets(params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getASnippet(id: string, options?: RequestInit) {
+  getASnippet(id: string, options?: RequestInit): Promise<v1GetASnippetResponse> {
     return v1GetASnippet(id, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getJitAccessConfig(ref: string, options?: RequestInit) {
+  getJitAccessConfig(ref: string, options?: RequestInit): Promise<v1GetJitAccessConfigResponse> {
     return v1GetJitAccessConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updateJitAccessConfig(ref: string, jitAccessRequestRequest: JitAccessRequestRequest, options?: RequestInit) {
+  updateJitAccessConfig(ref: string, jitAccessRequestRequest: JitAccessRequestRequest, options?: RequestInit): Promise<v1UpdateJitAccessConfigResponse> {
     return v1UpdateJitAccessConfig(ref, jitAccessRequestRequest, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getSslEnforcementConfig(ref: string, options?: RequestInit) {
+  getSslEnforcementConfig(ref: string, options?: RequestInit): Promise<v1GetSslEnforcementConfigResponse> {
     return v1GetSslEnforcementConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updateSslEnforcementConfig(ref: string, sslEnforcementRequest: SslEnforcementRequest, options?: RequestInit) {
+  updateSslEnforcementConfig(ref: string, sslEnforcementRequest: SslEnforcementRequest, options?: RequestInit): Promise<v1UpdateSslEnforcementConfigResponse> {
     return v1UpdateSslEnforcementConfig(ref, sslEnforcementRequest, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  generateTypescriptTypes(ref: string, params?: V1GenerateTypescriptTypesParams, options?: RequestInit) {
+  generateTypescriptTypes(ref: string, params?: V1GenerateTypescriptTypesParams, options?: RequestInit): Promise<v1GenerateTypescriptTypesResponse> {
     return v1GenerateTypescriptTypes(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getReadonlyModeStatus(ref: string, options?: RequestInit) {
+  getReadonlyModeStatus(ref: string, options?: RequestInit): Promise<v1GetReadonlyModeStatusResponse> {
     return v1GetReadonlyModeStatus(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  disableReadonlyModeTemporarily(ref: string, options?: RequestInit) {
+  disableReadonlyModeTemporarily(ref: string, options?: RequestInit): Promise<v1DisableReadonlyModeTemporarilyResponse> {
     return v1DisableReadonlyModeTemporarily(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  setupAReadReplica(ref: string, setUpReadReplicaBody: SetUpReadReplicaBody, options?: RequestInit) {
+  setupAReadReplica(ref: string, setUpReadReplicaBody: SetUpReadReplicaBody, options?: RequestInit): Promise<v1SetupAReadReplicaResponse> {
     return v1SetupAReadReplica(ref, setUpReadReplicaBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  removeAReadReplica(ref: string, removeReadReplicaBody: RemoveReadReplicaBody, options?: RequestInit) {
+  removeAReadReplica(ref: string, removeReadReplicaBody: RemoveReadReplicaBody, options?: RequestInit): Promise<v1RemoveAReadReplicaResponse> {
     return v1RemoveAReadReplica(ref, removeReadReplicaBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  createLoginRole(ref: string, createRoleBody: CreateRoleBody, options?: RequestInit) {
+  createLoginRole(ref: string, createRoleBody: CreateRoleBody, options?: RequestInit): Promise<v1CreateLoginRoleResponse> {
     return v1CreateLoginRole(ref, createRoleBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  deleteLoginRoles(ref: string, options?: RequestInit) {
+  deleteLoginRoles(ref: string, options?: RequestInit): Promise<v1DeleteLoginRolesResponse> {
     return v1DeleteLoginRoles(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  listMigrationHistory(ref: string, options?: RequestInit) {
+  listMigrationHistory(ref: string, options?: RequestInit): Promise<v1ListMigrationHistoryResponse> {
     return v1ListMigrationHistory(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  applyAMigration(ref: string, v1CreateMigrationBody: V1CreateMigrationBody, options?: RequestInit) {
+  applyAMigration(ref: string, v1CreateMigrationBody: V1CreateMigrationBody, options?: RequestInit): Promise<v1ApplyAMigrationResponse> {
     return v1ApplyAMigration(ref, v1CreateMigrationBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  upsertAMigration(ref: string, v1UpsertMigrationBody: V1UpsertMigrationBody, options?: RequestInit) {
+  upsertAMigration(ref: string, v1UpsertMigrationBody: V1UpsertMigrationBody, options?: RequestInit): Promise<v1UpsertAMigrationResponse> {
     return v1UpsertAMigration(ref, v1UpsertMigrationBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  rollbackMigrations(ref: string, params: V1RollbackMigrationsParams, options?: RequestInit) {
+  rollbackMigrations(ref: string, params: V1RollbackMigrationsParams, options?: RequestInit): Promise<v1RollbackMigrationsResponse> {
     return v1RollbackMigrations(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getAMigration(ref: string, version: string, options?: RequestInit) {
+  getAMigration(ref: string, version: string, options?: RequestInit): Promise<v1GetAMigrationResponse> {
     return v1GetAMigration(ref, version, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  patchAMigration(ref: string, version: string, v1PatchMigrationBody: V1PatchMigrationBody, options?: RequestInit) {
+  patchAMigration(ref: string, version: string, v1PatchMigrationBody: V1PatchMigrationBody, options?: RequestInit): Promise<v1PatchAMigrationResponse> {
     return v1PatchAMigration(ref, version, v1PatchMigrationBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  runAQuery(ref: string, v1RunQueryBody: V1RunQueryBody, options?: RequestInit) {
+  runAQuery(ref: string, v1RunQueryBody: V1RunQueryBody, options?: RequestInit): Promise<v1RunAQueryResponse> {
     return v1RunAQuery(ref, v1RunQueryBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  readOnlyQuery(ref: string, v1ReadOnlyQueryBody: V1ReadOnlyQueryBody, options?: RequestInit) {
+  readOnlyQuery(ref: string, v1ReadOnlyQueryBody: V1ReadOnlyQueryBody, options?: RequestInit): Promise<v1ReadOnlyQueryResponse> {
     return v1ReadOnlyQuery(ref, v1ReadOnlyQueryBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  enableDatabaseWebhook(ref: string, options?: RequestInit) {
+  enableDatabaseWebhook(ref: string, options?: RequestInit): Promise<v1EnableDatabaseWebhookResponse> {
     return v1EnableDatabaseWebhook(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getDatabaseMetadata(ref: string, options?: RequestInit) {
+  getDatabaseMetadata(ref: string, options?: RequestInit): Promise<v1GetDatabaseMetadataResponse> {
     return v1GetDatabaseMetadata(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updateDatabasePassword(ref: string, v1UpdatePasswordBody: V1UpdatePasswordBody, options?: RequestInit) {
+  updateDatabasePassword(ref: string, v1UpdatePasswordBody: V1UpdatePasswordBody, options?: RequestInit): Promise<v1UpdateDatabasePasswordResponse> {
     return v1UpdateDatabasePassword(ref, v1UpdatePasswordBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getJitAccess(ref: string, options?: RequestInit) {
+  getJitAccess(ref: string, options?: RequestInit): Promise<v1GetJitAccessResponse> {
     return v1GetJitAccess(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  authorizeJitAccess(ref: string, authorizeJitAccessBody: AuthorizeJitAccessBody, options?: RequestInit) {
+  authorizeJitAccess(ref: string, authorizeJitAccessBody: AuthorizeJitAccessBody, options?: RequestInit): Promise<v1AuthorizeJitAccessResponse> {
     return v1AuthorizeJitAccess(ref, authorizeJitAccessBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updateJitAccess(ref: string, updateJitAccessBody: UpdateJitAccessBody, options?: RequestInit) {
+  updateJitAccess(ref: string, updateJitAccessBody: UpdateJitAccessBody, options?: RequestInit): Promise<v1UpdateJitAccessResponse> {
     return v1UpdateJitAccess(ref, updateJitAccessBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  listJitAccess(ref: string, options?: RequestInit) {
+  listJitAccess(ref: string, options?: RequestInit): Promise<v1ListJitAccessResponse> {
     return v1ListJitAccess(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  deleteJitAccess(ref: string, userId: string, options?: RequestInit) {
+  deleteJitAccess(ref: string, userId: string, options?: RequestInit): Promise<v1DeleteJitAccessResponse> {
     return v1DeleteJitAccess(ref, userId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getProjectPgbouncerConfig(ref: string, options?: RequestInit) {
+  getProjectPgbouncerConfig(ref: string, options?: RequestInit): Promise<v1GetProjectPgbouncerConfigResponse> {
     return v1GetProjectPgbouncerConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getPoolerConfig(ref: string, options?: RequestInit) {
+  getPoolerConfig(ref: string, options?: RequestInit): Promise<v1GetPoolerConfigResponse> {
     return v1GetPoolerConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updatePoolerConfig(ref: string, updateSupavisorConfigBody: UpdateSupavisorConfigBody, options?: RequestInit) {
+  updatePoolerConfig(ref: string, updateSupavisorConfigBody: UpdateSupavisorConfigBody, options?: RequestInit): Promise<v1UpdatePoolerConfigResponse> {
     return v1UpdatePoolerConfig(ref, updateSupavisorConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getPostgresConfig(ref: string, options?: RequestInit) {
+  getPostgresConfig(ref: string, options?: RequestInit): Promise<v1GetPostgresConfigResponse> {
     return v1GetPostgresConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updatePostgresConfig(ref: string, updatePostgresConfigBody: UpdatePostgresConfigBody, options?: RequestInit) {
+  updatePostgresConfig(ref: string, updatePostgresConfigBody: UpdatePostgresConfigBody, options?: RequestInit): Promise<v1UpdatePostgresConfigResponse> {
     return v1UpdatePostgresConfig(ref, updatePostgresConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  listAllBackups(ref: string, options?: RequestInit) {
+  listAllBackups(ref: string, options?: RequestInit): Promise<v1ListAllBackupsResponse> {
     return v1ListAllBackups(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  restorePitrBackup(ref: string, v1RestorePitrBody: V1RestorePitrBody, options?: RequestInit) {
+  restorePitrBackup(ref: string, v1RestorePitrBody: V1RestorePitrBody, options?: RequestInit): Promise<v1RestorePitrBackupResponse> {
     return v1RestorePitrBackup(ref, v1RestorePitrBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  createRestorePoint(ref: string, v1RestorePointPostBody: V1RestorePointPostBody, options?: RequestInit) {
+  createRestorePoint(ref: string, v1RestorePointPostBody: V1RestorePointPostBody, options?: RequestInit): Promise<v1CreateRestorePointResponse> {
     return v1CreateRestorePoint(ref, v1RestorePointPostBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getRestorePoint(ref: string, params?: V1GetRestorePointParams, options?: RequestInit) {
+  getRestorePoint(ref: string, params?: V1GetRestorePointParams, options?: RequestInit): Promise<v1GetRestorePointResponse> {
     return v1GetRestorePoint(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  undo(ref: string, v1UndoBody: V1UndoBody, options?: RequestInit) {
+  undo(ref: string, v1UndoBody: V1UndoBody, options?: RequestInit): Promise<v1UndoResponse> {
     return v1Undo(ref, v1UndoBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getHostnameConfig(ref: string, options?: RequestInit) {
+  getHostnameConfig(ref: string, options?: RequestInit): Promise<v1GetHostnameConfigResponse> {
     return v1GetHostnameConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  deleteHostnameConfig(ref: string, options?: RequestInit) {
+  deleteHostnameConfig(ref: string, options?: RequestInit): Promise<v1DeleteHostnameConfigResponse> {
     return v1DeleteHostnameConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updateHostnameConfig(ref: string, updateCustomHostnameBody: UpdateCustomHostnameBody, options?: RequestInit) {
+  updateHostnameConfig(ref: string, updateCustomHostnameBody: UpdateCustomHostnameBody, options?: RequestInit): Promise<v1UpdateHostnameConfigResponse> {
     return v1UpdateHostnameConfig(ref, updateCustomHostnameBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  verifyDnsConfig(ref: string, options?: RequestInit) {
+  verifyDnsConfig(ref: string, options?: RequestInit): Promise<v1VerifyDnsConfigResponse> {
     return v1VerifyDnsConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  activateCustomHostname(ref: string, options?: RequestInit) {
+  activateCustomHostname(ref: string, options?: RequestInit): Promise<v1ActivateCustomHostnameResponse> {
     return v1ActivateCustomHostname(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getVanitySubdomainConfig(ref: string, options?: RequestInit) {
+  getVanitySubdomainConfig(ref: string, options?: RequestInit): Promise<v1GetVanitySubdomainConfigResponse> {
     return v1GetVanitySubdomainConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  deactivateVanitySubdomainConfig(ref: string, options?: RequestInit) {
+  deactivateVanitySubdomainConfig(ref: string, options?: RequestInit): Promise<v1DeactivateVanitySubdomainConfigResponse> {
     return v1DeactivateVanitySubdomainConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  checkVanitySubdomainAvailability(ref: string, vanitySubdomainBody: VanitySubdomainBody, options?: RequestInit) {
+  checkVanitySubdomainAvailability(ref: string, vanitySubdomainBody: VanitySubdomainBody, options?: RequestInit): Promise<v1CheckVanitySubdomainAvailabilityResponse> {
     return v1CheckVanitySubdomainAvailability(ref, vanitySubdomainBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  activateVanitySubdomainConfig(ref: string, vanitySubdomainBody: VanitySubdomainBody, options?: RequestInit) {
+  activateVanitySubdomainConfig(ref: string, vanitySubdomainBody: VanitySubdomainBody, options?: RequestInit): Promise<v1ActivateVanitySubdomainConfigResponse> {
     return v1ActivateVanitySubdomainConfig(ref, vanitySubdomainBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  listAllFunctions(ref: string, options?: RequestInit) {
+  listAllFunctions(ref: string, options?: RequestInit): Promise<v1ListAllFunctionsResponse> {
     return v1ListAllFunctions(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  createAFunctionWithApplicationVndDenolandEszip(ref: string, v1CreateAFunctionWithApplicationVndDenolandEszipBody: Blob, params?: V1CreateAFunctionWithApplicationVndDenolandEszipParams, options?: RequestInit) {
+  createAFunctionWithApplicationVndDenolandEszip(ref: string, v1CreateAFunctionWithApplicationVndDenolandEszipBody: Blob, params?: V1CreateAFunctionWithApplicationVndDenolandEszipParams, options?: RequestInit): Promise<v1CreateAFunctionWithApplicationVndDenolandEszipResponse> {
     return v1CreateAFunctionWithApplicationVndDenolandEszip(ref, v1CreateAFunctionWithApplicationVndDenolandEszipBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  createAFunctionWithJson(ref: string, v1CreateFunctionBody: V1CreateFunctionBody, params?: V1CreateAFunctionWithJsonParams, options?: RequestInit) {
+  createAFunctionWithJson(ref: string, v1CreateFunctionBody: V1CreateFunctionBody, params?: V1CreateAFunctionWithJsonParams, options?: RequestInit): Promise<v1CreateAFunctionWithJsonResponse> {
     return v1CreateAFunctionWithJson(ref, v1CreateFunctionBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  bulkUpdateFunctions(ref: string, bulkUpdateFunctionBody: BulkUpdateFunctionBody, options?: RequestInit) {
+  bulkUpdateFunctions(ref: string, bulkUpdateFunctionBody: BulkUpdateFunctionBody, options?: RequestInit): Promise<v1BulkUpdateFunctionsResponse> {
     return v1BulkUpdateFunctions(ref, bulkUpdateFunctionBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  deployAFunction(ref: string, functionDeployBody: FunctionDeployBody, params?: V1DeployAFunctionParams, options?: RequestInit) {
+  deployAFunction(ref: string, functionDeployBody: FunctionDeployBody, params?: V1DeployAFunctionParams, options?: RequestInit): Promise<v1DeployAFunctionResponse> {
     return v1DeployAFunction(ref, functionDeployBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getAFunction(ref: string, functionSlug: string, options?: RequestInit) {
+  getAFunction(ref: string, functionSlug: string, options?: RequestInit): Promise<v1GetAFunctionResponse> {
     return v1GetAFunction(ref, functionSlug, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updateAFunctionWithApplicationVndDenolandEszip(ref: string, functionSlug: string, v1UpdateAFunctionWithApplicationVndDenolandEszipBody: Blob, params?: V1UpdateAFunctionWithApplicationVndDenolandEszipParams, options?: RequestInit) {
+  updateAFunctionWithApplicationVndDenolandEszip(ref: string, functionSlug: string, v1UpdateAFunctionWithApplicationVndDenolandEszipBody: Blob, params?: V1UpdateAFunctionWithApplicationVndDenolandEszipParams, options?: RequestInit): Promise<v1UpdateAFunctionWithApplicationVndDenolandEszipResponse> {
     return v1UpdateAFunctionWithApplicationVndDenolandEszip(ref, functionSlug, v1UpdateAFunctionWithApplicationVndDenolandEszipBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updateAFunctionWithJson(ref: string, functionSlug: string, v1UpdateFunctionBody: V1UpdateFunctionBody, params?: V1UpdateAFunctionWithJsonParams, options?: RequestInit) {
+  updateAFunctionWithJson(ref: string, functionSlug: string, v1UpdateFunctionBody: V1UpdateFunctionBody, params?: V1UpdateAFunctionWithJsonParams, options?: RequestInit): Promise<v1UpdateAFunctionWithJsonResponse> {
     return v1UpdateAFunctionWithJson(ref, functionSlug, v1UpdateFunctionBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  deleteAFunction(ref: string, functionSlug: string, options?: RequestInit) {
+  deleteAFunction(ref: string, functionSlug: string, options?: RequestInit): Promise<v1DeleteAFunctionResponse> {
     return v1DeleteAFunction(ref, functionSlug, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getAFunctionBody(ref: string, functionSlug: string, options?: RequestInit) {
+  getAFunctionBody(ref: string, functionSlug: string, options?: RequestInit): Promise<v1GetAFunctionBodyResponse> {
     return v1GetAFunctionBody(ref, functionSlug, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getABranchConfig(branchIdOrRef: string, options?: RequestInit) {
+  getABranchConfig(branchIdOrRef: string, options?: RequestInit): Promise<v1GetABranchConfigResponse> {
     return v1GetABranchConfig(branchIdOrRef, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updateABranchConfig(branchIdOrRef: string, updateBranchBody: UpdateBranchBody, options?: RequestInit) {
+  updateABranchConfig(branchIdOrRef: string, updateBranchBody: UpdateBranchBody, options?: RequestInit): Promise<v1UpdateABranchConfigResponse> {
     return v1UpdateABranchConfig(branchIdOrRef, updateBranchBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  deleteABranch(branchIdOrRef: string, params?: V1DeleteABranchParams, options?: RequestInit) {
+  deleteABranch(branchIdOrRef: string, params?: V1DeleteABranchParams, options?: RequestInit): Promise<v1DeleteABranchResponse> {
     return v1DeleteABranch(branchIdOrRef, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  pushABranch(branchIdOrRef: string, branchActionBody: BranchActionBody, options?: RequestInit) {
+  pushABranch(branchIdOrRef: string, branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1PushABranchResponse> {
     return v1PushABranch(branchIdOrRef, branchActionBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  mergeABranch(branchIdOrRef: string, branchActionBody: BranchActionBody, options?: RequestInit) {
+  mergeABranch(branchIdOrRef: string, branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1MergeABranchResponse> {
     return v1MergeABranch(branchIdOrRef, branchActionBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  resetABranch(branchIdOrRef: string, branchActionBody: BranchActionBody, options?: RequestInit) {
+  resetABranch(branchIdOrRef: string, branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1ResetABranchResponse> {
     return v1ResetABranch(branchIdOrRef, branchActionBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  restoreABranch(branchIdOrRef: string, options?: RequestInit) {
+  restoreABranch(branchIdOrRef: string, options?: RequestInit): Promise<v1RestoreABranchResponse> {
     return v1RestoreABranch(branchIdOrRef, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  diffABranch(branchIdOrRef: string, params?: V1DiffABranchParams, options?: RequestInit) {
+  diffABranch(branchIdOrRef: string, params?: V1DiffABranchParams, options?: RequestInit): Promise<v1DiffABranchResponse> {
     return v1DiffABranch(branchIdOrRef, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  listActionRuns(ref: string, params?: V1ListActionRunsParams, options?: RequestInit) {
+  listActionRuns(ref: string, params?: V1ListActionRunsParams, options?: RequestInit): Promise<v1ListActionRunsResponse> {
     return v1ListActionRuns(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  countActionRuns(ref: string, options?: RequestInit) {
+  countActionRuns(ref: string, options?: RequestInit): Promise<v1CountActionRunsResponse> {
     return v1CountActionRuns(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getActionRun(ref: string, runId: string, options?: RequestInit) {
+  getActionRun(ref: string, runId: string, options?: RequestInit): Promise<v1GetActionRunResponse> {
     return v1GetActionRun(ref, runId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updateActionRunStatus(ref: string, runId: string, updateRunStatusBody: UpdateRunStatusBody, options?: RequestInit) {
+  updateActionRunStatus(ref: string, runId: string, updateRunStatusBody: UpdateRunStatusBody, options?: RequestInit): Promise<v1UpdateActionRunStatusResponse> {
     return v1UpdateActionRunStatus(ref, runId, updateRunStatusBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getActionRunLogs(ref: string, runId: string, options?: RequestInit) {
+  getActionRunLogs(ref: string, runId: string, options?: RequestInit): Promise<v1GetActionRunLogsResponse> {
     return v1GetActionRunLogs(ref, runId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  listAllBranches(ref: string, options?: RequestInit) {
+  listAllBranches(ref: string, options?: RequestInit): Promise<v1ListAllBranchesResponse> {
     return v1ListAllBranches(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  createABranch(ref: string, createBranchBody: CreateBranchBody, options?: RequestInit) {
+  createABranch(ref: string, createBranchBody: CreateBranchBody, options?: RequestInit): Promise<v1CreateABranchResponse> {
     return v1CreateABranch(ref, createBranchBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  disablePreviewBranching(ref: string, options?: RequestInit) {
+  disablePreviewBranching(ref: string, options?: RequestInit): Promise<v1DisablePreviewBranchingResponse> {
     return v1DisablePreviewBranching(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getABranch(ref: string, name: string, options?: RequestInit) {
+  getABranch(ref: string, name: string, options?: RequestInit): Promise<v1GetABranchResponse> {
     return v1GetABranch(ref, name, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  authorizeUser(params: V1AuthorizeUserParams, options?: RequestInit) {
+  authorizeUser(params: V1AuthorizeUserParams, options?: RequestInit): Promise<v1AuthorizeUserResponse> {
     return v1AuthorizeUser(params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  exchangeOauthToken(oAuthTokenBody: OAuthTokenBody, options?: RequestInit) {
+  exchangeOauthToken(oAuthTokenBody: OAuthTokenBody, options?: RequestInit): Promise<v1ExchangeOauthTokenResponse> {
     return v1ExchangeOauthToken(oAuthTokenBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  revokeToken(oAuthRevokeTokenBody: OAuthRevokeTokenBody, options?: RequestInit) {
+  revokeToken(oAuthRevokeTokenBody: OAuthRevokeTokenBody, options?: RequestInit): Promise<v1RevokeTokenResponse> {
     return v1RevokeToken(oAuthRevokeTokenBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  oauthAuthorizeProjectClaim(params: V1OauthAuthorizeProjectClaimParams, options?: RequestInit) {
+  oauthAuthorizeProjectClaim(params: V1OauthAuthorizeProjectClaimParams, options?: RequestInit): Promise<v1OauthAuthorizeProjectClaimResponse> {
     return v1OauthAuthorizeProjectClaim(params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  listAllOrganizations(options?: RequestInit) {
+  listAllOrganizations(options?: RequestInit): Promise<v1ListAllOrganizationsResponse> {
     return v1ListAllOrganizations({
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  createAnOrganization(createOrganizationV1: CreateOrganizationV1, options?: RequestInit) {
+  createAnOrganization(createOrganizationV1: CreateOrganizationV1, options?: RequestInit): Promise<v1CreateAnOrganizationResponse> {
     return v1CreateAnOrganization(createOrganizationV1, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  listOrganizationMembers(slug: string, options?: RequestInit) {
+  listOrganizationMembers(slug: string, options?: RequestInit): Promise<v1ListOrganizationMembersResponse> {
     return v1ListOrganizationMembers(slug, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getAnOrganization(slug: string, options?: RequestInit) {
+  getAnOrganization(slug: string, options?: RequestInit): Promise<v1GetAnOrganizationResponse> {
     return v1GetAnOrganization(slug, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getOrganizationProjectClaim(slug: string, token: string, options?: RequestInit) {
+  getOrganizationProjectClaim(slug: string, token: string, options?: RequestInit): Promise<v1GetOrganizationProjectClaimResponse> {
     return v1GetOrganizationProjectClaim(slug, token, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  claimProjectForOrganization(slug: string, token: string, options?: RequestInit) {
+  claimProjectForOrganization(slug: string, token: string, options?: RequestInit): Promise<v1ClaimProjectForOrganizationResponse> {
     return v1ClaimProjectForOrganization(slug, token, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  listAllProjects(options?: RequestInit) {
+  listAllProjects(options?: RequestInit): Promise<v1ListAllProjectsResponse> {
     return v1ListAllProjects({
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  createAProject(v1CreateProjectBody: V1CreateProjectBody, options?: RequestInit) {
+  createAProject(v1CreateProjectBody: V1CreateProjectBody, options?: RequestInit): Promise<v1CreateAProjectResponse> {
     return v1CreateAProject(v1CreateProjectBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getAvailableRegions(params: V1GetAvailableRegionsParams, options?: RequestInit) {
+  getAvailableRegions(params: V1GetAvailableRegionsParams, options?: RequestInit): Promise<v1GetAvailableRegionsResponse> {
     return v1GetAvailableRegions(params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  listAllNetworkBans(ref: string, options?: RequestInit) {
+  listAllNetworkBans(ref: string, options?: RequestInit): Promise<v1ListAllNetworkBansResponse> {
     return v1ListAllNetworkBans(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  listAllNetworkBansEnriched(ref: string, options?: RequestInit) {
+  listAllNetworkBansEnriched(ref: string, options?: RequestInit): Promise<v1ListAllNetworkBansEnrichedResponse> {
     return v1ListAllNetworkBansEnriched(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  deleteNetworkBans(ref: string, removeNetworkBanRequest: RemoveNetworkBanRequest, options?: RequestInit) {
+  deleteNetworkBans(ref: string, removeNetworkBanRequest: RemoveNetworkBanRequest, options?: RequestInit): Promise<v1DeleteNetworkBansResponse> {
     return v1DeleteNetworkBans(ref, removeNetworkBanRequest, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getNetworkRestrictions(ref: string, options?: RequestInit) {
+  getNetworkRestrictions(ref: string, options?: RequestInit): Promise<v1GetNetworkRestrictionsResponse> {
     return v1GetNetworkRestrictions(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  patchNetworkRestrictions(ref: string, networkRestrictionsPatchRequest: NetworkRestrictionsPatchRequest, options?: RequestInit) {
+  patchNetworkRestrictions(ref: string, networkRestrictionsPatchRequest: NetworkRestrictionsPatchRequest, options?: RequestInit): Promise<v1PatchNetworkRestrictionsResponse> {
     return v1PatchNetworkRestrictions(ref, networkRestrictionsPatchRequest, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updateNetworkRestrictions(ref: string, networkRestrictionsRequest: NetworkRestrictionsRequest, options?: RequestInit) {
+  updateNetworkRestrictions(ref: string, networkRestrictionsRequest: NetworkRestrictionsRequest, options?: RequestInit): Promise<v1UpdateNetworkRestrictionsResponse> {
     return v1UpdateNetworkRestrictions(ref, networkRestrictionsRequest, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getProject(ref: string, options?: RequestInit) {
+  getProject(ref: string, options?: RequestInit): Promise<v1GetProjectResponse> {
     return v1GetProject(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  deleteAProject(ref: string, options?: RequestInit) {
+  deleteAProject(ref: string, options?: RequestInit): Promise<v1DeleteAProjectResponse> {
     return v1DeleteAProject(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updateAProject(ref: string, v1UpdateProjectBody: V1UpdateProjectBody, options?: RequestInit) {
+  updateAProject(ref: string, v1UpdateProjectBody: V1UpdateProjectBody, options?: RequestInit): Promise<v1UpdateAProjectResponse> {
     return v1UpdateAProject(ref, v1UpdateProjectBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  upgradePostgresVersion(ref: string, upgradeDatabaseBody: UpgradeDatabaseBody, options?: RequestInit) {
+  upgradePostgresVersion(ref: string, upgradeDatabaseBody: UpgradeDatabaseBody, options?: RequestInit): Promise<v1UpgradePostgresVersionResponse> {
     return v1UpgradePostgresVersion(ref, upgradeDatabaseBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getPostgresUpgradeEligibility(ref: string, options?: RequestInit) {
+  getPostgresUpgradeEligibility(ref: string, options?: RequestInit): Promise<v1GetPostgresUpgradeEligibilityResponse> {
     return v1GetPostgresUpgradeEligibility(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getPostgresUpgradeStatus(ref: string, params?: V1GetPostgresUpgradeStatusParams, options?: RequestInit) {
+  getPostgresUpgradeStatus(ref: string, params?: V1GetPostgresUpgradeStatusParams, options?: RequestInit): Promise<v1GetPostgresUpgradeStatusResponse> {
     return v1GetPostgresUpgradeStatus(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getServicesHealth(ref: string, params: V1GetServicesHealthParams, options?: RequestInit) {
+  getServicesHealth(ref: string, params: V1GetServicesHealthParams, options?: RequestInit): Promise<v1GetServicesHealthResponse> {
     return v1GetServicesHealth(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  pauseAProject(ref: string, options?: RequestInit) {
+  pauseAProject(ref: string, options?: RequestInit): Promise<v1PauseAProjectResponse> {
     return v1PauseAProject(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  listAvailableRestoreVersions(ref: string, options?: RequestInit) {
+  listAvailableRestoreVersions(ref: string, options?: RequestInit): Promise<v1ListAvailableRestoreVersionsResponse> {
     return v1ListAvailableRestoreVersions(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  restoreAProject(ref: string, options?: RequestInit) {
+  restoreAProject(ref: string, options?: RequestInit): Promise<v1RestoreAProjectResponse> {
     return v1RestoreAProject(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  cancelAProjectRestoration(ref: string, options?: RequestInit) {
+  cancelAProjectRestoration(ref: string, options?: RequestInit): Promise<v1CancelAProjectRestorationResponse> {
     return v1CancelAProjectRestoration(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getProjectClaimToken(ref: string, options?: RequestInit) {
+  getProjectClaimToken(ref: string, options?: RequestInit): Promise<v1GetProjectClaimTokenResponse> {
     return v1GetProjectClaimToken(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  createProjectClaimToken(ref: string, options?: RequestInit) {
+  createProjectClaimToken(ref: string, options?: RequestInit): Promise<v1CreateProjectClaimTokenResponse> {
     return v1CreateProjectClaimToken(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  deleteProjectClaimToken(ref: string, options?: RequestInit) {
+  deleteProjectClaimToken(ref: string, options?: RequestInit): Promise<v1DeleteProjectClaimTokenResponse> {
     return v1DeleteProjectClaimToken(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getDiskUtilization(ref: string, options?: RequestInit) {
+  getDiskUtilization(ref: string, options?: RequestInit): Promise<v1GetDiskUtilizationResponse> {
     return v1GetDiskUtilization(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  modifyDatabaseDisk(ref: string, diskRequestBody: DiskRequestBody, options?: RequestInit) {
+  modifyDatabaseDisk(ref: string, diskRequestBody: DiskRequestBody, options?: RequestInit): Promise<v1ModifyDatabaseDiskResponse> {
     return v1ModifyDatabaseDisk(ref, diskRequestBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getProjectDiskAutoscaleConfig(ref: string, options?: RequestInit) {
+  getProjectDiskAutoscaleConfig(ref: string, options?: RequestInit): Promise<v1GetProjectDiskAutoscaleConfigResponse> {
     return v1GetProjectDiskAutoscaleConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getAllProjectsForOrganization(slug: string, params?: V1GetAllProjectsForOrganizationParams, options?: RequestInit) {
+  getAllProjectsForOrganization(slug: string, params?: V1GetAllProjectsForOrganizationParams, options?: RequestInit): Promise<v1GetAllProjectsForOrganizationResponse> {
     return v1GetAllProjectsForOrganization(slug, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getRealtimeConfig(ref: string, options?: RequestInit) {
+  getRealtimeConfig(ref: string, options?: RequestInit): Promise<v1GetRealtimeConfigResponse> {
     return v1GetRealtimeConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updateRealtimeConfig(ref: string, updateRealtimeConfigBody: UpdateRealtimeConfigBody, options?: RequestInit) {
+  updateRealtimeConfig(ref: string, updateRealtimeConfigBody: UpdateRealtimeConfigBody, options?: RequestInit): Promise<v1UpdateRealtimeConfigResponse> {
     return v1UpdateRealtimeConfig(ref, updateRealtimeConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  shutdownRealtime(ref: string, options?: RequestInit) {
+  shutdownRealtime(ref: string, options?: RequestInit): Promise<v1ShutdownRealtimeResponse> {
     return v1ShutdownRealtime(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getPostgrestServiceConfig(ref: string, options?: RequestInit) {
+  getPostgrestServiceConfig(ref: string, options?: RequestInit): Promise<v1GetPostgrestServiceConfigResponse> {
     return v1GetPostgrestServiceConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updatePostgrestServiceConfig(ref: string, v1UpdatePostgrestConfigBody: V1UpdatePostgrestConfigBody, options?: RequestInit) {
+  updatePostgrestServiceConfig(ref: string, v1UpdatePostgrestConfigBody: V1UpdatePostgrestConfigBody, options?: RequestInit): Promise<v1UpdatePostgrestServiceConfigResponse> {
     return v1UpdatePostgrestServiceConfig(ref, v1UpdatePostgrestConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getProjectApiKeys(ref: string, params?: V1GetProjectApiKeysParams, options?: RequestInit) {
+  getProjectApiKeys(ref: string, params?: V1GetProjectApiKeysParams, options?: RequestInit): Promise<v1GetProjectApiKeysResponse> {
     return v1GetProjectApiKeys(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  createProjectApiKey(ref: string, createApiKeyBody: CreateApiKeyBody, params?: V1CreateProjectApiKeyParams, options?: RequestInit) {
+  createProjectApiKey(ref: string, createApiKeyBody: CreateApiKeyBody, params?: V1CreateProjectApiKeyParams, options?: RequestInit): Promise<v1CreateProjectApiKeyResponse> {
     return v1CreateProjectApiKey(ref, createApiKeyBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getProjectLegacyApiKeys(ref: string, options?: RequestInit) {
+  getProjectLegacyApiKeys(ref: string, options?: RequestInit): Promise<v1GetProjectLegacyApiKeysResponse> {
     return v1GetProjectLegacyApiKeys(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updateProjectLegacyApiKeys(ref: string, params: V1UpdateProjectLegacyApiKeysParams, options?: RequestInit) {
+  updateProjectLegacyApiKeys(ref: string, params: V1UpdateProjectLegacyApiKeysParams, options?: RequestInit): Promise<v1UpdateProjectLegacyApiKeysResponse> {
     return v1UpdateProjectLegacyApiKeys(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updateProjectApiKey(ref: string, id: string, updateApiKeyBody: UpdateApiKeyBody, params?: V1UpdateProjectApiKeyParams, options?: RequestInit) {
+  updateProjectApiKey(ref: string, id: string, updateApiKeyBody: UpdateApiKeyBody, params?: V1UpdateProjectApiKeyParams, options?: RequestInit): Promise<v1UpdateProjectApiKeyResponse> {
     return v1UpdateProjectApiKey(ref, id, updateApiKeyBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getProjectApiKey(ref: string, id: string, params?: V1GetProjectApiKeyParams, options?: RequestInit) {
+  getProjectApiKey(ref: string, id: string, params?: V1GetProjectApiKeyParams, options?: RequestInit): Promise<v1GetProjectApiKeyResponse> {
     return v1GetProjectApiKey(ref, id, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  deleteProjectApiKey(ref: string, id: string, params?: V1DeleteProjectApiKeyParams, options?: RequestInit) {
+  deleteProjectApiKey(ref: string, id: string, params?: V1DeleteProjectApiKeyParams, options?: RequestInit): Promise<v1DeleteProjectApiKeyResponse> {
     return v1DeleteProjectApiKey(ref, id, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getPgsodiumConfig(ref: string, options?: RequestInit) {
+  getPgsodiumConfig(ref: string, options?: RequestInit): Promise<v1GetPgsodiumConfigResponse> {
     return v1GetPgsodiumConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updatePgsodiumConfig(ref: string, updatePgsodiumConfigBody: UpdatePgsodiumConfigBody, options?: RequestInit) {
+  updatePgsodiumConfig(ref: string, updatePgsodiumConfigBody: UpdatePgsodiumConfigBody, options?: RequestInit): Promise<v1UpdatePgsodiumConfigResponse> {
     return v1UpdatePgsodiumConfig(ref, updatePgsodiumConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  listAllSecrets(ref: string, options?: RequestInit) {
+  listAllSecrets(ref: string, options?: RequestInit): Promise<v1ListAllSecretsResponse> {
     return v1ListAllSecrets(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  bulkCreateSecrets(ref: string, createSecretBody: CreateSecretBody, options?: RequestInit) {
+  bulkCreateSecrets(ref: string, createSecretBody: CreateSecretBody, options?: RequestInit): Promise<v1BulkCreateSecretsResponse> {
     return v1BulkCreateSecrets(ref, createSecretBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  bulkDeleteSecrets(ref: string, deleteSecretsBody: DeleteSecretsBody, options?: RequestInit) {
+  bulkDeleteSecrets(ref: string, deleteSecretsBody: DeleteSecretsBody, options?: RequestInit): Promise<v1BulkDeleteSecretsResponse> {
     return v1BulkDeleteSecrets(ref, deleteSecretsBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  listAllBuckets(ref: string, options?: RequestInit) {
+  listAllBuckets(ref: string, options?: RequestInit): Promise<v1ListAllBucketsResponse> {
     return v1ListAllBuckets(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  getStorageConfig(ref: string, options?: RequestInit) {
+  getStorageConfig(ref: string, options?: RequestInit): Promise<v1GetStorageConfigResponse> {
     return v1GetStorageConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     });
   }
 
-  updateStorageConfig(ref: string, updateStorageConfigBody: UpdateStorageConfigBody, options?: RequestInit) {
+  updateStorageConfig(ref: string, updateStorageConfigBody: UpdateStorageConfigBody, options?: RequestInit): Promise<v1UpdateStorageConfigResponse> {
     return v1UpdateStorageConfig(ref, updateStorageConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },

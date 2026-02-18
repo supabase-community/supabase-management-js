@@ -103,6 +103,7 @@ const sourceFiles = readdirSync(GENERATED_DIR)
 const methodSpecs = [];
 const allFuncNames = [];
 const allTypeNames = new Set();
+const allResponseTypeNames = new Set();
 
 for (const file of sourceFiles) {
   const text = readFileSync(join(GENERATED_DIR, file), "utf8");
@@ -128,17 +129,21 @@ for (const file of sourceFiles) {
       collectTypeNames(p, allTypeNames);
     }
 
+    const returnType = `${funcName}Response`;
+    allResponseTypeNames.add(returnType);
+
     methodSpecs.push({
       methodName: toMethodName(funcName),
       funcName,
       methodParamList,
       callParams,
+      returnType,
     });
   }
 }
 
 // Generate class methods
-function generateMethod({ methodName, funcName, methodParamList, callParams }) {
+function generateMethod({ methodName, funcName, methodParamList, callParams, returnType }) {
   const signatureParams = methodParamList
     ? `${methodParamList}, options?: RequestInit`
     : `options?: RequestInit`;
@@ -147,7 +152,7 @@ function generateMethod({ methodName, funcName, methodParamList, callParams }) {
     callParams.length > 0 ? `${callParams.join(", ")}, ` : "";
 
   return [
-    `  ${methodName}(${signatureParams}) {`,
+    `  ${methodName}(${signatureParams}): Promise<${returnType}> {`,
     `    return ${funcName}(${callArgs}{`,
     `      ...options,`,
     `      headers: { ...this.authHeader, ...options?.headers },`,
@@ -162,7 +167,7 @@ const funcImportLines = [...allFuncNames]
   .map((n) => `  ${n},`)
   .join("\n");
 
-const typeImportLines = [...allTypeNames]
+const typeImportLines = [...allTypeNames, ...allResponseTypeNames]
   .sort()
   .map((t) => `  ${t},`)
   .join("\n");
