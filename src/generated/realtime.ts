@@ -44,17 +44,17 @@ export type v1GetRealtimeConfigResponseError = (v1GetRealtimeConfigResponse401 |
 
 export type v1GetRealtimeConfigResponse = (v1GetRealtimeConfigResponseSuccess | v1GetRealtimeConfigResponseError)
 
-export const getV1GetRealtimeConfigUrl = (ref: string,) => {
+export const getV1GetRealtimeConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/realtime`
+  return `${baseUrl}/v1/projects/${ref}/config/realtime`
 }
 
-export const v1GetRealtimeConfig = async (ref: string, options?: RequestInit): Promise<v1GetRealtimeConfigResponse> => {
+export const v1GetRealtimeConfig = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetRealtimeConfigResponse> => {
   
-  const res = await fetch(getV1GetRealtimeConfigUrl(ref),
+  const res = await fetch(getV1GetRealtimeConfigUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -102,18 +102,18 @@ export type v1UpdateRealtimeConfigResponseError = (v1UpdateRealtimeConfigRespons
 
 export type v1UpdateRealtimeConfigResponse = (v1UpdateRealtimeConfigResponseSuccess | v1UpdateRealtimeConfigResponseError)
 
-export const getV1UpdateRealtimeConfigUrl = (ref: string,) => {
+export const getV1UpdateRealtimeConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/realtime`
+  return `${baseUrl}/v1/projects/${ref}/config/realtime`
 }
 
 export const v1UpdateRealtimeConfig = async (ref: string,
-    updateRealtimeConfigBody: UpdateRealtimeConfigBody, options?: RequestInit): Promise<v1UpdateRealtimeConfigResponse> => {
+    updateRealtimeConfigBody: UpdateRealtimeConfigBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateRealtimeConfigResponse> => {
   
-  const res = await fetch(getV1UpdateRealtimeConfigUrl(ref),
+  const res = await fetch(getV1UpdateRealtimeConfigUrl(ref, baseUrl),
   {      
     ...options,
     method: 'PATCH',
@@ -167,17 +167,17 @@ export type v1ShutdownRealtimeResponseError = (v1ShutdownRealtimeResponse401 | v
 
 export type v1ShutdownRealtimeResponse = (v1ShutdownRealtimeResponseSuccess | v1ShutdownRealtimeResponseError)
 
-export const getV1ShutdownRealtimeUrl = (ref: string,) => {
+export const getV1ShutdownRealtimeUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/realtime/shutdown`
+  return `${baseUrl}/v1/projects/${ref}/config/realtime/shutdown`
 }
 
-export const v1ShutdownRealtime = async (ref: string, options?: RequestInit): Promise<v1ShutdownRealtimeResponse> => {
+export const v1ShutdownRealtime = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ShutdownRealtimeResponse> => {
   
-  const res = await fetch(getV1ShutdownRealtimeUrl(ref),
+  const res = await fetch(getV1ShutdownRealtimeUrl(ref, baseUrl),
   {      
     ...options,
     method: 'POST'

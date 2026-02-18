@@ -58,7 +58,7 @@ export type v1GetProjectApiKeysResponseError = (v1GetProjectApiKeysResponse401 |
 export type v1GetProjectApiKeysResponse = (v1GetProjectApiKeysResponseSuccess | v1GetProjectApiKeysResponseError)
 
 export const getV1GetProjectApiKeysUrl = (ref: string,
-    params?: V1GetProjectApiKeysParams,) => {
+    params?: V1GetProjectApiKeysParams, baseUrl: string = 'https://api.supabase.com') => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -70,13 +70,13 @@ export const getV1GetProjectApiKeysUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/api-keys?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/api-keys`
+  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/api-keys?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/api-keys`
 }
 
 export const v1GetProjectApiKeys = async (ref: string,
-    params?: V1GetProjectApiKeysParams, options?: RequestInit): Promise<v1GetProjectApiKeysResponse> => {
+    params?: V1GetProjectApiKeysParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetProjectApiKeysResponse> => {
   
-  const res = await fetch(getV1GetProjectApiKeysUrl(ref,params),
+  const res = await fetch(getV1GetProjectApiKeysUrl(ref,params, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -125,7 +125,7 @@ export type v1CreateProjectApiKeyResponseError = (v1CreateProjectApiKeyResponse4
 export type v1CreateProjectApiKeyResponse = (v1CreateProjectApiKeyResponseSuccess | v1CreateProjectApiKeyResponseError)
 
 export const getV1CreateProjectApiKeyUrl = (ref: string,
-    params?: V1CreateProjectApiKeyParams,) => {
+    params?: V1CreateProjectApiKeyParams, baseUrl: string = 'https://api.supabase.com') => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -137,14 +137,14 @@ export const getV1CreateProjectApiKeyUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/api-keys?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/api-keys`
+  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/api-keys?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/api-keys`
 }
 
 export const v1CreateProjectApiKey = async (ref: string,
     createApiKeyBody: CreateApiKeyBody,
-    params?: V1CreateProjectApiKeyParams, options?: RequestInit): Promise<v1CreateProjectApiKeyResponse> => {
+    params?: V1CreateProjectApiKeyParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1CreateProjectApiKeyResponse> => {
   
-  const res = await fetch(getV1CreateProjectApiKeyUrl(ref,params),
+  const res = await fetch(getV1CreateProjectApiKeyUrl(ref,params, baseUrl),
   {      
     ...options,
     method: 'POST',
@@ -193,17 +193,17 @@ export type v1GetProjectLegacyApiKeysResponseError = (v1GetProjectLegacyApiKeysR
 
 export type v1GetProjectLegacyApiKeysResponse = (v1GetProjectLegacyApiKeysResponseSuccess | v1GetProjectLegacyApiKeysResponseError)
 
-export const getV1GetProjectLegacyApiKeysUrl = (ref: string,) => {
+export const getV1GetProjectLegacyApiKeysUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/api-keys/legacy`
+  return `${baseUrl}/v1/projects/${ref}/api-keys/legacy`
 }
 
-export const v1GetProjectLegacyApiKeys = async (ref: string, options?: RequestInit): Promise<v1GetProjectLegacyApiKeysResponse> => {
+export const v1GetProjectLegacyApiKeys = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetProjectLegacyApiKeysResponse> => {
   
-  const res = await fetch(getV1GetProjectLegacyApiKeysUrl(ref),
+  const res = await fetch(getV1GetProjectLegacyApiKeysUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -252,7 +252,7 @@ export type v1UpdateProjectLegacyApiKeysResponseError = (v1UpdateProjectLegacyAp
 export type v1UpdateProjectLegacyApiKeysResponse = (v1UpdateProjectLegacyApiKeysResponseSuccess | v1UpdateProjectLegacyApiKeysResponseError)
 
 export const getV1UpdateProjectLegacyApiKeysUrl = (ref: string,
-    params: V1UpdateProjectLegacyApiKeysParams,) => {
+    params: V1UpdateProjectLegacyApiKeysParams, baseUrl: string = 'https://api.supabase.com') => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -264,13 +264,13 @@ export const getV1UpdateProjectLegacyApiKeysUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/api-keys/legacy?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/api-keys/legacy`
+  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/api-keys/legacy?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/api-keys/legacy`
 }
 
 export const v1UpdateProjectLegacyApiKeys = async (ref: string,
-    params: V1UpdateProjectLegacyApiKeysParams, options?: RequestInit): Promise<v1UpdateProjectLegacyApiKeysResponse> => {
+    params: V1UpdateProjectLegacyApiKeysParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateProjectLegacyApiKeysResponse> => {
   
-  const res = await fetch(getV1UpdateProjectLegacyApiKeysUrl(ref,params),
+  const res = await fetch(getV1UpdateProjectLegacyApiKeysUrl(ref,params, baseUrl),
   {      
     ...options,
     method: 'PUT'
@@ -320,7 +320,7 @@ export type v1UpdateProjectApiKeyResponse = (v1UpdateProjectApiKeyResponseSucces
 
 export const getV1UpdateProjectApiKeyUrl = (ref: string,
     id: string,
-    params?: V1UpdateProjectApiKeyParams,) => {
+    params?: V1UpdateProjectApiKeyParams, baseUrl: string = 'https://api.supabase.com') => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -332,15 +332,15 @@ export const getV1UpdateProjectApiKeyUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/api-keys/${id}?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/api-keys/${id}`
+  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/api-keys/${id}?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/api-keys/${id}`
 }
 
 export const v1UpdateProjectApiKey = async (ref: string,
     id: string,
     updateApiKeyBody: UpdateApiKeyBody,
-    params?: V1UpdateProjectApiKeyParams, options?: RequestInit): Promise<v1UpdateProjectApiKeyResponse> => {
+    params?: V1UpdateProjectApiKeyParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateProjectApiKeyResponse> => {
   
-  const res = await fetch(getV1UpdateProjectApiKeyUrl(ref,id,params),
+  const res = await fetch(getV1UpdateProjectApiKeyUrl(ref,id,params, baseUrl),
   {      
     ...options,
     method: 'PATCH',
@@ -391,7 +391,7 @@ export type v1GetProjectApiKeyResponse = (v1GetProjectApiKeyResponseSuccess | v1
 
 export const getV1GetProjectApiKeyUrl = (ref: string,
     id: string,
-    params?: V1GetProjectApiKeyParams,) => {
+    params?: V1GetProjectApiKeyParams, baseUrl: string = 'https://api.supabase.com') => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -403,14 +403,14 @@ export const getV1GetProjectApiKeyUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/api-keys/${id}?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/api-keys/${id}`
+  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/api-keys/${id}?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/api-keys/${id}`
 }
 
 export const v1GetProjectApiKey = async (ref: string,
     id: string,
-    params?: V1GetProjectApiKeyParams, options?: RequestInit): Promise<v1GetProjectApiKeyResponse> => {
+    params?: V1GetProjectApiKeyParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetProjectApiKeyResponse> => {
   
-  const res = await fetch(getV1GetProjectApiKeyUrl(ref,id,params),
+  const res = await fetch(getV1GetProjectApiKeyUrl(ref,id,params, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -460,7 +460,7 @@ export type v1DeleteProjectApiKeyResponse = (v1DeleteProjectApiKeyResponseSucces
 
 export const getV1DeleteProjectApiKeyUrl = (ref: string,
     id: string,
-    params?: V1DeleteProjectApiKeyParams,) => {
+    params?: V1DeleteProjectApiKeyParams, baseUrl: string = 'https://api.supabase.com') => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -472,14 +472,14 @@ export const getV1DeleteProjectApiKeyUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/api-keys/${id}?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/api-keys/${id}`
+  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/api-keys/${id}?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/api-keys/${id}`
 }
 
 export const v1DeleteProjectApiKey = async (ref: string,
     id: string,
-    params?: V1DeleteProjectApiKeyParams, options?: RequestInit): Promise<v1DeleteProjectApiKeyResponse> => {
+    params?: V1DeleteProjectApiKeyParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1DeleteProjectApiKeyResponse> => {
   
-  const res = await fetch(getV1DeleteProjectApiKeyUrl(ref,id,params),
+  const res = await fetch(getV1DeleteProjectApiKeyUrl(ref,id,params, baseUrl),
   {      
     ...options,
     method: 'DELETE'
@@ -532,17 +532,17 @@ export type v1GetPgsodiumConfigResponseError = (v1GetPgsodiumConfigResponse401 |
 
 export type v1GetPgsodiumConfigResponse = (v1GetPgsodiumConfigResponseSuccess | v1GetPgsodiumConfigResponseError)
 
-export const getV1GetPgsodiumConfigUrl = (ref: string,) => {
+export const getV1GetPgsodiumConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/pgsodium`
+  return `${baseUrl}/v1/projects/${ref}/pgsodium`
 }
 
-export const v1GetPgsodiumConfig = async (ref: string, options?: RequestInit): Promise<v1GetPgsodiumConfigResponse> => {
+export const v1GetPgsodiumConfig = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetPgsodiumConfigResponse> => {
   
-  const res = await fetch(getV1GetPgsodiumConfigUrl(ref),
+  const res = await fetch(getV1GetPgsodiumConfigUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -595,18 +595,18 @@ export type v1UpdatePgsodiumConfigResponseError = (v1UpdatePgsodiumConfigRespons
 
 export type v1UpdatePgsodiumConfigResponse = (v1UpdatePgsodiumConfigResponseSuccess | v1UpdatePgsodiumConfigResponseError)
 
-export const getV1UpdatePgsodiumConfigUrl = (ref: string,) => {
+export const getV1UpdatePgsodiumConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/pgsodium`
+  return `${baseUrl}/v1/projects/${ref}/pgsodium`
 }
 
 export const v1UpdatePgsodiumConfig = async (ref: string,
-    updatePgsodiumConfigBody: UpdatePgsodiumConfigBody, options?: RequestInit): Promise<v1UpdatePgsodiumConfigResponse> => {
+    updatePgsodiumConfigBody: UpdatePgsodiumConfigBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdatePgsodiumConfigResponse> => {
   
-  const res = await fetch(getV1UpdatePgsodiumConfigUrl(ref),
+  const res = await fetch(getV1UpdatePgsodiumConfigUrl(ref, baseUrl),
   {      
     ...options,
     method: 'PUT',
@@ -661,17 +661,17 @@ export type v1ListAllSecretsResponseError = (v1ListAllSecretsResponse401 | v1Lis
 
 export type v1ListAllSecretsResponse = (v1ListAllSecretsResponseSuccess | v1ListAllSecretsResponseError)
 
-export const getV1ListAllSecretsUrl = (ref: string,) => {
+export const getV1ListAllSecretsUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/secrets`
+  return `${baseUrl}/v1/projects/${ref}/secrets`
 }
 
-export const v1ListAllSecrets = async (ref: string, options?: RequestInit): Promise<v1ListAllSecretsResponse> => {
+export const v1ListAllSecrets = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListAllSecretsResponse> => {
   
-  const res = await fetch(getV1ListAllSecretsUrl(ref),
+  const res = await fetch(getV1ListAllSecretsUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -725,18 +725,18 @@ export type v1BulkCreateSecretsResponseError = (v1BulkCreateSecretsResponse401 |
 
 export type v1BulkCreateSecretsResponse = (v1BulkCreateSecretsResponseSuccess | v1BulkCreateSecretsResponseError)
 
-export const getV1BulkCreateSecretsUrl = (ref: string,) => {
+export const getV1BulkCreateSecretsUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/secrets`
+  return `${baseUrl}/v1/projects/${ref}/secrets`
 }
 
 export const v1BulkCreateSecrets = async (ref: string,
-    createSecretBody: CreateSecretBody, options?: RequestInit): Promise<v1BulkCreateSecretsResponse> => {
+    createSecretBody: CreateSecretBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1BulkCreateSecretsResponse> => {
   
-  const res = await fetch(getV1BulkCreateSecretsUrl(ref),
+  const res = await fetch(getV1BulkCreateSecretsUrl(ref, baseUrl),
   {      
     ...options,
     method: 'POST',
@@ -791,18 +791,18 @@ export type v1BulkDeleteSecretsResponseError = (v1BulkDeleteSecretsResponse401 |
 
 export type v1BulkDeleteSecretsResponse = (v1BulkDeleteSecretsResponseSuccess | v1BulkDeleteSecretsResponseError)
 
-export const getV1BulkDeleteSecretsUrl = (ref: string,) => {
+export const getV1BulkDeleteSecretsUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/secrets`
+  return `${baseUrl}/v1/projects/${ref}/secrets`
 }
 
 export const v1BulkDeleteSecrets = async (ref: string,
-    deleteSecretsBody: DeleteSecretsBody, options?: RequestInit): Promise<v1BulkDeleteSecretsResponse> => {
+    deleteSecretsBody: DeleteSecretsBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1BulkDeleteSecretsResponse> => {
   
-  const res = await fetch(getV1BulkDeleteSecretsUrl(ref),
+  const res = await fetch(getV1BulkDeleteSecretsUrl(ref, baseUrl),
   {      
     ...options,
     method: 'DELETE',

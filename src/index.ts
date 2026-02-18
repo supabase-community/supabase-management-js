@@ -4,3 +4,4 @@
  */
 export * from './generated';
 export { SupabaseManagementAPI } from './api';
+export type { SupabaseManagementAPIOptions } from './api';

@@ -74,7 +74,7 @@ export type v1ListAllSnippetsResponseError = (v1ListAllSnippetsResponse500) & {
 
 export type v1ListAllSnippetsResponse = (v1ListAllSnippetsResponseSuccess | v1ListAllSnippetsResponseError)
 
-export const getV1ListAllSnippetsUrl = (params?: V1ListAllSnippetsParams,) => {
+export const getV1ListAllSnippetsUrl = (params?: V1ListAllSnippetsParams, baseUrl: string = 'https://api.supabase.com') => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -86,12 +86,12 @@ export const getV1ListAllSnippetsUrl = (params?: V1ListAllSnippetsParams,) => {
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/snippets?${stringifiedParams}` : `https://api.supabase.com/v1/snippets`
+  return stringifiedParams.length > 0 ? `${baseUrl}/v1/snippets?${stringifiedParams}` : `${baseUrl}/v1/snippets`
 }
 
-export const v1ListAllSnippets = async (params?: V1ListAllSnippetsParams, options?: RequestInit): Promise<v1ListAllSnippetsResponse> => {
+export const v1ListAllSnippets = async (params?: V1ListAllSnippetsParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListAllSnippetsResponse> => {
   
-  const res = await fetch(getV1ListAllSnippetsUrl(params),
+  const res = await fetch(getV1ListAllSnippetsUrl(params, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -129,17 +129,17 @@ export type v1GetASnippetResponseError = (v1GetASnippetResponse500) & {
 
 export type v1GetASnippetResponse = (v1GetASnippetResponseSuccess | v1GetASnippetResponseError)
 
-export const getV1GetASnippetUrl = (id: string,) => {
+export const getV1GetASnippetUrl = (id: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/snippets/${id}`
+  return `${baseUrl}/v1/snippets/${id}`
 }
 
-export const v1GetASnippet = async (id: string, options?: RequestInit): Promise<v1GetASnippetResponse> => {
+export const v1GetASnippet = async (id: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetASnippetResponse> => {
   
-  const res = await fetch(getV1GetASnippetUrl(id),
+  const res = await fetch(getV1GetASnippetUrl(id, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -192,17 +192,17 @@ export type v1GetJitAccessConfigResponseError = (v1GetJitAccessConfigResponse401
 
 export type v1GetJitAccessConfigResponse = (v1GetJitAccessConfigResponseSuccess | v1GetJitAccessConfigResponseError)
 
-export const getV1GetJitAccessConfigUrl = (ref: string,) => {
+export const getV1GetJitAccessConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/jit-access`
+  return `${baseUrl}/v1/projects/${ref}/jit-access`
 }
 
-export const v1GetJitAccessConfig = async (ref: string, options?: RequestInit): Promise<v1GetJitAccessConfigResponse> => {
+export const v1GetJitAccessConfig = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetJitAccessConfigResponse> => {
   
-  const res = await fetch(getV1GetJitAccessConfigUrl(ref),
+  const res = await fetch(getV1GetJitAccessConfigUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -255,18 +255,18 @@ export type v1UpdateJitAccessConfigResponseError = (v1UpdateJitAccessConfigRespo
 
 export type v1UpdateJitAccessConfigResponse = (v1UpdateJitAccessConfigResponseSuccess | v1UpdateJitAccessConfigResponseError)
 
-export const getV1UpdateJitAccessConfigUrl = (ref: string,) => {
+export const getV1UpdateJitAccessConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/jit-access`
+  return `${baseUrl}/v1/projects/${ref}/jit-access`
 }
 
 export const v1UpdateJitAccessConfig = async (ref: string,
-    jitAccessRequestRequest: JitAccessRequestRequest, options?: RequestInit): Promise<v1UpdateJitAccessConfigResponse> => {
+    jitAccessRequestRequest: JitAccessRequestRequest, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateJitAccessConfigResponse> => {
   
-  const res = await fetch(getV1UpdateJitAccessConfigUrl(ref),
+  const res = await fetch(getV1UpdateJitAccessConfigUrl(ref, baseUrl),
   {      
     ...options,
     method: 'PUT',
@@ -320,17 +320,17 @@ export type v1GetSslEnforcementConfigResponseError = (v1GetSslEnforcementConfigR
 
 export type v1GetSslEnforcementConfigResponse = (v1GetSslEnforcementConfigResponseSuccess | v1GetSslEnforcementConfigResponseError)
 
-export const getV1GetSslEnforcementConfigUrl = (ref: string,) => {
+export const getV1GetSslEnforcementConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/ssl-enforcement`
+  return `${baseUrl}/v1/projects/${ref}/ssl-enforcement`
 }
 
-export const v1GetSslEnforcementConfig = async (ref: string, options?: RequestInit): Promise<v1GetSslEnforcementConfigResponse> => {
+export const v1GetSslEnforcementConfig = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetSslEnforcementConfigResponse> => {
   
-  const res = await fetch(getV1GetSslEnforcementConfigUrl(ref),
+  const res = await fetch(getV1GetSslEnforcementConfigUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -383,18 +383,18 @@ export type v1UpdateSslEnforcementConfigResponseError = (v1UpdateSslEnforcementC
 
 export type v1UpdateSslEnforcementConfigResponse = (v1UpdateSslEnforcementConfigResponseSuccess | v1UpdateSslEnforcementConfigResponseError)
 
-export const getV1UpdateSslEnforcementConfigUrl = (ref: string,) => {
+export const getV1UpdateSslEnforcementConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/ssl-enforcement`
+  return `${baseUrl}/v1/projects/${ref}/ssl-enforcement`
 }
 
 export const v1UpdateSslEnforcementConfig = async (ref: string,
-    sslEnforcementRequest: SslEnforcementRequest, options?: RequestInit): Promise<v1UpdateSslEnforcementConfigResponse> => {
+    sslEnforcementRequest: SslEnforcementRequest, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateSslEnforcementConfigResponse> => {
   
-  const res = await fetch(getV1UpdateSslEnforcementConfigUrl(ref),
+  const res = await fetch(getV1UpdateSslEnforcementConfigUrl(ref, baseUrl),
   {      
     ...options,
     method: 'PUT',
@@ -450,7 +450,7 @@ export type v1GenerateTypescriptTypesResponseError = (v1GenerateTypescriptTypesR
 export type v1GenerateTypescriptTypesResponse = (v1GenerateTypescriptTypesResponseSuccess | v1GenerateTypescriptTypesResponseError)
 
 export const getV1GenerateTypescriptTypesUrl = (ref: string,
-    params?: V1GenerateTypescriptTypesParams,) => {
+    params?: V1GenerateTypescriptTypesParams, baseUrl: string = 'https://api.supabase.com') => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -462,13 +462,13 @@ export const getV1GenerateTypescriptTypesUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/types/typescript?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/types/typescript`
+  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/types/typescript?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/types/typescript`
 }
 
 export const v1GenerateTypescriptTypes = async (ref: string,
-    params?: V1GenerateTypescriptTypesParams, options?: RequestInit): Promise<v1GenerateTypescriptTypesResponse> => {
+    params?: V1GenerateTypescriptTypesParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GenerateTypescriptTypesResponse> => {
   
-  const res = await fetch(getV1GenerateTypescriptTypesUrl(ref,params),
+  const res = await fetch(getV1GenerateTypescriptTypesUrl(ref,params, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -521,17 +521,17 @@ export type v1GetReadonlyModeStatusResponseError = (v1GetReadonlyModeStatusRespo
 
 export type v1GetReadonlyModeStatusResponse = (v1GetReadonlyModeStatusResponseSuccess | v1GetReadonlyModeStatusResponseError)
 
-export const getV1GetReadonlyModeStatusUrl = (ref: string,) => {
+export const getV1GetReadonlyModeStatusUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/readonly`
+  return `${baseUrl}/v1/projects/${ref}/readonly`
 }
 
-export const v1GetReadonlyModeStatus = async (ref: string, options?: RequestInit): Promise<v1GetReadonlyModeStatusResponse> => {
+export const v1GetReadonlyModeStatus = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetReadonlyModeStatusResponse> => {
   
-  const res = await fetch(getV1GetReadonlyModeStatusUrl(ref),
+  const res = await fetch(getV1GetReadonlyModeStatusUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -584,17 +584,17 @@ export type v1DisableReadonlyModeTemporarilyResponseError = (v1DisableReadonlyMo
 
 export type v1DisableReadonlyModeTemporarilyResponse = (v1DisableReadonlyModeTemporarilyResponseSuccess | v1DisableReadonlyModeTemporarilyResponseError)
 
-export const getV1DisableReadonlyModeTemporarilyUrl = (ref: string,) => {
+export const getV1DisableReadonlyModeTemporarilyUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/readonly/temporary-disable`
+  return `${baseUrl}/v1/projects/${ref}/readonly/temporary-disable`
 }
 
-export const v1DisableReadonlyModeTemporarily = async (ref: string, options?: RequestInit): Promise<v1DisableReadonlyModeTemporarilyResponse> => {
+export const v1DisableReadonlyModeTemporarily = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1DisableReadonlyModeTemporarilyResponse> => {
   
-  const res = await fetch(getV1DisableReadonlyModeTemporarilyUrl(ref),
+  const res = await fetch(getV1DisableReadonlyModeTemporarilyUrl(ref, baseUrl),
   {      
     ...options,
     method: 'POST'
@@ -647,18 +647,18 @@ export type v1SetupAReadReplicaResponseError = (v1SetupAReadReplicaResponse401 |
 
 export type v1SetupAReadReplicaResponse = (v1SetupAReadReplicaResponseSuccess | v1SetupAReadReplicaResponseError)
 
-export const getV1SetupAReadReplicaUrl = (ref: string,) => {
+export const getV1SetupAReadReplicaUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/read-replicas/setup`
+  return `${baseUrl}/v1/projects/${ref}/read-replicas/setup`
 }
 
 export const v1SetupAReadReplica = async (ref: string,
-    setUpReadReplicaBody: SetUpReadReplicaBody, options?: RequestInit): Promise<v1SetupAReadReplicaResponse> => {
+    setUpReadReplicaBody: SetUpReadReplicaBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1SetupAReadReplicaResponse> => {
   
-  const res = await fetch(getV1SetupAReadReplicaUrl(ref),
+  const res = await fetch(getV1SetupAReadReplicaUrl(ref, baseUrl),
   {      
     ...options,
     method: 'POST',
@@ -712,18 +712,18 @@ export type v1RemoveAReadReplicaResponseError = (v1RemoveAReadReplicaResponse401
 
 export type v1RemoveAReadReplicaResponse = (v1RemoveAReadReplicaResponseSuccess | v1RemoveAReadReplicaResponseError)
 
-export const getV1RemoveAReadReplicaUrl = (ref: string,) => {
+export const getV1RemoveAReadReplicaUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/read-replicas/remove`
+  return `${baseUrl}/v1/projects/${ref}/read-replicas/remove`
 }
 
 export const v1RemoveAReadReplica = async (ref: string,
-    removeReadReplicaBody: RemoveReadReplicaBody, options?: RequestInit): Promise<v1RemoveAReadReplicaResponse> => {
+    removeReadReplicaBody: RemoveReadReplicaBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1RemoveAReadReplicaResponse> => {
   
-  const res = await fetch(getV1RemoveAReadReplicaUrl(ref),
+  const res = await fetch(getV1RemoveAReadReplicaUrl(ref, baseUrl),
   {      
     ...options,
     method: 'POST',
@@ -777,18 +777,18 @@ export type v1CreateLoginRoleResponseError = (v1CreateLoginRoleResponse401 | v1C
 
 export type v1CreateLoginRoleResponse = (v1CreateLoginRoleResponseSuccess | v1CreateLoginRoleResponseError)
 
-export const getV1CreateLoginRoleUrl = (ref: string,) => {
+export const getV1CreateLoginRoleUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/cli/login-role`
+  return `${baseUrl}/v1/projects/${ref}/cli/login-role`
 }
 
 export const v1CreateLoginRole = async (ref: string,
-    createRoleBody: CreateRoleBody, options?: RequestInit): Promise<v1CreateLoginRoleResponse> => {
+    createRoleBody: CreateRoleBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1CreateLoginRoleResponse> => {
   
-  const res = await fetch(getV1CreateLoginRoleUrl(ref),
+  const res = await fetch(getV1CreateLoginRoleUrl(ref, baseUrl),
   {      
     ...options,
     method: 'POST',
@@ -842,17 +842,17 @@ export type v1DeleteLoginRolesResponseError = (v1DeleteLoginRolesResponse401 | v
 
 export type v1DeleteLoginRolesResponse = (v1DeleteLoginRolesResponseSuccess | v1DeleteLoginRolesResponseError)
 
-export const getV1DeleteLoginRolesUrl = (ref: string,) => {
+export const getV1DeleteLoginRolesUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/cli/login-role`
+  return `${baseUrl}/v1/projects/${ref}/cli/login-role`
 }
 
-export const v1DeleteLoginRoles = async (ref: string, options?: RequestInit): Promise<v1DeleteLoginRolesResponse> => {
+export const v1DeleteLoginRoles = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1DeleteLoginRolesResponse> => {
   
-  const res = await fetch(getV1DeleteLoginRolesUrl(ref),
+  const res = await fetch(getV1DeleteLoginRolesUrl(ref, baseUrl),
   {      
     ...options,
     method: 'DELETE'
@@ -906,17 +906,17 @@ export type v1ListMigrationHistoryResponseError = (v1ListMigrationHistoryRespons
 
 export type v1ListMigrationHistoryResponse = (v1ListMigrationHistoryResponseSuccess | v1ListMigrationHistoryResponseError)
 
-export const getV1ListMigrationHistoryUrl = (ref: string,) => {
+export const getV1ListMigrationHistoryUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/migrations`
+  return `${baseUrl}/v1/projects/${ref}/database/migrations`
 }
 
-export const v1ListMigrationHistory = async (ref: string, options?: RequestInit): Promise<v1ListMigrationHistoryResponse> => {
+export const v1ListMigrationHistory = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListMigrationHistoryResponse> => {
   
-  const res = await fetch(getV1ListMigrationHistoryUrl(ref),
+  const res = await fetch(getV1ListMigrationHistoryUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -970,18 +970,18 @@ export type v1ApplyAMigrationResponseError = (v1ApplyAMigrationResponse401 | v1A
 
 export type v1ApplyAMigrationResponse = (v1ApplyAMigrationResponseSuccess | v1ApplyAMigrationResponseError)
 
-export const getV1ApplyAMigrationUrl = (ref: string,) => {
+export const getV1ApplyAMigrationUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/migrations`
+  return `${baseUrl}/v1/projects/${ref}/database/migrations`
 }
 
 export const v1ApplyAMigration = async (ref: string,
-    v1CreateMigrationBody: V1CreateMigrationBody, options?: RequestInit): Promise<v1ApplyAMigrationResponse> => {
+    v1CreateMigrationBody: V1CreateMigrationBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ApplyAMigrationResponse> => {
   
-  const res = await fetch(getV1ApplyAMigrationUrl(ref),
+  const res = await fetch(getV1ApplyAMigrationUrl(ref, baseUrl),
   {      
     ...options,
     method: 'POST',
@@ -1036,18 +1036,18 @@ export type v1UpsertAMigrationResponseError = (v1UpsertAMigrationResponse401 | v
 
 export type v1UpsertAMigrationResponse = (v1UpsertAMigrationResponseSuccess | v1UpsertAMigrationResponseError)
 
-export const getV1UpsertAMigrationUrl = (ref: string,) => {
+export const getV1UpsertAMigrationUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/migrations`
+  return `${baseUrl}/v1/projects/${ref}/database/migrations`
 }
 
 export const v1UpsertAMigration = async (ref: string,
-    v1UpsertMigrationBody: V1UpsertMigrationBody, options?: RequestInit): Promise<v1UpsertAMigrationResponse> => {
+    v1UpsertMigrationBody: V1UpsertMigrationBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpsertAMigrationResponse> => {
   
-  const res = await fetch(getV1UpsertAMigrationUrl(ref),
+  const res = await fetch(getV1UpsertAMigrationUrl(ref, baseUrl),
   {      
     ...options,
     method: 'PUT',
@@ -1103,7 +1103,7 @@ export type v1RollbackMigrationsResponseError = (v1RollbackMigrationsResponse401
 export type v1RollbackMigrationsResponse = (v1RollbackMigrationsResponseSuccess | v1RollbackMigrationsResponseError)
 
 export const getV1RollbackMigrationsUrl = (ref: string,
-    params: V1RollbackMigrationsParams,) => {
+    params: V1RollbackMigrationsParams, baseUrl: string = 'https://api.supabase.com') => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -1115,13 +1115,13 @@ export const getV1RollbackMigrationsUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/database/migrations?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/database/migrations`
+  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/database/migrations?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/database/migrations`
 }
 
 export const v1RollbackMigrations = async (ref: string,
-    params: V1RollbackMigrationsParams, options?: RequestInit): Promise<v1RollbackMigrationsResponse> => {
+    params: V1RollbackMigrationsParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1RollbackMigrationsResponse> => {
   
-  const res = await fetch(getV1RollbackMigrationsUrl(ref,params),
+  const res = await fetch(getV1RollbackMigrationsUrl(ref,params, baseUrl),
   {      
     ...options,
     method: 'DELETE'
@@ -1176,18 +1176,18 @@ export type v1GetAMigrationResponseError = (v1GetAMigrationResponse401 | v1GetAM
 export type v1GetAMigrationResponse = (v1GetAMigrationResponseSuccess | v1GetAMigrationResponseError)
 
 export const getV1GetAMigrationUrl = (ref: string,
-    version: string,) => {
+    version: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/migrations/${version}`
+  return `${baseUrl}/v1/projects/${ref}/database/migrations/${version}`
 }
 
 export const v1GetAMigration = async (ref: string,
-    version: string, options?: RequestInit): Promise<v1GetAMigrationResponse> => {
+    version: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetAMigrationResponse> => {
   
-  const res = await fetch(getV1GetAMigrationUrl(ref,version),
+  const res = await fetch(getV1GetAMigrationUrl(ref,version, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -1242,19 +1242,19 @@ export type v1PatchAMigrationResponseError = (v1PatchAMigrationResponse401 | v1P
 export type v1PatchAMigrationResponse = (v1PatchAMigrationResponseSuccess | v1PatchAMigrationResponseError)
 
 export const getV1PatchAMigrationUrl = (ref: string,
-    version: string,) => {
+    version: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/migrations/${version}`
+  return `${baseUrl}/v1/projects/${ref}/database/migrations/${version}`
 }
 
 export const v1PatchAMigration = async (ref: string,
     version: string,
-    v1PatchMigrationBody: V1PatchMigrationBody, options?: RequestInit): Promise<v1PatchAMigrationResponse> => {
+    v1PatchMigrationBody: V1PatchMigrationBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1PatchAMigrationResponse> => {
   
-  const res = await fetch(getV1PatchAMigrationUrl(ref,version),
+  const res = await fetch(getV1PatchAMigrationUrl(ref,version, baseUrl),
   {      
     ...options,
     method: 'PATCH',
@@ -1308,18 +1308,18 @@ export type v1RunAQueryResponseError = (v1RunAQueryResponse401 | v1RunAQueryResp
 
 export type v1RunAQueryResponse = (v1RunAQueryResponseSuccess | v1RunAQueryResponseError)
 
-export const getV1RunAQueryUrl = (ref: string,) => {
+export const getV1RunAQueryUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/query`
+  return `${baseUrl}/v1/projects/${ref}/database/query`
 }
 
 export const v1RunAQuery = async (ref: string,
-    v1RunQueryBody: V1RunQueryBody, options?: RequestInit): Promise<v1RunAQueryResponse> => {
+    v1RunQueryBody: V1RunQueryBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1RunAQueryResponse> => {
   
-  const res = await fetch(getV1RunAQueryUrl(ref),
+  const res = await fetch(getV1RunAQueryUrl(ref, baseUrl),
   {      
     ...options,
     method: 'POST',
@@ -1374,18 +1374,18 @@ export type v1ReadOnlyQueryResponseError = (v1ReadOnlyQueryResponse401 | v1ReadO
 
 export type v1ReadOnlyQueryResponse = (v1ReadOnlyQueryResponseSuccess | v1ReadOnlyQueryResponseError)
 
-export const getV1ReadOnlyQueryUrl = (ref: string,) => {
+export const getV1ReadOnlyQueryUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/query/read-only`
+  return `${baseUrl}/v1/projects/${ref}/database/query/read-only`
 }
 
 export const v1ReadOnlyQuery = async (ref: string,
-    v1ReadOnlyQueryBody: V1ReadOnlyQueryBody, options?: RequestInit): Promise<v1ReadOnlyQueryResponse> => {
+    v1ReadOnlyQueryBody: V1ReadOnlyQueryBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ReadOnlyQueryResponse> => {
   
-  const res = await fetch(getV1ReadOnlyQueryUrl(ref),
+  const res = await fetch(getV1ReadOnlyQueryUrl(ref, baseUrl),
   {      
     ...options,
     method: 'POST',
@@ -1439,17 +1439,17 @@ export type v1EnableDatabaseWebhookResponseError = (v1EnableDatabaseWebhookRespo
 
 export type v1EnableDatabaseWebhookResponse = (v1EnableDatabaseWebhookResponseSuccess | v1EnableDatabaseWebhookResponseError)
 
-export const getV1EnableDatabaseWebhookUrl = (ref: string,) => {
+export const getV1EnableDatabaseWebhookUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/webhooks/enable`
+  return `${baseUrl}/v1/projects/${ref}/database/webhooks/enable`
 }
 
-export const v1EnableDatabaseWebhook = async (ref: string, options?: RequestInit): Promise<v1EnableDatabaseWebhookResponse> => {
+export const v1EnableDatabaseWebhook = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1EnableDatabaseWebhookResponse> => {
   
-  const res = await fetch(getV1EnableDatabaseWebhookUrl(ref),
+  const res = await fetch(getV1EnableDatabaseWebhookUrl(ref, baseUrl),
   {      
     ...options,
     method: 'POST'
@@ -1499,17 +1499,17 @@ export type v1GetDatabaseMetadataResponseError = (v1GetDatabaseMetadataResponse4
 
 export type v1GetDatabaseMetadataResponse = (v1GetDatabaseMetadataResponseSuccess | v1GetDatabaseMetadataResponseError)
 
-export const getV1GetDatabaseMetadataUrl = (ref: string,) => {
+export const getV1GetDatabaseMetadataUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/context`
+  return `${baseUrl}/v1/projects/${ref}/database/context`
 }
 
-export const v1GetDatabaseMetadata = async (ref: string, options?: RequestInit): Promise<v1GetDatabaseMetadataResponse> => {
+export const v1GetDatabaseMetadata = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetDatabaseMetadataResponse> => {
   
-  const res = await fetch(getV1GetDatabaseMetadataUrl(ref),
+  const res = await fetch(getV1GetDatabaseMetadataUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -1562,18 +1562,18 @@ export type v1UpdateDatabasePasswordResponseError = (v1UpdateDatabasePasswordRes
 
 export type v1UpdateDatabasePasswordResponse = (v1UpdateDatabasePasswordResponseSuccess | v1UpdateDatabasePasswordResponseError)
 
-export const getV1UpdateDatabasePasswordUrl = (ref: string,) => {
+export const getV1UpdateDatabasePasswordUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/password`
+  return `${baseUrl}/v1/projects/${ref}/database/password`
 }
 
 export const v1UpdateDatabasePassword = async (ref: string,
-    v1UpdatePasswordBody: V1UpdatePasswordBody, options?: RequestInit): Promise<v1UpdateDatabasePasswordResponse> => {
+    v1UpdatePasswordBody: V1UpdatePasswordBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateDatabasePasswordResponse> => {
   
-  const res = await fetch(getV1UpdateDatabasePasswordUrl(ref),
+  const res = await fetch(getV1UpdateDatabasePasswordUrl(ref, baseUrl),
   {      
     ...options,
     method: 'PATCH',
@@ -1628,17 +1628,17 @@ export type v1GetJitAccessResponseError = (v1GetJitAccessResponse401 | v1GetJitA
 
 export type v1GetJitAccessResponse = (v1GetJitAccessResponseSuccess | v1GetJitAccessResponseError)
 
-export const getV1GetJitAccessUrl = (ref: string,) => {
+export const getV1GetJitAccessUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/jit`
+  return `${baseUrl}/v1/projects/${ref}/database/jit`
 }
 
-export const v1GetJitAccess = async (ref: string, options?: RequestInit): Promise<v1GetJitAccessResponse> => {
+export const v1GetJitAccess = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetJitAccessResponse> => {
   
-  const res = await fetch(getV1GetJitAccessUrl(ref),
+  const res = await fetch(getV1GetJitAccessUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -1692,18 +1692,18 @@ export type v1AuthorizeJitAccessResponseError = (v1AuthorizeJitAccessResponse401
 
 export type v1AuthorizeJitAccessResponse = (v1AuthorizeJitAccessResponseSuccess | v1AuthorizeJitAccessResponseError)
 
-export const getV1AuthorizeJitAccessUrl = (ref: string,) => {
+export const getV1AuthorizeJitAccessUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/jit`
+  return `${baseUrl}/v1/projects/${ref}/database/jit`
 }
 
 export const v1AuthorizeJitAccess = async (ref: string,
-    authorizeJitAccessBody: AuthorizeJitAccessBody, options?: RequestInit): Promise<v1AuthorizeJitAccessResponse> => {
+    authorizeJitAccessBody: AuthorizeJitAccessBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1AuthorizeJitAccessResponse> => {
   
-  const res = await fetch(getV1AuthorizeJitAccessUrl(ref),
+  const res = await fetch(getV1AuthorizeJitAccessUrl(ref, baseUrl),
   {      
     ...options,
     method: 'POST',
@@ -1758,18 +1758,18 @@ export type v1UpdateJitAccessResponseError = (v1UpdateJitAccessResponse401 | v1U
 
 export type v1UpdateJitAccessResponse = (v1UpdateJitAccessResponseSuccess | v1UpdateJitAccessResponseError)
 
-export const getV1UpdateJitAccessUrl = (ref: string,) => {
+export const getV1UpdateJitAccessUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/jit`
+  return `${baseUrl}/v1/projects/${ref}/database/jit`
 }
 
 export const v1UpdateJitAccess = async (ref: string,
-    updateJitAccessBody: UpdateJitAccessBody, options?: RequestInit): Promise<v1UpdateJitAccessResponse> => {
+    updateJitAccessBody: UpdateJitAccessBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateJitAccessResponse> => {
   
-  const res = await fetch(getV1UpdateJitAccessUrl(ref),
+  const res = await fetch(getV1UpdateJitAccessUrl(ref, baseUrl),
   {      
     ...options,
     method: 'PUT',
@@ -1824,17 +1824,17 @@ export type v1ListJitAccessResponseError = (v1ListJitAccessResponse401 | v1ListJ
 
 export type v1ListJitAccessResponse = (v1ListJitAccessResponseSuccess | v1ListJitAccessResponseError)
 
-export const getV1ListJitAccessUrl = (ref: string,) => {
+export const getV1ListJitAccessUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/jit/list`
+  return `${baseUrl}/v1/projects/${ref}/database/jit/list`
 }
 
-export const v1ListJitAccess = async (ref: string, options?: RequestInit): Promise<v1ListJitAccessResponse> => {
+export const v1ListJitAccess = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListJitAccessResponse> => {
   
-  const res = await fetch(getV1ListJitAccessUrl(ref),
+  const res = await fetch(getV1ListJitAccessUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -1889,18 +1889,18 @@ export type v1DeleteJitAccessResponseError = (v1DeleteJitAccessResponse401 | v1D
 export type v1DeleteJitAccessResponse = (v1DeleteJitAccessResponseSuccess | v1DeleteJitAccessResponseError)
 
 export const getV1DeleteJitAccessUrl = (ref: string,
-    userId: string,) => {
+    userId: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/jit/${userId}`
+  return `${baseUrl}/v1/projects/${ref}/database/jit/${userId}`
 }
 
 export const v1DeleteJitAccess = async (ref: string,
-    userId: string, options?: RequestInit): Promise<v1DeleteJitAccessResponse> => {
+    userId: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1DeleteJitAccessResponse> => {
   
-  const res = await fetch(getV1DeleteJitAccessUrl(ref,userId),
+  const res = await fetch(getV1DeleteJitAccessUrl(ref,userId, baseUrl),
   {      
     ...options,
     method: 'DELETE'
@@ -1953,17 +1953,17 @@ export type v1GetProjectPgbouncerConfigResponseError = (v1GetProjectPgbouncerCon
 
 export type v1GetProjectPgbouncerConfigResponse = (v1GetProjectPgbouncerConfigResponseSuccess | v1GetProjectPgbouncerConfigResponseError)
 
-export const getV1GetProjectPgbouncerConfigUrl = (ref: string,) => {
+export const getV1GetProjectPgbouncerConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/database/pgbouncer`
+  return `${baseUrl}/v1/projects/${ref}/config/database/pgbouncer`
 }
 
-export const v1GetProjectPgbouncerConfig = async (ref: string, options?: RequestInit): Promise<v1GetProjectPgbouncerConfigResponse> => {
+export const v1GetProjectPgbouncerConfig = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetProjectPgbouncerConfigResponse> => {
   
-  const res = await fetch(getV1GetProjectPgbouncerConfigUrl(ref),
+  const res = await fetch(getV1GetProjectPgbouncerConfigUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -2016,17 +2016,17 @@ export type v1GetPoolerConfigResponseError = (v1GetPoolerConfigResponse401 | v1G
 
 export type v1GetPoolerConfigResponse = (v1GetPoolerConfigResponseSuccess | v1GetPoolerConfigResponseError)
 
-export const getV1GetPoolerConfigUrl = (ref: string,) => {
+export const getV1GetPoolerConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/database/pooler`
+  return `${baseUrl}/v1/projects/${ref}/config/database/pooler`
 }
 
-export const v1GetPoolerConfig = async (ref: string, options?: RequestInit): Promise<v1GetPoolerConfigResponse> => {
+export const v1GetPoolerConfig = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetPoolerConfigResponse> => {
   
-  const res = await fetch(getV1GetPoolerConfigUrl(ref),
+  const res = await fetch(getV1GetPoolerConfigUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -2079,18 +2079,18 @@ export type v1UpdatePoolerConfigResponseError = (v1UpdatePoolerConfigResponse401
 
 export type v1UpdatePoolerConfigResponse = (v1UpdatePoolerConfigResponseSuccess | v1UpdatePoolerConfigResponseError)
 
-export const getV1UpdatePoolerConfigUrl = (ref: string,) => {
+export const getV1UpdatePoolerConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/database/pooler`
+  return `${baseUrl}/v1/projects/${ref}/config/database/pooler`
 }
 
 export const v1UpdatePoolerConfig = async (ref: string,
-    updateSupavisorConfigBody: UpdateSupavisorConfigBody, options?: RequestInit): Promise<v1UpdatePoolerConfigResponse> => {
+    updateSupavisorConfigBody: UpdateSupavisorConfigBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdatePoolerConfigResponse> => {
   
-  const res = await fetch(getV1UpdatePoolerConfigUrl(ref),
+  const res = await fetch(getV1UpdatePoolerConfigUrl(ref, baseUrl),
   {      
     ...options,
     method: 'PATCH',
@@ -2144,17 +2144,17 @@ export type v1GetPostgresConfigResponseError = (v1GetPostgresConfigResponse401 |
 
 export type v1GetPostgresConfigResponse = (v1GetPostgresConfigResponseSuccess | v1GetPostgresConfigResponseError)
 
-export const getV1GetPostgresConfigUrl = (ref: string,) => {
+export const getV1GetPostgresConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/database/postgres`
+  return `${baseUrl}/v1/projects/${ref}/config/database/postgres`
 }
 
-export const v1GetPostgresConfig = async (ref: string, options?: RequestInit): Promise<v1GetPostgresConfigResponse> => {
+export const v1GetPostgresConfig = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetPostgresConfigResponse> => {
   
-  const res = await fetch(getV1GetPostgresConfigUrl(ref),
+  const res = await fetch(getV1GetPostgresConfigUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -2207,18 +2207,18 @@ export type v1UpdatePostgresConfigResponseError = (v1UpdatePostgresConfigRespons
 
 export type v1UpdatePostgresConfigResponse = (v1UpdatePostgresConfigResponseSuccess | v1UpdatePostgresConfigResponseError)
 
-export const getV1UpdatePostgresConfigUrl = (ref: string,) => {
+export const getV1UpdatePostgresConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/database/postgres`
+  return `${baseUrl}/v1/projects/${ref}/config/database/postgres`
 }
 
 export const v1UpdatePostgresConfig = async (ref: string,
-    updatePostgresConfigBody: UpdatePostgresConfigBody, options?: RequestInit): Promise<v1UpdatePostgresConfigResponse> => {
+    updatePostgresConfigBody: UpdatePostgresConfigBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdatePostgresConfigResponse> => {
   
-  const res = await fetch(getV1UpdatePostgresConfigUrl(ref),
+  const res = await fetch(getV1UpdatePostgresConfigUrl(ref, baseUrl),
   {      
     ...options,
     method: 'PUT',
@@ -2272,17 +2272,17 @@ export type v1ListAllBackupsResponseError = (v1ListAllBackupsResponse401 | v1Lis
 
 export type v1ListAllBackupsResponse = (v1ListAllBackupsResponseSuccess | v1ListAllBackupsResponseError)
 
-export const getV1ListAllBackupsUrl = (ref: string,) => {
+export const getV1ListAllBackupsUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/backups`
+  return `${baseUrl}/v1/projects/${ref}/database/backups`
 }
 
-export const v1ListAllBackups = async (ref: string, options?: RequestInit): Promise<v1ListAllBackupsResponse> => {
+export const v1ListAllBackups = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListAllBackupsResponse> => {
   
-  const res = await fetch(getV1ListAllBackupsUrl(ref),
+  const res = await fetch(getV1ListAllBackupsUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -2330,18 +2330,18 @@ export type v1RestorePitrBackupResponseError = (v1RestorePitrBackupResponse401 |
 
 export type v1RestorePitrBackupResponse = (v1RestorePitrBackupResponseSuccess | v1RestorePitrBackupResponseError)
 
-export const getV1RestorePitrBackupUrl = (ref: string,) => {
+export const getV1RestorePitrBackupUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/backups/restore-pitr`
+  return `${baseUrl}/v1/projects/${ref}/database/backups/restore-pitr`
 }
 
 export const v1RestorePitrBackup = async (ref: string,
-    v1RestorePitrBody: V1RestorePitrBody, options?: RequestInit): Promise<v1RestorePitrBackupResponse> => {
+    v1RestorePitrBody: V1RestorePitrBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1RestorePitrBackupResponse> => {
   
-  const res = await fetch(getV1RestorePitrBackupUrl(ref),
+  const res = await fetch(getV1RestorePitrBackupUrl(ref, baseUrl),
   {      
     ...options,
     method: 'POST',
@@ -2390,18 +2390,18 @@ export type v1CreateRestorePointResponseError = (v1CreateRestorePointResponse401
 
 export type v1CreateRestorePointResponse = (v1CreateRestorePointResponseSuccess | v1CreateRestorePointResponseError)
 
-export const getV1CreateRestorePointUrl = (ref: string,) => {
+export const getV1CreateRestorePointUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/backups/restore-point`
+  return `${baseUrl}/v1/projects/${ref}/database/backups/restore-point`
 }
 
 export const v1CreateRestorePoint = async (ref: string,
-    v1RestorePointPostBody: V1RestorePointPostBody, options?: RequestInit): Promise<v1CreateRestorePointResponse> => {
+    v1RestorePointPostBody: V1RestorePointPostBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1CreateRestorePointResponse> => {
   
-  const res = await fetch(getV1CreateRestorePointUrl(ref),
+  const res = await fetch(getV1CreateRestorePointUrl(ref, baseUrl),
   {      
     ...options,
     method: 'POST',
@@ -2456,7 +2456,7 @@ export type v1GetRestorePointResponseError = (v1GetRestorePointResponse401 | v1G
 export type v1GetRestorePointResponse = (v1GetRestorePointResponseSuccess | v1GetRestorePointResponseError)
 
 export const getV1GetRestorePointUrl = (ref: string,
-    params?: V1GetRestorePointParams,) => {
+    params?: V1GetRestorePointParams, baseUrl: string = 'https://api.supabase.com') => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -2468,13 +2468,13 @@ export const getV1GetRestorePointUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/database/backups/restore-point?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/database/backups/restore-point`
+  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/database/backups/restore-point?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/database/backups/restore-point`
 }
 
 export const v1GetRestorePoint = async (ref: string,
-    params?: V1GetRestorePointParams, options?: RequestInit): Promise<v1GetRestorePointResponse> => {
+    params?: V1GetRestorePointParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetRestorePointResponse> => {
   
-  const res = await fetch(getV1GetRestorePointUrl(ref,params),
+  const res = await fetch(getV1GetRestorePointUrl(ref,params, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -2522,18 +2522,18 @@ export type v1UndoResponseError = (v1UndoResponse401 | v1UndoResponse403 | v1Und
 
 export type v1UndoResponse = (v1UndoResponseSuccess | v1UndoResponseError)
 
-export const getV1UndoUrl = (ref: string,) => {
+export const getV1UndoUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/backups/undo`
+  return `${baseUrl}/v1/projects/${ref}/database/backups/undo`
 }
 
 export const v1Undo = async (ref: string,
-    v1UndoBody: V1UndoBody, options?: RequestInit): Promise<v1UndoResponse> => {
+    v1UndoBody: V1UndoBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UndoResponse> => {
   
-  const res = await fetch(getV1UndoUrl(ref),
+  const res = await fetch(getV1UndoUrl(ref, baseUrl),
   {      
     ...options,
     method: 'POST',

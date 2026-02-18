@@ -50,17 +50,17 @@ export type v1GetPostgrestServiceConfigResponseError = (v1GetPostgrestServiceCon
 
 export type v1GetPostgrestServiceConfigResponse = (v1GetPostgrestServiceConfigResponseSuccess | v1GetPostgrestServiceConfigResponseError)
 
-export const getV1GetPostgrestServiceConfigUrl = (ref: string,) => {
+export const getV1GetPostgrestServiceConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/postgrest`
+  return `${baseUrl}/v1/projects/${ref}/postgrest`
 }
 
-export const v1GetPostgrestServiceConfig = async (ref: string, options?: RequestInit): Promise<v1GetPostgrestServiceConfigResponse> => {
+export const v1GetPostgrestServiceConfig = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetPostgrestServiceConfigResponse> => {
   
-  const res = await fetch(getV1GetPostgrestServiceConfigUrl(ref),
+  const res = await fetch(getV1GetPostgrestServiceConfigUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -113,18 +113,18 @@ export type v1UpdatePostgrestServiceConfigResponseError = (v1UpdatePostgrestServ
 
 export type v1UpdatePostgrestServiceConfigResponse = (v1UpdatePostgrestServiceConfigResponseSuccess | v1UpdatePostgrestServiceConfigResponseError)
 
-export const getV1UpdatePostgrestServiceConfigUrl = (ref: string,) => {
+export const getV1UpdatePostgrestServiceConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/postgrest`
+  return `${baseUrl}/v1/projects/${ref}/postgrest`
 }
 
 export const v1UpdatePostgrestServiceConfig = async (ref: string,
-    v1UpdatePostgrestConfigBody: V1UpdatePostgrestConfigBody, options?: RequestInit): Promise<v1UpdatePostgrestServiceConfigResponse> => {
+    v1UpdatePostgrestConfigBody: V1UpdatePostgrestConfigBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdatePostgrestServiceConfigResponse> => {
   
-  const res = await fetch(getV1UpdatePostgrestServiceConfigUrl(ref),
+  const res = await fetch(getV1UpdatePostgrestServiceConfigUrl(ref, baseUrl),
   {      
     ...options,
     method: 'PATCH',

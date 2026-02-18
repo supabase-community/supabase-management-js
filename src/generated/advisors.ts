@@ -46,17 +46,17 @@ export type v1GetPerformanceAdvisorsResponseError = (v1GetPerformanceAdvisorsRes
 
 export type v1GetPerformanceAdvisorsResponse = (v1GetPerformanceAdvisorsResponseSuccess | v1GetPerformanceAdvisorsResponseError)
 
-export const getV1GetPerformanceAdvisorsUrl = (ref: string,) => {
+export const getV1GetPerformanceAdvisorsUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/advisors/performance`
+  return `${baseUrl}/v1/projects/${ref}/advisors/performance`
 }
 
-export const v1GetPerformanceAdvisors = async (ref: string, options?: RequestInit): Promise<v1GetPerformanceAdvisorsResponse> => {
+export const v1GetPerformanceAdvisors = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetPerformanceAdvisorsResponse> => {
   
-  const res = await fetch(getV1GetPerformanceAdvisorsUrl(ref),
+  const res = await fetch(getV1GetPerformanceAdvisorsUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -107,7 +107,7 @@ export type v1GetSecurityAdvisorsResponseError = (v1GetSecurityAdvisorsResponse4
 export type v1GetSecurityAdvisorsResponse = (v1GetSecurityAdvisorsResponseSuccess | v1GetSecurityAdvisorsResponseError)
 
 export const getV1GetSecurityAdvisorsUrl = (ref: string,
-    params?: V1GetSecurityAdvisorsParams,) => {
+    params?: V1GetSecurityAdvisorsParams, baseUrl: string = 'https://api.supabase.com') => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -119,13 +119,13 @@ export const getV1GetSecurityAdvisorsUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/advisors/security?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/advisors/security`
+  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/advisors/security?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/advisors/security`
 }
 
 export const v1GetSecurityAdvisors = async (ref: string,
-    params?: V1GetSecurityAdvisorsParams, options?: RequestInit): Promise<v1GetSecurityAdvisorsResponse> => {
+    params?: V1GetSecurityAdvisorsParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetSecurityAdvisorsResponse> => {
   
-  const res = await fetch(getV1GetSecurityAdvisorsUrl(ref,params),
+  const res = await fetch(getV1GetSecurityAdvisorsUrl(ref,params, baseUrl),
   {      
     ...options,
     method: 'GET'

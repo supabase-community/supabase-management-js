@@ -50,17 +50,17 @@ export type v1ListAllBucketsResponseError = (v1ListAllBucketsResponse401 | v1Lis
 
 export type v1ListAllBucketsResponse = (v1ListAllBucketsResponseSuccess | v1ListAllBucketsResponseError)
 
-export const getV1ListAllBucketsUrl = (ref: string,) => {
+export const getV1ListAllBucketsUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/storage/buckets`
+  return `${baseUrl}/v1/projects/${ref}/storage/buckets`
 }
 
-export const v1ListAllBuckets = async (ref: string, options?: RequestInit): Promise<v1ListAllBucketsResponse> => {
+export const v1ListAllBuckets = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListAllBucketsResponse> => {
   
-  const res = await fetch(getV1ListAllBucketsUrl(ref),
+  const res = await fetch(getV1ListAllBucketsUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -113,17 +113,17 @@ export type v1GetStorageConfigResponseError = (v1GetStorageConfigResponse401 | v
 
 export type v1GetStorageConfigResponse = (v1GetStorageConfigResponseSuccess | v1GetStorageConfigResponseError)
 
-export const getV1GetStorageConfigUrl = (ref: string,) => {
+export const getV1GetStorageConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/storage`
+  return `${baseUrl}/v1/projects/${ref}/config/storage`
 }
 
-export const v1GetStorageConfig = async (ref: string, options?: RequestInit): Promise<v1GetStorageConfigResponse> => {
+export const v1GetStorageConfig = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetStorageConfigResponse> => {
   
-  const res = await fetch(getV1GetStorageConfigUrl(ref),
+  const res = await fetch(getV1GetStorageConfigUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -176,18 +176,18 @@ export type v1UpdateStorageConfigResponseError = (v1UpdateStorageConfigResponse4
 
 export type v1UpdateStorageConfigResponse = (v1UpdateStorageConfigResponseSuccess | v1UpdateStorageConfigResponseError)
 
-export const getV1UpdateStorageConfigUrl = (ref: string,) => {
+export const getV1UpdateStorageConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/storage`
+  return `${baseUrl}/v1/projects/${ref}/config/storage`
 }
 
 export const v1UpdateStorageConfig = async (ref: string,
-    updateStorageConfigBody: UpdateStorageConfigBody, options?: RequestInit): Promise<v1UpdateStorageConfigResponse> => {
+    updateStorageConfigBody: UpdateStorageConfigBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateStorageConfigResponse> => {
   
-  const res = await fetch(getV1UpdateStorageConfigUrl(ref),
+  const res = await fetch(getV1UpdateStorageConfigUrl(ref, baseUrl),
   {      
     ...options,
     method: 'PATCH',

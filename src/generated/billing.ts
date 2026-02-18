@@ -50,17 +50,17 @@ export type v1ListProjectAddonsResponseError = (v1ListProjectAddonsResponse401 |
 
 export type v1ListProjectAddonsResponse = (v1ListProjectAddonsResponseSuccess | v1ListProjectAddonsResponseError)
 
-export const getV1ListProjectAddonsUrl = (ref: string,) => {
+export const getV1ListProjectAddonsUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/billing/addons`
+  return `${baseUrl}/v1/projects/${ref}/billing/addons`
 }
 
-export const v1ListProjectAddons = async (ref: string, options?: RequestInit): Promise<v1ListProjectAddonsResponse> => {
+export const v1ListProjectAddons = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListProjectAddonsResponse> => {
   
-  const res = await fetch(getV1ListProjectAddonsUrl(ref),
+  const res = await fetch(getV1ListProjectAddonsUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -114,18 +114,18 @@ export type v1ApplyProjectAddonResponseError = (v1ApplyProjectAddonResponse401 |
 
 export type v1ApplyProjectAddonResponse = (v1ApplyProjectAddonResponseSuccess | v1ApplyProjectAddonResponseError)
 
-export const getV1ApplyProjectAddonUrl = (ref: string,) => {
+export const getV1ApplyProjectAddonUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/billing/addons`
+  return `${baseUrl}/v1/projects/${ref}/billing/addons`
 }
 
 export const v1ApplyProjectAddon = async (ref: string,
-    applyProjectAddonBody: ApplyProjectAddonBody, options?: RequestInit): Promise<v1ApplyProjectAddonResponse> => {
+    applyProjectAddonBody: ApplyProjectAddonBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ApplyProjectAddonResponse> => {
   
-  const res = await fetch(getV1ApplyProjectAddonUrl(ref),
+  const res = await fetch(getV1ApplyProjectAddonUrl(ref, baseUrl),
   {      
     ...options,
     method: 'PATCH',
@@ -181,18 +181,18 @@ export type v1RemoveProjectAddonResponseError = (v1RemoveProjectAddonResponse401
 export type v1RemoveProjectAddonResponse = (v1RemoveProjectAddonResponseSuccess | v1RemoveProjectAddonResponseError)
 
 export const getV1RemoveProjectAddonUrl = (ref: string,
-    addonVariant: 'ci_micro' | 'ci_small' | 'ci_medium' | 'ci_large' | 'ci_xlarge' | 'ci_2xlarge' | 'ci_4xlarge' | 'ci_8xlarge' | 'ci_12xlarge' | 'ci_16xlarge' | 'ci_24xlarge' | 'ci_24xlarge_optimized_cpu' | 'ci_24xlarge_optimized_memory' | 'ci_24xlarge_high_memory' | 'ci_48xlarge' | 'ci_48xlarge_optimized_cpu' | 'ci_48xlarge_optimized_memory' | 'ci_48xlarge_high_memory' | 'cd_default' | 'pitr_7' | 'pitr_14' | 'pitr_28' | 'ipv4_default',) => {
+    addonVariant: 'ci_micro' | 'ci_small' | 'ci_medium' | 'ci_large' | 'ci_xlarge' | 'ci_2xlarge' | 'ci_4xlarge' | 'ci_8xlarge' | 'ci_12xlarge' | 'ci_16xlarge' | 'ci_24xlarge' | 'ci_24xlarge_optimized_cpu' | 'ci_24xlarge_optimized_memory' | 'ci_24xlarge_high_memory' | 'ci_48xlarge' | 'ci_48xlarge_optimized_cpu' | 'ci_48xlarge_optimized_memory' | 'ci_48xlarge_high_memory' | 'cd_default' | 'pitr_7' | 'pitr_14' | 'pitr_28' | 'ipv4_default', baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/billing/addons/${addonVariant}`
+  return `${baseUrl}/v1/projects/${ref}/billing/addons/${addonVariant}`
 }
 
 export const v1RemoveProjectAddon = async (ref: string,
-    addonVariant: 'ci_micro' | 'ci_small' | 'ci_medium' | 'ci_large' | 'ci_xlarge' | 'ci_2xlarge' | 'ci_4xlarge' | 'ci_8xlarge' | 'ci_12xlarge' | 'ci_16xlarge' | 'ci_24xlarge' | 'ci_24xlarge_optimized_cpu' | 'ci_24xlarge_optimized_memory' | 'ci_24xlarge_high_memory' | 'ci_48xlarge' | 'ci_48xlarge_optimized_cpu' | 'ci_48xlarge_optimized_memory' | 'ci_48xlarge_high_memory' | 'cd_default' | 'pitr_7' | 'pitr_14' | 'pitr_28' | 'ipv4_default', options?: RequestInit): Promise<v1RemoveProjectAddonResponse> => {
+    addonVariant: 'ci_micro' | 'ci_small' | 'ci_medium' | 'ci_large' | 'ci_xlarge' | 'ci_2xlarge' | 'ci_4xlarge' | 'ci_8xlarge' | 'ci_12xlarge' | 'ci_16xlarge' | 'ci_24xlarge' | 'ci_24xlarge_optimized_cpu' | 'ci_24xlarge_optimized_memory' | 'ci_24xlarge_high_memory' | 'ci_48xlarge' | 'ci_48xlarge_optimized_cpu' | 'ci_48xlarge_optimized_memory' | 'ci_48xlarge_high_memory' | 'cd_default' | 'pitr_7' | 'pitr_14' | 'pitr_28' | 'ipv4_default', options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1RemoveProjectAddonResponse> => {
   
-  const res = await fetch(getV1RemoveProjectAddonUrl(ref,addonVariant),
+  const res = await fetch(getV1RemoveProjectAddonUrl(ref,addonVariant, baseUrl),
   {      
     ...options,
     method: 'DELETE'

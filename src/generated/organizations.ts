@@ -38,17 +38,17 @@ export type v1ListAllOrganizationsResponseError = (v1ListAllOrganizationsRespons
 
 export type v1ListAllOrganizationsResponse = (v1ListAllOrganizationsResponseSuccess | v1ListAllOrganizationsResponseError)
 
-export const getV1ListAllOrganizationsUrl = () => {
+export const getV1ListAllOrganizationsUrl = (baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/organizations`
+  return `${baseUrl}/v1/organizations`
 }
 
-export const v1ListAllOrganizations = async ( options?: RequestInit): Promise<v1ListAllOrganizationsResponse> => {
+export const v1ListAllOrganizations = async ( options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListAllOrganizationsResponse> => {
   
-  const res = await fetch(getV1ListAllOrganizationsUrl(),
+  const res = await fetch(getV1ListAllOrganizationsUrl(baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -86,17 +86,17 @@ export type v1CreateAnOrganizationResponseError = (v1CreateAnOrganizationRespons
 
 export type v1CreateAnOrganizationResponse = (v1CreateAnOrganizationResponseSuccess | v1CreateAnOrganizationResponseError)
 
-export const getV1CreateAnOrganizationUrl = () => {
+export const getV1CreateAnOrganizationUrl = (baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/organizations`
+  return `${baseUrl}/v1/organizations`
 }
 
-export const v1CreateAnOrganization = async (createOrganizationV1: CreateOrganizationV1, options?: RequestInit): Promise<v1CreateAnOrganizationResponse> => {
+export const v1CreateAnOrganization = async (createOrganizationV1: CreateOrganizationV1, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1CreateAnOrganizationResponse> => {
   
-  const res = await fetch(getV1CreateAnOrganizationUrl(),
+  const res = await fetch(getV1CreateAnOrganizationUrl(baseUrl),
   {      
     ...options,
     method: 'POST',
@@ -128,17 +128,17 @@ export type v1ListOrganizationMembersResponseSuccess = (v1ListOrganizationMember
 
 export type v1ListOrganizationMembersResponse = (v1ListOrganizationMembersResponseSuccess)
 
-export const getV1ListOrganizationMembersUrl = (slug: string,) => {
+export const getV1ListOrganizationMembersUrl = (slug: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/organizations/${slug}/members`
+  return `${baseUrl}/v1/organizations/${slug}/members`
 }
 
-export const v1ListOrganizationMembers = async (slug: string, options?: RequestInit): Promise<v1ListOrganizationMembersResponse> => {
+export const v1ListOrganizationMembers = async (slug: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListOrganizationMembersResponse> => {
   
-  const res = await fetch(getV1ListOrganizationMembersUrl(slug),
+  const res = await fetch(getV1ListOrganizationMembersUrl(slug, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -186,17 +186,17 @@ export type v1GetAnOrganizationResponseError = (v1GetAnOrganizationResponse401 |
 
 export type v1GetAnOrganizationResponse = (v1GetAnOrganizationResponseSuccess | v1GetAnOrganizationResponseError)
 
-export const getV1GetAnOrganizationUrl = (slug: string,) => {
+export const getV1GetAnOrganizationUrl = (slug: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/organizations/${slug}`
+  return `${baseUrl}/v1/organizations/${slug}`
 }
 
-export const v1GetAnOrganization = async (slug: string, options?: RequestInit): Promise<v1GetAnOrganizationResponse> => {
+export const v1GetAnOrganization = async (slug: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetAnOrganizationResponse> => {
   
-  const res = await fetch(getV1GetAnOrganizationUrl(slug),
+  const res = await fetch(getV1GetAnOrganizationUrl(slug, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -245,18 +245,18 @@ export type v1GetOrganizationProjectClaimResponseError = (v1GetOrganizationProje
 export type v1GetOrganizationProjectClaimResponse = (v1GetOrganizationProjectClaimResponseSuccess | v1GetOrganizationProjectClaimResponseError)
 
 export const getV1GetOrganizationProjectClaimUrl = (slug: string,
-    token: string,) => {
+    token: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/organizations/${slug}/project-claim/${token}`
+  return `${baseUrl}/v1/organizations/${slug}/project-claim/${token}`
 }
 
 export const v1GetOrganizationProjectClaim = async (slug: string,
-    token: string, options?: RequestInit): Promise<v1GetOrganizationProjectClaimResponse> => {
+    token: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetOrganizationProjectClaimResponse> => {
   
-  const res = await fetch(getV1GetOrganizationProjectClaimUrl(slug,token),
+  const res = await fetch(getV1GetOrganizationProjectClaimUrl(slug,token, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -305,18 +305,18 @@ export type v1ClaimProjectForOrganizationResponseError = (v1ClaimProjectForOrgan
 export type v1ClaimProjectForOrganizationResponse = (v1ClaimProjectForOrganizationResponseSuccess | v1ClaimProjectForOrganizationResponseError)
 
 export const getV1ClaimProjectForOrganizationUrl = (slug: string,
-    token: string,) => {
+    token: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/organizations/${slug}/project-claim/${token}`
+  return `${baseUrl}/v1/organizations/${slug}/project-claim/${token}`
 }
 
 export const v1ClaimProjectForOrganization = async (slug: string,
-    token: string, options?: RequestInit): Promise<v1ClaimProjectForOrganizationResponse> => {
+    token: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ClaimProjectForOrganizationResponse> => {
   
-  const res = await fetch(getV1ClaimProjectForOrganizationUrl(slug,token),
+  const res = await fetch(getV1ClaimProjectForOrganizationUrl(slug,token, baseUrl),
   {      
     ...options,
     method: 'POST'

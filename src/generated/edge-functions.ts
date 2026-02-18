@@ -62,17 +62,17 @@ export type v1ListAllFunctionsResponseError = (v1ListAllFunctionsResponse401 | v
 
 export type v1ListAllFunctionsResponse = (v1ListAllFunctionsResponseSuccess | v1ListAllFunctionsResponseError)
 
-export const getV1ListAllFunctionsUrl = (ref: string,) => {
+export const getV1ListAllFunctionsUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/functions`
+  return `${baseUrl}/v1/projects/${ref}/functions`
 }
 
-export const v1ListAllFunctions = async (ref: string, options?: RequestInit): Promise<v1ListAllFunctionsResponse> => {
+export const v1ListAllFunctions = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListAllFunctionsResponse> => {
   
-  const res = await fetch(getV1ListAllFunctionsUrl(ref),
+  const res = await fetch(getV1ListAllFunctionsUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -133,7 +133,7 @@ export type v1CreateAFunctionWithApplicationVndDenolandEszipResponseError = (v1C
 export type v1CreateAFunctionWithApplicationVndDenolandEszipResponse = (v1CreateAFunctionWithApplicationVndDenolandEszipResponseSuccess | v1CreateAFunctionWithApplicationVndDenolandEszipResponseError)
 
 export const getV1CreateAFunctionWithApplicationVndDenolandEszipUrl = (ref: string,
-    params?: V1CreateAFunctionWithApplicationVndDenolandEszipParams,) => {
+    params?: V1CreateAFunctionWithApplicationVndDenolandEszipParams, baseUrl: string = 'https://api.supabase.com') => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -145,14 +145,14 @@ export const getV1CreateAFunctionWithApplicationVndDenolandEszipUrl = (ref: stri
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/functions?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/functions`
+  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/functions?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/functions`
 }
 
 export const v1CreateAFunctionWithApplicationVndDenolandEszip = async (ref: string,
     v1CreateAFunctionWithApplicationVndDenolandEszipBody: Blob,
-    params?: V1CreateAFunctionWithApplicationVndDenolandEszipParams, options?: RequestInit): Promise<v1CreateAFunctionWithApplicationVndDenolandEszipResponse> => {
+    params?: V1CreateAFunctionWithApplicationVndDenolandEszipParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1CreateAFunctionWithApplicationVndDenolandEszipResponse> => {
   
-  const res = await fetch(getV1CreateAFunctionWithApplicationVndDenolandEszipUrl(ref,params),
+  const res = await fetch(getV1CreateAFunctionWithApplicationVndDenolandEszipUrl(ref,params, baseUrl),
   {      
     ...options,
     method: 'POST',
@@ -214,7 +214,7 @@ export type v1CreateAFunctionWithJsonResponseError = (v1CreateAFunctionWithJsonR
 export type v1CreateAFunctionWithJsonResponse = (v1CreateAFunctionWithJsonResponseSuccess | v1CreateAFunctionWithJsonResponseError)
 
 export const getV1CreateAFunctionWithJsonUrl = (ref: string,
-    params?: V1CreateAFunctionWithJsonParams,) => {
+    params?: V1CreateAFunctionWithJsonParams, baseUrl: string = 'https://api.supabase.com') => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -226,14 +226,14 @@ export const getV1CreateAFunctionWithJsonUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/functions?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/functions`
+  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/functions?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/functions`
 }
 
 export const v1CreateAFunctionWithJson = async (ref: string,
     v1CreateFunctionBody: V1CreateFunctionBody,
-    params?: V1CreateAFunctionWithJsonParams, options?: RequestInit): Promise<v1CreateAFunctionWithJsonResponse> => {
+    params?: V1CreateAFunctionWithJsonParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1CreateAFunctionWithJsonResponse> => {
   
-  const res = await fetch(getV1CreateAFunctionWithJsonUrl(ref,params),
+  const res = await fetch(getV1CreateAFunctionWithJsonUrl(ref,params, baseUrl),
   {      
     ...options,
     method: 'POST',
@@ -293,18 +293,18 @@ export type v1BulkUpdateFunctionsResponseError = (v1BulkUpdateFunctionsResponse4
 
 export type v1BulkUpdateFunctionsResponse = (v1BulkUpdateFunctionsResponseSuccess | v1BulkUpdateFunctionsResponseError)
 
-export const getV1BulkUpdateFunctionsUrl = (ref: string,) => {
+export const getV1BulkUpdateFunctionsUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/functions`
+  return `${baseUrl}/v1/projects/${ref}/functions`
 }
 
 export const v1BulkUpdateFunctions = async (ref: string,
-    bulkUpdateFunctionBody: BulkUpdateFunctionBody, options?: RequestInit): Promise<v1BulkUpdateFunctionsResponse> => {
+    bulkUpdateFunctionBody: BulkUpdateFunctionBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1BulkUpdateFunctionsResponse> => {
   
-  const res = await fetch(getV1BulkUpdateFunctionsUrl(ref),
+  const res = await fetch(getV1BulkUpdateFunctionsUrl(ref, baseUrl),
   {      
     ...options,
     method: 'PUT',
@@ -365,7 +365,7 @@ export type v1DeployAFunctionResponseError = (v1DeployAFunctionResponse401 | v1D
 export type v1DeployAFunctionResponse = (v1DeployAFunctionResponseSuccess | v1DeployAFunctionResponseError)
 
 export const getV1DeployAFunctionUrl = (ref: string,
-    params?: V1DeployAFunctionParams,) => {
+    params?: V1DeployAFunctionParams, baseUrl: string = 'https://api.supabase.com') => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -377,19 +377,19 @@ export const getV1DeployAFunctionUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/functions/deploy?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/functions/deploy`
+  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/functions/deploy?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/functions/deploy`
 }
 
 export const v1DeployAFunction = async (ref: string,
     functionDeployBody: FunctionDeployBody,
-    params?: V1DeployAFunctionParams, options?: RequestInit): Promise<v1DeployAFunctionResponse> => {
+    params?: V1DeployAFunctionParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1DeployAFunctionResponse> => {
     const formData = new FormData();
 if(functionDeployBody.file !== undefined) {
  functionDeployBody.file.forEach(value => formData.append(`file`, value));
  }
 formData.append(`metadata`, JSON.stringify(functionDeployBody.metadata));
 
-  const res = await fetch(getV1DeployAFunctionUrl(ref,params),
+  const res = await fetch(getV1DeployAFunctionUrl(ref,params, baseUrl),
   {      
     ...options,
     method: 'POST'
@@ -445,18 +445,18 @@ export type v1GetAFunctionResponseError = (v1GetAFunctionResponse401 | v1GetAFun
 export type v1GetAFunctionResponse = (v1GetAFunctionResponseSuccess | v1GetAFunctionResponseError)
 
 export const getV1GetAFunctionUrl = (ref: string,
-    functionSlug: string,) => {
+    functionSlug: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}`
+  return `${baseUrl}/v1/projects/${ref}/functions/${functionSlug}`
 }
 
 export const v1GetAFunction = async (ref: string,
-    functionSlug: string, options?: RequestInit): Promise<v1GetAFunctionResponse> => {
+    functionSlug: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetAFunctionResponse> => {
   
-  const res = await fetch(getV1GetAFunctionUrl(ref,functionSlug),
+  const res = await fetch(getV1GetAFunctionUrl(ref,functionSlug, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -512,7 +512,7 @@ export type v1UpdateAFunctionWithApplicationVndDenolandEszipResponse = (v1Update
 
 export const getV1UpdateAFunctionWithApplicationVndDenolandEszipUrl = (ref: string,
     functionSlug: string,
-    params?: V1UpdateAFunctionWithApplicationVndDenolandEszipParams,) => {
+    params?: V1UpdateAFunctionWithApplicationVndDenolandEszipParams, baseUrl: string = 'https://api.supabase.com') => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -524,15 +524,15 @@ export const getV1UpdateAFunctionWithApplicationVndDenolandEszipUrl = (ref: stri
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}`
+  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/functions/${functionSlug}?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/functions/${functionSlug}`
 }
 
 export const v1UpdateAFunctionWithApplicationVndDenolandEszip = async (ref: string,
     functionSlug: string,
     v1UpdateAFunctionWithApplicationVndDenolandEszipBody: Blob,
-    params?: V1UpdateAFunctionWithApplicationVndDenolandEszipParams, options?: RequestInit): Promise<v1UpdateAFunctionWithApplicationVndDenolandEszipResponse> => {
+    params?: V1UpdateAFunctionWithApplicationVndDenolandEszipParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateAFunctionWithApplicationVndDenolandEszipResponse> => {
   
-  const res = await fetch(getV1UpdateAFunctionWithApplicationVndDenolandEszipUrl(ref,functionSlug,params),
+  const res = await fetch(getV1UpdateAFunctionWithApplicationVndDenolandEszipUrl(ref,functionSlug,params, baseUrl),
   {      
     ...options,
     method: 'PATCH',
@@ -589,7 +589,7 @@ export type v1UpdateAFunctionWithJsonResponse = (v1UpdateAFunctionWithJsonRespon
 
 export const getV1UpdateAFunctionWithJsonUrl = (ref: string,
     functionSlug: string,
-    params?: V1UpdateAFunctionWithJsonParams,) => {
+    params?: V1UpdateAFunctionWithJsonParams, baseUrl: string = 'https://api.supabase.com') => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -601,15 +601,15 @@ export const getV1UpdateAFunctionWithJsonUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}`
+  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/functions/${functionSlug}?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/functions/${functionSlug}`
 }
 
 export const v1UpdateAFunctionWithJson = async (ref: string,
     functionSlug: string,
     v1UpdateFunctionBody: V1UpdateFunctionBody,
-    params?: V1UpdateAFunctionWithJsonParams, options?: RequestInit): Promise<v1UpdateAFunctionWithJsonResponse> => {
+    params?: V1UpdateAFunctionWithJsonParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateAFunctionWithJsonResponse> => {
   
-  const res = await fetch(getV1UpdateAFunctionWithJsonUrl(ref,functionSlug,params),
+  const res = await fetch(getV1UpdateAFunctionWithJsonUrl(ref,functionSlug,params, baseUrl),
   {      
     ...options,
     method: 'PATCH',
@@ -665,18 +665,18 @@ export type v1DeleteAFunctionResponseError = (v1DeleteAFunctionResponse401 | v1D
 export type v1DeleteAFunctionResponse = (v1DeleteAFunctionResponseSuccess | v1DeleteAFunctionResponseError)
 
 export const getV1DeleteAFunctionUrl = (ref: string,
-    functionSlug: string,) => {
+    functionSlug: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}`
+  return `${baseUrl}/v1/projects/${ref}/functions/${functionSlug}`
 }
 
 export const v1DeleteAFunction = async (ref: string,
-    functionSlug: string, options?: RequestInit): Promise<v1DeleteAFunctionResponse> => {
+    functionSlug: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1DeleteAFunctionResponse> => {
   
-  const res = await fetch(getV1DeleteAFunctionUrl(ref,functionSlug),
+  const res = await fetch(getV1DeleteAFunctionUrl(ref,functionSlug, baseUrl),
   {      
     ...options,
     method: 'DELETE'
@@ -731,18 +731,18 @@ export type v1GetAFunctionBodyResponseError = (v1GetAFunctionBodyResponse401 | v
 export type v1GetAFunctionBodyResponse = (v1GetAFunctionBodyResponseSuccess | v1GetAFunctionBodyResponseError)
 
 export const getV1GetAFunctionBodyUrl = (ref: string,
-    functionSlug: string,) => {
+    functionSlug: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}/body`
+  return `${baseUrl}/v1/projects/${ref}/functions/${functionSlug}/body`
 }
 
 export const v1GetAFunctionBody = async (ref: string,
-    functionSlug: string, options?: RequestInit): Promise<v1GetAFunctionBodyResponse> => {
+    functionSlug: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetAFunctionBodyResponse> => {
   
-  const res = await fetch(getV1GetAFunctionBodyUrl(ref,functionSlug),
+  const res = await fetch(getV1GetAFunctionBodyUrl(ref,functionSlug, baseUrl),
   {      
     ...options,
     method: 'GET'

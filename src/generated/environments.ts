@@ -48,17 +48,17 @@ export type v1GetABranchConfigResponseError = (v1GetABranchConfigResponse500) & 
 
 export type v1GetABranchConfigResponse = (v1GetABranchConfigResponseSuccess | v1GetABranchConfigResponseError)
 
-export const getV1GetABranchConfigUrl = (branchIdOrRef: string,) => {
+export const getV1GetABranchConfigUrl = (branchIdOrRef: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/branches/${branchIdOrRef}`
+  return `${baseUrl}/v1/branches/${branchIdOrRef}`
 }
 
-export const v1GetABranchConfig = async (branchIdOrRef: string, options?: RequestInit): Promise<v1GetABranchConfigResponse> => {
+export const v1GetABranchConfig = async (branchIdOrRef: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetABranchConfigResponse> => {
   
-  const res = await fetch(getV1GetABranchConfigUrl(branchIdOrRef),
+  const res = await fetch(getV1GetABranchConfigUrl(branchIdOrRef, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -97,18 +97,18 @@ export type v1UpdateABranchConfigResponseError = (v1UpdateABranchConfigResponse5
 
 export type v1UpdateABranchConfigResponse = (v1UpdateABranchConfigResponseSuccess | v1UpdateABranchConfigResponseError)
 
-export const getV1UpdateABranchConfigUrl = (branchIdOrRef: string,) => {
+export const getV1UpdateABranchConfigUrl = (branchIdOrRef: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/branches/${branchIdOrRef}`
+  return `${baseUrl}/v1/branches/${branchIdOrRef}`
 }
 
 export const v1UpdateABranchConfig = async (branchIdOrRef: string,
-    updateBranchBody: UpdateBranchBody, options?: RequestInit): Promise<v1UpdateABranchConfigResponse> => {
+    updateBranchBody: UpdateBranchBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateABranchConfigResponse> => {
   
-  const res = await fetch(getV1UpdateABranchConfigUrl(branchIdOrRef),
+  const res = await fetch(getV1UpdateABranchConfigUrl(branchIdOrRef, baseUrl),
   {      
     ...options,
     method: 'PATCH',
@@ -149,7 +149,7 @@ export type v1DeleteABranchResponseError = (v1DeleteABranchResponse500) & {
 export type v1DeleteABranchResponse = (v1DeleteABranchResponseSuccess | v1DeleteABranchResponseError)
 
 export const getV1DeleteABranchUrl = (branchIdOrRef: string,
-    params?: V1DeleteABranchParams,) => {
+    params?: V1DeleteABranchParams, baseUrl: string = 'https://api.supabase.com') => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -161,13 +161,13 @@ export const getV1DeleteABranchUrl = (branchIdOrRef: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/branches/${branchIdOrRef}?${stringifiedParams}` : `https://api.supabase.com/v1/branches/${branchIdOrRef}`
+  return stringifiedParams.length > 0 ? `${baseUrl}/v1/branches/${branchIdOrRef}?${stringifiedParams}` : `${baseUrl}/v1/branches/${branchIdOrRef}`
 }
 
 export const v1DeleteABranch = async (branchIdOrRef: string,
-    params?: V1DeleteABranchParams, options?: RequestInit): Promise<v1DeleteABranchResponse> => {
+    params?: V1DeleteABranchParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1DeleteABranchResponse> => {
   
-  const res = await fetch(getV1DeleteABranchUrl(branchIdOrRef,params),
+  const res = await fetch(getV1DeleteABranchUrl(branchIdOrRef,params, baseUrl),
   {      
     ...options,
     method: 'DELETE'
@@ -206,18 +206,18 @@ export type v1PushABranchResponseError = (v1PushABranchResponse500) & {
 
 export type v1PushABranchResponse = (v1PushABranchResponseSuccess | v1PushABranchResponseError)
 
-export const getV1PushABranchUrl = (branchIdOrRef: string,) => {
+export const getV1PushABranchUrl = (branchIdOrRef: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/branches/${branchIdOrRef}/push`
+  return `${baseUrl}/v1/branches/${branchIdOrRef}/push`
 }
 
 export const v1PushABranch = async (branchIdOrRef: string,
-    branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1PushABranchResponse> => {
+    branchActionBody: BranchActionBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1PushABranchResponse> => {
   
-  const res = await fetch(getV1PushABranchUrl(branchIdOrRef),
+  const res = await fetch(getV1PushABranchUrl(branchIdOrRef, baseUrl),
   {      
     ...options,
     method: 'POST',
@@ -257,18 +257,18 @@ export type v1MergeABranchResponseError = (v1MergeABranchResponse500) & {
 
 export type v1MergeABranchResponse = (v1MergeABranchResponseSuccess | v1MergeABranchResponseError)
 
-export const getV1MergeABranchUrl = (branchIdOrRef: string,) => {
+export const getV1MergeABranchUrl = (branchIdOrRef: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/branches/${branchIdOrRef}/merge`
+  return `${baseUrl}/v1/branches/${branchIdOrRef}/merge`
 }
 
 export const v1MergeABranch = async (branchIdOrRef: string,
-    branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1MergeABranchResponse> => {
+    branchActionBody: BranchActionBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1MergeABranchResponse> => {
   
-  const res = await fetch(getV1MergeABranchUrl(branchIdOrRef),
+  const res = await fetch(getV1MergeABranchUrl(branchIdOrRef, baseUrl),
   {      
     ...options,
     method: 'POST',
@@ -308,18 +308,18 @@ export type v1ResetABranchResponseError = (v1ResetABranchResponse500) & {
 
 export type v1ResetABranchResponse = (v1ResetABranchResponseSuccess | v1ResetABranchResponseError)
 
-export const getV1ResetABranchUrl = (branchIdOrRef: string,) => {
+export const getV1ResetABranchUrl = (branchIdOrRef: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/branches/${branchIdOrRef}/reset`
+  return `${baseUrl}/v1/branches/${branchIdOrRef}/reset`
 }
 
 export const v1ResetABranch = async (branchIdOrRef: string,
-    branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1ResetABranchResponse> => {
+    branchActionBody: BranchActionBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ResetABranchResponse> => {
   
-  const res = await fetch(getV1ResetABranchUrl(branchIdOrRef),
+  const res = await fetch(getV1ResetABranchUrl(branchIdOrRef, baseUrl),
   {      
     ...options,
     method: 'POST',
@@ -359,17 +359,17 @@ export type v1RestoreABranchResponseError = (v1RestoreABranchResponse500) & {
 
 export type v1RestoreABranchResponse = (v1RestoreABranchResponseSuccess | v1RestoreABranchResponseError)
 
-export const getV1RestoreABranchUrl = (branchIdOrRef: string,) => {
+export const getV1RestoreABranchUrl = (branchIdOrRef: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/branches/${branchIdOrRef}/restore`
+  return `${baseUrl}/v1/branches/${branchIdOrRef}/restore`
 }
 
-export const v1RestoreABranch = async (branchIdOrRef: string, options?: RequestInit): Promise<v1RestoreABranchResponse> => {
+export const v1RestoreABranch = async (branchIdOrRef: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1RestoreABranchResponse> => {
   
-  const res = await fetch(getV1RestoreABranchUrl(branchIdOrRef),
+  const res = await fetch(getV1RestoreABranchUrl(branchIdOrRef, baseUrl),
   {      
     ...options,
     method: 'POST'
@@ -409,7 +409,7 @@ export type v1DiffABranchResponseError = (v1DiffABranchResponse500) & {
 export type v1DiffABranchResponse = (v1DiffABranchResponseSuccess | v1DiffABranchResponseError)
 
 export const getV1DiffABranchUrl = (branchIdOrRef: string,
-    params?: V1DiffABranchParams,) => {
+    params?: V1DiffABranchParams, baseUrl: string = 'https://api.supabase.com') => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -421,13 +421,13 @@ export const getV1DiffABranchUrl = (branchIdOrRef: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/branches/${branchIdOrRef}/diff?${stringifiedParams}` : `https://api.supabase.com/v1/branches/${branchIdOrRef}/diff`
+  return stringifiedParams.length > 0 ? `${baseUrl}/v1/branches/${branchIdOrRef}/diff?${stringifiedParams}` : `${baseUrl}/v1/branches/${branchIdOrRef}/diff`
 }
 
 export const v1DiffABranch = async (branchIdOrRef: string,
-    params?: V1DiffABranchParams, options?: RequestInit): Promise<v1DiffABranchResponse> => {
+    params?: V1DiffABranchParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1DiffABranchResponse> => {
   
-  const res = await fetch(getV1DiffABranchUrl(branchIdOrRef,params),
+  const res = await fetch(getV1DiffABranchUrl(branchIdOrRef,params, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -482,7 +482,7 @@ export type v1ListActionRunsResponseError = (v1ListActionRunsResponse401 | v1Lis
 export type v1ListActionRunsResponse = (v1ListActionRunsResponseSuccess | v1ListActionRunsResponseError)
 
 export const getV1ListActionRunsUrl = (ref: string,
-    params?: V1ListActionRunsParams,) => {
+    params?: V1ListActionRunsParams, baseUrl: string = 'https://api.supabase.com') => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -494,13 +494,13 @@ export const getV1ListActionRunsUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/actions?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/actions`
+  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/actions?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/actions`
 }
 
 export const v1ListActionRuns = async (ref: string,
-    params?: V1ListActionRunsParams, options?: RequestInit): Promise<v1ListActionRunsResponse> => {
+    params?: V1ListActionRunsParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListActionRunsResponse> => {
   
-  const res = await fetch(getV1ListActionRunsUrl(ref,params),
+  const res = await fetch(getV1ListActionRunsUrl(ref,params, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -554,17 +554,17 @@ export type v1CountActionRunsResponseError = (v1CountActionRunsResponse401 | v1C
 
 export type v1CountActionRunsResponse = (v1CountActionRunsResponseSuccess | v1CountActionRunsResponseError)
 
-export const getV1CountActionRunsUrl = (ref: string,) => {
+export const getV1CountActionRunsUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/actions`
+  return `${baseUrl}/v1/projects/${ref}/actions`
 }
 
-export const v1CountActionRuns = async (ref: string, options?: RequestInit): Promise<v1CountActionRunsResponse> => {
+export const v1CountActionRuns = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1CountActionRunsResponse> => {
   
-  const res = await fetch(getV1CountActionRunsUrl(ref),
+  const res = await fetch(getV1CountActionRunsUrl(ref, baseUrl),
   {      
     ...options,
     method: 'HEAD'
@@ -619,18 +619,18 @@ export type v1GetActionRunResponseError = (v1GetActionRunResponse401 | v1GetActi
 export type v1GetActionRunResponse = (v1GetActionRunResponseSuccess | v1GetActionRunResponseError)
 
 export const getV1GetActionRunUrl = (ref: string,
-    runId: string,) => {
+    runId: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/actions/${runId}`
+  return `${baseUrl}/v1/projects/${ref}/actions/${runId}`
 }
 
 export const v1GetActionRun = async (ref: string,
-    runId: string, options?: RequestInit): Promise<v1GetActionRunResponse> => {
+    runId: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetActionRunResponse> => {
   
-  const res = await fetch(getV1GetActionRunUrl(ref,runId),
+  const res = await fetch(getV1GetActionRunUrl(ref,runId, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -685,19 +685,19 @@ export type v1UpdateActionRunStatusResponseError = (v1UpdateActionRunStatusRespo
 export type v1UpdateActionRunStatusResponse = (v1UpdateActionRunStatusResponseSuccess | v1UpdateActionRunStatusResponseError)
 
 export const getV1UpdateActionRunStatusUrl = (ref: string,
-    runId: string,) => {
+    runId: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/actions/${runId}/status`
+  return `${baseUrl}/v1/projects/${ref}/actions/${runId}/status`
 }
 
 export const v1UpdateActionRunStatus = async (ref: string,
     runId: string,
-    updateRunStatusBody: UpdateRunStatusBody, options?: RequestInit): Promise<v1UpdateActionRunStatusResponse> => {
+    updateRunStatusBody: UpdateRunStatusBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateActionRunStatusResponse> => {
   
-  const res = await fetch(getV1UpdateActionRunStatusUrl(ref,runId),
+  const res = await fetch(getV1UpdateActionRunStatusUrl(ref,runId, baseUrl),
   {      
     ...options,
     method: 'PATCH',
@@ -753,18 +753,18 @@ export type v1GetActionRunLogsResponseError = (v1GetActionRunLogsResponse401 | v
 export type v1GetActionRunLogsResponse = (v1GetActionRunLogsResponseSuccess | v1GetActionRunLogsResponseError)
 
 export const getV1GetActionRunLogsUrl = (ref: string,
-    runId: string,) => {
+    runId: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/actions/${runId}/logs`
+  return `${baseUrl}/v1/projects/${ref}/actions/${runId}/logs`
 }
 
 export const v1GetActionRunLogs = async (ref: string,
-    runId: string, options?: RequestInit): Promise<v1GetActionRunLogsResponse> => {
+    runId: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetActionRunLogsResponse> => {
   
-  const res = await fetch(getV1GetActionRunLogsUrl(ref,runId),
+  const res = await fetch(getV1GetActionRunLogsUrl(ref,runId, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -818,17 +818,17 @@ export type v1ListAllBranchesResponseError = (v1ListAllBranchesResponse401 | v1L
 
 export type v1ListAllBranchesResponse = (v1ListAllBranchesResponseSuccess | v1ListAllBranchesResponseError)
 
-export const getV1ListAllBranchesUrl = (ref: string,) => {
+export const getV1ListAllBranchesUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/branches`
+  return `${baseUrl}/v1/projects/${ref}/branches`
 }
 
-export const v1ListAllBranches = async (ref: string, options?: RequestInit): Promise<v1ListAllBranchesResponse> => {
+export const v1ListAllBranches = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListAllBranchesResponse> => {
   
-  const res = await fetch(getV1ListAllBranchesUrl(ref),
+  const res = await fetch(getV1ListAllBranchesUrl(ref, baseUrl),
   {      
     ...options,
     method: 'GET'
@@ -882,18 +882,18 @@ export type v1CreateABranchResponseError = (v1CreateABranchResponse401 | v1Creat
 
 export type v1CreateABranchResponse = (v1CreateABranchResponseSuccess | v1CreateABranchResponseError)
 
-export const getV1CreateABranchUrl = (ref: string,) => {
+export const getV1CreateABranchUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/branches`
+  return `${baseUrl}/v1/projects/${ref}/branches`
 }
 
 export const v1CreateABranch = async (ref: string,
-    createBranchBody: CreateBranchBody, options?: RequestInit): Promise<v1CreateABranchResponse> => {
+    createBranchBody: CreateBranchBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1CreateABranchResponse> => {
   
-  const res = await fetch(getV1CreateABranchUrl(ref),
+  const res = await fetch(getV1CreateABranchUrl(ref, baseUrl),
   {      
     ...options,
     method: 'POST',
@@ -948,17 +948,17 @@ export type v1DisablePreviewBranchingResponseError = (v1DisablePreviewBranchingR
 
 export type v1DisablePreviewBranchingResponse = (v1DisablePreviewBranchingResponseSuccess | v1DisablePreviewBranchingResponseError)
 
-export const getV1DisablePreviewBranchingUrl = (ref: string,) => {
+export const getV1DisablePreviewBranchingUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/branches`
+  return `${baseUrl}/v1/projects/${ref}/branches`
 }
 
-export const v1DisablePreviewBranching = async (ref: string, options?: RequestInit): Promise<v1DisablePreviewBranchingResponse> => {
+export const v1DisablePreviewBranching = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1DisablePreviewBranchingResponse> => {
   
-  const res = await fetch(getV1DisablePreviewBranchingUrl(ref),
+  const res = await fetch(getV1DisablePreviewBranchingUrl(ref, baseUrl),
   {      
     ...options,
     method: 'DELETE'
@@ -1013,18 +1013,18 @@ export type v1GetABranchResponseError = (v1GetABranchResponse401 | v1GetABranchR
 export type v1GetABranchResponse = (v1GetABranchResponseSuccess | v1GetABranchResponseError)
 
 export const getV1GetABranchUrl = (ref: string,
-    name: string,) => {
+    name: string, baseUrl: string = 'https://api.supabase.com') => {
 
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/branches/${name}`
+  return `${baseUrl}/v1/projects/${ref}/branches/${name}`
 }
 
 export const v1GetABranch = async (ref: string,
-    name: string, options?: RequestInit): Promise<v1GetABranchResponse> => {
+    name: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetABranchResponse> => {
   
-  const res = await fetch(getV1GetABranchUrl(ref,name),
+  const res = await fetch(getV1GetABranchUrl(ref,name, baseUrl),
   {      
     ...options,
     method: 'GET'

@@ -115,11 +115,11 @@ for (const file of sourceFiles) {
 
     const allParams = splitParams(rawParams);
 
-    // Last param is always "options?: RequestInit" — slice it off
-    const nonOptionParams =
-      allParams.length === 1 && allParams[0].includes("RequestInit")
-        ? []
-        : allParams.slice(0, -1);
+    // Strip trailing baseUrl and options params (added by patch-base-url.mjs)
+    const nonOptionParams = allParams.filter(
+      (p) =>
+        !p.includes("RequestInit") && !p.trim().startsWith("baseUrl")
+    );
 
     const callParams = nonOptionParams.map(extractParamName);
     const methodParamList = nonOptionParams.join(", ");
@@ -156,7 +156,7 @@ function generateMethod({ methodName, funcName, methodParamList, callParams, ret
     `    return ${funcName}(${callArgs}{`,
     `      ...options,`,
     `      headers: { ...this.authHeader, ...options?.headers },`,
-    `    });`,
+    `    }, this.baseUrl);`,
     `  }`,
   ].join("\n");
 }
@@ -187,11 +187,18 @@ import type {
 ${typeImportLines}
 } from './generated';
 
+export interface SupabaseManagementAPIOptions {
+  accessToken: string;
+  baseUrl?: string;
+}
+
 export class SupabaseManagementAPI {
   private readonly accessToken: string;
+  private readonly baseUrl: string;
 
-  constructor(accessToken: string) {
+  constructor({ accessToken, baseUrl = 'https://api.supabase.com' }: SupabaseManagementAPIOptions) {
     this.accessToken = accessToken;
+    this.baseUrl = baseUrl;
   }
 
   private get authHeader(): HeadersInit {
@@ -215,6 +222,7 @@ const indexContent = `\
  */
 export * from './generated';
 export { SupabaseManagementAPI } from './api';
+export type { SupabaseManagementAPIOptions } from './api';
 `;
 
 writeFileSync(OUT_INDEX, indexContent, "utf8");
