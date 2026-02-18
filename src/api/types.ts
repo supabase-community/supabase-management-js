@@ -643,3 +643,63 @@ export type ListJitAccessResponseData = ExtractResponseContent<
   "get",
   200
 >;
+
+// Config — Disk
+export type GetDiskUtilizationResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/config/disk/util"],
+  "get",
+  200
+>;
+
+export type ModifyDatabaseDiskRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/config/disk"],
+  "post"
+>;
+
+export type GetDiskAutoscaleConfigResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/config/disk/autoscale"],
+  "get",
+  200
+>;
+
+// Config — Storage
+export type GetStorageConfigResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/config/storage"],
+  "get",
+  200
+>;
+
+export type UpdateStorageConfigRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/config/storage"],
+  "patch"
+>;
+
+// Config — Pooler
+export type GetPoolerConfigResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/config/database/pooler"],
+  "get",
+  200
+>;
+
+export type UpdatePoolerConfigRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/config/database/pooler"],
+  "patch"
+>;
+
+export type UpdatePoolerConfigResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/config/database/pooler"],
+  "patch",
+  200
+>;
+
+// Config — Realtime
+export type GetRealtimeConfigResponseData = ExtractResponseContent<
+  paths["/v1/projects/{ref}/config/realtime"],
+  "get",
+  200
+>;
+
+export type UpdateRealtimeConfigRequestBody = ExtractRequestBody<
+  paths["/v1/projects/{ref}/config/realtime"],
+  "patch"
+>;

@@ -110,6 +110,16 @@ import {
   UpdateSSLEnforcementConfigResponseData,
   UpdateSSOProviderRequestBody,
   UpdateSSOProviderResponseData,
+  GetDiskUtilizationResponseData,
+  ModifyDatabaseDiskRequestBody,
+  GetDiskAutoscaleConfigResponseData,
+  GetStorageConfigResponseData,
+  UpdateStorageConfigRequestBody,
+  GetPoolerConfigResponseData,
+  UpdatePoolerConfigRequestBody,
+  UpdatePoolerConfigResponseData,
+  GetRealtimeConfigResponseData,
+  UpdateRealtimeConfigRequestBody,
 } from "./api/types";
 import { paths } from "./api/v1";
 
@@ -2371,6 +2381,234 @@ export class SupabaseManagementAPI {
 
     if (response.status !== 200) {
       throw await this.#createResponseError(response, "delete JIT access");
+    }
+  }
+
+  /**
+   * Get disk utilization metrics
+   * @description Gets disk utilization metrics for the given project.
+   */
+  async getDiskUtilization(
+    ref: string,
+  ): Promise<GetDiskUtilizationResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/config/disk/util",
+      {
+        params: {
+          path: { ref },
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get disk utilization");
+    }
+
+    return data;
+  }
+
+  /**
+   * Modify database disk
+   * @description Modifies the disk configuration for the given project.
+   */
+  async modifyDatabaseDisk(
+    ref: string,
+    body: ModifyDatabaseDiskRequestBody,
+  ): Promise<void> {
+    const { response } = await this.client.post(
+      "/v1/projects/{ref}/config/disk",
+      {
+        params: {
+          path: { ref },
+        },
+        body,
+      },
+    );
+
+    if (response.status !== 201) {
+      throw await this.#createResponseError(response, "modify database disk");
+    }
+  }
+
+  /**
+   * Get disk autoscale config
+   * @description Gets the disk autoscale configuration for the given project.
+   */
+  async getDiskAutoscaleConfig(
+    ref: string,
+  ): Promise<GetDiskAutoscaleConfigResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/config/disk/autoscale",
+      {
+        params: {
+          path: { ref },
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(
+        response,
+        "get disk autoscale config",
+      );
+    }
+
+    return data;
+  }
+
+  /**
+   * Get storage config
+   * @description Gets the storage configuration for the given project.
+   */
+  async getStorageConfig(ref: string): Promise<GetStorageConfigResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/config/storage",
+      {
+        params: {
+          path: { ref },
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get storage config");
+    }
+
+    return data;
+  }
+
+  /**
+   * Update storage config
+   * @description Updates the storage configuration for the given project.
+   */
+  async updateStorageConfig(
+    ref: string,
+    body: UpdateStorageConfigRequestBody,
+  ): Promise<void> {
+    const { response } = await this.client.patch(
+      "/v1/projects/{ref}/config/storage",
+      {
+        params: {
+          path: { ref },
+        },
+        body,
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "update storage config");
+    }
+  }
+
+  /**
+   * Get pooler (supavisor) config
+   * @description Gets the supavisor (pooler) configuration for the given project.
+   */
+  async getPoolerConfig(ref: string): Promise<GetPoolerConfigResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/config/database/pooler",
+      {
+        params: {
+          path: { ref },
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get pooler config");
+    }
+
+    return data;
+  }
+
+  /**
+   * Update pooler config
+   * @description Updates the supavisor (pooler) configuration for the given project.
+   */
+  async updatePoolerConfig(
+    ref: string,
+    body: UpdatePoolerConfigRequestBody,
+  ): Promise<UpdatePoolerConfigResponseData> {
+    const { data, response } = await this.client.patch(
+      "/v1/projects/{ref}/config/database/pooler",
+      {
+        params: {
+          path: { ref },
+        },
+        body,
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "update pooler config");
+    }
+
+    return data;
+  }
+
+  /**
+   * Get realtime config
+   * @description Gets the realtime configuration for the given project.
+   */
+  async getRealtimeConfig(ref: string): Promise<GetRealtimeConfigResponseData> {
+    const { data, response } = await this.client.get(
+      "/v1/projects/{ref}/config/realtime",
+      {
+        params: {
+          path: { ref },
+        },
+      },
+    );
+
+    if (response.status !== 200) {
+      throw await this.#createResponseError(response, "get realtime config");
+    }
+
+    return data;
+  }
+
+  /**
+   * Update realtime config
+   * @description Updates the realtime configuration for the given project.
+   */
+  async updateRealtimeConfig(
+    ref: string,
+    body: UpdateRealtimeConfigRequestBody,
+  ): Promise<void> {
+    const { response } = await this.client.patch(
+      "/v1/projects/{ref}/config/realtime",
+      {
+        params: {
+          path: { ref },
+        },
+        body,
+      },
+    );
+
+    if (response.status !== 204) {
+      throw await this.#createResponseError(response, "update realtime config");
+    }
+  }
+
+  /**
+   * Shutdown realtime connections
+   * @description Shuts down all realtime connections for the given project.
+   */
+  async shutdownRealtime(ref: string): Promise<void> {
+    const { response } = await this.client.post(
+      "/v1/projects/{ref}/config/realtime/shutdown",
+      {
+        params: {
+          path: { ref },
+        },
+      },
+    );
+
+    if (response.status !== 204) {
+      throw await this.#createResponseError(
+        response,
+        "shutdown realtime connections",
+      );
     }
   }
 
