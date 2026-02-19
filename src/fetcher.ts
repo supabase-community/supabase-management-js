@@ -1,4 +1,4 @@
-export const SUPABASE_API_BASE_URL = "https://api.supabase.com";
+import { SUPABASE_API_BASE_URL } from "./consts";
 
 const getBody = <T>(res: Response): Promise<T> => {
   const contentType = res.headers.get("content-type");

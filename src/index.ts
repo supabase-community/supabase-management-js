@@ -6,3 +6,4 @@ export * from './generated';
 export { SupabaseManagementAPI } from './api';
 export type { SupabaseManagementAPIOptions } from './api';
 export { SupabaseManagementAPIError } from './error';
+export { SUPABASE_API_BASE_URL } from './consts';
