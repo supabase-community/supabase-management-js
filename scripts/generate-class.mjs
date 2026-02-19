@@ -91,6 +91,11 @@ function collectTypeNames(paramStr, typeNames) {
 // Regex to capture v1* async function signatures (handles multi-line params)
 const FUNC_REGEX = /^export const (v1[A-Za-z]+) = async \(([\s\S]*?)\): Promise/gm;
 
+// Regex to extract JSDoc blocks placed by orval before the first ResponseNNN type
+// (success status varies: 200 for GETs, 201 for creates, etc.).
+// Uses [^*]|\*(?!\/) to avoid crossing a */ boundary (no greedy backtracking).
+const JSDOC_TYPE_REGEX = /(\/\*\*(?:[^*]|\*(?!\/))*\*\/)\s*export type (v1[A-Za-z]+)Response\d+/g;
+
 const sourceFiles = readdirSync(GENERATED_DIR)
   .filter(
     (f) =>
@@ -107,6 +112,16 @@ const allResponseTypeNames = new Set();
 
 for (const file of sourceFiles) {
   const text = readFileSync(join(GENERATED_DIR, file), "utf8");
+
+  // Build a map of funcName -> JSDoc for this file (from Response type annotations)
+  const jsdocMap = new Map();
+  let jsdocMatch;
+  JSDOC_TYPE_REGEX.lastIndex = 0;
+  while ((jsdocMatch = JSDOC_TYPE_REGEX.exec(text)) !== null) {
+    const [, jsdoc, funcName] = jsdocMatch;
+    jsdocMap.set(funcName, jsdoc);
+  }
+
   let match;
   FUNC_REGEX.lastIndex = 0;
   while ((match = FUNC_REGEX.exec(text)) !== null) {
@@ -138,12 +153,21 @@ for (const file of sourceFiles) {
       methodParamList,
       callParams,
       returnType,
+      jsdoc: jsdocMap.get(funcName) ?? null,
     });
   }
 }
 
 // Generate class methods
-function generateMethod({ methodName, funcName, methodParamList, callParams, returnType }) {
+function generateMethod({ methodName, funcName, methodParamList, callParams, returnType, jsdoc }) {
+  const lines = [];
+
+  if (jsdoc) {
+    // Indent JSDoc block by 2 spaces to align with class body
+    const indented = jsdoc.split("\n").map((line) => `  ${line}`).join("\n");
+    lines.push(indented);
+  }
+
   const signatureParams = methodParamList
     ? `${methodParamList}, options?: RequestInit`
     : `options?: RequestInit`;
@@ -151,7 +175,7 @@ function generateMethod({ methodName, funcName, methodParamList, callParams, ret
   const callArgs =
     callParams.length > 0 ? `${callParams.join(", ")}, ` : "";
 
-  return [
+  lines.push(
     `  async ${methodName}(${signatureParams}): Promise<${returnType}> {`,
     `    const result = await ${funcName}(${callArgs}{`,
     `      ...options,`,
@@ -162,7 +186,9 @@ function generateMethod({ methodName, funcName, methodParamList, callParams, ret
     `    }`,
     `    return result as ${returnType};`,
     `  }`,
-  ].join("\n");
+  );
+
+  return lines.join("\n");
 }
 
 // Build class file content

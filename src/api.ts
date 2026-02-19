@@ -427,6 +427,11 @@ export class SupabaseManagementAPI {
     return { Authorization: `Bearer ${this.accessToken}` };
   }
 
+  /**
+   * This is an **experimental** endpoint. It is subject to change or removal in future versions. Use it with caution, as it may not remain supported or stable.
+   * @deprecated
+   * @summary Gets project performance advisors.
+   */
   async getPerformanceAdvisors(ref: string, options?: RequestInit): Promise<v1GetPerformanceAdvisorsResponseSuccess> {
     const result = await v1GetPerformanceAdvisors(ref, {
       ...options,
@@ -438,6 +443,11 @@ export class SupabaseManagementAPI {
     return result as v1GetPerformanceAdvisorsResponseSuccess;
   }
 
+  /**
+   * This is an **experimental** endpoint. It is subject to change or removal in future versions. Use it with caution, as it may not remain supported or stable.
+   * @deprecated
+   * @summary Gets project security advisors.
+   */
   async getSecurityAdvisors(ref: string, params?: V1GetSecurityAdvisorsParams, options?: RequestInit): Promise<v1GetSecurityAdvisorsResponseSuccess> {
     const result = await v1GetSecurityAdvisors(ref, params, {
       ...options,
@@ -449,6 +459,17 @@ export class SupabaseManagementAPI {
     return result as v1GetSecurityAdvisorsResponseSuccess;
   }
 
+  /**
+   * Executes a SQL query on the project's logs.
+  
+  Either the `iso_timestamp_start` and `iso_timestamp_end` parameters must be provided.
+  If both are not provided, only the last 1 minute of logs will be queried.
+  The timestamp range must be no more than 24 hours and is rounded to the nearest minute. If the range is more than 24 hours, a validation error will be thrown.
+  
+  Note: Unless the `sql` parameter is provided, only edge_logs will be queried. See the [log query docs](/docs/guides/telemetry/logs?queryGroups=product&product=postgres&queryGroups=source&source=edge_logs#querying-with-the-logs-explorer:~:text=logs%20from%20the-,Sources,-drop%2Ddown%3A) for all available sources. 
+  
+   * @summary Gets project's logs
+   */
   async getProjectLogs(ref: string, params?: V1GetProjectLogsParams, options?: RequestInit): Promise<v1GetProjectLogsResponseSuccess> {
     const result = await v1GetProjectLogs(ref, params, {
       ...options,
@@ -460,6 +481,9 @@ export class SupabaseManagementAPI {
     return result as v1GetProjectLogsResponseSuccess;
   }
 
+  /**
+   * @summary Gets project's usage api counts
+   */
   async getProjectUsageApiCount(ref: string, params?: V1GetProjectUsageApiCountParams, options?: RequestInit): Promise<v1GetProjectUsageApiCountResponseSuccess> {
     const result = await v1GetProjectUsageApiCount(ref, params, {
       ...options,
@@ -471,6 +495,9 @@ export class SupabaseManagementAPI {
     return result as v1GetProjectUsageApiCountResponseSuccess;
   }
 
+  /**
+   * @summary Gets project's usage api requests count
+   */
   async getProjectUsageRequestCount(ref: string, options?: RequestInit): Promise<v1GetProjectUsageRequestCountResponseSuccess> {
     const result = await v1GetProjectUsageRequestCount(ref, {
       ...options,
@@ -482,6 +509,9 @@ export class SupabaseManagementAPI {
     return result as v1GetProjectUsageRequestCountResponseSuccess;
   }
 
+  /**
+   * @summary Gets a project's function combined statistics
+   */
   async getProjectFunctionCombinedStats(ref: string, params: V1GetProjectFunctionCombinedStatsParams, options?: RequestInit): Promise<v1GetProjectFunctionCombinedStatsResponseSuccess> {
     const result = await v1GetProjectFunctionCombinedStats(ref, params, {
       ...options,
@@ -493,6 +523,9 @@ export class SupabaseManagementAPI {
     return result as v1GetProjectFunctionCombinedStatsResponseSuccess;
   }
 
+  /**
+   * @summary Set up the project's existing JWT secret as an in_use JWT signing key. This endpoint will be removed in the future always check for HTTP 404 Not Found.
+   */
   async createLegacySigningKey(ref: string, options?: RequestInit): Promise<v1CreateLegacySigningKeyResponseSuccess> {
     const result = await v1CreateLegacySigningKey(ref, {
       ...options,
@@ -504,6 +537,9 @@ export class SupabaseManagementAPI {
     return result as v1CreateLegacySigningKeyResponseSuccess;
   }
 
+  /**
+   * @summary Get the signing key information for the JWT secret imported as signing key for this project. This endpoint will be removed in the future, check for HTTP 404 Not Found.
+   */
   async getLegacySigningKey(ref: string, options?: RequestInit): Promise<v1GetLegacySigningKeyResponseSuccess> {
     const result = await v1GetLegacySigningKey(ref, {
       ...options,
@@ -515,6 +551,9 @@ export class SupabaseManagementAPI {
     return result as v1GetLegacySigningKeyResponseSuccess;
   }
 
+  /**
+   * @summary Create a new signing key for the project in standby status
+   */
   async createProjectSigningKey(ref: string, createSigningKeyBody: CreateSigningKeyBody, options?: RequestInit): Promise<v1CreateProjectSigningKeyResponseSuccess> {
     const result = await v1CreateProjectSigningKey(ref, createSigningKeyBody, {
       ...options,
@@ -526,6 +565,9 @@ export class SupabaseManagementAPI {
     return result as v1CreateProjectSigningKeyResponseSuccess;
   }
 
+  /**
+   * @summary List all signing keys for the project
+   */
   async getProjectSigningKeys(ref: string, options?: RequestInit): Promise<v1GetProjectSigningKeysResponseSuccess> {
     const result = await v1GetProjectSigningKeys(ref, {
       ...options,
@@ -537,6 +579,9 @@ export class SupabaseManagementAPI {
     return result as v1GetProjectSigningKeysResponseSuccess;
   }
 
+  /**
+   * @summary Get information about a signing key
+   */
   async getProjectSigningKey(ref: string, id: string, options?: RequestInit): Promise<v1GetProjectSigningKeyResponseSuccess> {
     const result = await v1GetProjectSigningKey(ref, id, {
       ...options,
@@ -548,6 +593,9 @@ export class SupabaseManagementAPI {
     return result as v1GetProjectSigningKeyResponseSuccess;
   }
 
+  /**
+   * @summary Remove a signing key from a project. Only possible if the key has been in revoked status for a while.
+   */
   async removeProjectSigningKey(ref: string, id: string, options?: RequestInit): Promise<v1RemoveProjectSigningKeyResponseSuccess> {
     const result = await v1RemoveProjectSigningKey(ref, id, {
       ...options,
@@ -559,6 +607,9 @@ export class SupabaseManagementAPI {
     return result as v1RemoveProjectSigningKeyResponseSuccess;
   }
 
+  /**
+   * @summary Update a signing key, mainly its status
+   */
   async updateProjectSigningKey(ref: string, id: string, updateSigningKeyBody: UpdateSigningKeyBody, options?: RequestInit): Promise<v1UpdateProjectSigningKeyResponseSuccess> {
     const result = await v1UpdateProjectSigningKey(ref, id, updateSigningKeyBody, {
       ...options,
@@ -570,6 +621,9 @@ export class SupabaseManagementAPI {
     return result as v1UpdateProjectSigningKeyResponseSuccess;
   }
 
+  /**
+   * @summary Gets project's auth config
+   */
   async getAuthServiceConfig(ref: string, options?: RequestInit): Promise<v1GetAuthServiceConfigResponseSuccess> {
     const result = await v1GetAuthServiceConfig(ref, {
       ...options,
@@ -581,6 +635,9 @@ export class SupabaseManagementAPI {
     return result as v1GetAuthServiceConfigResponseSuccess;
   }
 
+  /**
+   * @summary Updates a project's auth config
+   */
   async updateAuthServiceConfig(ref: string, updateAuthConfigBody: UpdateAuthConfigBody, options?: RequestInit): Promise<v1UpdateAuthServiceConfigResponseSuccess> {
     const result = await v1UpdateAuthServiceConfig(ref, updateAuthConfigBody, {
       ...options,
@@ -592,6 +649,9 @@ export class SupabaseManagementAPI {
     return result as v1UpdateAuthServiceConfigResponseSuccess;
   }
 
+  /**
+   * @summary Creates a new third-party auth integration
+   */
   async createProjectTpaIntegration(ref: string, createThirdPartyAuthBody: CreateThirdPartyAuthBody, options?: RequestInit): Promise<v1CreateProjectTpaIntegrationResponseSuccess> {
     const result = await v1CreateProjectTpaIntegration(ref, createThirdPartyAuthBody, {
       ...options,
@@ -603,6 +663,9 @@ export class SupabaseManagementAPI {
     return result as v1CreateProjectTpaIntegrationResponseSuccess;
   }
 
+  /**
+   * @summary Lists all third-party auth integrations
+   */
   async listProjectTpaIntegrations(ref: string, options?: RequestInit): Promise<v1ListProjectTpaIntegrationsResponseSuccess> {
     const result = await v1ListProjectTpaIntegrations(ref, {
       ...options,
@@ -614,6 +677,9 @@ export class SupabaseManagementAPI {
     return result as v1ListProjectTpaIntegrationsResponseSuccess;
   }
 
+  /**
+   * @summary Removes a third-party auth integration
+   */
   async deleteProjectTpaIntegration(ref: string, tpaId: string, options?: RequestInit): Promise<v1DeleteProjectTpaIntegrationResponseSuccess> {
     const result = await v1DeleteProjectTpaIntegration(ref, tpaId, {
       ...options,
@@ -625,6 +691,9 @@ export class SupabaseManagementAPI {
     return result as v1DeleteProjectTpaIntegrationResponseSuccess;
   }
 
+  /**
+   * @summary Get a third-party integration
+   */
   async getProjectTpaIntegration(ref: string, tpaId: string, options?: RequestInit): Promise<v1GetProjectTpaIntegrationResponseSuccess> {
     const result = await v1GetProjectTpaIntegration(ref, tpaId, {
       ...options,
@@ -636,6 +705,9 @@ export class SupabaseManagementAPI {
     return result as v1GetProjectTpaIntegrationResponseSuccess;
   }
 
+  /**
+   * @summary Creates a new SSO provider
+   */
   async createASsoProvider(ref: string, createProviderBody: CreateProviderBody, options?: RequestInit): Promise<v1CreateASsoProviderResponseSuccess> {
     const result = await v1CreateASsoProvider(ref, createProviderBody, {
       ...options,
@@ -647,6 +719,9 @@ export class SupabaseManagementAPI {
     return result as v1CreateASsoProviderResponseSuccess;
   }
 
+  /**
+   * @summary Lists all SSO providers
+   */
   async listAllSsoProvider(ref: string, options?: RequestInit): Promise<v1ListAllSsoProviderResponseSuccess> {
     const result = await v1ListAllSsoProvider(ref, {
       ...options,
@@ -658,6 +733,9 @@ export class SupabaseManagementAPI {
     return result as v1ListAllSsoProviderResponseSuccess;
   }
 
+  /**
+   * @summary Gets a SSO provider by its UUID
+   */
   async getASsoProvider(ref: string, providerId: string, options?: RequestInit): Promise<v1GetASsoProviderResponseSuccess> {
     const result = await v1GetASsoProvider(ref, providerId, {
       ...options,
@@ -669,6 +747,9 @@ export class SupabaseManagementAPI {
     return result as v1GetASsoProviderResponseSuccess;
   }
 
+  /**
+   * @summary Updates a SSO provider by its UUID
+   */
   async updateASsoProvider(ref: string, providerId: string, updateProviderBody: UpdateProviderBody, options?: RequestInit): Promise<v1UpdateASsoProviderResponseSuccess> {
     const result = await v1UpdateASsoProvider(ref, providerId, updateProviderBody, {
       ...options,
@@ -680,6 +761,9 @@ export class SupabaseManagementAPI {
     return result as v1UpdateASsoProviderResponseSuccess;
   }
 
+  /**
+   * @summary Removes a SSO provider by its UUID
+   */
   async deleteASsoProvider(ref: string, providerId: string, options?: RequestInit): Promise<v1DeleteASsoProviderResponseSuccess> {
     const result = await v1DeleteASsoProvider(ref, providerId, {
       ...options,
@@ -691,6 +775,10 @@ export class SupabaseManagementAPI {
     return result as v1DeleteASsoProviderResponseSuccess;
   }
 
+  /**
+   * Returns the billing addons that are currently applied, including the active compute instance size, and lists every addon option that can be provisioned with pricing metadata.
+   * @summary List billing addons and compute instance selections
+   */
   async listProjectAddons(ref: string, options?: RequestInit): Promise<v1ListProjectAddonsResponseSuccess> {
     const result = await v1ListProjectAddons(ref, {
       ...options,
@@ -702,6 +790,10 @@ export class SupabaseManagementAPI {
     return result as v1ListProjectAddonsResponseSuccess;
   }
 
+  /**
+   * Selects an addon variant, for example scaling the project’s compute instance up or down, and applies it to the project.
+   * @summary Apply or update billing addons, including compute instance size
+   */
   async applyProjectAddon(ref: string, applyProjectAddonBody: ApplyProjectAddonBody, options?: RequestInit): Promise<v1ApplyProjectAddonResponseSuccess> {
     const result = await v1ApplyProjectAddon(ref, applyProjectAddonBody, {
       ...options,
@@ -713,6 +805,10 @@ export class SupabaseManagementAPI {
     return result as v1ApplyProjectAddonResponseSuccess;
   }
 
+  /**
+   * Disables the selected addon variant, including rolling the compute instance back to its previous size.
+   * @summary Remove billing addons or revert compute instance sizing
+   */
   async removeProjectAddon(ref: string, addonVariant: 'ci_micro' | 'ci_small' | 'ci_medium' | 'ci_large' | 'ci_xlarge' | 'ci_2xlarge' | 'ci_4xlarge' | 'ci_8xlarge' | 'ci_12xlarge' | 'ci_16xlarge' | 'ci_24xlarge' | 'ci_24xlarge_optimized_cpu' | 'ci_24xlarge_optimized_memory' | 'ci_24xlarge_high_memory' | 'ci_48xlarge' | 'ci_48xlarge_optimized_cpu' | 'ci_48xlarge_optimized_memory' | 'ci_48xlarge_high_memory' | 'cd_default' | 'pitr_7' | 'pitr_14' | 'pitr_28' | 'ipv4_default', options?: RequestInit): Promise<v1RemoveProjectAddonResponseSuccess> {
     const result = await v1RemoveProjectAddon(ref, addonVariant, {
       ...options,
@@ -724,6 +820,9 @@ export class SupabaseManagementAPI {
     return result as v1RemoveProjectAddonResponseSuccess;
   }
 
+  /**
+   * @summary Lists SQL snippets for the logged in user
+   */
   async listAllSnippets(params?: V1ListAllSnippetsParams, options?: RequestInit): Promise<v1ListAllSnippetsResponseSuccess> {
     const result = await v1ListAllSnippets(params, {
       ...options,
@@ -735,6 +834,9 @@ export class SupabaseManagementAPI {
     return result as v1ListAllSnippetsResponseSuccess;
   }
 
+  /**
+   * @summary Gets a specific SQL snippet
+   */
   async getASnippet(id: string, options?: RequestInit): Promise<v1GetASnippetResponseSuccess> {
     const result = await v1GetASnippet(id, {
       ...options,
@@ -746,6 +848,9 @@ export class SupabaseManagementAPI {
     return result as v1GetASnippetResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Get project's just-in-time access configuration.
+   */
   async getJitAccessConfig(ref: string, options?: RequestInit): Promise<v1GetJitAccessConfigResponseSuccess> {
     const result = await v1GetJitAccessConfig(ref, {
       ...options,
@@ -757,6 +862,9 @@ export class SupabaseManagementAPI {
     return result as v1GetJitAccessConfigResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Update project's just-in-time access configuration.
+   */
   async updateJitAccessConfig(ref: string, jitAccessRequestRequest: JitAccessRequestRequest, options?: RequestInit): Promise<v1UpdateJitAccessConfigResponseSuccess> {
     const result = await v1UpdateJitAccessConfig(ref, jitAccessRequestRequest, {
       ...options,
@@ -768,6 +876,9 @@ export class SupabaseManagementAPI {
     return result as v1UpdateJitAccessConfigResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Get project's SSL enforcement configuration.
+   */
   async getSslEnforcementConfig(ref: string, options?: RequestInit): Promise<v1GetSslEnforcementConfigResponseSuccess> {
     const result = await v1GetSslEnforcementConfig(ref, {
       ...options,
@@ -779,6 +890,9 @@ export class SupabaseManagementAPI {
     return result as v1GetSslEnforcementConfigResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Update project's SSL enforcement configuration.
+   */
   async updateSslEnforcementConfig(ref: string, sslEnforcementRequest: SslEnforcementRequest, options?: RequestInit): Promise<v1UpdateSslEnforcementConfigResponseSuccess> {
     const result = await v1UpdateSslEnforcementConfig(ref, sslEnforcementRequest, {
       ...options,
@@ -790,6 +904,10 @@ export class SupabaseManagementAPI {
     return result as v1UpdateSslEnforcementConfigResponseSuccess;
   }
 
+  /**
+   * Returns the TypeScript types of your schema for use with supabase-js.
+   * @summary Generate TypeScript types
+   */
   async generateTypescriptTypes(ref: string, params?: V1GenerateTypescriptTypesParams, options?: RequestInit): Promise<v1GenerateTypescriptTypesResponseSuccess> {
     const result = await v1GenerateTypescriptTypes(ref, params, {
       ...options,
@@ -801,6 +919,9 @@ export class SupabaseManagementAPI {
     return result as v1GenerateTypescriptTypesResponseSuccess;
   }
 
+  /**
+   * @summary Returns project's readonly mode status
+   */
   async getReadonlyModeStatus(ref: string, options?: RequestInit): Promise<v1GetReadonlyModeStatusResponseSuccess> {
     const result = await v1GetReadonlyModeStatus(ref, {
       ...options,
@@ -812,6 +933,9 @@ export class SupabaseManagementAPI {
     return result as v1GetReadonlyModeStatusResponseSuccess;
   }
 
+  /**
+   * @summary Disables project's readonly mode for the next 15 minutes
+   */
   async disableReadonlyModeTemporarily(ref: string, options?: RequestInit): Promise<v1DisableReadonlyModeTemporarilyResponseSuccess> {
     const result = await v1DisableReadonlyModeTemporarily(ref, {
       ...options,
@@ -823,6 +947,9 @@ export class SupabaseManagementAPI {
     return result as v1DisableReadonlyModeTemporarilyResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Set up a read replica
+   */
   async setupAReadReplica(ref: string, setUpReadReplicaBody: SetUpReadReplicaBody, options?: RequestInit): Promise<v1SetupAReadReplicaResponseSuccess> {
     const result = await v1SetupAReadReplica(ref, setUpReadReplicaBody, {
       ...options,
@@ -834,6 +961,9 @@ export class SupabaseManagementAPI {
     return result as v1SetupAReadReplicaResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Remove a read replica
+   */
   async removeAReadReplica(ref: string, removeReadReplicaBody: RemoveReadReplicaBody, options?: RequestInit): Promise<v1RemoveAReadReplicaResponseSuccess> {
     const result = await v1RemoveAReadReplica(ref, removeReadReplicaBody, {
       ...options,
@@ -845,6 +975,9 @@ export class SupabaseManagementAPI {
     return result as v1RemoveAReadReplicaResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Create a login role for CLI with temporary password
+   */
   async createLoginRole(ref: string, createRoleBody: CreateRoleBody, options?: RequestInit): Promise<v1CreateLoginRoleResponseSuccess> {
     const result = await v1CreateLoginRole(ref, createRoleBody, {
       ...options,
@@ -856,6 +989,9 @@ export class SupabaseManagementAPI {
     return result as v1CreateLoginRoleResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Delete existing login roles used by CLI
+   */
   async deleteLoginRoles(ref: string, options?: RequestInit): Promise<v1DeleteLoginRolesResponseSuccess> {
     const result = await v1DeleteLoginRoles(ref, {
       ...options,
@@ -867,6 +1003,10 @@ export class SupabaseManagementAPI {
     return result as v1DeleteLoginRolesResponseSuccess;
   }
 
+  /**
+   * Only available to selected partner OAuth apps
+   * @summary [Beta] List applied migration versions
+   */
   async listMigrationHistory(ref: string, options?: RequestInit): Promise<v1ListMigrationHistoryResponseSuccess> {
     const result = await v1ListMigrationHistory(ref, {
       ...options,
@@ -878,6 +1018,10 @@ export class SupabaseManagementAPI {
     return result as v1ListMigrationHistoryResponseSuccess;
   }
 
+  /**
+   * Only available to selected partner OAuth apps
+   * @summary [Beta] Apply a database migration
+   */
   async applyAMigration(ref: string, v1CreateMigrationBody: V1CreateMigrationBody, options?: RequestInit): Promise<v1ApplyAMigrationResponseSuccess> {
     const result = await v1ApplyAMigration(ref, v1CreateMigrationBody, {
       ...options,
@@ -889,6 +1033,10 @@ export class SupabaseManagementAPI {
     return result as v1ApplyAMigrationResponseSuccess;
   }
 
+  /**
+   * Only available to selected partner OAuth apps
+   * @summary [Beta] Upsert a database migration without applying
+   */
   async upsertAMigration(ref: string, v1UpsertMigrationBody: V1UpsertMigrationBody, options?: RequestInit): Promise<v1UpsertAMigrationResponseSuccess> {
     const result = await v1UpsertAMigration(ref, v1UpsertMigrationBody, {
       ...options,
@@ -900,6 +1048,10 @@ export class SupabaseManagementAPI {
     return result as v1UpsertAMigrationResponseSuccess;
   }
 
+  /**
+   * Only available to selected partner OAuth apps
+   * @summary [Beta] Rollback database migrations and remove them from history table
+   */
   async rollbackMigrations(ref: string, params: V1RollbackMigrationsParams, options?: RequestInit): Promise<v1RollbackMigrationsResponseSuccess> {
     const result = await v1RollbackMigrations(ref, params, {
       ...options,
@@ -911,6 +1063,10 @@ export class SupabaseManagementAPI {
     return result as v1RollbackMigrationsResponseSuccess;
   }
 
+  /**
+   * Only available to selected partner OAuth apps
+   * @summary [Beta] Fetch an existing entry from migration history
+   */
   async getAMigration(ref: string, version: string, options?: RequestInit): Promise<v1GetAMigrationResponseSuccess> {
     const result = await v1GetAMigration(ref, version, {
       ...options,
@@ -922,6 +1078,10 @@ export class SupabaseManagementAPI {
     return result as v1GetAMigrationResponseSuccess;
   }
 
+  /**
+   * Only available to selected partner OAuth apps
+   * @summary [Beta] Patch an existing entry in migration history
+   */
   async patchAMigration(ref: string, version: string, v1PatchMigrationBody: V1PatchMigrationBody, options?: RequestInit): Promise<v1PatchAMigrationResponseSuccess> {
     const result = await v1PatchAMigration(ref, version, v1PatchMigrationBody, {
       ...options,
@@ -933,6 +1093,9 @@ export class SupabaseManagementAPI {
     return result as v1PatchAMigrationResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Run sql query
+   */
   async runAQuery(ref: string, v1RunQueryBody: V1RunQueryBody, options?: RequestInit): Promise<v1RunAQueryResponseSuccess> {
     const result = await v1RunAQuery(ref, v1RunQueryBody, {
       ...options,
@@ -944,6 +1107,10 @@ export class SupabaseManagementAPI {
     return result as v1RunAQueryResponseSuccess;
   }
 
+  /**
+   * All entity references must be schema qualified.
+   * @summary [Beta] Run a sql query as supabase_read_only_user
+   */
   async readOnlyQuery(ref: string, v1ReadOnlyQueryBody: V1ReadOnlyQueryBody, options?: RequestInit): Promise<v1ReadOnlyQueryResponseSuccess> {
     const result = await v1ReadOnlyQuery(ref, v1ReadOnlyQueryBody, {
       ...options,
@@ -955,6 +1122,9 @@ export class SupabaseManagementAPI {
     return result as v1ReadOnlyQueryResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Enables Database Webhooks on the project
+   */
   async enableDatabaseWebhook(ref: string, options?: RequestInit): Promise<v1EnableDatabaseWebhookResponseSuccess> {
     const result = await v1EnableDatabaseWebhook(ref, {
       ...options,
@@ -966,6 +1136,11 @@ export class SupabaseManagementAPI {
     return result as v1EnableDatabaseWebhookResponseSuccess;
   }
 
+  /**
+   * This is an **experimental** endpoint. It is subject to change or removal in future versions. Use it with caution, as it may not remain supported or stable.
+   * @deprecated
+   * @summary Gets database metadata for the given project.
+   */
   async getDatabaseMetadata(ref: string, options?: RequestInit): Promise<v1GetDatabaseMetadataResponseSuccess> {
     const result = await v1GetDatabaseMetadata(ref, {
       ...options,
@@ -977,6 +1152,9 @@ export class SupabaseManagementAPI {
     return result as v1GetDatabaseMetadataResponseSuccess;
   }
 
+  /**
+   * @summary Updates the database password
+   */
   async updateDatabasePassword(ref: string, v1UpdatePasswordBody: V1UpdatePasswordBody, options?: RequestInit): Promise<v1UpdateDatabasePasswordResponseSuccess> {
     const result = await v1UpdateDatabasePassword(ref, v1UpdatePasswordBody, {
       ...options,
@@ -988,6 +1166,10 @@ export class SupabaseManagementAPI {
     return result as v1UpdateDatabasePasswordResponseSuccess;
   }
 
+  /**
+   * Mappings of roles a user can assume in the project database
+   * @summary Get user-id to role mappings for JIT access
+   */
   async getJitAccess(ref: string, options?: RequestInit): Promise<v1GetJitAccessResponseSuccess> {
     const result = await v1GetJitAccess(ref, {
       ...options,
@@ -999,6 +1181,10 @@ export class SupabaseManagementAPI {
     return result as v1GetJitAccessResponseSuccess;
   }
 
+  /**
+   * Authorizes the request to assume a role in the project database
+   * @summary Authorize user-id to role mappings for JIT access
+   */
   async authorizeJitAccess(ref: string, authorizeJitAccessBody: AuthorizeJitAccessBody, options?: RequestInit): Promise<v1AuthorizeJitAccessResponseSuccess> {
     const result = await v1AuthorizeJitAccess(ref, authorizeJitAccessBody, {
       ...options,
@@ -1010,6 +1196,10 @@ export class SupabaseManagementAPI {
     return result as v1AuthorizeJitAccessResponseSuccess;
   }
 
+  /**
+   * Modifies the roles that can be assumed and for how long
+   * @summary Updates a user mapping for JIT access
+   */
   async updateJitAccess(ref: string, updateJitAccessBody: UpdateJitAccessBody, options?: RequestInit): Promise<v1UpdateJitAccessResponseSuccess> {
     const result = await v1UpdateJitAccess(ref, updateJitAccessBody, {
       ...options,
@@ -1021,6 +1211,10 @@ export class SupabaseManagementAPI {
     return result as v1UpdateJitAccessResponseSuccess;
   }
 
+  /**
+   * Mappings of roles a user can assume in the project database
+   * @summary List all user-id to role mappings for JIT access
+   */
   async listJitAccess(ref: string, options?: RequestInit): Promise<v1ListJitAccessResponseSuccess> {
     const result = await v1ListJitAccess(ref, {
       ...options,
@@ -1032,6 +1226,10 @@ export class SupabaseManagementAPI {
     return result as v1ListJitAccessResponseSuccess;
   }
 
+  /**
+   * Remove JIT mappings of a user, revoking all JIT database access
+   * @summary Delete JIT access by user-id
+   */
   async deleteJitAccess(ref: string, userId: string, options?: RequestInit): Promise<v1DeleteJitAccessResponseSuccess> {
     const result = await v1DeleteJitAccess(ref, userId, {
       ...options,
@@ -1043,6 +1241,9 @@ export class SupabaseManagementAPI {
     return result as v1DeleteJitAccessResponseSuccess;
   }
 
+  /**
+   * @summary Get project's pgbouncer config
+   */
   async getProjectPgbouncerConfig(ref: string, options?: RequestInit): Promise<v1GetProjectPgbouncerConfigResponseSuccess> {
     const result = await v1GetProjectPgbouncerConfig(ref, {
       ...options,
@@ -1054,6 +1255,9 @@ export class SupabaseManagementAPI {
     return result as v1GetProjectPgbouncerConfigResponseSuccess;
   }
 
+  /**
+   * @summary Gets project's supavisor config
+   */
   async getPoolerConfig(ref: string, options?: RequestInit): Promise<v1GetPoolerConfigResponseSuccess> {
     const result = await v1GetPoolerConfig(ref, {
       ...options,
@@ -1065,6 +1269,9 @@ export class SupabaseManagementAPI {
     return result as v1GetPoolerConfigResponseSuccess;
   }
 
+  /**
+   * @summary Updates project's supavisor config
+   */
   async updatePoolerConfig(ref: string, updateSupavisorConfigBody: UpdateSupavisorConfigBody, options?: RequestInit): Promise<v1UpdatePoolerConfigResponseSuccess> {
     const result = await v1UpdatePoolerConfig(ref, updateSupavisorConfigBody, {
       ...options,
@@ -1076,6 +1283,9 @@ export class SupabaseManagementAPI {
     return result as v1UpdatePoolerConfigResponseSuccess;
   }
 
+  /**
+   * @summary Gets project's Postgres config
+   */
   async getPostgresConfig(ref: string, options?: RequestInit): Promise<v1GetPostgresConfigResponseSuccess> {
     const result = await v1GetPostgresConfig(ref, {
       ...options,
@@ -1087,6 +1297,9 @@ export class SupabaseManagementAPI {
     return result as v1GetPostgresConfigResponseSuccess;
   }
 
+  /**
+   * @summary Updates project's Postgres config
+   */
   async updatePostgresConfig(ref: string, updatePostgresConfigBody: UpdatePostgresConfigBody, options?: RequestInit): Promise<v1UpdatePostgresConfigResponseSuccess> {
     const result = await v1UpdatePostgresConfig(ref, updatePostgresConfigBody, {
       ...options,
@@ -1098,6 +1311,9 @@ export class SupabaseManagementAPI {
     return result as v1UpdatePostgresConfigResponseSuccess;
   }
 
+  /**
+   * @summary Lists all backups
+   */
   async listAllBackups(ref: string, options?: RequestInit): Promise<v1ListAllBackupsResponseSuccess> {
     const result = await v1ListAllBackups(ref, {
       ...options,
@@ -1109,6 +1325,9 @@ export class SupabaseManagementAPI {
     return result as v1ListAllBackupsResponseSuccess;
   }
 
+  /**
+   * @summary Restores a PITR backup for a database
+   */
   async restorePitrBackup(ref: string, v1RestorePitrBody: V1RestorePitrBody, options?: RequestInit): Promise<v1RestorePitrBackupResponseSuccess> {
     const result = await v1RestorePitrBackup(ref, v1RestorePitrBody, {
       ...options,
@@ -1120,6 +1339,9 @@ export class SupabaseManagementAPI {
     return result as v1RestorePitrBackupResponseSuccess;
   }
 
+  /**
+   * @summary Initiates a creation of a restore point for a database
+   */
   async createRestorePoint(ref: string, v1RestorePointPostBody: V1RestorePointPostBody, options?: RequestInit): Promise<v1CreateRestorePointResponseSuccess> {
     const result = await v1CreateRestorePoint(ref, v1RestorePointPostBody, {
       ...options,
@@ -1131,6 +1353,9 @@ export class SupabaseManagementAPI {
     return result as v1CreateRestorePointResponseSuccess;
   }
 
+  /**
+   * @summary Get restore points for project
+   */
   async getRestorePoint(ref: string, params?: V1GetRestorePointParams, options?: RequestInit): Promise<v1GetRestorePointResponseSuccess> {
     const result = await v1GetRestorePoint(ref, params, {
       ...options,
@@ -1142,6 +1367,9 @@ export class SupabaseManagementAPI {
     return result as v1GetRestorePointResponseSuccess;
   }
 
+  /**
+   * @summary Initiates an undo to a given restore point
+   */
   async undo(ref: string, v1UndoBody: V1UndoBody, options?: RequestInit): Promise<v1UndoResponseSuccess> {
     const result = await v1Undo(ref, v1UndoBody, {
       ...options,
@@ -1153,6 +1381,9 @@ export class SupabaseManagementAPI {
     return result as v1UndoResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Gets project's custom hostname config
+   */
   async getHostnameConfig(ref: string, options?: RequestInit): Promise<v1GetHostnameConfigResponseSuccess> {
     const result = await v1GetHostnameConfig(ref, {
       ...options,
@@ -1164,6 +1395,9 @@ export class SupabaseManagementAPI {
     return result as v1GetHostnameConfigResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Deletes a project's custom hostname configuration
+   */
   async deleteHostnameConfig(ref: string, options?: RequestInit): Promise<v1DeleteHostnameConfigResponseSuccess> {
     const result = await v1DeleteHostnameConfig(ref, {
       ...options,
@@ -1175,6 +1409,9 @@ export class SupabaseManagementAPI {
     return result as v1DeleteHostnameConfigResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Updates project's custom hostname configuration
+   */
   async updateHostnameConfig(ref: string, updateCustomHostnameBody: UpdateCustomHostnameBody, options?: RequestInit): Promise<v1UpdateHostnameConfigResponseSuccess> {
     const result = await v1UpdateHostnameConfig(ref, updateCustomHostnameBody, {
       ...options,
@@ -1186,6 +1423,9 @@ export class SupabaseManagementAPI {
     return result as v1UpdateHostnameConfigResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Attempts to verify the DNS configuration for project's custom hostname configuration
+   */
   async verifyDnsConfig(ref: string, options?: RequestInit): Promise<v1VerifyDnsConfigResponseSuccess> {
     const result = await v1VerifyDnsConfig(ref, {
       ...options,
@@ -1197,6 +1437,9 @@ export class SupabaseManagementAPI {
     return result as v1VerifyDnsConfigResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Activates a custom hostname for a project.
+   */
   async activateCustomHostname(ref: string, options?: RequestInit): Promise<v1ActivateCustomHostnameResponseSuccess> {
     const result = await v1ActivateCustomHostname(ref, {
       ...options,
@@ -1208,6 +1451,9 @@ export class SupabaseManagementAPI {
     return result as v1ActivateCustomHostnameResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Gets current vanity subdomain config
+   */
   async getVanitySubdomainConfig(ref: string, options?: RequestInit): Promise<v1GetVanitySubdomainConfigResponseSuccess> {
     const result = await v1GetVanitySubdomainConfig(ref, {
       ...options,
@@ -1219,6 +1465,9 @@ export class SupabaseManagementAPI {
     return result as v1GetVanitySubdomainConfigResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Deletes a project's vanity subdomain configuration
+   */
   async deactivateVanitySubdomainConfig(ref: string, options?: RequestInit): Promise<v1DeactivateVanitySubdomainConfigResponseSuccess> {
     const result = await v1DeactivateVanitySubdomainConfig(ref, {
       ...options,
@@ -1230,6 +1479,9 @@ export class SupabaseManagementAPI {
     return result as v1DeactivateVanitySubdomainConfigResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Checks vanity subdomain availability
+   */
   async checkVanitySubdomainAvailability(ref: string, vanitySubdomainBody: VanitySubdomainBody, options?: RequestInit): Promise<v1CheckVanitySubdomainAvailabilityResponseSuccess> {
     const result = await v1CheckVanitySubdomainAvailability(ref, vanitySubdomainBody, {
       ...options,
@@ -1241,6 +1493,9 @@ export class SupabaseManagementAPI {
     return result as v1CheckVanitySubdomainAvailabilityResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Activates a vanity subdomain for a project.
+   */
   async activateVanitySubdomainConfig(ref: string, vanitySubdomainBody: VanitySubdomainBody, options?: RequestInit): Promise<v1ActivateVanitySubdomainConfigResponseSuccess> {
     const result = await v1ActivateVanitySubdomainConfig(ref, vanitySubdomainBody, {
       ...options,
@@ -1252,6 +1507,10 @@ export class SupabaseManagementAPI {
     return result as v1ActivateVanitySubdomainConfigResponseSuccess;
   }
 
+  /**
+   * Returns all functions you've previously added to the specified project.
+   * @summary List all functions
+   */
   async listAllFunctions(ref: string, options?: RequestInit): Promise<v1ListAllFunctionsResponseSuccess> {
     const result = await v1ListAllFunctions(ref, {
       ...options,
@@ -1263,6 +1522,11 @@ export class SupabaseManagementAPI {
     return result as v1ListAllFunctionsResponseSuccess;
   }
 
+  /**
+   * This endpoint is deprecated - use the deploy endpoint. Creates a function and adds it to the specified project.
+   * @deprecated
+   * @summary Create a function
+   */
   async createAFunctionWithApplicationVndDenolandEszip(ref: string, v1CreateAFunctionWithApplicationVndDenolandEszipBody: Blob, params?: V1CreateAFunctionWithApplicationVndDenolandEszipParams, options?: RequestInit): Promise<v1CreateAFunctionWithApplicationVndDenolandEszipResponseSuccess> {
     const result = await v1CreateAFunctionWithApplicationVndDenolandEszip(ref, v1CreateAFunctionWithApplicationVndDenolandEszipBody, params, {
       ...options,
@@ -1274,6 +1538,11 @@ export class SupabaseManagementAPI {
     return result as v1CreateAFunctionWithApplicationVndDenolandEszipResponseSuccess;
   }
 
+  /**
+   * This endpoint is deprecated - use the deploy endpoint. Creates a function and adds it to the specified project.
+   * @deprecated
+   * @summary Create a function
+   */
   async createAFunctionWithJson(ref: string, v1CreateFunctionBody: V1CreateFunctionBody, params?: V1CreateAFunctionWithJsonParams, options?: RequestInit): Promise<v1CreateAFunctionWithJsonResponseSuccess> {
     const result = await v1CreateAFunctionWithJson(ref, v1CreateFunctionBody, params, {
       ...options,
@@ -1285,6 +1554,10 @@ export class SupabaseManagementAPI {
     return result as v1CreateAFunctionWithJsonResponseSuccess;
   }
 
+  /**
+   * Bulk update functions. It will create a new function or replace existing. The operation is idempotent. NOTE: You will need to manually bump the version.
+   * @summary Bulk update functions
+   */
   async bulkUpdateFunctions(ref: string, bulkUpdateFunctionBody: BulkUpdateFunctionBody, options?: RequestInit): Promise<v1BulkUpdateFunctionsResponseSuccess> {
     const result = await v1BulkUpdateFunctions(ref, bulkUpdateFunctionBody, {
       ...options,
@@ -1296,6 +1569,10 @@ export class SupabaseManagementAPI {
     return result as v1BulkUpdateFunctionsResponseSuccess;
   }
 
+  /**
+   * A new endpoint to deploy functions. It will create if function does not exist.
+   * @summary Deploy a function
+   */
   async deployAFunction(ref: string, functionDeployBody: FunctionDeployBody, params?: V1DeployAFunctionParams, options?: RequestInit): Promise<v1DeployAFunctionResponseSuccess> {
     const result = await v1DeployAFunction(ref, functionDeployBody, params, {
       ...options,
@@ -1307,6 +1584,10 @@ export class SupabaseManagementAPI {
     return result as v1DeployAFunctionResponseSuccess;
   }
 
+  /**
+   * Retrieves a function with the specified slug and project.
+   * @summary Retrieve a function
+   */
   async getAFunction(ref: string, functionSlug: string, options?: RequestInit): Promise<v1GetAFunctionResponseSuccess> {
     const result = await v1GetAFunction(ref, functionSlug, {
       ...options,
@@ -1318,6 +1599,10 @@ export class SupabaseManagementAPI {
     return result as v1GetAFunctionResponseSuccess;
   }
 
+  /**
+   * Updates a function with the specified slug and project.
+   * @summary Update a function
+   */
   async updateAFunctionWithApplicationVndDenolandEszip(ref: string, functionSlug: string, v1UpdateAFunctionWithApplicationVndDenolandEszipBody: Blob, params?: V1UpdateAFunctionWithApplicationVndDenolandEszipParams, options?: RequestInit): Promise<v1UpdateAFunctionWithApplicationVndDenolandEszipResponseSuccess> {
     const result = await v1UpdateAFunctionWithApplicationVndDenolandEszip(ref, functionSlug, v1UpdateAFunctionWithApplicationVndDenolandEszipBody, params, {
       ...options,
@@ -1329,6 +1614,10 @@ export class SupabaseManagementAPI {
     return result as v1UpdateAFunctionWithApplicationVndDenolandEszipResponseSuccess;
   }
 
+  /**
+   * Updates a function with the specified slug and project.
+   * @summary Update a function
+   */
   async updateAFunctionWithJson(ref: string, functionSlug: string, v1UpdateFunctionBody: V1UpdateFunctionBody, params?: V1UpdateAFunctionWithJsonParams, options?: RequestInit): Promise<v1UpdateAFunctionWithJsonResponseSuccess> {
     const result = await v1UpdateAFunctionWithJson(ref, functionSlug, v1UpdateFunctionBody, params, {
       ...options,
@@ -1340,6 +1629,10 @@ export class SupabaseManagementAPI {
     return result as v1UpdateAFunctionWithJsonResponseSuccess;
   }
 
+  /**
+   * Deletes a function with the specified slug from the specified project.
+   * @summary Delete a function
+   */
   async deleteAFunction(ref: string, functionSlug: string, options?: RequestInit): Promise<v1DeleteAFunctionResponseSuccess> {
     const result = await v1DeleteAFunction(ref, functionSlug, {
       ...options,
@@ -1351,6 +1644,10 @@ export class SupabaseManagementAPI {
     return result as v1DeleteAFunctionResponseSuccess;
   }
 
+  /**
+   * Retrieves a function body for the specified slug and project.
+   * @summary Retrieve a function body
+   */
   async getAFunctionBody(ref: string, functionSlug: string, options?: RequestInit): Promise<v1GetAFunctionBodyResponseSuccess> {
     const result = await v1GetAFunctionBody(ref, functionSlug, {
       ...options,
@@ -1362,6 +1659,10 @@ export class SupabaseManagementAPI {
     return result as v1GetAFunctionBodyResponseSuccess;
   }
 
+  /**
+   * Fetches configurations of the specified database branch
+   * @summary Get database branch config
+   */
   async getABranchConfig(branchIdOrRef: string, options?: RequestInit): Promise<v1GetABranchConfigResponseSuccess> {
     const result = await v1GetABranchConfig(branchIdOrRef, {
       ...options,
@@ -1373,6 +1674,10 @@ export class SupabaseManagementAPI {
     return result as v1GetABranchConfigResponseSuccess;
   }
 
+  /**
+   * Updates the configuration of the specified database branch
+   * @summary Update database branch config
+   */
   async updateABranchConfig(branchIdOrRef: string, updateBranchBody: UpdateBranchBody, options?: RequestInit): Promise<v1UpdateABranchConfigResponseSuccess> {
     const result = await v1UpdateABranchConfig(branchIdOrRef, updateBranchBody, {
       ...options,
@@ -1384,6 +1689,10 @@ export class SupabaseManagementAPI {
     return result as v1UpdateABranchConfigResponseSuccess;
   }
 
+  /**
+   * Deletes the specified database branch. By default, deletes immediately. Use force=false to schedule deletion with 1-hour grace period (only when soft deletion is enabled).
+   * @summary Delete a database branch
+   */
   async deleteABranch(branchIdOrRef: string, params?: V1DeleteABranchParams, options?: RequestInit): Promise<v1DeleteABranchResponseSuccess> {
     const result = await v1DeleteABranch(branchIdOrRef, params, {
       ...options,
@@ -1395,6 +1704,10 @@ export class SupabaseManagementAPI {
     return result as v1DeleteABranchResponseSuccess;
   }
 
+  /**
+   * Pushes the specified database branch
+   * @summary Pushes a database branch
+   */
   async pushABranch(branchIdOrRef: string, branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1PushABranchResponseSuccess> {
     const result = await v1PushABranch(branchIdOrRef, branchActionBody, {
       ...options,
@@ -1406,6 +1719,10 @@ export class SupabaseManagementAPI {
     return result as v1PushABranchResponseSuccess;
   }
 
+  /**
+   * Merges the specified database branch
+   * @summary Merges a database branch
+   */
   async mergeABranch(branchIdOrRef: string, branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1MergeABranchResponseSuccess> {
     const result = await v1MergeABranch(branchIdOrRef, branchActionBody, {
       ...options,
@@ -1417,6 +1734,10 @@ export class SupabaseManagementAPI {
     return result as v1MergeABranchResponseSuccess;
   }
 
+  /**
+   * Resets the specified database branch
+   * @summary Resets a database branch
+   */
   async resetABranch(branchIdOrRef: string, branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1ResetABranchResponseSuccess> {
     const result = await v1ResetABranch(branchIdOrRef, branchActionBody, {
       ...options,
@@ -1428,6 +1749,10 @@ export class SupabaseManagementAPI {
     return result as v1ResetABranchResponseSuccess;
   }
 
+  /**
+   * Cancels scheduled deletion and restores the branch to active state
+   * @summary Restore a scheduled branch deletion
+   */
   async restoreABranch(branchIdOrRef: string, options?: RequestInit): Promise<v1RestoreABranchResponseSuccess> {
     const result = await v1RestoreABranch(branchIdOrRef, {
       ...options,
@@ -1439,6 +1764,10 @@ export class SupabaseManagementAPI {
     return result as v1RestoreABranchResponseSuccess;
   }
 
+  /**
+   * Diffs the specified database branch
+   * @summary [Beta] Diffs a database branch
+   */
   async diffABranch(branchIdOrRef: string, params?: V1DiffABranchParams, options?: RequestInit): Promise<v1DiffABranchResponseSuccess> {
     const result = await v1DiffABranch(branchIdOrRef, params, {
       ...options,
@@ -1450,6 +1779,10 @@ export class SupabaseManagementAPI {
     return result as v1DiffABranchResponseSuccess;
   }
 
+  /**
+   * Returns a paginated list of action runs of the specified project.
+   * @summary List all action runs
+   */
   async listActionRuns(ref: string, params?: V1ListActionRunsParams, options?: RequestInit): Promise<v1ListActionRunsResponseSuccess> {
     const result = await v1ListActionRuns(ref, params, {
       ...options,
@@ -1461,6 +1794,10 @@ export class SupabaseManagementAPI {
     return result as v1ListActionRunsResponseSuccess;
   }
 
+  /**
+   * Returns the total number of action runs of the specified project.
+   * @summary Count the number of action runs
+   */
   async countActionRuns(ref: string, options?: RequestInit): Promise<v1CountActionRunsResponseSuccess> {
     const result = await v1CountActionRuns(ref, {
       ...options,
@@ -1472,6 +1809,10 @@ export class SupabaseManagementAPI {
     return result as v1CountActionRunsResponseSuccess;
   }
 
+  /**
+   * Returns the current status of the specified action run.
+   * @summary Get the status of an action run
+   */
   async getActionRun(ref: string, runId: string, options?: RequestInit): Promise<v1GetActionRunResponseSuccess> {
     const result = await v1GetActionRun(ref, runId, {
       ...options,
@@ -1483,6 +1824,10 @@ export class SupabaseManagementAPI {
     return result as v1GetActionRunResponseSuccess;
   }
 
+  /**
+   * Updates the status of an ongoing action run.
+   * @summary Update the status of an action run
+   */
   async updateActionRunStatus(ref: string, runId: string, updateRunStatusBody: UpdateRunStatusBody, options?: RequestInit): Promise<v1UpdateActionRunStatusResponseSuccess> {
     const result = await v1UpdateActionRunStatus(ref, runId, updateRunStatusBody, {
       ...options,
@@ -1494,6 +1839,10 @@ export class SupabaseManagementAPI {
     return result as v1UpdateActionRunStatusResponseSuccess;
   }
 
+  /**
+   * Returns the logs from the specified action run.
+   * @summary Get the logs of an action run
+   */
   async getActionRunLogs(ref: string, runId: string, options?: RequestInit): Promise<v1GetActionRunLogsResponseSuccess> {
     const result = await v1GetActionRunLogs(ref, runId, {
       ...options,
@@ -1505,6 +1854,10 @@ export class SupabaseManagementAPI {
     return result as v1GetActionRunLogsResponseSuccess;
   }
 
+  /**
+   * Returns all database branches of the specified project.
+   * @summary List all database branches
+   */
   async listAllBranches(ref: string, options?: RequestInit): Promise<v1ListAllBranchesResponseSuccess> {
     const result = await v1ListAllBranches(ref, {
       ...options,
@@ -1516,6 +1869,10 @@ export class SupabaseManagementAPI {
     return result as v1ListAllBranchesResponseSuccess;
   }
 
+  /**
+   * Creates a database branch from the specified project.
+   * @summary Create a database branch
+   */
   async createABranch(ref: string, createBranchBody: CreateBranchBody, options?: RequestInit): Promise<v1CreateABranchResponseSuccess> {
     const result = await v1CreateABranch(ref, createBranchBody, {
       ...options,
@@ -1527,6 +1884,10 @@ export class SupabaseManagementAPI {
     return result as v1CreateABranchResponseSuccess;
   }
 
+  /**
+   * Disables preview branching for the specified project
+   * @summary Disables preview branching
+   */
   async disablePreviewBranching(ref: string, options?: RequestInit): Promise<v1DisablePreviewBranchingResponseSuccess> {
     const result = await v1DisablePreviewBranching(ref, {
       ...options,
@@ -1538,6 +1899,10 @@ export class SupabaseManagementAPI {
     return result as v1DisablePreviewBranchingResponseSuccess;
   }
 
+  /**
+   * Fetches the specified database branch by its name.
+   * @summary Get a database branch
+   */
   async getABranch(ref: string, name: string, options?: RequestInit): Promise<v1GetABranchResponseSuccess> {
     const result = await v1GetABranch(ref, name, {
       ...options,
@@ -1549,6 +1914,9 @@ export class SupabaseManagementAPI {
     return result as v1GetABranchResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Authorize user through oauth
+   */
   async authorizeUser(params: V1AuthorizeUserParams, options?: RequestInit): Promise<v1AuthorizeUserResponseSuccess> {
     const result = await v1AuthorizeUser(params, {
       ...options,
@@ -1560,6 +1928,9 @@ export class SupabaseManagementAPI {
     return result as v1AuthorizeUserResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Exchange auth code for user's access and refresh token
+   */
   async exchangeOauthToken(oAuthTokenBody: OAuthTokenBody, options?: RequestInit): Promise<v1ExchangeOauthTokenResponseSuccess> {
     const result = await v1ExchangeOauthToken(oAuthTokenBody, {
       ...options,
@@ -1571,6 +1942,9 @@ export class SupabaseManagementAPI {
     return result as v1ExchangeOauthTokenResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Revoke oauth app authorization and it's corresponding tokens
+   */
   async revokeToken(oAuthRevokeTokenBody: OAuthRevokeTokenBody, options?: RequestInit): Promise<v1RevokeTokenResponseSuccess> {
     const result = await v1RevokeToken(oAuthRevokeTokenBody, {
       ...options,
@@ -1582,6 +1956,10 @@ export class SupabaseManagementAPI {
     return result as v1RevokeTokenResponseSuccess;
   }
 
+  /**
+   * Initiates the OAuth authorization flow for the specified provider. After successful authentication, the user can claim ownership of the specified project.
+   * @summary Authorize user through oauth and claim a project
+   */
   async oauthAuthorizeProjectClaim(params: V1OauthAuthorizeProjectClaimParams, options?: RequestInit): Promise<v1OauthAuthorizeProjectClaimResponseSuccess> {
     const result = await v1OauthAuthorizeProjectClaim(params, {
       ...options,
@@ -1593,6 +1971,10 @@ export class SupabaseManagementAPI {
     return result as v1OauthAuthorizeProjectClaimResponseSuccess;
   }
 
+  /**
+   * Returns a list of organizations that you currently belong to.
+   * @summary List all organizations
+   */
   async listAllOrganizations(options?: RequestInit): Promise<v1ListAllOrganizationsResponseSuccess> {
     const result = await v1ListAllOrganizations({
       ...options,
@@ -1604,6 +1986,9 @@ export class SupabaseManagementAPI {
     return result as v1ListAllOrganizationsResponseSuccess;
   }
 
+  /**
+   * @summary Create an organization
+   */
   async createAnOrganization(createOrganizationV1: CreateOrganizationV1, options?: RequestInit): Promise<v1CreateAnOrganizationResponseSuccess> {
     const result = await v1CreateAnOrganization(createOrganizationV1, {
       ...options,
@@ -1615,6 +2000,9 @@ export class SupabaseManagementAPI {
     return result as v1CreateAnOrganizationResponseSuccess;
   }
 
+  /**
+   * @summary List members of an organization
+   */
   async listOrganizationMembers(slug: string, options?: RequestInit): Promise<v1ListOrganizationMembersResponseSuccess> {
     const result = await v1ListOrganizationMembers(slug, {
       ...options,
@@ -1626,6 +2014,9 @@ export class SupabaseManagementAPI {
     return result as v1ListOrganizationMembersResponseSuccess;
   }
 
+  /**
+   * @summary Gets information about the organization
+   */
   async getAnOrganization(slug: string, options?: RequestInit): Promise<v1GetAnOrganizationResponseSuccess> {
     const result = await v1GetAnOrganization(slug, {
       ...options,
@@ -1637,6 +2028,9 @@ export class SupabaseManagementAPI {
     return result as v1GetAnOrganizationResponseSuccess;
   }
 
+  /**
+   * @summary Gets project details for the specified organization and claim token
+   */
   async getOrganizationProjectClaim(slug: string, token: string, options?: RequestInit): Promise<v1GetOrganizationProjectClaimResponseSuccess> {
     const result = await v1GetOrganizationProjectClaim(slug, token, {
       ...options,
@@ -1648,6 +2042,9 @@ export class SupabaseManagementAPI {
     return result as v1GetOrganizationProjectClaimResponseSuccess;
   }
 
+  /**
+   * @summary Claims project for the specified organization
+   */
   async claimProjectForOrganization(slug: string, token: string, options?: RequestInit): Promise<v1ClaimProjectForOrganizationResponseSuccess> {
     const result = await v1ClaimProjectForOrganization(slug, token, {
       ...options,
@@ -1659,6 +2056,12 @@ export class SupabaseManagementAPI {
     return result as v1ClaimProjectForOrganizationResponseSuccess;
   }
 
+  /**
+   * Returns a list of all projects you've previously created.
+  
+  Use `/v1/organizations/{slug}/projects` instead when possible to get more precise results and pagination support.
+   * @summary List all projects
+   */
   async listAllProjects(options?: RequestInit): Promise<v1ListAllProjectsResponseSuccess> {
     const result = await v1ListAllProjects({
       ...options,
@@ -1670,6 +2073,9 @@ export class SupabaseManagementAPI {
     return result as v1ListAllProjectsResponseSuccess;
   }
 
+  /**
+   * @summary Create a project
+   */
   async createAProject(v1CreateProjectBody: V1CreateProjectBody, options?: RequestInit): Promise<v1CreateAProjectResponseSuccess> {
     const result = await v1CreateAProject(v1CreateProjectBody, {
       ...options,
@@ -1681,6 +2087,9 @@ export class SupabaseManagementAPI {
     return result as v1CreateAProjectResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Gets the list of available regions that can be used for a new project
+   */
   async getAvailableRegions(params: V1GetAvailableRegionsParams, options?: RequestInit): Promise<v1GetAvailableRegionsResponseSuccess> {
     const result = await v1GetAvailableRegions(params, {
       ...options,
@@ -1692,6 +2101,9 @@ export class SupabaseManagementAPI {
     return result as v1GetAvailableRegionsResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Gets project's network bans
+   */
   async listAllNetworkBans(ref: string, options?: RequestInit): Promise<v1ListAllNetworkBansResponseSuccess> {
     const result = await v1ListAllNetworkBans(ref, {
       ...options,
@@ -1703,6 +2115,9 @@ export class SupabaseManagementAPI {
     return result as v1ListAllNetworkBansResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Gets project's network bans with additional information about which databases they affect
+   */
   async listAllNetworkBansEnriched(ref: string, options?: RequestInit): Promise<v1ListAllNetworkBansEnrichedResponseSuccess> {
     const result = await v1ListAllNetworkBansEnriched(ref, {
       ...options,
@@ -1714,6 +2129,9 @@ export class SupabaseManagementAPI {
     return result as v1ListAllNetworkBansEnrichedResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Remove network bans.
+   */
   async deleteNetworkBans(ref: string, removeNetworkBanRequest: RemoveNetworkBanRequest, options?: RequestInit): Promise<v1DeleteNetworkBansResponseSuccess> {
     const result = await v1DeleteNetworkBans(ref, removeNetworkBanRequest, {
       ...options,
@@ -1725,6 +2143,9 @@ export class SupabaseManagementAPI {
     return result as v1DeleteNetworkBansResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Gets project's network restrictions
+   */
   async getNetworkRestrictions(ref: string, options?: RequestInit): Promise<v1GetNetworkRestrictionsResponseSuccess> {
     const result = await v1GetNetworkRestrictions(ref, {
       ...options,
@@ -1736,6 +2157,9 @@ export class SupabaseManagementAPI {
     return result as v1GetNetworkRestrictionsResponseSuccess;
   }
 
+  /**
+   * @summary [Alpha] Updates project's network restrictions by adding or removing CIDRs
+   */
   async patchNetworkRestrictions(ref: string, networkRestrictionsPatchRequest: NetworkRestrictionsPatchRequest, options?: RequestInit): Promise<v1PatchNetworkRestrictionsResponseSuccess> {
     const result = await v1PatchNetworkRestrictions(ref, networkRestrictionsPatchRequest, {
       ...options,
@@ -1747,6 +2171,9 @@ export class SupabaseManagementAPI {
     return result as v1PatchNetworkRestrictionsResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Updates project's network restrictions
+   */
   async updateNetworkRestrictions(ref: string, networkRestrictionsRequest: NetworkRestrictionsRequest, options?: RequestInit): Promise<v1UpdateNetworkRestrictionsResponseSuccess> {
     const result = await v1UpdateNetworkRestrictions(ref, networkRestrictionsRequest, {
       ...options,
@@ -1758,6 +2185,9 @@ export class SupabaseManagementAPI {
     return result as v1UpdateNetworkRestrictionsResponseSuccess;
   }
 
+  /**
+   * @summary Gets a specific project that belongs to the authenticated user
+   */
   async getProject(ref: string, options?: RequestInit): Promise<v1GetProjectResponseSuccess> {
     const result = await v1GetProject(ref, {
       ...options,
@@ -1769,6 +2199,9 @@ export class SupabaseManagementAPI {
     return result as v1GetProjectResponseSuccess;
   }
 
+  /**
+   * @summary Deletes the given project
+   */
   async deleteAProject(ref: string, options?: RequestInit): Promise<v1DeleteAProjectResponseSuccess> {
     const result = await v1DeleteAProject(ref, {
       ...options,
@@ -1780,6 +2213,9 @@ export class SupabaseManagementAPI {
     return result as v1DeleteAProjectResponseSuccess;
   }
 
+  /**
+   * @summary Updates the given project
+   */
   async updateAProject(ref: string, v1UpdateProjectBody: V1UpdateProjectBody, options?: RequestInit): Promise<v1UpdateAProjectResponseSuccess> {
     const result = await v1UpdateAProject(ref, v1UpdateProjectBody, {
       ...options,
@@ -1791,6 +2227,9 @@ export class SupabaseManagementAPI {
     return result as v1UpdateAProjectResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Upgrades the project's Postgres version
+   */
   async upgradePostgresVersion(ref: string, upgradeDatabaseBody: UpgradeDatabaseBody, options?: RequestInit): Promise<v1UpgradePostgresVersionResponseSuccess> {
     const result = await v1UpgradePostgresVersion(ref, upgradeDatabaseBody, {
       ...options,
@@ -1802,6 +2241,9 @@ export class SupabaseManagementAPI {
     return result as v1UpgradePostgresVersionResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Returns the project's eligibility for upgrades
+   */
   async getPostgresUpgradeEligibility(ref: string, options?: RequestInit): Promise<v1GetPostgresUpgradeEligibilityResponseSuccess> {
     const result = await v1GetPostgresUpgradeEligibility(ref, {
       ...options,
@@ -1813,6 +2255,9 @@ export class SupabaseManagementAPI {
     return result as v1GetPostgresUpgradeEligibilityResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Gets the latest status of the project's upgrade
+   */
   async getPostgresUpgradeStatus(ref: string, params?: V1GetPostgresUpgradeStatusParams, options?: RequestInit): Promise<v1GetPostgresUpgradeStatusResponseSuccess> {
     const result = await v1GetPostgresUpgradeStatus(ref, params, {
       ...options,
@@ -1824,6 +2269,9 @@ export class SupabaseManagementAPI {
     return result as v1GetPostgresUpgradeStatusResponseSuccess;
   }
 
+  /**
+   * @summary Gets project's service health status
+   */
   async getServicesHealth(ref: string, params: V1GetServicesHealthParams, options?: RequestInit): Promise<v1GetServicesHealthResponseSuccess> {
     const result = await v1GetServicesHealth(ref, params, {
       ...options,
@@ -1835,6 +2283,9 @@ export class SupabaseManagementAPI {
     return result as v1GetServicesHealthResponseSuccess;
   }
 
+  /**
+   * @summary Pauses the given project
+   */
   async pauseAProject(ref: string, options?: RequestInit): Promise<v1PauseAProjectResponseSuccess> {
     const result = await v1PauseAProject(ref, {
       ...options,
@@ -1846,6 +2297,9 @@ export class SupabaseManagementAPI {
     return result as v1PauseAProjectResponseSuccess;
   }
 
+  /**
+   * @summary Lists available restore versions for the given project
+   */
   async listAvailableRestoreVersions(ref: string, options?: RequestInit): Promise<v1ListAvailableRestoreVersionsResponseSuccess> {
     const result = await v1ListAvailableRestoreVersions(ref, {
       ...options,
@@ -1857,6 +2311,9 @@ export class SupabaseManagementAPI {
     return result as v1ListAvailableRestoreVersionsResponseSuccess;
   }
 
+  /**
+   * @summary Restores the given project
+   */
   async restoreAProject(ref: string, options?: RequestInit): Promise<v1RestoreAProjectResponseSuccess> {
     const result = await v1RestoreAProject(ref, {
       ...options,
@@ -1868,6 +2325,9 @@ export class SupabaseManagementAPI {
     return result as v1RestoreAProjectResponseSuccess;
   }
 
+  /**
+   * @summary Cancels the given project restoration
+   */
   async cancelAProjectRestoration(ref: string, options?: RequestInit): Promise<v1CancelAProjectRestorationResponseSuccess> {
     const result = await v1CancelAProjectRestoration(ref, {
       ...options,
@@ -1879,6 +2339,9 @@ export class SupabaseManagementAPI {
     return result as v1CancelAProjectRestorationResponseSuccess;
   }
 
+  /**
+   * @summary Gets project claim token
+   */
   async getProjectClaimToken(ref: string, options?: RequestInit): Promise<v1GetProjectClaimTokenResponseSuccess> {
     const result = await v1GetProjectClaimToken(ref, {
       ...options,
@@ -1890,6 +2353,9 @@ export class SupabaseManagementAPI {
     return result as v1GetProjectClaimTokenResponseSuccess;
   }
 
+  /**
+   * @summary Creates project claim token
+   */
   async createProjectClaimToken(ref: string, options?: RequestInit): Promise<v1CreateProjectClaimTokenResponseSuccess> {
     const result = await v1CreateProjectClaimToken(ref, {
       ...options,
@@ -1901,6 +2367,9 @@ export class SupabaseManagementAPI {
     return result as v1CreateProjectClaimTokenResponseSuccess;
   }
 
+  /**
+   * @summary Revokes project claim token
+   */
   async deleteProjectClaimToken(ref: string, options?: RequestInit): Promise<v1DeleteProjectClaimTokenResponseSuccess> {
     const result = await v1DeleteProjectClaimToken(ref, {
       ...options,
@@ -1912,6 +2381,9 @@ export class SupabaseManagementAPI {
     return result as v1DeleteProjectClaimTokenResponseSuccess;
   }
 
+  /**
+   * @summary Get disk utilization
+   */
   async getDiskUtilization(ref: string, options?: RequestInit): Promise<v1GetDiskUtilizationResponseSuccess> {
     const result = await v1GetDiskUtilization(ref, {
       ...options,
@@ -1923,6 +2395,9 @@ export class SupabaseManagementAPI {
     return result as v1GetDiskUtilizationResponseSuccess;
   }
 
+  /**
+   * @summary Modify database disk
+   */
   async modifyDatabaseDisk(ref: string, diskRequestBody: DiskRequestBody, options?: RequestInit): Promise<v1ModifyDatabaseDiskResponseSuccess> {
     const result = await v1ModifyDatabaseDisk(ref, diskRequestBody, {
       ...options,
@@ -1934,6 +2409,9 @@ export class SupabaseManagementAPI {
     return result as v1ModifyDatabaseDiskResponseSuccess;
   }
 
+  /**
+   * @summary Gets project disk autoscale config
+   */
   async getProjectDiskAutoscaleConfig(ref: string, options?: RequestInit): Promise<v1GetProjectDiskAutoscaleConfigResponseSuccess> {
     const result = await v1GetProjectDiskAutoscaleConfig(ref, {
       ...options,
@@ -1945,6 +2423,12 @@ export class SupabaseManagementAPI {
     return result as v1GetProjectDiskAutoscaleConfigResponseSuccess;
   }
 
+  /**
+   * Returns a paginated list of projects for the specified organization.
+  
+  This endpoint uses offset-based pagination. Use the `offset` parameter to skip a number of projects and the `limit` parameter to control the number of projects returned per page.
+   * @summary Gets all projects for the given organization
+   */
   async getAllProjectsForOrganization(slug: string, params?: V1GetAllProjectsForOrganizationParams, options?: RequestInit): Promise<v1GetAllProjectsForOrganizationResponseSuccess> {
     const result = await v1GetAllProjectsForOrganization(slug, params, {
       ...options,
@@ -1956,6 +2440,9 @@ export class SupabaseManagementAPI {
     return result as v1GetAllProjectsForOrganizationResponseSuccess;
   }
 
+  /**
+   * @summary Gets realtime configuration
+   */
   async getRealtimeConfig(ref: string, options?: RequestInit): Promise<v1GetRealtimeConfigResponseSuccess> {
     const result = await v1GetRealtimeConfig(ref, {
       ...options,
@@ -1967,6 +2454,9 @@ export class SupabaseManagementAPI {
     return result as v1GetRealtimeConfigResponseSuccess;
   }
 
+  /**
+   * @summary Updates realtime configuration
+   */
   async updateRealtimeConfig(ref: string, updateRealtimeConfigBody: UpdateRealtimeConfigBody, options?: RequestInit): Promise<v1UpdateRealtimeConfigResponseSuccess> {
     const result = await v1UpdateRealtimeConfig(ref, updateRealtimeConfigBody, {
       ...options,
@@ -1978,6 +2468,9 @@ export class SupabaseManagementAPI {
     return result as v1UpdateRealtimeConfigResponseSuccess;
   }
 
+  /**
+   * @summary Shutdowns realtime connections for a project
+   */
   async shutdownRealtime(ref: string, options?: RequestInit): Promise<v1ShutdownRealtimeResponseSuccess> {
     const result = await v1ShutdownRealtime(ref, {
       ...options,
@@ -1989,6 +2482,9 @@ export class SupabaseManagementAPI {
     return result as v1ShutdownRealtimeResponseSuccess;
   }
 
+  /**
+   * @summary Gets project's postgrest config
+   */
   async getPostgrestServiceConfig(ref: string, options?: RequestInit): Promise<v1GetPostgrestServiceConfigResponseSuccess> {
     const result = await v1GetPostgrestServiceConfig(ref, {
       ...options,
@@ -2000,6 +2496,9 @@ export class SupabaseManagementAPI {
     return result as v1GetPostgrestServiceConfigResponseSuccess;
   }
 
+  /**
+   * @summary Updates project's postgrest config
+   */
   async updatePostgrestServiceConfig(ref: string, v1UpdatePostgrestConfigBody: V1UpdatePostgrestConfigBody, options?: RequestInit): Promise<v1UpdatePostgrestServiceConfigResponseSuccess> {
     const result = await v1UpdatePostgrestServiceConfig(ref, v1UpdatePostgrestConfigBody, {
       ...options,
@@ -2011,6 +2510,9 @@ export class SupabaseManagementAPI {
     return result as v1UpdatePostgrestServiceConfigResponseSuccess;
   }
 
+  /**
+   * @summary Get project api keys
+   */
   async getProjectApiKeys(ref: string, params?: V1GetProjectApiKeysParams, options?: RequestInit): Promise<v1GetProjectApiKeysResponseSuccess> {
     const result = await v1GetProjectApiKeys(ref, params, {
       ...options,
@@ -2022,6 +2524,9 @@ export class SupabaseManagementAPI {
     return result as v1GetProjectApiKeysResponseSuccess;
   }
 
+  /**
+   * @summary Creates a new API key for the project
+   */
   async createProjectApiKey(ref: string, createApiKeyBody: CreateApiKeyBody, params?: V1CreateProjectApiKeyParams, options?: RequestInit): Promise<v1CreateProjectApiKeyResponseSuccess> {
     const result = await v1CreateProjectApiKey(ref, createApiKeyBody, params, {
       ...options,
@@ -2033,6 +2538,9 @@ export class SupabaseManagementAPI {
     return result as v1CreateProjectApiKeyResponseSuccess;
   }
 
+  /**
+   * @summary Check whether JWT based legacy (anon, service_role) API keys are enabled. This API endpoint will be removed in the future, check for HTTP 404 Not Found.
+   */
   async getProjectLegacyApiKeys(ref: string, options?: RequestInit): Promise<v1GetProjectLegacyApiKeysResponseSuccess> {
     const result = await v1GetProjectLegacyApiKeys(ref, {
       ...options,
@@ -2044,6 +2552,9 @@ export class SupabaseManagementAPI {
     return result as v1GetProjectLegacyApiKeysResponseSuccess;
   }
 
+  /**
+   * @summary Disable or re-enable JWT based legacy (anon, service_role) API keys. This API endpoint will be removed in the future, check for HTTP 404 Not Found.
+   */
   async updateProjectLegacyApiKeys(ref: string, params: V1UpdateProjectLegacyApiKeysParams, options?: RequestInit): Promise<v1UpdateProjectLegacyApiKeysResponseSuccess> {
     const result = await v1UpdateProjectLegacyApiKeys(ref, params, {
       ...options,
@@ -2055,6 +2566,9 @@ export class SupabaseManagementAPI {
     return result as v1UpdateProjectLegacyApiKeysResponseSuccess;
   }
 
+  /**
+   * @summary Updates an API key for the project
+   */
   async updateProjectApiKey(ref: string, id: string, updateApiKeyBody: UpdateApiKeyBody, params?: V1UpdateProjectApiKeyParams, options?: RequestInit): Promise<v1UpdateProjectApiKeyResponseSuccess> {
     const result = await v1UpdateProjectApiKey(ref, id, updateApiKeyBody, params, {
       ...options,
@@ -2066,6 +2580,9 @@ export class SupabaseManagementAPI {
     return result as v1UpdateProjectApiKeyResponseSuccess;
   }
 
+  /**
+   * @summary Get API key
+   */
   async getProjectApiKey(ref: string, id: string, params?: V1GetProjectApiKeyParams, options?: RequestInit): Promise<v1GetProjectApiKeyResponseSuccess> {
     const result = await v1GetProjectApiKey(ref, id, params, {
       ...options,
@@ -2077,6 +2594,9 @@ export class SupabaseManagementAPI {
     return result as v1GetProjectApiKeyResponseSuccess;
   }
 
+  /**
+   * @summary Deletes an API key for the project
+   */
   async deleteProjectApiKey(ref: string, id: string, params?: V1DeleteProjectApiKeyParams, options?: RequestInit): Promise<v1DeleteProjectApiKeyResponseSuccess> {
     const result = await v1DeleteProjectApiKey(ref, id, params, {
       ...options,
@@ -2088,6 +2608,9 @@ export class SupabaseManagementAPI {
     return result as v1DeleteProjectApiKeyResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Gets project's pgsodium config
+   */
   async getPgsodiumConfig(ref: string, options?: RequestInit): Promise<v1GetPgsodiumConfigResponseSuccess> {
     const result = await v1GetPgsodiumConfig(ref, {
       ...options,
@@ -2099,6 +2622,9 @@ export class SupabaseManagementAPI {
     return result as v1GetPgsodiumConfigResponseSuccess;
   }
 
+  /**
+   * @summary [Beta] Updates project's pgsodium config. Updating the root_key can cause all data encrypted with the older key to become inaccessible.
+   */
   async updatePgsodiumConfig(ref: string, updatePgsodiumConfigBody: UpdatePgsodiumConfigBody, options?: RequestInit): Promise<v1UpdatePgsodiumConfigResponseSuccess> {
     const result = await v1UpdatePgsodiumConfig(ref, updatePgsodiumConfigBody, {
       ...options,
@@ -2110,6 +2636,10 @@ export class SupabaseManagementAPI {
     return result as v1UpdatePgsodiumConfigResponseSuccess;
   }
 
+  /**
+   * Returns all secrets you've previously added to the specified project.
+   * @summary List all secrets
+   */
   async listAllSecrets(ref: string, options?: RequestInit): Promise<v1ListAllSecretsResponseSuccess> {
     const result = await v1ListAllSecrets(ref, {
       ...options,
@@ -2121,6 +2651,10 @@ export class SupabaseManagementAPI {
     return result as v1ListAllSecretsResponseSuccess;
   }
 
+  /**
+   * Creates multiple secrets and adds them to the specified project.
+   * @summary Bulk create secrets
+   */
   async bulkCreateSecrets(ref: string, createSecretBody: CreateSecretBody, options?: RequestInit): Promise<v1BulkCreateSecretsResponseSuccess> {
     const result = await v1BulkCreateSecrets(ref, createSecretBody, {
       ...options,
@@ -2132,6 +2666,10 @@ export class SupabaseManagementAPI {
     return result as v1BulkCreateSecretsResponseSuccess;
   }
 
+  /**
+   * Deletes all secrets with the given names from the specified project
+   * @summary Bulk delete secrets
+   */
   async bulkDeleteSecrets(ref: string, deleteSecretsBody: DeleteSecretsBody, options?: RequestInit): Promise<v1BulkDeleteSecretsResponseSuccess> {
     const result = await v1BulkDeleteSecrets(ref, deleteSecretsBody, {
       ...options,
@@ -2143,6 +2681,9 @@ export class SupabaseManagementAPI {
     return result as v1BulkDeleteSecretsResponseSuccess;
   }
 
+  /**
+   * @summary Lists all buckets
+   */
   async listAllBuckets(ref: string, options?: RequestInit): Promise<v1ListAllBucketsResponseSuccess> {
     const result = await v1ListAllBuckets(ref, {
       ...options,
@@ -2154,6 +2695,9 @@ export class SupabaseManagementAPI {
     return result as v1ListAllBucketsResponseSuccess;
   }
 
+  /**
+   * @summary Gets project's storage config
+   */
   async getStorageConfig(ref: string, options?: RequestInit): Promise<v1GetStorageConfigResponseSuccess> {
     const result = await v1GetStorageConfig(ref, {
       ...options,
@@ -2165,6 +2709,9 @@ export class SupabaseManagementAPI {
     return result as v1GetStorageConfigResponseSuccess;
   }
 
+  /**
+   * @summary Updates project's storage config
+   */
   async updateStorageConfig(ref: string, updateStorageConfigBody: UpdateStorageConfigBody, options?: RequestInit): Promise<v1UpdateStorageConfigResponseSuccess> {
     const result = await v1UpdateStorageConfig(ref, updateStorageConfigBody, {
       ...options,
