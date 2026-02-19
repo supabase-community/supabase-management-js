@@ -13,6 +13,7 @@ import type {
   V1OauthAuthorizeProjectClaimParams
 } from './supabaseAPIV1.schemas';
 
+import { customFetch } from '../fetcher';
 
 
 /**
@@ -30,7 +31,7 @@ export type v1AuthorizeUserResponseSuccess = (v1AuthorizeUserResponse204) & {
 
 export type v1AuthorizeUserResponse = (v1AuthorizeUserResponseSuccess)
 
-export const getV1AuthorizeUserUrl = (params: V1AuthorizeUserParams, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1AuthorizeUserUrl = (params: V1AuthorizeUserParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -42,25 +43,19 @@ export const getV1AuthorizeUserUrl = (params: V1AuthorizeUserParams, baseUrl: st
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `${baseUrl}/v1/oauth/authorize?${stringifiedParams}` : `${baseUrl}/v1/oauth/authorize`
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/oauth/authorize?${stringifiedParams}` : `https://api.supabase.com/v1/oauth/authorize`
 }
 
-export const v1AuthorizeUser = async (params: V1AuthorizeUserParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1AuthorizeUserResponse> => {
+export const v1AuthorizeUser = async (params: V1AuthorizeUserParams, options?: RequestInit): Promise<v1AuthorizeUserResponse> => {
   
-  const res = await fetch(getV1AuthorizeUserUrl(params, baseUrl),
+  return customFetch<v1AuthorizeUserResponse>(getV1AuthorizeUserUrl(params),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1AuthorizeUserResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1AuthorizeUserResponse
-}
+);}
 
 
 /**
@@ -78,15 +73,15 @@ export type v1ExchangeOauthTokenResponseSuccess = (v1ExchangeOauthTokenResponse2
 
 export type v1ExchangeOauthTokenResponse = (v1ExchangeOauthTokenResponseSuccess)
 
-export const getV1ExchangeOauthTokenUrl = (baseUrl: string = 'https://api.supabase.com') => {
+export const getV1ExchangeOauthTokenUrl = () => {
 
 
   
 
-  return `${baseUrl}/v1/oauth/token`
+  return `https://api.supabase.com/v1/oauth/token`
 }
 
-export const v1ExchangeOauthToken = async (oAuthTokenBody: OAuthTokenBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ExchangeOauthTokenResponse> => {
+export const v1ExchangeOauthToken = async (oAuthTokenBody: OAuthTokenBody, options?: RequestInit): Promise<v1ExchangeOauthTokenResponse> => {
     const formUrlEncoded = new URLSearchParams();
 if(oAuthTokenBody.grant_type !== undefined) {
  formUrlEncoded.append(`grant_type`, oAuthTokenBody.grant_type);
@@ -116,7 +111,7 @@ if(oAuthTokenBody.scope !== undefined) {
  formUrlEncoded.append(`scope`, oAuthTokenBody.scope);
  }
 
-  const res = await fetch(getV1ExchangeOauthTokenUrl(baseUrl),
+  return customFetch<v1ExchangeOauthTokenResponse>(getV1ExchangeOauthTokenUrl(),
   {      
     ...options,
     method: 'POST',
@@ -124,13 +119,7 @@ if(oAuthTokenBody.scope !== undefined) {
     body: 
       formUrlEncoded,
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1ExchangeOauthTokenResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1ExchangeOauthTokenResponse
-}
+);}
 
 
 /**
@@ -148,17 +137,17 @@ export type v1RevokeTokenResponseSuccess = (v1RevokeTokenResponse204) & {
 
 export type v1RevokeTokenResponse = (v1RevokeTokenResponseSuccess)
 
-export const getV1RevokeTokenUrl = (baseUrl: string = 'https://api.supabase.com') => {
+export const getV1RevokeTokenUrl = () => {
 
 
   
 
-  return `${baseUrl}/v1/oauth/revoke`
+  return `https://api.supabase.com/v1/oauth/revoke`
 }
 
-export const v1RevokeToken = async (oAuthRevokeTokenBody: OAuthRevokeTokenBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1RevokeTokenResponse> => {
+export const v1RevokeToken = async (oAuthRevokeTokenBody: OAuthRevokeTokenBody, options?: RequestInit): Promise<v1RevokeTokenResponse> => {
   
-  const res = await fetch(getV1RevokeTokenUrl(baseUrl),
+  return customFetch<v1RevokeTokenResponse>(getV1RevokeTokenUrl(),
   {      
     ...options,
     method: 'POST',
@@ -166,13 +155,7 @@ export const v1RevokeToken = async (oAuthRevokeTokenBody: OAuthRevokeTokenBody, 
     body: JSON.stringify(
       oAuthRevokeTokenBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1RevokeTokenResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1RevokeTokenResponse
-}
+);}
 
 
 /**
@@ -191,7 +174,7 @@ export type v1OauthAuthorizeProjectClaimResponseSuccess = (v1OauthAuthorizeProje
 
 export type v1OauthAuthorizeProjectClaimResponse = (v1OauthAuthorizeProjectClaimResponseSuccess)
 
-export const getV1OauthAuthorizeProjectClaimUrl = (params: V1OauthAuthorizeProjectClaimParams, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1OauthAuthorizeProjectClaimUrl = (params: V1OauthAuthorizeProjectClaimParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -203,24 +186,18 @@ export const getV1OauthAuthorizeProjectClaimUrl = (params: V1OauthAuthorizeProje
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `${baseUrl}/v1/oauth/authorize/project-claim?${stringifiedParams}` : `${baseUrl}/v1/oauth/authorize/project-claim`
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/oauth/authorize/project-claim?${stringifiedParams}` : `https://api.supabase.com/v1/oauth/authorize/project-claim`
 }
 
-export const v1OauthAuthorizeProjectClaim = async (params: V1OauthAuthorizeProjectClaimParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1OauthAuthorizeProjectClaimResponse> => {
+export const v1OauthAuthorizeProjectClaim = async (params: V1OauthAuthorizeProjectClaimParams, options?: RequestInit): Promise<v1OauthAuthorizeProjectClaimResponse> => {
   
-  const res = await fetch(getV1OauthAuthorizeProjectClaimUrl(params, baseUrl),
+  return customFetch<v1OauthAuthorizeProjectClaimResponse>(getV1OauthAuthorizeProjectClaimUrl(params),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1OauthAuthorizeProjectClaimResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1OauthAuthorizeProjectClaimResponse
-}
+);}
 
 

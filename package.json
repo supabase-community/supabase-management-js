@@ -30,7 +30,7 @@
     "build:tsup": "tsup --dts-resolve",
     "typecheck": "tsc --noEmit",
     "generate:spec": "node scripts/fetch-spec.mjs && node scripts/patch-spec.mjs",
-    "generate:client": "orval --config orval.config.ts && node scripts/generate-index.mjs && node scripts/patch-base-url.mjs && node scripts/generate-class.mjs",
+    "generate:client": "orval --config orval.config.ts && node scripts/generate-index.mjs && node scripts/generate-class.mjs",
     "generate": "npm run generate:spec && npm run generate:client",
     "changeset:version": "changeset version",
     "changeset:release": "npm run build && changeset publish"

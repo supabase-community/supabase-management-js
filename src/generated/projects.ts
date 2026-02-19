@@ -37,6 +37,7 @@ import type {
   V1UpdateProjectBody
 } from './supabaseAPIV1.schemas';
 
+import { customFetch } from '../fetcher';
 
 
 /**
@@ -57,30 +58,24 @@ export type v1ListAllProjectsResponseSuccess = (v1ListAllProjectsResponse200) & 
 
 export type v1ListAllProjectsResponse = (v1ListAllProjectsResponseSuccess)
 
-export const getV1ListAllProjectsUrl = (baseUrl: string = 'https://api.supabase.com') => {
+export const getV1ListAllProjectsUrl = () => {
 
 
   
 
-  return `${baseUrl}/v1/projects`
+  return `https://api.supabase.com/v1/projects`
 }
 
-export const v1ListAllProjects = async ( options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListAllProjectsResponse> => {
+export const v1ListAllProjects = async ( options?: RequestInit): Promise<v1ListAllProjectsResponse> => {
   
-  const res = await fetch(getV1ListAllProjectsUrl(baseUrl),
+  return customFetch<v1ListAllProjectsResponse>(getV1ListAllProjectsUrl(),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1ListAllProjectsResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1ListAllProjectsResponse
-}
+);}
 
 
 /**
@@ -98,17 +93,17 @@ export type v1CreateAProjectResponseSuccess = (v1CreateAProjectResponse201) & {
 
 export type v1CreateAProjectResponse = (v1CreateAProjectResponseSuccess)
 
-export const getV1CreateAProjectUrl = (baseUrl: string = 'https://api.supabase.com') => {
+export const getV1CreateAProjectUrl = () => {
 
 
   
 
-  return `${baseUrl}/v1/projects`
+  return `https://api.supabase.com/v1/projects`
 }
 
-export const v1CreateAProject = async (v1CreateProjectBody: V1CreateProjectBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1CreateAProjectResponse> => {
+export const v1CreateAProject = async (v1CreateProjectBody: V1CreateProjectBody, options?: RequestInit): Promise<v1CreateAProjectResponse> => {
   
-  const res = await fetch(getV1CreateAProjectUrl(baseUrl),
+  return customFetch<v1CreateAProjectResponse>(getV1CreateAProjectUrl(),
   {      
     ...options,
     method: 'POST',
@@ -116,13 +111,7 @@ export const v1CreateAProject = async (v1CreateProjectBody: V1CreateProjectBody,
     body: JSON.stringify(
       v1CreateProjectBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1CreateAProjectResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1CreateAProjectResponse
-}
+);}
 
 
 /**
@@ -140,7 +129,7 @@ export type v1GetAvailableRegionsResponseSuccess = (v1GetAvailableRegionsRespons
 
 export type v1GetAvailableRegionsResponse = (v1GetAvailableRegionsResponseSuccess)
 
-export const getV1GetAvailableRegionsUrl = (params: V1GetAvailableRegionsParams, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1GetAvailableRegionsUrl = (params: V1GetAvailableRegionsParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -152,25 +141,19 @@ export const getV1GetAvailableRegionsUrl = (params: V1GetAvailableRegionsParams,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/available-regions?${stringifiedParams}` : `${baseUrl}/v1/projects/available-regions`
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/available-regions?${stringifiedParams}` : `https://api.supabase.com/v1/projects/available-regions`
 }
 
-export const v1GetAvailableRegions = async (params: V1GetAvailableRegionsParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetAvailableRegionsResponse> => {
+export const v1GetAvailableRegions = async (params: V1GetAvailableRegionsParams, options?: RequestInit): Promise<v1GetAvailableRegionsResponse> => {
   
-  const res = await fetch(getV1GetAvailableRegionsUrl(params, baseUrl),
+  return customFetch<v1GetAvailableRegionsResponse>(getV1GetAvailableRegionsUrl(params),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetAvailableRegionsResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetAvailableRegionsResponse
-}
+);}
 
 
 /**
@@ -210,30 +193,24 @@ export type v1ListAllNetworkBansResponseError = (v1ListAllNetworkBansResponse401
 
 export type v1ListAllNetworkBansResponse = (v1ListAllNetworkBansResponseSuccess | v1ListAllNetworkBansResponseError)
 
-export const getV1ListAllNetworkBansUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1ListAllNetworkBansUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/network-bans/retrieve`
+  return `https://api.supabase.com/v1/projects/${ref}/network-bans/retrieve`
 }
 
-export const v1ListAllNetworkBans = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListAllNetworkBansResponse> => {
+export const v1ListAllNetworkBans = async (ref: string, options?: RequestInit): Promise<v1ListAllNetworkBansResponse> => {
   
-  const res = await fetch(getV1ListAllNetworkBansUrl(ref, baseUrl),
+  return customFetch<v1ListAllNetworkBansResponse>(getV1ListAllNetworkBansUrl(ref),
   {      
     ...options,
     method: 'POST'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1ListAllNetworkBansResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1ListAllNetworkBansResponse
-}
+);}
 
 
 /**
@@ -273,30 +250,24 @@ export type v1ListAllNetworkBansEnrichedResponseError = (v1ListAllNetworkBansEnr
 
 export type v1ListAllNetworkBansEnrichedResponse = (v1ListAllNetworkBansEnrichedResponseSuccess | v1ListAllNetworkBansEnrichedResponseError)
 
-export const getV1ListAllNetworkBansEnrichedUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1ListAllNetworkBansEnrichedUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/network-bans/retrieve/enriched`
+  return `https://api.supabase.com/v1/projects/${ref}/network-bans/retrieve/enriched`
 }
 
-export const v1ListAllNetworkBansEnriched = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListAllNetworkBansEnrichedResponse> => {
+export const v1ListAllNetworkBansEnriched = async (ref: string, options?: RequestInit): Promise<v1ListAllNetworkBansEnrichedResponse> => {
   
-  const res = await fetch(getV1ListAllNetworkBansEnrichedUrl(ref, baseUrl),
+  return customFetch<v1ListAllNetworkBansEnrichedResponse>(getV1ListAllNetworkBansEnrichedUrl(ref),
   {      
     ...options,
     method: 'POST'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1ListAllNetworkBansEnrichedResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1ListAllNetworkBansEnrichedResponse
-}
+);}
 
 
 /**
@@ -336,18 +307,18 @@ export type v1DeleteNetworkBansResponseError = (v1DeleteNetworkBansResponse401 |
 
 export type v1DeleteNetworkBansResponse = (v1DeleteNetworkBansResponseSuccess | v1DeleteNetworkBansResponseError)
 
-export const getV1DeleteNetworkBansUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1DeleteNetworkBansUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/network-bans`
+  return `https://api.supabase.com/v1/projects/${ref}/network-bans`
 }
 
 export const v1DeleteNetworkBans = async (ref: string,
-    removeNetworkBanRequest: RemoveNetworkBanRequest, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1DeleteNetworkBansResponse> => {
+    removeNetworkBanRequest: RemoveNetworkBanRequest, options?: RequestInit): Promise<v1DeleteNetworkBansResponse> => {
   
-  const res = await fetch(getV1DeleteNetworkBansUrl(ref, baseUrl),
+  return customFetch<v1DeleteNetworkBansResponse>(getV1DeleteNetworkBansUrl(ref),
   {      
     ...options,
     method: 'DELETE',
@@ -355,13 +326,7 @@ export const v1DeleteNetworkBans = async (ref: string,
     body: JSON.stringify(
       removeNetworkBanRequest,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1DeleteNetworkBansResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1DeleteNetworkBansResponse
-}
+);}
 
 
 /**
@@ -401,30 +366,24 @@ export type v1GetNetworkRestrictionsResponseError = (v1GetNetworkRestrictionsRes
 
 export type v1GetNetworkRestrictionsResponse = (v1GetNetworkRestrictionsResponseSuccess | v1GetNetworkRestrictionsResponseError)
 
-export const getV1GetNetworkRestrictionsUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1GetNetworkRestrictionsUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/network-restrictions`
+  return `https://api.supabase.com/v1/projects/${ref}/network-restrictions`
 }
 
-export const v1GetNetworkRestrictions = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetNetworkRestrictionsResponse> => {
+export const v1GetNetworkRestrictions = async (ref: string, options?: RequestInit): Promise<v1GetNetworkRestrictionsResponse> => {
   
-  const res = await fetch(getV1GetNetworkRestrictionsUrl(ref, baseUrl),
+  return customFetch<v1GetNetworkRestrictionsResponse>(getV1GetNetworkRestrictionsUrl(ref),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetNetworkRestrictionsResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetNetworkRestrictionsResponse
-}
+);}
 
 
 /**
@@ -464,18 +423,18 @@ export type v1PatchNetworkRestrictionsResponseError = (v1PatchNetworkRestriction
 
 export type v1PatchNetworkRestrictionsResponse = (v1PatchNetworkRestrictionsResponseSuccess | v1PatchNetworkRestrictionsResponseError)
 
-export const getV1PatchNetworkRestrictionsUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1PatchNetworkRestrictionsUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/network-restrictions`
+  return `https://api.supabase.com/v1/projects/${ref}/network-restrictions`
 }
 
 export const v1PatchNetworkRestrictions = async (ref: string,
-    networkRestrictionsPatchRequest: NetworkRestrictionsPatchRequest, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1PatchNetworkRestrictionsResponse> => {
+    networkRestrictionsPatchRequest: NetworkRestrictionsPatchRequest, options?: RequestInit): Promise<v1PatchNetworkRestrictionsResponse> => {
   
-  const res = await fetch(getV1PatchNetworkRestrictionsUrl(ref, baseUrl),
+  return customFetch<v1PatchNetworkRestrictionsResponse>(getV1PatchNetworkRestrictionsUrl(ref),
   {      
     ...options,
     method: 'PATCH',
@@ -483,13 +442,7 @@ export const v1PatchNetworkRestrictions = async (ref: string,
     body: JSON.stringify(
       networkRestrictionsPatchRequest,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1PatchNetworkRestrictionsResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1PatchNetworkRestrictionsResponse
-}
+);}
 
 
 /**
@@ -529,18 +482,18 @@ export type v1UpdateNetworkRestrictionsResponseError = (v1UpdateNetworkRestricti
 
 export type v1UpdateNetworkRestrictionsResponse = (v1UpdateNetworkRestrictionsResponseSuccess | v1UpdateNetworkRestrictionsResponseError)
 
-export const getV1UpdateNetworkRestrictionsUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1UpdateNetworkRestrictionsUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/network-restrictions/apply`
+  return `https://api.supabase.com/v1/projects/${ref}/network-restrictions/apply`
 }
 
 export const v1UpdateNetworkRestrictions = async (ref: string,
-    networkRestrictionsRequest: NetworkRestrictionsRequest, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateNetworkRestrictionsResponse> => {
+    networkRestrictionsRequest: NetworkRestrictionsRequest, options?: RequestInit): Promise<v1UpdateNetworkRestrictionsResponse> => {
   
-  const res = await fetch(getV1UpdateNetworkRestrictionsUrl(ref, baseUrl),
+  return customFetch<v1UpdateNetworkRestrictionsResponse>(getV1UpdateNetworkRestrictionsUrl(ref),
   {      
     ...options,
     method: 'POST',
@@ -548,13 +501,7 @@ export const v1UpdateNetworkRestrictions = async (ref: string,
     body: JSON.stringify(
       networkRestrictionsRequest,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1UpdateNetworkRestrictionsResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1UpdateNetworkRestrictionsResponse
-}
+);}
 
 
 /**
@@ -594,30 +541,24 @@ export type v1GetProjectResponseError = (v1GetProjectResponse401 | v1GetProjectR
 
 export type v1GetProjectResponse = (v1GetProjectResponseSuccess | v1GetProjectResponseError)
 
-export const getV1GetProjectUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1GetProjectUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}`
+  return `https://api.supabase.com/v1/projects/${ref}`
 }
 
-export const v1GetProject = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetProjectResponse> => {
+export const v1GetProject = async (ref: string, options?: RequestInit): Promise<v1GetProjectResponse> => {
   
-  const res = await fetch(getV1GetProjectUrl(ref, baseUrl),
+  return customFetch<v1GetProjectResponse>(getV1GetProjectUrl(ref),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetProjectResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetProjectResponse
-}
+);}
 
 
 /**
@@ -652,30 +593,24 @@ export type v1DeleteAProjectResponseError = (v1DeleteAProjectResponse401 | v1Del
 
 export type v1DeleteAProjectResponse = (v1DeleteAProjectResponseSuccess | v1DeleteAProjectResponseError)
 
-export const getV1DeleteAProjectUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1DeleteAProjectUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}`
+  return `https://api.supabase.com/v1/projects/${ref}`
 }
 
-export const v1DeleteAProject = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1DeleteAProjectResponse> => {
+export const v1DeleteAProject = async (ref: string, options?: RequestInit): Promise<v1DeleteAProjectResponse> => {
   
-  const res = await fetch(getV1DeleteAProjectUrl(ref, baseUrl),
+  return customFetch<v1DeleteAProjectResponse>(getV1DeleteAProjectUrl(ref),
   {      
     ...options,
     method: 'DELETE'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1DeleteAProjectResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1DeleteAProjectResponse
-}
+);}
 
 
 /**
@@ -715,18 +650,18 @@ export type v1UpdateAProjectResponseError = (v1UpdateAProjectResponse401 | v1Upd
 
 export type v1UpdateAProjectResponse = (v1UpdateAProjectResponseSuccess | v1UpdateAProjectResponseError)
 
-export const getV1UpdateAProjectUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1UpdateAProjectUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}`
+  return `https://api.supabase.com/v1/projects/${ref}`
 }
 
 export const v1UpdateAProject = async (ref: string,
-    v1UpdateProjectBody: V1UpdateProjectBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateAProjectResponse> => {
+    v1UpdateProjectBody: V1UpdateProjectBody, options?: RequestInit): Promise<v1UpdateAProjectResponse> => {
   
-  const res = await fetch(getV1UpdateAProjectUrl(ref, baseUrl),
+  return customFetch<v1UpdateAProjectResponse>(getV1UpdateAProjectUrl(ref),
   {      
     ...options,
     method: 'PATCH',
@@ -734,13 +669,7 @@ export const v1UpdateAProject = async (ref: string,
     body: JSON.stringify(
       v1UpdateProjectBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1UpdateAProjectResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1UpdateAProjectResponse
-}
+);}
 
 
 /**
@@ -780,18 +709,18 @@ export type v1UpgradePostgresVersionResponseError = (v1UpgradePostgresVersionRes
 
 export type v1UpgradePostgresVersionResponse = (v1UpgradePostgresVersionResponseSuccess | v1UpgradePostgresVersionResponseError)
 
-export const getV1UpgradePostgresVersionUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1UpgradePostgresVersionUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/upgrade`
+  return `https://api.supabase.com/v1/projects/${ref}/upgrade`
 }
 
 export const v1UpgradePostgresVersion = async (ref: string,
-    upgradeDatabaseBody: UpgradeDatabaseBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpgradePostgresVersionResponse> => {
+    upgradeDatabaseBody: UpgradeDatabaseBody, options?: RequestInit): Promise<v1UpgradePostgresVersionResponse> => {
   
-  const res = await fetch(getV1UpgradePostgresVersionUrl(ref, baseUrl),
+  return customFetch<v1UpgradePostgresVersionResponse>(getV1UpgradePostgresVersionUrl(ref),
   {      
     ...options,
     method: 'POST',
@@ -799,13 +728,7 @@ export const v1UpgradePostgresVersion = async (ref: string,
     body: JSON.stringify(
       upgradeDatabaseBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1UpgradePostgresVersionResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1UpgradePostgresVersionResponse
-}
+);}
 
 
 /**
@@ -845,30 +768,24 @@ export type v1GetPostgresUpgradeEligibilityResponseError = (v1GetPostgresUpgrade
 
 export type v1GetPostgresUpgradeEligibilityResponse = (v1GetPostgresUpgradeEligibilityResponseSuccess | v1GetPostgresUpgradeEligibilityResponseError)
 
-export const getV1GetPostgresUpgradeEligibilityUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1GetPostgresUpgradeEligibilityUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/upgrade/eligibility`
+  return `https://api.supabase.com/v1/projects/${ref}/upgrade/eligibility`
 }
 
-export const v1GetPostgresUpgradeEligibility = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetPostgresUpgradeEligibilityResponse> => {
+export const v1GetPostgresUpgradeEligibility = async (ref: string, options?: RequestInit): Promise<v1GetPostgresUpgradeEligibilityResponse> => {
   
-  const res = await fetch(getV1GetPostgresUpgradeEligibilityUrl(ref, baseUrl),
+  return customFetch<v1GetPostgresUpgradeEligibilityResponse>(getV1GetPostgresUpgradeEligibilityUrl(ref),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetPostgresUpgradeEligibilityResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetPostgresUpgradeEligibilityResponse
-}
+);}
 
 
 /**
@@ -909,7 +826,7 @@ export type v1GetPostgresUpgradeStatusResponseError = (v1GetPostgresUpgradeStatu
 export type v1GetPostgresUpgradeStatusResponse = (v1GetPostgresUpgradeStatusResponseSuccess | v1GetPostgresUpgradeStatusResponseError)
 
 export const getV1GetPostgresUpgradeStatusUrl = (ref: string,
-    params?: V1GetPostgresUpgradeStatusParams, baseUrl: string = 'https://api.supabase.com') => {
+    params?: V1GetPostgresUpgradeStatusParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -921,26 +838,20 @@ export const getV1GetPostgresUpgradeStatusUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/upgrade/status?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/upgrade/status`
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/upgrade/status?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/upgrade/status`
 }
 
 export const v1GetPostgresUpgradeStatus = async (ref: string,
-    params?: V1GetPostgresUpgradeStatusParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetPostgresUpgradeStatusResponse> => {
+    params?: V1GetPostgresUpgradeStatusParams, options?: RequestInit): Promise<v1GetPostgresUpgradeStatusResponse> => {
   
-  const res = await fetch(getV1GetPostgresUpgradeStatusUrl(ref,params, baseUrl),
+  return customFetch<v1GetPostgresUpgradeStatusResponse>(getV1GetPostgresUpgradeStatusUrl(ref,params),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetPostgresUpgradeStatusResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetPostgresUpgradeStatusResponse
-}
+);}
 
 
 /**
@@ -981,7 +892,7 @@ export type v1GetServicesHealthResponseError = (v1GetServicesHealthResponse401 |
 export type v1GetServicesHealthResponse = (v1GetServicesHealthResponseSuccess | v1GetServicesHealthResponseError)
 
 export const getV1GetServicesHealthUrl = (ref: string,
-    params: V1GetServicesHealthParams, baseUrl: string = 'https://api.supabase.com') => {
+    params: V1GetServicesHealthParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -993,26 +904,20 @@ export const getV1GetServicesHealthUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/health?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/health`
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/health?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/health`
 }
 
 export const v1GetServicesHealth = async (ref: string,
-    params: V1GetServicesHealthParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetServicesHealthResponse> => {
+    params: V1GetServicesHealthParams, options?: RequestInit): Promise<v1GetServicesHealthResponse> => {
   
-  const res = await fetch(getV1GetServicesHealthUrl(ref,params, baseUrl),
+  return customFetch<v1GetServicesHealthResponse>(getV1GetServicesHealthUrl(ref,params),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetServicesHealthResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetServicesHealthResponse
-}
+);}
 
 
 /**
@@ -1047,30 +952,24 @@ export type v1PauseAProjectResponseError = (v1PauseAProjectResponse401 | v1Pause
 
 export type v1PauseAProjectResponse = (v1PauseAProjectResponseSuccess | v1PauseAProjectResponseError)
 
-export const getV1PauseAProjectUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1PauseAProjectUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/pause`
+  return `https://api.supabase.com/v1/projects/${ref}/pause`
 }
 
-export const v1PauseAProject = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1PauseAProjectResponse> => {
+export const v1PauseAProject = async (ref: string, options?: RequestInit): Promise<v1PauseAProjectResponse> => {
   
-  const res = await fetch(getV1PauseAProjectUrl(ref, baseUrl),
+  return customFetch<v1PauseAProjectResponse>(getV1PauseAProjectUrl(ref),
   {      
     ...options,
     method: 'POST'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1PauseAProjectResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1PauseAProjectResponse
-}
+);}
 
 
 /**
@@ -1105,30 +1004,24 @@ export type v1ListAvailableRestoreVersionsResponseError = (v1ListAvailableRestor
 
 export type v1ListAvailableRestoreVersionsResponse = (v1ListAvailableRestoreVersionsResponseSuccess | v1ListAvailableRestoreVersionsResponseError)
 
-export const getV1ListAvailableRestoreVersionsUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1ListAvailableRestoreVersionsUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/restore`
+  return `https://api.supabase.com/v1/projects/${ref}/restore`
 }
 
-export const v1ListAvailableRestoreVersions = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListAvailableRestoreVersionsResponse> => {
+export const v1ListAvailableRestoreVersions = async (ref: string, options?: RequestInit): Promise<v1ListAvailableRestoreVersionsResponse> => {
   
-  const res = await fetch(getV1ListAvailableRestoreVersionsUrl(ref, baseUrl),
+  return customFetch<v1ListAvailableRestoreVersionsResponse>(getV1ListAvailableRestoreVersionsUrl(ref),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1ListAvailableRestoreVersionsResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1ListAvailableRestoreVersionsResponse
-}
+);}
 
 
 /**
@@ -1163,30 +1056,24 @@ export type v1RestoreAProjectResponseError = (v1RestoreAProjectResponse401 | v1R
 
 export type v1RestoreAProjectResponse = (v1RestoreAProjectResponseSuccess | v1RestoreAProjectResponseError)
 
-export const getV1RestoreAProjectUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1RestoreAProjectUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/restore`
+  return `https://api.supabase.com/v1/projects/${ref}/restore`
 }
 
-export const v1RestoreAProject = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1RestoreAProjectResponse> => {
+export const v1RestoreAProject = async (ref: string, options?: RequestInit): Promise<v1RestoreAProjectResponse> => {
   
-  const res = await fetch(getV1RestoreAProjectUrl(ref, baseUrl),
+  return customFetch<v1RestoreAProjectResponse>(getV1RestoreAProjectUrl(ref),
   {      
     ...options,
     method: 'POST'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1RestoreAProjectResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1RestoreAProjectResponse
-}
+);}
 
 
 /**
@@ -1221,30 +1108,24 @@ export type v1CancelAProjectRestorationResponseError = (v1CancelAProjectRestorat
 
 export type v1CancelAProjectRestorationResponse = (v1CancelAProjectRestorationResponseSuccess | v1CancelAProjectRestorationResponseError)
 
-export const getV1CancelAProjectRestorationUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1CancelAProjectRestorationUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/restore/cancel`
+  return `https://api.supabase.com/v1/projects/${ref}/restore/cancel`
 }
 
-export const v1CancelAProjectRestoration = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1CancelAProjectRestorationResponse> => {
+export const v1CancelAProjectRestoration = async (ref: string, options?: RequestInit): Promise<v1CancelAProjectRestorationResponse> => {
   
-  const res = await fetch(getV1CancelAProjectRestorationUrl(ref, baseUrl),
+  return customFetch<v1CancelAProjectRestorationResponse>(getV1CancelAProjectRestorationUrl(ref),
   {      
     ...options,
     method: 'POST'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1CancelAProjectRestorationResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1CancelAProjectRestorationResponse
-}
+);}
 
 
 /**
@@ -1279,30 +1160,24 @@ export type v1GetProjectClaimTokenResponseError = (v1GetProjectClaimTokenRespons
 
 export type v1GetProjectClaimTokenResponse = (v1GetProjectClaimTokenResponseSuccess | v1GetProjectClaimTokenResponseError)
 
-export const getV1GetProjectClaimTokenUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1GetProjectClaimTokenUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/claim-token`
+  return `https://api.supabase.com/v1/projects/${ref}/claim-token`
 }
 
-export const v1GetProjectClaimToken = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetProjectClaimTokenResponse> => {
+export const v1GetProjectClaimToken = async (ref: string, options?: RequestInit): Promise<v1GetProjectClaimTokenResponse> => {
   
-  const res = await fetch(getV1GetProjectClaimTokenUrl(ref, baseUrl),
+  return customFetch<v1GetProjectClaimTokenResponse>(getV1GetProjectClaimTokenUrl(ref),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetProjectClaimTokenResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetProjectClaimTokenResponse
-}
+);}
 
 
 /**
@@ -1337,30 +1212,24 @@ export type v1CreateProjectClaimTokenResponseError = (v1CreateProjectClaimTokenR
 
 export type v1CreateProjectClaimTokenResponse = (v1CreateProjectClaimTokenResponseSuccess | v1CreateProjectClaimTokenResponseError)
 
-export const getV1CreateProjectClaimTokenUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1CreateProjectClaimTokenUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/claim-token`
+  return `https://api.supabase.com/v1/projects/${ref}/claim-token`
 }
 
-export const v1CreateProjectClaimToken = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1CreateProjectClaimTokenResponse> => {
+export const v1CreateProjectClaimToken = async (ref: string, options?: RequestInit): Promise<v1CreateProjectClaimTokenResponse> => {
   
-  const res = await fetch(getV1CreateProjectClaimTokenUrl(ref, baseUrl),
+  return customFetch<v1CreateProjectClaimTokenResponse>(getV1CreateProjectClaimTokenUrl(ref),
   {      
     ...options,
     method: 'POST'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1CreateProjectClaimTokenResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1CreateProjectClaimTokenResponse
-}
+);}
 
 
 /**
@@ -1395,30 +1264,24 @@ export type v1DeleteProjectClaimTokenResponseError = (v1DeleteProjectClaimTokenR
 
 export type v1DeleteProjectClaimTokenResponse = (v1DeleteProjectClaimTokenResponseSuccess | v1DeleteProjectClaimTokenResponseError)
 
-export const getV1DeleteProjectClaimTokenUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1DeleteProjectClaimTokenUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/claim-token`
+  return `https://api.supabase.com/v1/projects/${ref}/claim-token`
 }
 
-export const v1DeleteProjectClaimToken = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1DeleteProjectClaimTokenResponse> => {
+export const v1DeleteProjectClaimToken = async (ref: string, options?: RequestInit): Promise<v1DeleteProjectClaimTokenResponse> => {
   
-  const res = await fetch(getV1DeleteProjectClaimTokenUrl(ref, baseUrl),
+  return customFetch<v1DeleteProjectClaimTokenResponse>(getV1DeleteProjectClaimTokenUrl(ref),
   {      
     ...options,
     method: 'DELETE'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1DeleteProjectClaimTokenResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1DeleteProjectClaimTokenResponse
-}
+);}
 
 
 /**
@@ -1458,30 +1321,24 @@ export type v1GetDiskUtilizationResponseError = (v1GetDiskUtilizationResponse401
 
 export type v1GetDiskUtilizationResponse = (v1GetDiskUtilizationResponseSuccess | v1GetDiskUtilizationResponseError)
 
-export const getV1GetDiskUtilizationUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1GetDiskUtilizationUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/disk/util`
+  return `https://api.supabase.com/v1/projects/${ref}/config/disk/util`
 }
 
-export const v1GetDiskUtilization = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetDiskUtilizationResponse> => {
+export const v1GetDiskUtilization = async (ref: string, options?: RequestInit): Promise<v1GetDiskUtilizationResponse> => {
   
-  const res = await fetch(getV1GetDiskUtilizationUrl(ref, baseUrl),
+  return customFetch<v1GetDiskUtilizationResponse>(getV1GetDiskUtilizationUrl(ref),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetDiskUtilizationResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetDiskUtilizationResponse
-}
+);}
 
 
 /**
@@ -1521,18 +1378,18 @@ export type v1ModifyDatabaseDiskResponseError = (v1ModifyDatabaseDiskResponse401
 
 export type v1ModifyDatabaseDiskResponse = (v1ModifyDatabaseDiskResponseSuccess | v1ModifyDatabaseDiskResponseError)
 
-export const getV1ModifyDatabaseDiskUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1ModifyDatabaseDiskUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/disk`
+  return `https://api.supabase.com/v1/projects/${ref}/config/disk`
 }
 
 export const v1ModifyDatabaseDisk = async (ref: string,
-    diskRequestBody: DiskRequestBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ModifyDatabaseDiskResponse> => {
+    diskRequestBody: DiskRequestBody, options?: RequestInit): Promise<v1ModifyDatabaseDiskResponse> => {
   
-  const res = await fetch(getV1ModifyDatabaseDiskUrl(ref, baseUrl),
+  return customFetch<v1ModifyDatabaseDiskResponse>(getV1ModifyDatabaseDiskUrl(ref),
   {      
     ...options,
     method: 'POST',
@@ -1540,13 +1397,7 @@ export const v1ModifyDatabaseDisk = async (ref: string,
     body: JSON.stringify(
       diskRequestBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1ModifyDatabaseDiskResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1ModifyDatabaseDiskResponse
-}
+);}
 
 
 /**
@@ -1586,30 +1437,24 @@ export type v1GetProjectDiskAutoscaleConfigResponseError = (v1GetProjectDiskAuto
 
 export type v1GetProjectDiskAutoscaleConfigResponse = (v1GetProjectDiskAutoscaleConfigResponseSuccess | v1GetProjectDiskAutoscaleConfigResponseError)
 
-export const getV1GetProjectDiskAutoscaleConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1GetProjectDiskAutoscaleConfigUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/disk/autoscale`
+  return `https://api.supabase.com/v1/projects/${ref}/config/disk/autoscale`
 }
 
-export const v1GetProjectDiskAutoscaleConfig = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetProjectDiskAutoscaleConfigResponse> => {
+export const v1GetProjectDiskAutoscaleConfig = async (ref: string, options?: RequestInit): Promise<v1GetProjectDiskAutoscaleConfigResponse> => {
   
-  const res = await fetch(getV1GetProjectDiskAutoscaleConfigUrl(ref, baseUrl),
+  return customFetch<v1GetProjectDiskAutoscaleConfigResponse>(getV1GetProjectDiskAutoscaleConfigUrl(ref),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetProjectDiskAutoscaleConfigResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetProjectDiskAutoscaleConfigResponse
-}
+);}
 
 
 /**
@@ -1638,7 +1483,7 @@ export type v1GetAllProjectsForOrganizationResponseError = (v1GetAllProjectsForO
 export type v1GetAllProjectsForOrganizationResponse = (v1GetAllProjectsForOrganizationResponseSuccess | v1GetAllProjectsForOrganizationResponseError)
 
 export const getV1GetAllProjectsForOrganizationUrl = (slug: string,
-    params?: V1GetAllProjectsForOrganizationParams, baseUrl: string = 'https://api.supabase.com') => {
+    params?: V1GetAllProjectsForOrganizationParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -1650,25 +1495,19 @@ export const getV1GetAllProjectsForOrganizationUrl = (slug: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `${baseUrl}/v1/organizations/${slug}/projects?${stringifiedParams}` : `${baseUrl}/v1/organizations/${slug}/projects`
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/organizations/${slug}/projects?${stringifiedParams}` : `https://api.supabase.com/v1/organizations/${slug}/projects`
 }
 
 export const v1GetAllProjectsForOrganization = async (slug: string,
-    params?: V1GetAllProjectsForOrganizationParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetAllProjectsForOrganizationResponse> => {
+    params?: V1GetAllProjectsForOrganizationParams, options?: RequestInit): Promise<v1GetAllProjectsForOrganizationResponse> => {
   
-  const res = await fetch(getV1GetAllProjectsForOrganizationUrl(slug,params, baseUrl),
+  return customFetch<v1GetAllProjectsForOrganizationResponse>(getV1GetAllProjectsForOrganizationUrl(slug,params),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetAllProjectsForOrganizationResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetAllProjectsForOrganizationResponse
-}
+);}
 
 

@@ -436,7 +436,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetPerformanceAdvisors(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getPerformanceAdvisors');
     }
@@ -452,7 +453,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetSecurityAdvisors(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getSecurityAdvisors');
     }
@@ -474,7 +476,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetProjectLogs(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getProjectLogs');
     }
@@ -488,7 +491,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetProjectUsageApiCount(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getProjectUsageApiCount');
     }
@@ -502,7 +506,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetProjectUsageRequestCount(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getProjectUsageRequestCount');
     }
@@ -516,7 +521,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetProjectFunctionCombinedStats(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getProjectFunctionCombinedStats');
     }
@@ -530,7 +536,8 @@ export class SupabaseManagementAPI {
     const result = await v1CreateLegacySigningKey(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'createLegacySigningKey');
     }
@@ -544,7 +551,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetLegacySigningKey(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getLegacySigningKey');
     }
@@ -558,7 +566,8 @@ export class SupabaseManagementAPI {
     const result = await v1CreateProjectSigningKey(ref, createSigningKeyBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'createProjectSigningKey');
     }
@@ -572,7 +581,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetProjectSigningKeys(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getProjectSigningKeys');
     }
@@ -586,7 +596,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetProjectSigningKey(ref, id, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getProjectSigningKey');
     }
@@ -600,7 +611,8 @@ export class SupabaseManagementAPI {
     const result = await v1RemoveProjectSigningKey(ref, id, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'removeProjectSigningKey');
     }
@@ -614,7 +626,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdateProjectSigningKey(ref, id, updateSigningKeyBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updateProjectSigningKey');
     }
@@ -628,7 +641,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetAuthServiceConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getAuthServiceConfig');
     }
@@ -642,7 +656,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdateAuthServiceConfig(ref, updateAuthConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updateAuthServiceConfig');
     }
@@ -656,7 +671,8 @@ export class SupabaseManagementAPI {
     const result = await v1CreateProjectTpaIntegration(ref, createThirdPartyAuthBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'createProjectTpaIntegration');
     }
@@ -670,7 +686,8 @@ export class SupabaseManagementAPI {
     const result = await v1ListProjectTpaIntegrations(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'listProjectTpaIntegrations');
     }
@@ -684,7 +701,8 @@ export class SupabaseManagementAPI {
     const result = await v1DeleteProjectTpaIntegration(ref, tpaId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'deleteProjectTpaIntegration');
     }
@@ -698,7 +716,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetProjectTpaIntegration(ref, tpaId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getProjectTpaIntegration');
     }
@@ -712,7 +731,8 @@ export class SupabaseManagementAPI {
     const result = await v1CreateASsoProvider(ref, createProviderBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'createASsoProvider');
     }
@@ -726,7 +746,8 @@ export class SupabaseManagementAPI {
     const result = await v1ListAllSsoProvider(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'listAllSsoProvider');
     }
@@ -740,7 +761,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetASsoProvider(ref, providerId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getASsoProvider');
     }
@@ -754,7 +776,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdateASsoProvider(ref, providerId, updateProviderBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updateASsoProvider');
     }
@@ -768,7 +791,8 @@ export class SupabaseManagementAPI {
     const result = await v1DeleteASsoProvider(ref, providerId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'deleteASsoProvider');
     }
@@ -783,7 +807,8 @@ export class SupabaseManagementAPI {
     const result = await v1ListProjectAddons(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'listProjectAddons');
     }
@@ -798,7 +823,8 @@ export class SupabaseManagementAPI {
     const result = await v1ApplyProjectAddon(ref, applyProjectAddonBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'applyProjectAddon');
     }
@@ -813,7 +839,8 @@ export class SupabaseManagementAPI {
     const result = await v1RemoveProjectAddon(ref, addonVariant, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'removeProjectAddon');
     }
@@ -827,7 +854,8 @@ export class SupabaseManagementAPI {
     const result = await v1ListAllSnippets(params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'listAllSnippets');
     }
@@ -841,7 +869,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetASnippet(id, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getASnippet');
     }
@@ -855,7 +884,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetJitAccessConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getJitAccessConfig');
     }
@@ -869,7 +899,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdateJitAccessConfig(ref, jitAccessRequestRequest, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updateJitAccessConfig');
     }
@@ -883,7 +914,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetSslEnforcementConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getSslEnforcementConfig');
     }
@@ -897,7 +929,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdateSslEnforcementConfig(ref, sslEnforcementRequest, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updateSslEnforcementConfig');
     }
@@ -912,7 +945,8 @@ export class SupabaseManagementAPI {
     const result = await v1GenerateTypescriptTypes(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'generateTypescriptTypes');
     }
@@ -926,7 +960,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetReadonlyModeStatus(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getReadonlyModeStatus');
     }
@@ -940,7 +975,8 @@ export class SupabaseManagementAPI {
     const result = await v1DisableReadonlyModeTemporarily(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'disableReadonlyModeTemporarily');
     }
@@ -954,7 +990,8 @@ export class SupabaseManagementAPI {
     const result = await v1SetupAReadReplica(ref, setUpReadReplicaBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'setupAReadReplica');
     }
@@ -968,7 +1005,8 @@ export class SupabaseManagementAPI {
     const result = await v1RemoveAReadReplica(ref, removeReadReplicaBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'removeAReadReplica');
     }
@@ -982,7 +1020,8 @@ export class SupabaseManagementAPI {
     const result = await v1CreateLoginRole(ref, createRoleBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'createLoginRole');
     }
@@ -996,7 +1035,8 @@ export class SupabaseManagementAPI {
     const result = await v1DeleteLoginRoles(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'deleteLoginRoles');
     }
@@ -1011,7 +1051,8 @@ export class SupabaseManagementAPI {
     const result = await v1ListMigrationHistory(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'listMigrationHistory');
     }
@@ -1026,7 +1067,8 @@ export class SupabaseManagementAPI {
     const result = await v1ApplyAMigration(ref, v1CreateMigrationBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'applyAMigration');
     }
@@ -1041,7 +1083,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpsertAMigration(ref, v1UpsertMigrationBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'upsertAMigration');
     }
@@ -1056,7 +1099,8 @@ export class SupabaseManagementAPI {
     const result = await v1RollbackMigrations(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'rollbackMigrations');
     }
@@ -1071,7 +1115,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetAMigration(ref, version, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getAMigration');
     }
@@ -1086,7 +1131,8 @@ export class SupabaseManagementAPI {
     const result = await v1PatchAMigration(ref, version, v1PatchMigrationBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'patchAMigration');
     }
@@ -1100,7 +1146,8 @@ export class SupabaseManagementAPI {
     const result = await v1RunAQuery(ref, v1RunQueryBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'runAQuery');
     }
@@ -1115,7 +1162,8 @@ export class SupabaseManagementAPI {
     const result = await v1ReadOnlyQuery(ref, v1ReadOnlyQueryBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'readOnlyQuery');
     }
@@ -1129,7 +1177,8 @@ export class SupabaseManagementAPI {
     const result = await v1EnableDatabaseWebhook(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'enableDatabaseWebhook');
     }
@@ -1145,7 +1194,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetDatabaseMetadata(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getDatabaseMetadata');
     }
@@ -1159,7 +1209,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdateDatabasePassword(ref, v1UpdatePasswordBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updateDatabasePassword');
     }
@@ -1174,7 +1225,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetJitAccess(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getJitAccess');
     }
@@ -1189,7 +1241,8 @@ export class SupabaseManagementAPI {
     const result = await v1AuthorizeJitAccess(ref, authorizeJitAccessBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'authorizeJitAccess');
     }
@@ -1204,7 +1257,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdateJitAccess(ref, updateJitAccessBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updateJitAccess');
     }
@@ -1219,7 +1273,8 @@ export class SupabaseManagementAPI {
     const result = await v1ListJitAccess(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'listJitAccess');
     }
@@ -1234,7 +1289,8 @@ export class SupabaseManagementAPI {
     const result = await v1DeleteJitAccess(ref, userId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'deleteJitAccess');
     }
@@ -1248,7 +1304,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetProjectPgbouncerConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getProjectPgbouncerConfig');
     }
@@ -1262,7 +1319,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetPoolerConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getPoolerConfig');
     }
@@ -1276,7 +1334,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdatePoolerConfig(ref, updateSupavisorConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updatePoolerConfig');
     }
@@ -1290,7 +1349,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetPostgresConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getPostgresConfig');
     }
@@ -1304,7 +1364,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdatePostgresConfig(ref, updatePostgresConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updatePostgresConfig');
     }
@@ -1318,7 +1379,8 @@ export class SupabaseManagementAPI {
     const result = await v1ListAllBackups(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'listAllBackups');
     }
@@ -1332,7 +1394,8 @@ export class SupabaseManagementAPI {
     const result = await v1RestorePitrBackup(ref, v1RestorePitrBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'restorePitrBackup');
     }
@@ -1346,7 +1409,8 @@ export class SupabaseManagementAPI {
     const result = await v1CreateRestorePoint(ref, v1RestorePointPostBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'createRestorePoint');
     }
@@ -1360,7 +1424,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetRestorePoint(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getRestorePoint');
     }
@@ -1374,7 +1439,8 @@ export class SupabaseManagementAPI {
     const result = await v1Undo(ref, v1UndoBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'undo');
     }
@@ -1388,7 +1454,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetHostnameConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getHostnameConfig');
     }
@@ -1402,7 +1469,8 @@ export class SupabaseManagementAPI {
     const result = await v1DeleteHostnameConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'deleteHostnameConfig');
     }
@@ -1416,7 +1484,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdateHostnameConfig(ref, updateCustomHostnameBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updateHostnameConfig');
     }
@@ -1430,7 +1499,8 @@ export class SupabaseManagementAPI {
     const result = await v1VerifyDnsConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'verifyDnsConfig');
     }
@@ -1444,7 +1514,8 @@ export class SupabaseManagementAPI {
     const result = await v1ActivateCustomHostname(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'activateCustomHostname');
     }
@@ -1458,7 +1529,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetVanitySubdomainConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getVanitySubdomainConfig');
     }
@@ -1472,7 +1544,8 @@ export class SupabaseManagementAPI {
     const result = await v1DeactivateVanitySubdomainConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'deactivateVanitySubdomainConfig');
     }
@@ -1486,7 +1559,8 @@ export class SupabaseManagementAPI {
     const result = await v1CheckVanitySubdomainAvailability(ref, vanitySubdomainBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'checkVanitySubdomainAvailability');
     }
@@ -1500,7 +1574,8 @@ export class SupabaseManagementAPI {
     const result = await v1ActivateVanitySubdomainConfig(ref, vanitySubdomainBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'activateVanitySubdomainConfig');
     }
@@ -1515,7 +1590,8 @@ export class SupabaseManagementAPI {
     const result = await v1ListAllFunctions(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'listAllFunctions');
     }
@@ -1531,7 +1607,8 @@ export class SupabaseManagementAPI {
     const result = await v1CreateAFunctionWithApplicationVndDenolandEszip(ref, v1CreateAFunctionWithApplicationVndDenolandEszipBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'createAFunctionWithApplicationVndDenolandEszip');
     }
@@ -1547,7 +1624,8 @@ export class SupabaseManagementAPI {
     const result = await v1CreateAFunctionWithJson(ref, v1CreateFunctionBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'createAFunctionWithJson');
     }
@@ -1562,7 +1640,8 @@ export class SupabaseManagementAPI {
     const result = await v1BulkUpdateFunctions(ref, bulkUpdateFunctionBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'bulkUpdateFunctions');
     }
@@ -1577,7 +1656,8 @@ export class SupabaseManagementAPI {
     const result = await v1DeployAFunction(ref, functionDeployBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'deployAFunction');
     }
@@ -1592,7 +1672,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetAFunction(ref, functionSlug, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getAFunction');
     }
@@ -1607,7 +1688,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdateAFunctionWithApplicationVndDenolandEszip(ref, functionSlug, v1UpdateAFunctionWithApplicationVndDenolandEszipBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updateAFunctionWithApplicationVndDenolandEszip');
     }
@@ -1622,7 +1704,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdateAFunctionWithJson(ref, functionSlug, v1UpdateFunctionBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updateAFunctionWithJson');
     }
@@ -1637,7 +1720,8 @@ export class SupabaseManagementAPI {
     const result = await v1DeleteAFunction(ref, functionSlug, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'deleteAFunction');
     }
@@ -1652,7 +1736,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetAFunctionBody(ref, functionSlug, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getAFunctionBody');
     }
@@ -1667,7 +1752,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetABranchConfig(branchIdOrRef, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getABranchConfig');
     }
@@ -1682,7 +1768,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdateABranchConfig(branchIdOrRef, updateBranchBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updateABranchConfig');
     }
@@ -1697,7 +1784,8 @@ export class SupabaseManagementAPI {
     const result = await v1DeleteABranch(branchIdOrRef, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'deleteABranch');
     }
@@ -1712,7 +1800,8 @@ export class SupabaseManagementAPI {
     const result = await v1PushABranch(branchIdOrRef, branchActionBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'pushABranch');
     }
@@ -1727,7 +1816,8 @@ export class SupabaseManagementAPI {
     const result = await v1MergeABranch(branchIdOrRef, branchActionBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'mergeABranch');
     }
@@ -1742,7 +1832,8 @@ export class SupabaseManagementAPI {
     const result = await v1ResetABranch(branchIdOrRef, branchActionBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'resetABranch');
     }
@@ -1757,7 +1848,8 @@ export class SupabaseManagementAPI {
     const result = await v1RestoreABranch(branchIdOrRef, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'restoreABranch');
     }
@@ -1772,7 +1864,8 @@ export class SupabaseManagementAPI {
     const result = await v1DiffABranch(branchIdOrRef, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'diffABranch');
     }
@@ -1787,7 +1880,8 @@ export class SupabaseManagementAPI {
     const result = await v1ListActionRuns(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'listActionRuns');
     }
@@ -1802,7 +1896,8 @@ export class SupabaseManagementAPI {
     const result = await v1CountActionRuns(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'countActionRuns');
     }
@@ -1817,7 +1912,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetActionRun(ref, runId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getActionRun');
     }
@@ -1832,7 +1928,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdateActionRunStatus(ref, runId, updateRunStatusBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updateActionRunStatus');
     }
@@ -1847,7 +1944,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetActionRunLogs(ref, runId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getActionRunLogs');
     }
@@ -1862,7 +1960,8 @@ export class SupabaseManagementAPI {
     const result = await v1ListAllBranches(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'listAllBranches');
     }
@@ -1877,7 +1976,8 @@ export class SupabaseManagementAPI {
     const result = await v1CreateABranch(ref, createBranchBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'createABranch');
     }
@@ -1892,7 +1992,8 @@ export class SupabaseManagementAPI {
     const result = await v1DisablePreviewBranching(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'disablePreviewBranching');
     }
@@ -1907,7 +2008,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetABranch(ref, name, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getABranch');
     }
@@ -1921,7 +2023,8 @@ export class SupabaseManagementAPI {
     const result = await v1AuthorizeUser(params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'authorizeUser');
     }
@@ -1935,7 +2038,8 @@ export class SupabaseManagementAPI {
     const result = await v1ExchangeOauthToken(oAuthTokenBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'exchangeOauthToken');
     }
@@ -1949,7 +2053,8 @@ export class SupabaseManagementAPI {
     const result = await v1RevokeToken(oAuthRevokeTokenBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'revokeToken');
     }
@@ -1964,7 +2069,8 @@ export class SupabaseManagementAPI {
     const result = await v1OauthAuthorizeProjectClaim(params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'oauthAuthorizeProjectClaim');
     }
@@ -1979,7 +2085,8 @@ export class SupabaseManagementAPI {
     const result = await v1ListAllOrganizations({
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'listAllOrganizations');
     }
@@ -1993,7 +2100,8 @@ export class SupabaseManagementAPI {
     const result = await v1CreateAnOrganization(createOrganizationV1, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'createAnOrganization');
     }
@@ -2007,7 +2115,8 @@ export class SupabaseManagementAPI {
     const result = await v1ListOrganizationMembers(slug, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'listOrganizationMembers');
     }
@@ -2021,7 +2130,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetAnOrganization(slug, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getAnOrganization');
     }
@@ -2035,7 +2145,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetOrganizationProjectClaim(slug, token, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getOrganizationProjectClaim');
     }
@@ -2049,7 +2160,8 @@ export class SupabaseManagementAPI {
     const result = await v1ClaimProjectForOrganization(slug, token, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'claimProjectForOrganization');
     }
@@ -2066,7 +2178,8 @@ export class SupabaseManagementAPI {
     const result = await v1ListAllProjects({
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'listAllProjects');
     }
@@ -2080,7 +2193,8 @@ export class SupabaseManagementAPI {
     const result = await v1CreateAProject(v1CreateProjectBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'createAProject');
     }
@@ -2094,7 +2208,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetAvailableRegions(params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getAvailableRegions');
     }
@@ -2108,7 +2223,8 @@ export class SupabaseManagementAPI {
     const result = await v1ListAllNetworkBans(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'listAllNetworkBans');
     }
@@ -2122,7 +2238,8 @@ export class SupabaseManagementAPI {
     const result = await v1ListAllNetworkBansEnriched(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'listAllNetworkBansEnriched');
     }
@@ -2136,7 +2253,8 @@ export class SupabaseManagementAPI {
     const result = await v1DeleteNetworkBans(ref, removeNetworkBanRequest, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'deleteNetworkBans');
     }
@@ -2150,7 +2268,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetNetworkRestrictions(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getNetworkRestrictions');
     }
@@ -2164,7 +2283,8 @@ export class SupabaseManagementAPI {
     const result = await v1PatchNetworkRestrictions(ref, networkRestrictionsPatchRequest, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'patchNetworkRestrictions');
     }
@@ -2178,7 +2298,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdateNetworkRestrictions(ref, networkRestrictionsRequest, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updateNetworkRestrictions');
     }
@@ -2192,7 +2313,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetProject(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getProject');
     }
@@ -2206,7 +2328,8 @@ export class SupabaseManagementAPI {
     const result = await v1DeleteAProject(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'deleteAProject');
     }
@@ -2220,7 +2343,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdateAProject(ref, v1UpdateProjectBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updateAProject');
     }
@@ -2234,7 +2358,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpgradePostgresVersion(ref, upgradeDatabaseBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'upgradePostgresVersion');
     }
@@ -2248,7 +2373,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetPostgresUpgradeEligibility(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getPostgresUpgradeEligibility');
     }
@@ -2262,7 +2388,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetPostgresUpgradeStatus(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getPostgresUpgradeStatus');
     }
@@ -2276,7 +2403,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetServicesHealth(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getServicesHealth');
     }
@@ -2290,7 +2418,8 @@ export class SupabaseManagementAPI {
     const result = await v1PauseAProject(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'pauseAProject');
     }
@@ -2304,7 +2433,8 @@ export class SupabaseManagementAPI {
     const result = await v1ListAvailableRestoreVersions(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'listAvailableRestoreVersions');
     }
@@ -2318,7 +2448,8 @@ export class SupabaseManagementAPI {
     const result = await v1RestoreAProject(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'restoreAProject');
     }
@@ -2332,7 +2463,8 @@ export class SupabaseManagementAPI {
     const result = await v1CancelAProjectRestoration(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'cancelAProjectRestoration');
     }
@@ -2346,7 +2478,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetProjectClaimToken(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getProjectClaimToken');
     }
@@ -2360,7 +2493,8 @@ export class SupabaseManagementAPI {
     const result = await v1CreateProjectClaimToken(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'createProjectClaimToken');
     }
@@ -2374,7 +2508,8 @@ export class SupabaseManagementAPI {
     const result = await v1DeleteProjectClaimToken(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'deleteProjectClaimToken');
     }
@@ -2388,7 +2523,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetDiskUtilization(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getDiskUtilization');
     }
@@ -2402,7 +2538,8 @@ export class SupabaseManagementAPI {
     const result = await v1ModifyDatabaseDisk(ref, diskRequestBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'modifyDatabaseDisk');
     }
@@ -2416,7 +2553,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetProjectDiskAutoscaleConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getProjectDiskAutoscaleConfig');
     }
@@ -2433,7 +2571,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetAllProjectsForOrganization(slug, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getAllProjectsForOrganization');
     }
@@ -2447,7 +2586,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetRealtimeConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getRealtimeConfig');
     }
@@ -2461,7 +2601,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdateRealtimeConfig(ref, updateRealtimeConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updateRealtimeConfig');
     }
@@ -2475,7 +2616,8 @@ export class SupabaseManagementAPI {
     const result = await v1ShutdownRealtime(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'shutdownRealtime');
     }
@@ -2489,7 +2631,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetPostgrestServiceConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getPostgrestServiceConfig');
     }
@@ -2503,7 +2646,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdatePostgrestServiceConfig(ref, v1UpdatePostgrestConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updatePostgrestServiceConfig');
     }
@@ -2517,7 +2661,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetProjectApiKeys(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getProjectApiKeys');
     }
@@ -2531,7 +2676,8 @@ export class SupabaseManagementAPI {
     const result = await v1CreateProjectApiKey(ref, createApiKeyBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'createProjectApiKey');
     }
@@ -2545,7 +2691,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetProjectLegacyApiKeys(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getProjectLegacyApiKeys');
     }
@@ -2559,7 +2706,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdateProjectLegacyApiKeys(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updateProjectLegacyApiKeys');
     }
@@ -2573,7 +2721,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdateProjectApiKey(ref, id, updateApiKeyBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updateProjectApiKey');
     }
@@ -2587,7 +2736,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetProjectApiKey(ref, id, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getProjectApiKey');
     }
@@ -2601,7 +2751,8 @@ export class SupabaseManagementAPI {
     const result = await v1DeleteProjectApiKey(ref, id, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'deleteProjectApiKey');
     }
@@ -2615,7 +2766,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetPgsodiumConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getPgsodiumConfig');
     }
@@ -2629,7 +2781,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdatePgsodiumConfig(ref, updatePgsodiumConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updatePgsodiumConfig');
     }
@@ -2644,7 +2797,8 @@ export class SupabaseManagementAPI {
     const result = await v1ListAllSecrets(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'listAllSecrets');
     }
@@ -2659,7 +2813,8 @@ export class SupabaseManagementAPI {
     const result = await v1BulkCreateSecrets(ref, createSecretBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'bulkCreateSecrets');
     }
@@ -2674,7 +2829,8 @@ export class SupabaseManagementAPI {
     const result = await v1BulkDeleteSecrets(ref, deleteSecretsBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'bulkDeleteSecrets');
     }
@@ -2688,7 +2844,8 @@ export class SupabaseManagementAPI {
     const result = await v1ListAllBuckets(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'listAllBuckets');
     }
@@ -2702,7 +2859,8 @@ export class SupabaseManagementAPI {
     const result = await v1GetStorageConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'getStorageConfig');
     }
@@ -2716,7 +2874,8 @@ export class SupabaseManagementAPI {
     const result = await v1UpdateStorageConfig(ref, updateStorageConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
-    }, this.baseUrl);
+      baseUrl: this.baseUrl,
+    } as RequestInit);
     if (result.status >= 400) {
       throw new SupabaseManagementAPIError(result, 'updateStorageConfig');
     }

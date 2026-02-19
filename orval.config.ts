@@ -11,6 +11,10 @@ export default defineConfig({
       mode: "tags",
       target: "./src/generated",
       override: {
+        mutator: {
+          path: './src/fetcher.ts',
+          name: 'customFetch',
+        },
         zod: {
           generate: {
             response: true,

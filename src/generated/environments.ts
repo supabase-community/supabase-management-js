@@ -23,6 +23,7 @@ import type {
   V1ListActionRunsParams
 } from './supabaseAPIV1.schemas';
 
+import { customFetch } from '../fetcher';
 
 
 /**
@@ -48,30 +49,24 @@ export type v1GetABranchConfigResponseError = (v1GetABranchConfigResponse500) & 
 
 export type v1GetABranchConfigResponse = (v1GetABranchConfigResponseSuccess | v1GetABranchConfigResponseError)
 
-export const getV1GetABranchConfigUrl = (branchIdOrRef: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1GetABranchConfigUrl = (branchIdOrRef: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/branches/${branchIdOrRef}`
+  return `https://api.supabase.com/v1/branches/${branchIdOrRef}`
 }
 
-export const v1GetABranchConfig = async (branchIdOrRef: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetABranchConfigResponse> => {
+export const v1GetABranchConfig = async (branchIdOrRef: string, options?: RequestInit): Promise<v1GetABranchConfigResponse> => {
   
-  const res = await fetch(getV1GetABranchConfigUrl(branchIdOrRef, baseUrl),
+  return customFetch<v1GetABranchConfigResponse>(getV1GetABranchConfigUrl(branchIdOrRef),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetABranchConfigResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetABranchConfigResponse
-}
+);}
 
 
 /**
@@ -97,18 +92,18 @@ export type v1UpdateABranchConfigResponseError = (v1UpdateABranchConfigResponse5
 
 export type v1UpdateABranchConfigResponse = (v1UpdateABranchConfigResponseSuccess | v1UpdateABranchConfigResponseError)
 
-export const getV1UpdateABranchConfigUrl = (branchIdOrRef: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1UpdateABranchConfigUrl = (branchIdOrRef: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/branches/${branchIdOrRef}`
+  return `https://api.supabase.com/v1/branches/${branchIdOrRef}`
 }
 
 export const v1UpdateABranchConfig = async (branchIdOrRef: string,
-    updateBranchBody: UpdateBranchBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateABranchConfigResponse> => {
+    updateBranchBody: UpdateBranchBody, options?: RequestInit): Promise<v1UpdateABranchConfigResponse> => {
   
-  const res = await fetch(getV1UpdateABranchConfigUrl(branchIdOrRef, baseUrl),
+  return customFetch<v1UpdateABranchConfigResponse>(getV1UpdateABranchConfigUrl(branchIdOrRef),
   {      
     ...options,
     method: 'PATCH',
@@ -116,13 +111,7 @@ export const v1UpdateABranchConfig = async (branchIdOrRef: string,
     body: JSON.stringify(
       updateBranchBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1UpdateABranchConfigResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1UpdateABranchConfigResponse
-}
+);}
 
 
 /**
@@ -149,7 +138,7 @@ export type v1DeleteABranchResponseError = (v1DeleteABranchResponse500) & {
 export type v1DeleteABranchResponse = (v1DeleteABranchResponseSuccess | v1DeleteABranchResponseError)
 
 export const getV1DeleteABranchUrl = (branchIdOrRef: string,
-    params?: V1DeleteABranchParams, baseUrl: string = 'https://api.supabase.com') => {
+    params?: V1DeleteABranchParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -161,26 +150,20 @@ export const getV1DeleteABranchUrl = (branchIdOrRef: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `${baseUrl}/v1/branches/${branchIdOrRef}?${stringifiedParams}` : `${baseUrl}/v1/branches/${branchIdOrRef}`
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/branches/${branchIdOrRef}?${stringifiedParams}` : `https://api.supabase.com/v1/branches/${branchIdOrRef}`
 }
 
 export const v1DeleteABranch = async (branchIdOrRef: string,
-    params?: V1DeleteABranchParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1DeleteABranchResponse> => {
+    params?: V1DeleteABranchParams, options?: RequestInit): Promise<v1DeleteABranchResponse> => {
   
-  const res = await fetch(getV1DeleteABranchUrl(branchIdOrRef,params, baseUrl),
+  return customFetch<v1DeleteABranchResponse>(getV1DeleteABranchUrl(branchIdOrRef,params),
   {      
     ...options,
     method: 'DELETE'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1DeleteABranchResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1DeleteABranchResponse
-}
+);}
 
 
 /**
@@ -206,18 +189,18 @@ export type v1PushABranchResponseError = (v1PushABranchResponse500) & {
 
 export type v1PushABranchResponse = (v1PushABranchResponseSuccess | v1PushABranchResponseError)
 
-export const getV1PushABranchUrl = (branchIdOrRef: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1PushABranchUrl = (branchIdOrRef: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/branches/${branchIdOrRef}/push`
+  return `https://api.supabase.com/v1/branches/${branchIdOrRef}/push`
 }
 
 export const v1PushABranch = async (branchIdOrRef: string,
-    branchActionBody: BranchActionBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1PushABranchResponse> => {
+    branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1PushABranchResponse> => {
   
-  const res = await fetch(getV1PushABranchUrl(branchIdOrRef, baseUrl),
+  return customFetch<v1PushABranchResponse>(getV1PushABranchUrl(branchIdOrRef),
   {      
     ...options,
     method: 'POST',
@@ -225,13 +208,7 @@ export const v1PushABranch = async (branchIdOrRef: string,
     body: JSON.stringify(
       branchActionBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1PushABranchResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1PushABranchResponse
-}
+);}
 
 
 /**
@@ -257,18 +234,18 @@ export type v1MergeABranchResponseError = (v1MergeABranchResponse500) & {
 
 export type v1MergeABranchResponse = (v1MergeABranchResponseSuccess | v1MergeABranchResponseError)
 
-export const getV1MergeABranchUrl = (branchIdOrRef: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1MergeABranchUrl = (branchIdOrRef: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/branches/${branchIdOrRef}/merge`
+  return `https://api.supabase.com/v1/branches/${branchIdOrRef}/merge`
 }
 
 export const v1MergeABranch = async (branchIdOrRef: string,
-    branchActionBody: BranchActionBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1MergeABranchResponse> => {
+    branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1MergeABranchResponse> => {
   
-  const res = await fetch(getV1MergeABranchUrl(branchIdOrRef, baseUrl),
+  return customFetch<v1MergeABranchResponse>(getV1MergeABranchUrl(branchIdOrRef),
   {      
     ...options,
     method: 'POST',
@@ -276,13 +253,7 @@ export const v1MergeABranch = async (branchIdOrRef: string,
     body: JSON.stringify(
       branchActionBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1MergeABranchResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1MergeABranchResponse
-}
+);}
 
 
 /**
@@ -308,18 +279,18 @@ export type v1ResetABranchResponseError = (v1ResetABranchResponse500) & {
 
 export type v1ResetABranchResponse = (v1ResetABranchResponseSuccess | v1ResetABranchResponseError)
 
-export const getV1ResetABranchUrl = (branchIdOrRef: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1ResetABranchUrl = (branchIdOrRef: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/branches/${branchIdOrRef}/reset`
+  return `https://api.supabase.com/v1/branches/${branchIdOrRef}/reset`
 }
 
 export const v1ResetABranch = async (branchIdOrRef: string,
-    branchActionBody: BranchActionBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ResetABranchResponse> => {
+    branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1ResetABranchResponse> => {
   
-  const res = await fetch(getV1ResetABranchUrl(branchIdOrRef, baseUrl),
+  return customFetch<v1ResetABranchResponse>(getV1ResetABranchUrl(branchIdOrRef),
   {      
     ...options,
     method: 'POST',
@@ -327,13 +298,7 @@ export const v1ResetABranch = async (branchIdOrRef: string,
     body: JSON.stringify(
       branchActionBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1ResetABranchResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1ResetABranchResponse
-}
+);}
 
 
 /**
@@ -359,30 +324,24 @@ export type v1RestoreABranchResponseError = (v1RestoreABranchResponse500) & {
 
 export type v1RestoreABranchResponse = (v1RestoreABranchResponseSuccess | v1RestoreABranchResponseError)
 
-export const getV1RestoreABranchUrl = (branchIdOrRef: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1RestoreABranchUrl = (branchIdOrRef: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/branches/${branchIdOrRef}/restore`
+  return `https://api.supabase.com/v1/branches/${branchIdOrRef}/restore`
 }
 
-export const v1RestoreABranch = async (branchIdOrRef: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1RestoreABranchResponse> => {
+export const v1RestoreABranch = async (branchIdOrRef: string, options?: RequestInit): Promise<v1RestoreABranchResponse> => {
   
-  const res = await fetch(getV1RestoreABranchUrl(branchIdOrRef, baseUrl),
+  return customFetch<v1RestoreABranchResponse>(getV1RestoreABranchUrl(branchIdOrRef),
   {      
     ...options,
     method: 'POST'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1RestoreABranchResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1RestoreABranchResponse
-}
+);}
 
 
 /**
@@ -409,7 +368,7 @@ export type v1DiffABranchResponseError = (v1DiffABranchResponse500) & {
 export type v1DiffABranchResponse = (v1DiffABranchResponseSuccess | v1DiffABranchResponseError)
 
 export const getV1DiffABranchUrl = (branchIdOrRef: string,
-    params?: V1DiffABranchParams, baseUrl: string = 'https://api.supabase.com') => {
+    params?: V1DiffABranchParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -421,26 +380,20 @@ export const getV1DiffABranchUrl = (branchIdOrRef: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `${baseUrl}/v1/branches/${branchIdOrRef}/diff?${stringifiedParams}` : `${baseUrl}/v1/branches/${branchIdOrRef}/diff`
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/branches/${branchIdOrRef}/diff?${stringifiedParams}` : `https://api.supabase.com/v1/branches/${branchIdOrRef}/diff`
 }
 
 export const v1DiffABranch = async (branchIdOrRef: string,
-    params?: V1DiffABranchParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1DiffABranchResponse> => {
+    params?: V1DiffABranchParams, options?: RequestInit): Promise<v1DiffABranchResponse> => {
   
-  const res = await fetch(getV1DiffABranchUrl(branchIdOrRef,params, baseUrl),
+  return customFetch<v1DiffABranchResponse>(getV1DiffABranchUrl(branchIdOrRef,params),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1DiffABranchResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1DiffABranchResponse
-}
+);}
 
 
 /**
@@ -482,7 +435,7 @@ export type v1ListActionRunsResponseError = (v1ListActionRunsResponse401 | v1Lis
 export type v1ListActionRunsResponse = (v1ListActionRunsResponseSuccess | v1ListActionRunsResponseError)
 
 export const getV1ListActionRunsUrl = (ref: string,
-    params?: V1ListActionRunsParams, baseUrl: string = 'https://api.supabase.com') => {
+    params?: V1ListActionRunsParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -494,26 +447,20 @@ export const getV1ListActionRunsUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/actions?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/actions`
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/actions?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/actions`
 }
 
 export const v1ListActionRuns = async (ref: string,
-    params?: V1ListActionRunsParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListActionRunsResponse> => {
+    params?: V1ListActionRunsParams, options?: RequestInit): Promise<v1ListActionRunsResponse> => {
   
-  const res = await fetch(getV1ListActionRunsUrl(ref,params, baseUrl),
+  return customFetch<v1ListActionRunsResponse>(getV1ListActionRunsUrl(ref,params),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1ListActionRunsResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1ListActionRunsResponse
-}
+);}
 
 
 /**
@@ -554,30 +501,24 @@ export type v1CountActionRunsResponseError = (v1CountActionRunsResponse401 | v1C
 
 export type v1CountActionRunsResponse = (v1CountActionRunsResponseSuccess | v1CountActionRunsResponseError)
 
-export const getV1CountActionRunsUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1CountActionRunsUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/actions`
+  return `https://api.supabase.com/v1/projects/${ref}/actions`
 }
 
-export const v1CountActionRuns = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1CountActionRunsResponse> => {
+export const v1CountActionRuns = async (ref: string, options?: RequestInit): Promise<v1CountActionRunsResponse> => {
   
-  const res = await fetch(getV1CountActionRunsUrl(ref, baseUrl),
+  return customFetch<v1CountActionRunsResponse>(getV1CountActionRunsUrl(ref),
   {      
     ...options,
     method: 'HEAD'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1CountActionRunsResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1CountActionRunsResponse
-}
+);}
 
 
 /**
@@ -619,31 +560,25 @@ export type v1GetActionRunResponseError = (v1GetActionRunResponse401 | v1GetActi
 export type v1GetActionRunResponse = (v1GetActionRunResponseSuccess | v1GetActionRunResponseError)
 
 export const getV1GetActionRunUrl = (ref: string,
-    runId: string, baseUrl: string = 'https://api.supabase.com') => {
+    runId: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/actions/${runId}`
+  return `https://api.supabase.com/v1/projects/${ref}/actions/${runId}`
 }
 
 export const v1GetActionRun = async (ref: string,
-    runId: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetActionRunResponse> => {
+    runId: string, options?: RequestInit): Promise<v1GetActionRunResponse> => {
   
-  const res = await fetch(getV1GetActionRunUrl(ref,runId, baseUrl),
+  return customFetch<v1GetActionRunResponse>(getV1GetActionRunUrl(ref,runId),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetActionRunResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetActionRunResponse
-}
+);}
 
 
 /**
@@ -685,19 +620,19 @@ export type v1UpdateActionRunStatusResponseError = (v1UpdateActionRunStatusRespo
 export type v1UpdateActionRunStatusResponse = (v1UpdateActionRunStatusResponseSuccess | v1UpdateActionRunStatusResponseError)
 
 export const getV1UpdateActionRunStatusUrl = (ref: string,
-    runId: string, baseUrl: string = 'https://api.supabase.com') => {
+    runId: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/actions/${runId}/status`
+  return `https://api.supabase.com/v1/projects/${ref}/actions/${runId}/status`
 }
 
 export const v1UpdateActionRunStatus = async (ref: string,
     runId: string,
-    updateRunStatusBody: UpdateRunStatusBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateActionRunStatusResponse> => {
+    updateRunStatusBody: UpdateRunStatusBody, options?: RequestInit): Promise<v1UpdateActionRunStatusResponse> => {
   
-  const res = await fetch(getV1UpdateActionRunStatusUrl(ref,runId, baseUrl),
+  return customFetch<v1UpdateActionRunStatusResponse>(getV1UpdateActionRunStatusUrl(ref,runId),
   {      
     ...options,
     method: 'PATCH',
@@ -705,13 +640,7 @@ export const v1UpdateActionRunStatus = async (ref: string,
     body: JSON.stringify(
       updateRunStatusBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1UpdateActionRunStatusResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1UpdateActionRunStatusResponse
-}
+);}
 
 
 /**
@@ -753,31 +682,25 @@ export type v1GetActionRunLogsResponseError = (v1GetActionRunLogsResponse401 | v
 export type v1GetActionRunLogsResponse = (v1GetActionRunLogsResponseSuccess | v1GetActionRunLogsResponseError)
 
 export const getV1GetActionRunLogsUrl = (ref: string,
-    runId: string, baseUrl: string = 'https://api.supabase.com') => {
+    runId: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/actions/${runId}/logs`
+  return `https://api.supabase.com/v1/projects/${ref}/actions/${runId}/logs`
 }
 
 export const v1GetActionRunLogs = async (ref: string,
-    runId: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetActionRunLogsResponse> => {
+    runId: string, options?: RequestInit): Promise<v1GetActionRunLogsResponse> => {
   
-  const res = await fetch(getV1GetActionRunLogsUrl(ref,runId, baseUrl),
+  return customFetch<v1GetActionRunLogsResponse>(getV1GetActionRunLogsUrl(ref,runId),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetActionRunLogsResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetActionRunLogsResponse
-}
+);}
 
 
 /**
@@ -818,30 +741,24 @@ export type v1ListAllBranchesResponseError = (v1ListAllBranchesResponse401 | v1L
 
 export type v1ListAllBranchesResponse = (v1ListAllBranchesResponseSuccess | v1ListAllBranchesResponseError)
 
-export const getV1ListAllBranchesUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1ListAllBranchesUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/branches`
+  return `https://api.supabase.com/v1/projects/${ref}/branches`
 }
 
-export const v1ListAllBranches = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListAllBranchesResponse> => {
+export const v1ListAllBranches = async (ref: string, options?: RequestInit): Promise<v1ListAllBranchesResponse> => {
   
-  const res = await fetch(getV1ListAllBranchesUrl(ref, baseUrl),
+  return customFetch<v1ListAllBranchesResponse>(getV1ListAllBranchesUrl(ref),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1ListAllBranchesResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1ListAllBranchesResponse
-}
+);}
 
 
 /**
@@ -882,18 +799,18 @@ export type v1CreateABranchResponseError = (v1CreateABranchResponse401 | v1Creat
 
 export type v1CreateABranchResponse = (v1CreateABranchResponseSuccess | v1CreateABranchResponseError)
 
-export const getV1CreateABranchUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1CreateABranchUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/branches`
+  return `https://api.supabase.com/v1/projects/${ref}/branches`
 }
 
 export const v1CreateABranch = async (ref: string,
-    createBranchBody: CreateBranchBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1CreateABranchResponse> => {
+    createBranchBody: CreateBranchBody, options?: RequestInit): Promise<v1CreateABranchResponse> => {
   
-  const res = await fetch(getV1CreateABranchUrl(ref, baseUrl),
+  return customFetch<v1CreateABranchResponse>(getV1CreateABranchUrl(ref),
   {      
     ...options,
     method: 'POST',
@@ -901,13 +818,7 @@ export const v1CreateABranch = async (ref: string,
     body: JSON.stringify(
       createBranchBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1CreateABranchResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1CreateABranchResponse
-}
+);}
 
 
 /**
@@ -948,30 +859,24 @@ export type v1DisablePreviewBranchingResponseError = (v1DisablePreviewBranchingR
 
 export type v1DisablePreviewBranchingResponse = (v1DisablePreviewBranchingResponseSuccess | v1DisablePreviewBranchingResponseError)
 
-export const getV1DisablePreviewBranchingUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1DisablePreviewBranchingUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/branches`
+  return `https://api.supabase.com/v1/projects/${ref}/branches`
 }
 
-export const v1DisablePreviewBranching = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1DisablePreviewBranchingResponse> => {
+export const v1DisablePreviewBranching = async (ref: string, options?: RequestInit): Promise<v1DisablePreviewBranchingResponse> => {
   
-  const res = await fetch(getV1DisablePreviewBranchingUrl(ref, baseUrl),
+  return customFetch<v1DisablePreviewBranchingResponse>(getV1DisablePreviewBranchingUrl(ref),
   {      
     ...options,
     method: 'DELETE'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1DisablePreviewBranchingResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1DisablePreviewBranchingResponse
-}
+);}
 
 
 /**
@@ -1013,30 +918,24 @@ export type v1GetABranchResponseError = (v1GetABranchResponse401 | v1GetABranchR
 export type v1GetABranchResponse = (v1GetABranchResponseSuccess | v1GetABranchResponseError)
 
 export const getV1GetABranchUrl = (ref: string,
-    name: string, baseUrl: string = 'https://api.supabase.com') => {
+    name: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/branches/${name}`
+  return `https://api.supabase.com/v1/projects/${ref}/branches/${name}`
 }
 
 export const v1GetABranch = async (ref: string,
-    name: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetABranchResponse> => {
+    name: string, options?: RequestInit): Promise<v1GetABranchResponse> => {
   
-  const res = await fetch(getV1GetABranchUrl(ref,name, baseUrl),
+  return customFetch<v1GetABranchResponse>(getV1GetABranchUrl(ref,name),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetABranchResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetABranchResponse
-}
+);}
 
 

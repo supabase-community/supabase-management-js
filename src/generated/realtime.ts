@@ -10,6 +10,7 @@ import type {
   UpdateRealtimeConfigBody
 } from './supabaseAPIV1.schemas';
 
+import { customFetch } from '../fetcher';
 
 
 /**
@@ -44,30 +45,24 @@ export type v1GetRealtimeConfigResponseError = (v1GetRealtimeConfigResponse401 |
 
 export type v1GetRealtimeConfigResponse = (v1GetRealtimeConfigResponseSuccess | v1GetRealtimeConfigResponseError)
 
-export const getV1GetRealtimeConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1GetRealtimeConfigUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/realtime`
+  return `https://api.supabase.com/v1/projects/${ref}/config/realtime`
 }
 
-export const v1GetRealtimeConfig = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetRealtimeConfigResponse> => {
+export const v1GetRealtimeConfig = async (ref: string, options?: RequestInit): Promise<v1GetRealtimeConfigResponse> => {
   
-  const res = await fetch(getV1GetRealtimeConfigUrl(ref, baseUrl),
+  return customFetch<v1GetRealtimeConfigResponse>(getV1GetRealtimeConfigUrl(ref),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetRealtimeConfigResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetRealtimeConfigResponse
-}
+);}
 
 
 /**
@@ -102,18 +97,18 @@ export type v1UpdateRealtimeConfigResponseError = (v1UpdateRealtimeConfigRespons
 
 export type v1UpdateRealtimeConfigResponse = (v1UpdateRealtimeConfigResponseSuccess | v1UpdateRealtimeConfigResponseError)
 
-export const getV1UpdateRealtimeConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1UpdateRealtimeConfigUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/realtime`
+  return `https://api.supabase.com/v1/projects/${ref}/config/realtime`
 }
 
 export const v1UpdateRealtimeConfig = async (ref: string,
-    updateRealtimeConfigBody: UpdateRealtimeConfigBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateRealtimeConfigResponse> => {
+    updateRealtimeConfigBody: UpdateRealtimeConfigBody, options?: RequestInit): Promise<v1UpdateRealtimeConfigResponse> => {
   
-  const res = await fetch(getV1UpdateRealtimeConfigUrl(ref, baseUrl),
+  return customFetch<v1UpdateRealtimeConfigResponse>(getV1UpdateRealtimeConfigUrl(ref),
   {      
     ...options,
     method: 'PATCH',
@@ -121,13 +116,7 @@ export const v1UpdateRealtimeConfig = async (ref: string,
     body: JSON.stringify(
       updateRealtimeConfigBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1UpdateRealtimeConfigResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1UpdateRealtimeConfigResponse
-}
+);}
 
 
 /**
@@ -167,29 +156,23 @@ export type v1ShutdownRealtimeResponseError = (v1ShutdownRealtimeResponse401 | v
 
 export type v1ShutdownRealtimeResponse = (v1ShutdownRealtimeResponseSuccess | v1ShutdownRealtimeResponseError)
 
-export const getV1ShutdownRealtimeUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1ShutdownRealtimeUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/realtime/shutdown`
+  return `https://api.supabase.com/v1/projects/${ref}/config/realtime/shutdown`
 }
 
-export const v1ShutdownRealtime = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ShutdownRealtimeResponse> => {
+export const v1ShutdownRealtime = async (ref: string, options?: RequestInit): Promise<v1ShutdownRealtimeResponse> => {
   
-  const res = await fetch(getV1ShutdownRealtimeUrl(ref, baseUrl),
+  return customFetch<v1ShutdownRealtimeResponse>(getV1ShutdownRealtimeUrl(ref),
   {      
     ...options,
     method: 'POST'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1ShutdownRealtimeResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1ShutdownRealtimeResponse
-}
+);}
 
 

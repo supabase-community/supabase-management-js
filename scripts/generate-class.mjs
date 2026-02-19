@@ -130,10 +130,9 @@ for (const file of sourceFiles) {
 
     const allParams = splitParams(rawParams);
 
-    // Strip trailing baseUrl and options params (added by patch-base-url.mjs)
+    // Strip options param (RequestInit) — baseUrl is now handled by the mutator
     const nonOptionParams = allParams.filter(
-      (p) =>
-        !p.includes("RequestInit") && !p.trim().startsWith("baseUrl")
+      (p) => !p.includes("RequestInit")
     );
 
     const callParams = nonOptionParams.map(extractParamName);
@@ -180,7 +179,8 @@ function generateMethod({ methodName, funcName, methodParamList, callParams, ret
     `    const result = await ${funcName}(${callArgs}{`,
     `      ...options,`,
     `      headers: { ...this.authHeader, ...options?.headers },`,
-    `    }, this.baseUrl);`,
+    `      baseUrl: this.baseUrl,`,
+    `    } as RequestInit);`,
     `    if (result.status >= 400) {`,
     `      throw new SupabaseManagementAPIError(result, '${methodName}');`,
     `    }`,
@@ -256,6 +256,7 @@ export * from './generated';
 export { SupabaseManagementAPI } from './api';
 export type { SupabaseManagementAPIOptions } from './api';
 export { SupabaseManagementAPIError } from './error';
+export type { FetcherOptions } from './fetcher';
 `;
 
 writeFileSync(OUT_INDEX, indexContent, "utf8");

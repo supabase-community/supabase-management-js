@@ -11,6 +11,7 @@ import type {
   V1StorageBucketResponse
 } from './supabaseAPIV1.schemas';
 
+import { customFetch } from '../fetcher';
 
 
 /**
@@ -50,30 +51,24 @@ export type v1ListAllBucketsResponseError = (v1ListAllBucketsResponse401 | v1Lis
 
 export type v1ListAllBucketsResponse = (v1ListAllBucketsResponseSuccess | v1ListAllBucketsResponseError)
 
-export const getV1ListAllBucketsUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1ListAllBucketsUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/storage/buckets`
+  return `https://api.supabase.com/v1/projects/${ref}/storage/buckets`
 }
 
-export const v1ListAllBuckets = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListAllBucketsResponse> => {
+export const v1ListAllBuckets = async (ref: string, options?: RequestInit): Promise<v1ListAllBucketsResponse> => {
   
-  const res = await fetch(getV1ListAllBucketsUrl(ref, baseUrl),
+  return customFetch<v1ListAllBucketsResponse>(getV1ListAllBucketsUrl(ref),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1ListAllBucketsResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1ListAllBucketsResponse
-}
+);}
 
 
 /**
@@ -113,30 +108,24 @@ export type v1GetStorageConfigResponseError = (v1GetStorageConfigResponse401 | v
 
 export type v1GetStorageConfigResponse = (v1GetStorageConfigResponseSuccess | v1GetStorageConfigResponseError)
 
-export const getV1GetStorageConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1GetStorageConfigUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/storage`
+  return `https://api.supabase.com/v1/projects/${ref}/config/storage`
 }
 
-export const v1GetStorageConfig = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetStorageConfigResponse> => {
+export const v1GetStorageConfig = async (ref: string, options?: RequestInit): Promise<v1GetStorageConfigResponse> => {
   
-  const res = await fetch(getV1GetStorageConfigUrl(ref, baseUrl),
+  return customFetch<v1GetStorageConfigResponse>(getV1GetStorageConfigUrl(ref),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetStorageConfigResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetStorageConfigResponse
-}
+);}
 
 
 /**
@@ -176,18 +165,18 @@ export type v1UpdateStorageConfigResponseError = (v1UpdateStorageConfigResponse4
 
 export type v1UpdateStorageConfigResponse = (v1UpdateStorageConfigResponseSuccess | v1UpdateStorageConfigResponseError)
 
-export const getV1UpdateStorageConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1UpdateStorageConfigUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/storage`
+  return `https://api.supabase.com/v1/projects/${ref}/config/storage`
 }
 
 export const v1UpdateStorageConfig = async (ref: string,
-    updateStorageConfigBody: UpdateStorageConfigBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateStorageConfigResponse> => {
+    updateStorageConfigBody: UpdateStorageConfigBody, options?: RequestInit): Promise<v1UpdateStorageConfigResponse> => {
   
-  const res = await fetch(getV1UpdateStorageConfigUrl(ref, baseUrl),
+  return customFetch<v1UpdateStorageConfigResponse>(getV1UpdateStorageConfigUrl(ref),
   {      
     ...options,
     method: 'PATCH',
@@ -195,12 +184,6 @@ export const v1UpdateStorageConfig = async (ref: string,
     body: JSON.stringify(
       updateStorageConfigBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1UpdateStorageConfigResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1UpdateStorageConfigResponse
-}
+);}
 
 

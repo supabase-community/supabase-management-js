@@ -11,6 +11,7 @@ import type {
   V1UpdatePostgrestConfigBody
 } from './supabaseAPIV1.schemas';
 
+import { customFetch } from '../fetcher';
 
 
 /**
@@ -50,30 +51,24 @@ export type v1GetPostgrestServiceConfigResponseError = (v1GetPostgrestServiceCon
 
 export type v1GetPostgrestServiceConfigResponse = (v1GetPostgrestServiceConfigResponseSuccess | v1GetPostgrestServiceConfigResponseError)
 
-export const getV1GetPostgrestServiceConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1GetPostgrestServiceConfigUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/postgrest`
+  return `https://api.supabase.com/v1/projects/${ref}/postgrest`
 }
 
-export const v1GetPostgrestServiceConfig = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetPostgrestServiceConfigResponse> => {
+export const v1GetPostgrestServiceConfig = async (ref: string, options?: RequestInit): Promise<v1GetPostgrestServiceConfigResponse> => {
   
-  const res = await fetch(getV1GetPostgrestServiceConfigUrl(ref, baseUrl),
+  return customFetch<v1GetPostgrestServiceConfigResponse>(getV1GetPostgrestServiceConfigUrl(ref),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetPostgrestServiceConfigResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetPostgrestServiceConfigResponse
-}
+);}
 
 
 /**
@@ -113,18 +108,18 @@ export type v1UpdatePostgrestServiceConfigResponseError = (v1UpdatePostgrestServ
 
 export type v1UpdatePostgrestServiceConfigResponse = (v1UpdatePostgrestServiceConfigResponseSuccess | v1UpdatePostgrestServiceConfigResponseError)
 
-export const getV1UpdatePostgrestServiceConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1UpdatePostgrestServiceConfigUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/postgrest`
+  return `https://api.supabase.com/v1/projects/${ref}/postgrest`
 }
 
 export const v1UpdatePostgrestServiceConfig = async (ref: string,
-    v1UpdatePostgrestConfigBody: V1UpdatePostgrestConfigBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdatePostgrestServiceConfigResponse> => {
+    v1UpdatePostgrestConfigBody: V1UpdatePostgrestConfigBody, options?: RequestInit): Promise<v1UpdatePostgrestServiceConfigResponse> => {
   
-  const res = await fetch(getV1UpdatePostgrestServiceConfigUrl(ref, baseUrl),
+  return customFetch<v1UpdatePostgrestServiceConfigResponse>(getV1UpdatePostgrestServiceConfigUrl(ref),
   {      
     ...options,
     method: 'PATCH',
@@ -132,12 +127,6 @@ export const v1UpdatePostgrestServiceConfig = async (ref: string,
     body: JSON.stringify(
       v1UpdatePostgrestConfigBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1UpdatePostgrestServiceConfigResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1UpdatePostgrestServiceConfigResponse
-}
+);}
 
 

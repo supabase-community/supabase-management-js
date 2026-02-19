@@ -23,6 +23,7 @@ import type {
   UpdateSigningKeyBody
 } from './supabaseAPIV1.schemas';
 
+import { customFetch } from '../fetcher';
 
 
 /**
@@ -57,30 +58,24 @@ export type v1CreateLegacySigningKeyResponseError = (v1CreateLegacySigningKeyRes
 
 export type v1CreateLegacySigningKeyResponse = (v1CreateLegacySigningKeyResponseSuccess | v1CreateLegacySigningKeyResponseError)
 
-export const getV1CreateLegacySigningKeyUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1CreateLegacySigningKeyUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/auth/signing-keys/legacy`
+  return `https://api.supabase.com/v1/projects/${ref}/config/auth/signing-keys/legacy`
 }
 
-export const v1CreateLegacySigningKey = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1CreateLegacySigningKeyResponse> => {
+export const v1CreateLegacySigningKey = async (ref: string, options?: RequestInit): Promise<v1CreateLegacySigningKeyResponse> => {
   
-  const res = await fetch(getV1CreateLegacySigningKeyUrl(ref, baseUrl),
+  return customFetch<v1CreateLegacySigningKeyResponse>(getV1CreateLegacySigningKeyUrl(ref),
   {      
     ...options,
     method: 'POST'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1CreateLegacySigningKeyResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1CreateLegacySigningKeyResponse
-}
+);}
 
 
 /**
@@ -115,30 +110,24 @@ export type v1GetLegacySigningKeyResponseError = (v1GetLegacySigningKeyResponse4
 
 export type v1GetLegacySigningKeyResponse = (v1GetLegacySigningKeyResponseSuccess | v1GetLegacySigningKeyResponseError)
 
-export const getV1GetLegacySigningKeyUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1GetLegacySigningKeyUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/auth/signing-keys/legacy`
+  return `https://api.supabase.com/v1/projects/${ref}/config/auth/signing-keys/legacy`
 }
 
-export const v1GetLegacySigningKey = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetLegacySigningKeyResponse> => {
+export const v1GetLegacySigningKey = async (ref: string, options?: RequestInit): Promise<v1GetLegacySigningKeyResponse> => {
   
-  const res = await fetch(getV1GetLegacySigningKeyUrl(ref, baseUrl),
+  return customFetch<v1GetLegacySigningKeyResponse>(getV1GetLegacySigningKeyUrl(ref),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetLegacySigningKeyResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetLegacySigningKeyResponse
-}
+);}
 
 
 /**
@@ -173,18 +162,18 @@ export type v1CreateProjectSigningKeyResponseError = (v1CreateProjectSigningKeyR
 
 export type v1CreateProjectSigningKeyResponse = (v1CreateProjectSigningKeyResponseSuccess | v1CreateProjectSigningKeyResponseError)
 
-export const getV1CreateProjectSigningKeyUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1CreateProjectSigningKeyUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/auth/signing-keys`
+  return `https://api.supabase.com/v1/projects/${ref}/config/auth/signing-keys`
 }
 
 export const v1CreateProjectSigningKey = async (ref: string,
-    createSigningKeyBody: CreateSigningKeyBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1CreateProjectSigningKeyResponse> => {
+    createSigningKeyBody: CreateSigningKeyBody, options?: RequestInit): Promise<v1CreateProjectSigningKeyResponse> => {
   
-  const res = await fetch(getV1CreateProjectSigningKeyUrl(ref, baseUrl),
+  return customFetch<v1CreateProjectSigningKeyResponse>(getV1CreateProjectSigningKeyUrl(ref),
   {      
     ...options,
     method: 'POST',
@@ -192,13 +181,7 @@ export const v1CreateProjectSigningKey = async (ref: string,
     body: JSON.stringify(
       createSigningKeyBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1CreateProjectSigningKeyResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1CreateProjectSigningKeyResponse
-}
+);}
 
 
 /**
@@ -233,30 +216,24 @@ export type v1GetProjectSigningKeysResponseError = (v1GetProjectSigningKeysRespo
 
 export type v1GetProjectSigningKeysResponse = (v1GetProjectSigningKeysResponseSuccess | v1GetProjectSigningKeysResponseError)
 
-export const getV1GetProjectSigningKeysUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1GetProjectSigningKeysUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/auth/signing-keys`
+  return `https://api.supabase.com/v1/projects/${ref}/config/auth/signing-keys`
 }
 
-export const v1GetProjectSigningKeys = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetProjectSigningKeysResponse> => {
+export const v1GetProjectSigningKeys = async (ref: string, options?: RequestInit): Promise<v1GetProjectSigningKeysResponse> => {
   
-  const res = await fetch(getV1GetProjectSigningKeysUrl(ref, baseUrl),
+  return customFetch<v1GetProjectSigningKeysResponse>(getV1GetProjectSigningKeysUrl(ref),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetProjectSigningKeysResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetProjectSigningKeysResponse
-}
+);}
 
 
 /**
@@ -292,31 +269,25 @@ export type v1GetProjectSigningKeyResponseError = (v1GetProjectSigningKeyRespons
 export type v1GetProjectSigningKeyResponse = (v1GetProjectSigningKeyResponseSuccess | v1GetProjectSigningKeyResponseError)
 
 export const getV1GetProjectSigningKeyUrl = (ref: string,
-    id: string, baseUrl: string = 'https://api.supabase.com') => {
+    id: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/auth/signing-keys/${id}`
+  return `https://api.supabase.com/v1/projects/${ref}/config/auth/signing-keys/${id}`
 }
 
 export const v1GetProjectSigningKey = async (ref: string,
-    id: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetProjectSigningKeyResponse> => {
+    id: string, options?: RequestInit): Promise<v1GetProjectSigningKeyResponse> => {
   
-  const res = await fetch(getV1GetProjectSigningKeyUrl(ref,id, baseUrl),
+  return customFetch<v1GetProjectSigningKeyResponse>(getV1GetProjectSigningKeyUrl(ref,id),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetProjectSigningKeyResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetProjectSigningKeyResponse
-}
+);}
 
 
 /**
@@ -352,31 +323,25 @@ export type v1RemoveProjectSigningKeyResponseError = (v1RemoveProjectSigningKeyR
 export type v1RemoveProjectSigningKeyResponse = (v1RemoveProjectSigningKeyResponseSuccess | v1RemoveProjectSigningKeyResponseError)
 
 export const getV1RemoveProjectSigningKeyUrl = (ref: string,
-    id: string, baseUrl: string = 'https://api.supabase.com') => {
+    id: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/auth/signing-keys/${id}`
+  return `https://api.supabase.com/v1/projects/${ref}/config/auth/signing-keys/${id}`
 }
 
 export const v1RemoveProjectSigningKey = async (ref: string,
-    id: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1RemoveProjectSigningKeyResponse> => {
+    id: string, options?: RequestInit): Promise<v1RemoveProjectSigningKeyResponse> => {
   
-  const res = await fetch(getV1RemoveProjectSigningKeyUrl(ref,id, baseUrl),
+  return customFetch<v1RemoveProjectSigningKeyResponse>(getV1RemoveProjectSigningKeyUrl(ref,id),
   {      
     ...options,
     method: 'DELETE'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1RemoveProjectSigningKeyResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1RemoveProjectSigningKeyResponse
-}
+);}
 
 
 /**
@@ -412,19 +377,19 @@ export type v1UpdateProjectSigningKeyResponseError = (v1UpdateProjectSigningKeyR
 export type v1UpdateProjectSigningKeyResponse = (v1UpdateProjectSigningKeyResponseSuccess | v1UpdateProjectSigningKeyResponseError)
 
 export const getV1UpdateProjectSigningKeyUrl = (ref: string,
-    id: string, baseUrl: string = 'https://api.supabase.com') => {
+    id: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/auth/signing-keys/${id}`
+  return `https://api.supabase.com/v1/projects/${ref}/config/auth/signing-keys/${id}`
 }
 
 export const v1UpdateProjectSigningKey = async (ref: string,
     id: string,
-    updateSigningKeyBody: UpdateSigningKeyBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateProjectSigningKeyResponse> => {
+    updateSigningKeyBody: UpdateSigningKeyBody, options?: RequestInit): Promise<v1UpdateProjectSigningKeyResponse> => {
   
-  const res = await fetch(getV1UpdateProjectSigningKeyUrl(ref,id, baseUrl),
+  return customFetch<v1UpdateProjectSigningKeyResponse>(getV1UpdateProjectSigningKeyUrl(ref,id),
   {      
     ...options,
     method: 'PATCH',
@@ -432,13 +397,7 @@ export const v1UpdateProjectSigningKey = async (ref: string,
     body: JSON.stringify(
       updateSigningKeyBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1UpdateProjectSigningKeyResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1UpdateProjectSigningKeyResponse
-}
+);}
 
 
 /**
@@ -478,30 +437,24 @@ export type v1GetAuthServiceConfigResponseError = (v1GetAuthServiceConfigRespons
 
 export type v1GetAuthServiceConfigResponse = (v1GetAuthServiceConfigResponseSuccess | v1GetAuthServiceConfigResponseError)
 
-export const getV1GetAuthServiceConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1GetAuthServiceConfigUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/auth`
+  return `https://api.supabase.com/v1/projects/${ref}/config/auth`
 }
 
-export const v1GetAuthServiceConfig = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetAuthServiceConfigResponse> => {
+export const v1GetAuthServiceConfig = async (ref: string, options?: RequestInit): Promise<v1GetAuthServiceConfigResponse> => {
   
-  const res = await fetch(getV1GetAuthServiceConfigUrl(ref, baseUrl),
+  return customFetch<v1GetAuthServiceConfigResponse>(getV1GetAuthServiceConfigUrl(ref),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetAuthServiceConfigResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetAuthServiceConfigResponse
-}
+);}
 
 
 /**
@@ -541,18 +494,18 @@ export type v1UpdateAuthServiceConfigResponseError = (v1UpdateAuthServiceConfigR
 
 export type v1UpdateAuthServiceConfigResponse = (v1UpdateAuthServiceConfigResponseSuccess | v1UpdateAuthServiceConfigResponseError)
 
-export const getV1UpdateAuthServiceConfigUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1UpdateAuthServiceConfigUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/auth`
+  return `https://api.supabase.com/v1/projects/${ref}/config/auth`
 }
 
 export const v1UpdateAuthServiceConfig = async (ref: string,
-    updateAuthConfigBody: UpdateAuthConfigBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateAuthServiceConfigResponse> => {
+    updateAuthConfigBody: UpdateAuthConfigBody, options?: RequestInit): Promise<v1UpdateAuthServiceConfigResponse> => {
   
-  const res = await fetch(getV1UpdateAuthServiceConfigUrl(ref, baseUrl),
+  return customFetch<v1UpdateAuthServiceConfigResponse>(getV1UpdateAuthServiceConfigUrl(ref),
   {      
     ...options,
     method: 'PATCH',
@@ -560,13 +513,7 @@ export const v1UpdateAuthServiceConfig = async (ref: string,
     body: JSON.stringify(
       updateAuthConfigBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1UpdateAuthServiceConfigResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1UpdateAuthServiceConfigResponse
-}
+);}
 
 
 /**
@@ -601,18 +548,18 @@ export type v1CreateProjectTpaIntegrationResponseError = (v1CreateProjectTpaInte
 
 export type v1CreateProjectTpaIntegrationResponse = (v1CreateProjectTpaIntegrationResponseSuccess | v1CreateProjectTpaIntegrationResponseError)
 
-export const getV1CreateProjectTpaIntegrationUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1CreateProjectTpaIntegrationUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/auth/third-party-auth`
+  return `https://api.supabase.com/v1/projects/${ref}/config/auth/third-party-auth`
 }
 
 export const v1CreateProjectTpaIntegration = async (ref: string,
-    createThirdPartyAuthBody: CreateThirdPartyAuthBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1CreateProjectTpaIntegrationResponse> => {
+    createThirdPartyAuthBody: CreateThirdPartyAuthBody, options?: RequestInit): Promise<v1CreateProjectTpaIntegrationResponse> => {
   
-  const res = await fetch(getV1CreateProjectTpaIntegrationUrl(ref, baseUrl),
+  return customFetch<v1CreateProjectTpaIntegrationResponse>(getV1CreateProjectTpaIntegrationUrl(ref),
   {      
     ...options,
     method: 'POST',
@@ -620,13 +567,7 @@ export const v1CreateProjectTpaIntegration = async (ref: string,
     body: JSON.stringify(
       createThirdPartyAuthBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1CreateProjectTpaIntegrationResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1CreateProjectTpaIntegrationResponse
-}
+);}
 
 
 /**
@@ -661,30 +602,24 @@ export type v1ListProjectTpaIntegrationsResponseError = (v1ListProjectTpaIntegra
 
 export type v1ListProjectTpaIntegrationsResponse = (v1ListProjectTpaIntegrationsResponseSuccess | v1ListProjectTpaIntegrationsResponseError)
 
-export const getV1ListProjectTpaIntegrationsUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1ListProjectTpaIntegrationsUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/auth/third-party-auth`
+  return `https://api.supabase.com/v1/projects/${ref}/config/auth/third-party-auth`
 }
 
-export const v1ListProjectTpaIntegrations = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListProjectTpaIntegrationsResponse> => {
+export const v1ListProjectTpaIntegrations = async (ref: string, options?: RequestInit): Promise<v1ListProjectTpaIntegrationsResponse> => {
   
-  const res = await fetch(getV1ListProjectTpaIntegrationsUrl(ref, baseUrl),
+  return customFetch<v1ListProjectTpaIntegrationsResponse>(getV1ListProjectTpaIntegrationsUrl(ref),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1ListProjectTpaIntegrationsResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1ListProjectTpaIntegrationsResponse
-}
+);}
 
 
 /**
@@ -720,31 +655,25 @@ export type v1DeleteProjectTpaIntegrationResponseError = (v1DeleteProjectTpaInte
 export type v1DeleteProjectTpaIntegrationResponse = (v1DeleteProjectTpaIntegrationResponseSuccess | v1DeleteProjectTpaIntegrationResponseError)
 
 export const getV1DeleteProjectTpaIntegrationUrl = (ref: string,
-    tpaId: string, baseUrl: string = 'https://api.supabase.com') => {
+    tpaId: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/auth/third-party-auth/${tpaId}`
+  return `https://api.supabase.com/v1/projects/${ref}/config/auth/third-party-auth/${tpaId}`
 }
 
 export const v1DeleteProjectTpaIntegration = async (ref: string,
-    tpaId: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1DeleteProjectTpaIntegrationResponse> => {
+    tpaId: string, options?: RequestInit): Promise<v1DeleteProjectTpaIntegrationResponse> => {
   
-  const res = await fetch(getV1DeleteProjectTpaIntegrationUrl(ref,tpaId, baseUrl),
+  return customFetch<v1DeleteProjectTpaIntegrationResponse>(getV1DeleteProjectTpaIntegrationUrl(ref,tpaId),
   {      
     ...options,
     method: 'DELETE'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1DeleteProjectTpaIntegrationResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1DeleteProjectTpaIntegrationResponse
-}
+);}
 
 
 /**
@@ -780,31 +709,25 @@ export type v1GetProjectTpaIntegrationResponseError = (v1GetProjectTpaIntegratio
 export type v1GetProjectTpaIntegrationResponse = (v1GetProjectTpaIntegrationResponseSuccess | v1GetProjectTpaIntegrationResponseError)
 
 export const getV1GetProjectTpaIntegrationUrl = (ref: string,
-    tpaId: string, baseUrl: string = 'https://api.supabase.com') => {
+    tpaId: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/auth/third-party-auth/${tpaId}`
+  return `https://api.supabase.com/v1/projects/${ref}/config/auth/third-party-auth/${tpaId}`
 }
 
 export const v1GetProjectTpaIntegration = async (ref: string,
-    tpaId: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetProjectTpaIntegrationResponse> => {
+    tpaId: string, options?: RequestInit): Promise<v1GetProjectTpaIntegrationResponse> => {
   
-  const res = await fetch(getV1GetProjectTpaIntegrationUrl(ref,tpaId, baseUrl),
+  return customFetch<v1GetProjectTpaIntegrationResponse>(getV1GetProjectTpaIntegrationUrl(ref,tpaId),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetProjectTpaIntegrationResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetProjectTpaIntegrationResponse
-}
+);}
 
 
 /**
@@ -844,18 +767,18 @@ export type v1CreateASsoProviderResponseError = (v1CreateASsoProviderResponse401
 
 export type v1CreateASsoProviderResponse = (v1CreateASsoProviderResponseSuccess | v1CreateASsoProviderResponseError)
 
-export const getV1CreateASsoProviderUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1CreateASsoProviderUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/auth/sso/providers`
+  return `https://api.supabase.com/v1/projects/${ref}/config/auth/sso/providers`
 }
 
 export const v1CreateASsoProvider = async (ref: string,
-    createProviderBody: CreateProviderBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1CreateASsoProviderResponse> => {
+    createProviderBody: CreateProviderBody, options?: RequestInit): Promise<v1CreateASsoProviderResponse> => {
   
-  const res = await fetch(getV1CreateASsoProviderUrl(ref, baseUrl),
+  return customFetch<v1CreateASsoProviderResponse>(getV1CreateASsoProviderUrl(ref),
   {      
     ...options,
     method: 'POST',
@@ -863,13 +786,7 @@ export const v1CreateASsoProvider = async (ref: string,
     body: JSON.stringify(
       createProviderBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1CreateASsoProviderResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1CreateASsoProviderResponse
-}
+);}
 
 
 /**
@@ -909,30 +826,24 @@ export type v1ListAllSsoProviderResponseError = (v1ListAllSsoProviderResponse401
 
 export type v1ListAllSsoProviderResponse = (v1ListAllSsoProviderResponseSuccess | v1ListAllSsoProviderResponseError)
 
-export const getV1ListAllSsoProviderUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1ListAllSsoProviderUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/auth/sso/providers`
+  return `https://api.supabase.com/v1/projects/${ref}/config/auth/sso/providers`
 }
 
-export const v1ListAllSsoProvider = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1ListAllSsoProviderResponse> => {
+export const v1ListAllSsoProvider = async (ref: string, options?: RequestInit): Promise<v1ListAllSsoProviderResponse> => {
   
-  const res = await fetch(getV1ListAllSsoProviderUrl(ref, baseUrl),
+  return customFetch<v1ListAllSsoProviderResponse>(getV1ListAllSsoProviderUrl(ref),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1ListAllSsoProviderResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1ListAllSsoProviderResponse
-}
+);}
 
 
 /**
@@ -973,31 +884,25 @@ export type v1GetASsoProviderResponseError = (v1GetASsoProviderResponse401 | v1G
 export type v1GetASsoProviderResponse = (v1GetASsoProviderResponseSuccess | v1GetASsoProviderResponseError)
 
 export const getV1GetASsoProviderUrl = (ref: string,
-    providerId: string, baseUrl: string = 'https://api.supabase.com') => {
+    providerId: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/auth/sso/providers/${providerId}`
+  return `https://api.supabase.com/v1/projects/${ref}/config/auth/sso/providers/${providerId}`
 }
 
 export const v1GetASsoProvider = async (ref: string,
-    providerId: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetASsoProviderResponse> => {
+    providerId: string, options?: RequestInit): Promise<v1GetASsoProviderResponse> => {
   
-  const res = await fetch(getV1GetASsoProviderUrl(ref,providerId, baseUrl),
+  return customFetch<v1GetASsoProviderResponse>(getV1GetASsoProviderUrl(ref,providerId),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetASsoProviderResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetASsoProviderResponse
-}
+);}
 
 
 /**
@@ -1038,19 +943,19 @@ export type v1UpdateASsoProviderResponseError = (v1UpdateASsoProviderResponse401
 export type v1UpdateASsoProviderResponse = (v1UpdateASsoProviderResponseSuccess | v1UpdateASsoProviderResponseError)
 
 export const getV1UpdateASsoProviderUrl = (ref: string,
-    providerId: string, baseUrl: string = 'https://api.supabase.com') => {
+    providerId: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/auth/sso/providers/${providerId}`
+  return `https://api.supabase.com/v1/projects/${ref}/config/auth/sso/providers/${providerId}`
 }
 
 export const v1UpdateASsoProvider = async (ref: string,
     providerId: string,
-    updateProviderBody: UpdateProviderBody, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1UpdateASsoProviderResponse> => {
+    updateProviderBody: UpdateProviderBody, options?: RequestInit): Promise<v1UpdateASsoProviderResponse> => {
   
-  const res = await fetch(getV1UpdateASsoProviderUrl(ref,providerId, baseUrl),
+  return customFetch<v1UpdateASsoProviderResponse>(getV1UpdateASsoProviderUrl(ref,providerId),
   {      
     ...options,
     method: 'PUT',
@@ -1058,13 +963,7 @@ export const v1UpdateASsoProvider = async (ref: string,
     body: JSON.stringify(
       updateProviderBody,)
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1UpdateASsoProviderResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1UpdateASsoProviderResponse
-}
+);}
 
 
 /**
@@ -1105,30 +1004,24 @@ export type v1DeleteASsoProviderResponseError = (v1DeleteASsoProviderResponse401
 export type v1DeleteASsoProviderResponse = (v1DeleteASsoProviderResponseSuccess | v1DeleteASsoProviderResponseError)
 
 export const getV1DeleteASsoProviderUrl = (ref: string,
-    providerId: string, baseUrl: string = 'https://api.supabase.com') => {
+    providerId: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/config/auth/sso/providers/${providerId}`
+  return `https://api.supabase.com/v1/projects/${ref}/config/auth/sso/providers/${providerId}`
 }
 
 export const v1DeleteASsoProvider = async (ref: string,
-    providerId: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1DeleteASsoProviderResponse> => {
+    providerId: string, options?: RequestInit): Promise<v1DeleteASsoProviderResponse> => {
   
-  const res = await fetch(getV1DeleteASsoProviderUrl(ref,providerId, baseUrl),
+  return customFetch<v1DeleteASsoProviderResponse>(getV1DeleteASsoProviderUrl(ref,providerId),
   {      
     ...options,
     method: 'DELETE'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1DeleteASsoProviderResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1DeleteASsoProviderResponse
-}
+);}
 
 

@@ -14,6 +14,7 @@ import type {
   V1GetUsageApiRequestsCountResponse
 } from './supabaseAPIV1.schemas';
 
+import { customFetch } from '../fetcher';
 
 
 /**
@@ -57,7 +58,7 @@ export type v1GetProjectLogsResponseError = (v1GetProjectLogsResponse401 | v1Get
 export type v1GetProjectLogsResponse = (v1GetProjectLogsResponseSuccess | v1GetProjectLogsResponseError)
 
 export const getV1GetProjectLogsUrl = (ref: string,
-    params?: V1GetProjectLogsParams, baseUrl: string = 'https://api.supabase.com') => {
+    params?: V1GetProjectLogsParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -69,26 +70,20 @@ export const getV1GetProjectLogsUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/analytics/endpoints/logs.all?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/analytics/endpoints/logs.all`
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/logs.all?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/logs.all`
 }
 
 export const v1GetProjectLogs = async (ref: string,
-    params?: V1GetProjectLogsParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetProjectLogsResponse> => {
+    params?: V1GetProjectLogsParams, options?: RequestInit): Promise<v1GetProjectLogsResponse> => {
   
-  const res = await fetch(getV1GetProjectLogsUrl(ref,params, baseUrl),
+  return customFetch<v1GetProjectLogsResponse>(getV1GetProjectLogsUrl(ref,params),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetProjectLogsResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetProjectLogsResponse
-}
+);}
 
 
 /**
@@ -129,7 +124,7 @@ export type v1GetProjectUsageApiCountResponseError = (v1GetProjectUsageApiCountR
 export type v1GetProjectUsageApiCountResponse = (v1GetProjectUsageApiCountResponseSuccess | v1GetProjectUsageApiCountResponseError)
 
 export const getV1GetProjectUsageApiCountUrl = (ref: string,
-    params?: V1GetProjectUsageApiCountParams, baseUrl: string = 'https://api.supabase.com') => {
+    params?: V1GetProjectUsageApiCountParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -141,26 +136,20 @@ export const getV1GetProjectUsageApiCountUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/analytics/endpoints/usage.api-counts?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/analytics/endpoints/usage.api-counts`
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/usage.api-counts?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/usage.api-counts`
 }
 
 export const v1GetProjectUsageApiCount = async (ref: string,
-    params?: V1GetProjectUsageApiCountParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetProjectUsageApiCountResponse> => {
+    params?: V1GetProjectUsageApiCountParams, options?: RequestInit): Promise<v1GetProjectUsageApiCountResponse> => {
   
-  const res = await fetch(getV1GetProjectUsageApiCountUrl(ref,params, baseUrl),
+  return customFetch<v1GetProjectUsageApiCountResponse>(getV1GetProjectUsageApiCountUrl(ref,params),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetProjectUsageApiCountResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetProjectUsageApiCountResponse
-}
+);}
 
 
 /**
@@ -200,30 +189,24 @@ export type v1GetProjectUsageRequestCountResponseError = (v1GetProjectUsageReque
 
 export type v1GetProjectUsageRequestCountResponse = (v1GetProjectUsageRequestCountResponseSuccess | v1GetProjectUsageRequestCountResponseError)
 
-export const getV1GetProjectUsageRequestCountUrl = (ref: string, baseUrl: string = 'https://api.supabase.com') => {
+export const getV1GetProjectUsageRequestCountUrl = (ref: string,) => {
 
 
   
 
-  return `${baseUrl}/v1/projects/${ref}/analytics/endpoints/usage.api-requests-count`
+  return `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/usage.api-requests-count`
 }
 
-export const v1GetProjectUsageRequestCount = async (ref: string, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetProjectUsageRequestCountResponse> => {
+export const v1GetProjectUsageRequestCount = async (ref: string, options?: RequestInit): Promise<v1GetProjectUsageRequestCountResponse> => {
   
-  const res = await fetch(getV1GetProjectUsageRequestCountUrl(ref, baseUrl),
+  return customFetch<v1GetProjectUsageRequestCountResponse>(getV1GetProjectUsageRequestCountUrl(ref),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetProjectUsageRequestCountResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetProjectUsageRequestCountResponse
-}
+);}
 
 
 /**
@@ -264,7 +247,7 @@ export type v1GetProjectFunctionCombinedStatsResponseError = (v1GetProjectFuncti
 export type v1GetProjectFunctionCombinedStatsResponse = (v1GetProjectFunctionCombinedStatsResponseSuccess | v1GetProjectFunctionCombinedStatsResponseError)
 
 export const getV1GetProjectFunctionCombinedStatsUrl = (ref: string,
-    params: V1GetProjectFunctionCombinedStatsParams, baseUrl: string = 'https://api.supabase.com') => {
+    params: V1GetProjectFunctionCombinedStatsParams,) => {
   const normalizedParams = new URLSearchParams();
 
   Object.entries(params || {}).forEach(([key, value]) => {
@@ -276,25 +259,19 @@ export const getV1GetProjectFunctionCombinedStatsUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `${baseUrl}/v1/projects/${ref}/analytics/endpoints/functions.combined-stats?${stringifiedParams}` : `${baseUrl}/v1/projects/${ref}/analytics/endpoints/functions.combined-stats`
+  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/functions.combined-stats?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/functions.combined-stats`
 }
 
 export const v1GetProjectFunctionCombinedStats = async (ref: string,
-    params: V1GetProjectFunctionCombinedStatsParams, options?: RequestInit, baseUrl: string = 'https://api.supabase.com'): Promise<v1GetProjectFunctionCombinedStatsResponse> => {
+    params: V1GetProjectFunctionCombinedStatsParams, options?: RequestInit): Promise<v1GetProjectFunctionCombinedStatsResponse> => {
   
-  const res = await fetch(getV1GetProjectFunctionCombinedStatsUrl(ref,params, baseUrl),
+  return customFetch<v1GetProjectFunctionCombinedStatsResponse>(getV1GetProjectFunctionCombinedStatsUrl(ref,params),
   {      
     ...options,
     method: 'GET'
     
     
   }
-)
-
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  
-  const data: v1GetProjectFunctionCombinedStatsResponse['data'] = body ? JSON.parse(body) : {}
-  return { data, status: res.status, headers: res.headers } as v1GetProjectFunctionCombinedStatsResponse
-}
+);}
 
 
