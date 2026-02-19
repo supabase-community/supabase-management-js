@@ -256,7 +256,6 @@ export * from './generated';
 export { SupabaseManagementAPI } from './api';
 export type { SupabaseManagementAPIOptions } from './api';
 export { SupabaseManagementAPIError } from './error';
-export type { FetcherOptions } from './fetcher';
 `;
 
 writeFileSync(OUT_INDEX, indexContent, "utf8");
