@@ -68,7 +68,7 @@ export const getV1ListAllFunctionsUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/functions`
+  return `/v1/projects/${ref}/functions`
 }
 
 export const v1ListAllFunctions = async (ref: string, options?: RequestInit): Promise<v1ListAllFunctionsResponse> => {
@@ -140,7 +140,7 @@ export const getV1CreateAFunctionWithApplicationVndDenolandEszipUrl = (ref: stri
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/functions?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/functions`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/functions?${stringifiedParams}` : `/v1/projects/${ref}/functions`
 }
 
 export const v1CreateAFunctionWithApplicationVndDenolandEszip = async (ref: string,
@@ -215,7 +215,7 @@ export const getV1CreateAFunctionWithJsonUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/functions?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/functions`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/functions?${stringifiedParams}` : `/v1/projects/${ref}/functions`
 }
 
 export const v1CreateAFunctionWithJson = async (ref: string,
@@ -281,7 +281,7 @@ export const getV1BulkUpdateFunctionsUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/functions`
+  return `/v1/projects/${ref}/functions`
 }
 
 export const v1BulkUpdateFunctions = async (ref: string,
@@ -354,7 +354,7 @@ export const getV1DeployAFunctionUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/functions/deploy?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/functions/deploy`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/functions/deploy?${stringifiedParams}` : `/v1/projects/${ref}/functions/deploy`
 }
 
 export const v1DeployAFunction = async (ref: string,
@@ -421,7 +421,7 @@ export const getV1GetAFunctionUrl = (ref: string,
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}`
+  return `/v1/projects/${ref}/functions/${functionSlug}`
 }
 
 export const v1GetAFunction = async (ref: string,
@@ -489,7 +489,7 @@ export const getV1UpdateAFunctionWithApplicationVndDenolandEszipUrl = (ref: stri
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/functions/${functionSlug}?${stringifiedParams}` : `/v1/projects/${ref}/functions/${functionSlug}`
 }
 
 export const v1UpdateAFunctionWithApplicationVndDenolandEszip = async (ref: string,
@@ -560,7 +560,7 @@ export const getV1UpdateAFunctionWithJsonUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/functions/${functionSlug}?${stringifiedParams}` : `/v1/projects/${ref}/functions/${functionSlug}`
 }
 
 export const v1UpdateAFunctionWithJson = async (ref: string,
@@ -623,7 +623,7 @@ export const getV1DeleteAFunctionUrl = (ref: string,
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}`
+  return `/v1/projects/${ref}/functions/${functionSlug}`
 }
 
 export const v1DeleteAFunction = async (ref: string,
@@ -683,7 +683,7 @@ export const getV1GetAFunctionBodyUrl = (ref: string,
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/functions/${functionSlug}/body`
+  return `/v1/projects/${ref}/functions/${functionSlug}/body`
 }
 
 export const v1GetAFunctionBody = async (ref: string,

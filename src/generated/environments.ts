@@ -54,7 +54,7 @@ export const getV1GetABranchConfigUrl = (branchIdOrRef: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/branches/${branchIdOrRef}`
+  return `/v1/branches/${branchIdOrRef}`
 }
 
 export const v1GetABranchConfig = async (branchIdOrRef: string, options?: RequestInit): Promise<v1GetABranchConfigResponse> => {
@@ -97,7 +97,7 @@ export const getV1UpdateABranchConfigUrl = (branchIdOrRef: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/branches/${branchIdOrRef}`
+  return `/v1/branches/${branchIdOrRef}`
 }
 
 export const v1UpdateABranchConfig = async (branchIdOrRef: string,
@@ -150,7 +150,7 @@ export const getV1DeleteABranchUrl = (branchIdOrRef: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/branches/${branchIdOrRef}?${stringifiedParams}` : `https://api.supabase.com/v1/branches/${branchIdOrRef}`
+  return stringifiedParams.length > 0 ? `/v1/branches/${branchIdOrRef}?${stringifiedParams}` : `/v1/branches/${branchIdOrRef}`
 }
 
 export const v1DeleteABranch = async (branchIdOrRef: string,
@@ -194,7 +194,7 @@ export const getV1PushABranchUrl = (branchIdOrRef: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/branches/${branchIdOrRef}/push`
+  return `/v1/branches/${branchIdOrRef}/push`
 }
 
 export const v1PushABranch = async (branchIdOrRef: string,
@@ -239,7 +239,7 @@ export const getV1MergeABranchUrl = (branchIdOrRef: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/branches/${branchIdOrRef}/merge`
+  return `/v1/branches/${branchIdOrRef}/merge`
 }
 
 export const v1MergeABranch = async (branchIdOrRef: string,
@@ -284,7 +284,7 @@ export const getV1ResetABranchUrl = (branchIdOrRef: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/branches/${branchIdOrRef}/reset`
+  return `/v1/branches/${branchIdOrRef}/reset`
 }
 
 export const v1ResetABranch = async (branchIdOrRef: string,
@@ -329,7 +329,7 @@ export const getV1RestoreABranchUrl = (branchIdOrRef: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/branches/${branchIdOrRef}/restore`
+  return `/v1/branches/${branchIdOrRef}/restore`
 }
 
 export const v1RestoreABranch = async (branchIdOrRef: string, options?: RequestInit): Promise<v1RestoreABranchResponse> => {
@@ -380,7 +380,7 @@ export const getV1DiffABranchUrl = (branchIdOrRef: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/branches/${branchIdOrRef}/diff?${stringifiedParams}` : `https://api.supabase.com/v1/branches/${branchIdOrRef}/diff`
+  return stringifiedParams.length > 0 ? `/v1/branches/${branchIdOrRef}/diff?${stringifiedParams}` : `/v1/branches/${branchIdOrRef}/diff`
 }
 
 export const v1DiffABranch = async (branchIdOrRef: string,
@@ -447,7 +447,7 @@ export const getV1ListActionRunsUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/actions?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/actions`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/actions?${stringifiedParams}` : `/v1/projects/${ref}/actions`
 }
 
 export const v1ListActionRuns = async (ref: string,
@@ -506,7 +506,7 @@ export const getV1CountActionRunsUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/actions`
+  return `/v1/projects/${ref}/actions`
 }
 
 export const v1CountActionRuns = async (ref: string, options?: RequestInit): Promise<v1CountActionRunsResponse> => {
@@ -565,7 +565,7 @@ export const getV1GetActionRunUrl = (ref: string,
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/actions/${runId}`
+  return `/v1/projects/${ref}/actions/${runId}`
 }
 
 export const v1GetActionRun = async (ref: string,
@@ -625,7 +625,7 @@ export const getV1UpdateActionRunStatusUrl = (ref: string,
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/actions/${runId}/status`
+  return `/v1/projects/${ref}/actions/${runId}/status`
 }
 
 export const v1UpdateActionRunStatus = async (ref: string,
@@ -687,7 +687,7 @@ export const getV1GetActionRunLogsUrl = (ref: string,
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/actions/${runId}/logs`
+  return `/v1/projects/${ref}/actions/${runId}/logs`
 }
 
 export const v1GetActionRunLogs = async (ref: string,
@@ -746,7 +746,7 @@ export const getV1ListAllBranchesUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/branches`
+  return `/v1/projects/${ref}/branches`
 }
 
 export const v1ListAllBranches = async (ref: string, options?: RequestInit): Promise<v1ListAllBranchesResponse> => {
@@ -804,7 +804,7 @@ export const getV1CreateABranchUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/branches`
+  return `/v1/projects/${ref}/branches`
 }
 
 export const v1CreateABranch = async (ref: string,
@@ -864,7 +864,7 @@ export const getV1DisablePreviewBranchingUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/branches`
+  return `/v1/projects/${ref}/branches`
 }
 
 export const v1DisablePreviewBranching = async (ref: string, options?: RequestInit): Promise<v1DisablePreviewBranchingResponse> => {
@@ -923,7 +923,7 @@ export const getV1GetABranchUrl = (ref: string,
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/branches/${name}`
+  return `/v1/projects/${ref}/branches/${name}`
 }
 
 export const v1GetABranch = async (ref: string,

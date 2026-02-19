@@ -56,7 +56,7 @@ export const getV1GetPostgrestServiceConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/postgrest`
+  return `/v1/projects/${ref}/postgrest`
 }
 
 export const v1GetPostgrestServiceConfig = async (ref: string, options?: RequestInit): Promise<v1GetPostgrestServiceConfigResponse> => {
@@ -113,7 +113,7 @@ export const getV1UpdatePostgrestServiceConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/postgrest`
+  return `/v1/projects/${ref}/postgrest`
 }
 
 export const v1UpdatePostgrestServiceConfig = async (ref: string,

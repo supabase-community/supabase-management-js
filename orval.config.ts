@@ -7,7 +7,6 @@ export default defineConfig({
     },
     output: {
       client: "fetch",
-      baseUrl: "https://api.supabase.com",
       mode: "tags",
       target: "./src/generated",
       override: {

@@ -10,22 +10,19 @@ const getBody = <T>(res: Response): Promise<T> => {
   return res.text() as Promise<T>;
 };
 
-const getUrl = (contextUrl: string): string => {
-  const url = new URL(contextUrl);
-  const pathname = url.pathname;
-  const search = url.search;
+const getUrl = (path: string): string => {
   const baseUrl = process.env.SUPABASE_API_BASE_URL ?? SUPABASE_API_BASE_URL;
 
-  const requestUrl = new URL(`${baseUrl}${pathname}${search}`);
+  const requestUrl = new URL(`${baseUrl}${path}`);
 
   return requestUrl.toString();
 };
 
 export const customFetch = async <T>(
-  url: string,
+  path: string,
   options?: RequestInit,
 ): Promise<T> => {
-  const resolvedUrl = getUrl(url);
+  const resolvedUrl = getUrl(path);
 
   const res = await fetch(resolvedUrl, options);
 

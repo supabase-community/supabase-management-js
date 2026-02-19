@@ -63,7 +63,7 @@ export const getV1ListAllProjectsUrl = () => {
 
   
 
-  return `https://api.supabase.com/v1/projects`
+  return `/v1/projects`
 }
 
 export const v1ListAllProjects = async ( options?: RequestInit): Promise<v1ListAllProjectsResponse> => {
@@ -98,7 +98,7 @@ export const getV1CreateAProjectUrl = () => {
 
   
 
-  return `https://api.supabase.com/v1/projects`
+  return `/v1/projects`
 }
 
 export const v1CreateAProject = async (v1CreateProjectBody: V1CreateProjectBody, options?: RequestInit): Promise<v1CreateAProjectResponse> => {
@@ -141,7 +141,7 @@ export const getV1GetAvailableRegionsUrl = (params: V1GetAvailableRegionsParams,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/available-regions?${stringifiedParams}` : `https://api.supabase.com/v1/projects/available-regions`
+  return stringifiedParams.length > 0 ? `/v1/projects/available-regions?${stringifiedParams}` : `/v1/projects/available-regions`
 }
 
 export const v1GetAvailableRegions = async (params: V1GetAvailableRegionsParams, options?: RequestInit): Promise<v1GetAvailableRegionsResponse> => {
@@ -198,7 +198,7 @@ export const getV1ListAllNetworkBansUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/network-bans/retrieve`
+  return `/v1/projects/${ref}/network-bans/retrieve`
 }
 
 export const v1ListAllNetworkBans = async (ref: string, options?: RequestInit): Promise<v1ListAllNetworkBansResponse> => {
@@ -255,7 +255,7 @@ export const getV1ListAllNetworkBansEnrichedUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/network-bans/retrieve/enriched`
+  return `/v1/projects/${ref}/network-bans/retrieve/enriched`
 }
 
 export const v1ListAllNetworkBansEnriched = async (ref: string, options?: RequestInit): Promise<v1ListAllNetworkBansEnrichedResponse> => {
@@ -312,7 +312,7 @@ export const getV1DeleteNetworkBansUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/network-bans`
+  return `/v1/projects/${ref}/network-bans`
 }
 
 export const v1DeleteNetworkBans = async (ref: string,
@@ -371,7 +371,7 @@ export const getV1GetNetworkRestrictionsUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/network-restrictions`
+  return `/v1/projects/${ref}/network-restrictions`
 }
 
 export const v1GetNetworkRestrictions = async (ref: string, options?: RequestInit): Promise<v1GetNetworkRestrictionsResponse> => {
@@ -428,7 +428,7 @@ export const getV1PatchNetworkRestrictionsUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/network-restrictions`
+  return `/v1/projects/${ref}/network-restrictions`
 }
 
 export const v1PatchNetworkRestrictions = async (ref: string,
@@ -487,7 +487,7 @@ export const getV1UpdateNetworkRestrictionsUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/network-restrictions/apply`
+  return `/v1/projects/${ref}/network-restrictions/apply`
 }
 
 export const v1UpdateNetworkRestrictions = async (ref: string,
@@ -546,7 +546,7 @@ export const getV1GetProjectUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}`
+  return `/v1/projects/${ref}`
 }
 
 export const v1GetProject = async (ref: string, options?: RequestInit): Promise<v1GetProjectResponse> => {
@@ -598,7 +598,7 @@ export const getV1DeleteAProjectUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}`
+  return `/v1/projects/${ref}`
 }
 
 export const v1DeleteAProject = async (ref: string, options?: RequestInit): Promise<v1DeleteAProjectResponse> => {
@@ -655,7 +655,7 @@ export const getV1UpdateAProjectUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}`
+  return `/v1/projects/${ref}`
 }
 
 export const v1UpdateAProject = async (ref: string,
@@ -714,7 +714,7 @@ export const getV1UpgradePostgresVersionUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/upgrade`
+  return `/v1/projects/${ref}/upgrade`
 }
 
 export const v1UpgradePostgresVersion = async (ref: string,
@@ -773,7 +773,7 @@ export const getV1GetPostgresUpgradeEligibilityUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/upgrade/eligibility`
+  return `/v1/projects/${ref}/upgrade/eligibility`
 }
 
 export const v1GetPostgresUpgradeEligibility = async (ref: string, options?: RequestInit): Promise<v1GetPostgresUpgradeEligibilityResponse> => {
@@ -838,7 +838,7 @@ export const getV1GetPostgresUpgradeStatusUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/upgrade/status?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/upgrade/status`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/upgrade/status?${stringifiedParams}` : `/v1/projects/${ref}/upgrade/status`
 }
 
 export const v1GetPostgresUpgradeStatus = async (ref: string,
@@ -904,7 +904,7 @@ export const getV1GetServicesHealthUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/health?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/health`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/health?${stringifiedParams}` : `/v1/projects/${ref}/health`
 }
 
 export const v1GetServicesHealth = async (ref: string,
@@ -957,7 +957,7 @@ export const getV1PauseAProjectUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/pause`
+  return `/v1/projects/${ref}/pause`
 }
 
 export const v1PauseAProject = async (ref: string, options?: RequestInit): Promise<v1PauseAProjectResponse> => {
@@ -1009,7 +1009,7 @@ export const getV1ListAvailableRestoreVersionsUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/restore`
+  return `/v1/projects/${ref}/restore`
 }
 
 export const v1ListAvailableRestoreVersions = async (ref: string, options?: RequestInit): Promise<v1ListAvailableRestoreVersionsResponse> => {
@@ -1061,7 +1061,7 @@ export const getV1RestoreAProjectUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/restore`
+  return `/v1/projects/${ref}/restore`
 }
 
 export const v1RestoreAProject = async (ref: string, options?: RequestInit): Promise<v1RestoreAProjectResponse> => {
@@ -1113,7 +1113,7 @@ export const getV1CancelAProjectRestorationUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/restore/cancel`
+  return `/v1/projects/${ref}/restore/cancel`
 }
 
 export const v1CancelAProjectRestoration = async (ref: string, options?: RequestInit): Promise<v1CancelAProjectRestorationResponse> => {
@@ -1165,7 +1165,7 @@ export const getV1GetProjectClaimTokenUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/claim-token`
+  return `/v1/projects/${ref}/claim-token`
 }
 
 export const v1GetProjectClaimToken = async (ref: string, options?: RequestInit): Promise<v1GetProjectClaimTokenResponse> => {
@@ -1217,7 +1217,7 @@ export const getV1CreateProjectClaimTokenUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/claim-token`
+  return `/v1/projects/${ref}/claim-token`
 }
 
 export const v1CreateProjectClaimToken = async (ref: string, options?: RequestInit): Promise<v1CreateProjectClaimTokenResponse> => {
@@ -1269,7 +1269,7 @@ export const getV1DeleteProjectClaimTokenUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/claim-token`
+  return `/v1/projects/${ref}/claim-token`
 }
 
 export const v1DeleteProjectClaimToken = async (ref: string, options?: RequestInit): Promise<v1DeleteProjectClaimTokenResponse> => {
@@ -1326,7 +1326,7 @@ export const getV1GetDiskUtilizationUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/disk/util`
+  return `/v1/projects/${ref}/config/disk/util`
 }
 
 export const v1GetDiskUtilization = async (ref: string, options?: RequestInit): Promise<v1GetDiskUtilizationResponse> => {
@@ -1383,7 +1383,7 @@ export const getV1ModifyDatabaseDiskUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/disk`
+  return `/v1/projects/${ref}/config/disk`
 }
 
 export const v1ModifyDatabaseDisk = async (ref: string,
@@ -1442,7 +1442,7 @@ export const getV1GetProjectDiskAutoscaleConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/disk/autoscale`
+  return `/v1/projects/${ref}/config/disk/autoscale`
 }
 
 export const v1GetProjectDiskAutoscaleConfig = async (ref: string, options?: RequestInit): Promise<v1GetProjectDiskAutoscaleConfigResponse> => {
@@ -1495,7 +1495,7 @@ export const getV1GetAllProjectsForOrganizationUrl = (slug: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/organizations/${slug}/projects?${stringifiedParams}` : `https://api.supabase.com/v1/organizations/${slug}/projects`
+  return stringifiedParams.length > 0 ? `/v1/organizations/${slug}/projects?${stringifiedParams}` : `/v1/organizations/${slug}/projects`
 }
 
 export const v1GetAllProjectsForOrganization = async (slug: string,

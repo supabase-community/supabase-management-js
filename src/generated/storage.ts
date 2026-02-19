@@ -56,7 +56,7 @@ export const getV1ListAllBucketsUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/storage/buckets`
+  return `/v1/projects/${ref}/storage/buckets`
 }
 
 export const v1ListAllBuckets = async (ref: string, options?: RequestInit): Promise<v1ListAllBucketsResponse> => {
@@ -113,7 +113,7 @@ export const getV1GetStorageConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/storage`
+  return `/v1/projects/${ref}/config/storage`
 }
 
 export const v1GetStorageConfig = async (ref: string, options?: RequestInit): Promise<v1GetStorageConfigResponse> => {
@@ -170,7 +170,7 @@ export const getV1UpdateStorageConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/storage`
+  return `/v1/projects/${ref}/config/storage`
 }
 
 export const v1UpdateStorageConfig = async (ref: string,

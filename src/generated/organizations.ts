@@ -44,7 +44,7 @@ export const getV1ListAllOrganizationsUrl = () => {
 
   
 
-  return `https://api.supabase.com/v1/organizations`
+  return `/v1/organizations`
 }
 
 export const v1ListAllOrganizations = async ( options?: RequestInit): Promise<v1ListAllOrganizationsResponse> => {
@@ -86,7 +86,7 @@ export const getV1CreateAnOrganizationUrl = () => {
 
   
 
-  return `https://api.supabase.com/v1/organizations`
+  return `/v1/organizations`
 }
 
 export const v1CreateAnOrganization = async (createOrganizationV1: CreateOrganizationV1, options?: RequestInit): Promise<v1CreateAnOrganizationResponse> => {
@@ -122,7 +122,7 @@ export const getV1ListOrganizationMembersUrl = (slug: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/organizations/${slug}/members`
+  return `/v1/organizations/${slug}/members`
 }
 
 export const v1ListOrganizationMembers = async (slug: string, options?: RequestInit): Promise<v1ListOrganizationMembersResponse> => {
@@ -174,7 +174,7 @@ export const getV1GetAnOrganizationUrl = (slug: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/organizations/${slug}`
+  return `/v1/organizations/${slug}`
 }
 
 export const v1GetAnOrganization = async (slug: string, options?: RequestInit): Promise<v1GetAnOrganizationResponse> => {
@@ -227,7 +227,7 @@ export const getV1GetOrganizationProjectClaimUrl = (slug: string,
 
   
 
-  return `https://api.supabase.com/v1/organizations/${slug}/project-claim/${token}`
+  return `/v1/organizations/${slug}/project-claim/${token}`
 }
 
 export const v1GetOrganizationProjectClaim = async (slug: string,
@@ -281,7 +281,7 @@ export const getV1ClaimProjectForOrganizationUrl = (slug: string,
 
   
 
-  return `https://api.supabase.com/v1/organizations/${slug}/project-claim/${token}`
+  return `/v1/organizations/${slug}/project-claim/${token}`
 }
 
 export const v1ClaimProjectForOrganization = async (slug: string,

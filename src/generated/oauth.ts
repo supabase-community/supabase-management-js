@@ -43,7 +43,7 @@ export const getV1AuthorizeUserUrl = (params: V1AuthorizeUserParams,) => {
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/oauth/authorize?${stringifiedParams}` : `https://api.supabase.com/v1/oauth/authorize`
+  return stringifiedParams.length > 0 ? `/v1/oauth/authorize?${stringifiedParams}` : `/v1/oauth/authorize`
 }
 
 export const v1AuthorizeUser = async (params: V1AuthorizeUserParams, options?: RequestInit): Promise<v1AuthorizeUserResponse> => {
@@ -78,7 +78,7 @@ export const getV1ExchangeOauthTokenUrl = () => {
 
   
 
-  return `https://api.supabase.com/v1/oauth/token`
+  return `/v1/oauth/token`
 }
 
 export const v1ExchangeOauthToken = async (oAuthTokenBody: OAuthTokenBody, options?: RequestInit): Promise<v1ExchangeOauthTokenResponse> => {
@@ -142,7 +142,7 @@ export const getV1RevokeTokenUrl = () => {
 
   
 
-  return `https://api.supabase.com/v1/oauth/revoke`
+  return `/v1/oauth/revoke`
 }
 
 export const v1RevokeToken = async (oAuthRevokeTokenBody: OAuthRevokeTokenBody, options?: RequestInit): Promise<v1RevokeTokenResponse> => {
@@ -186,7 +186,7 @@ export const getV1OauthAuthorizeProjectClaimUrl = (params: V1OauthAuthorizeProje
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/oauth/authorize/project-claim?${stringifiedParams}` : `https://api.supabase.com/v1/oauth/authorize/project-claim`
+  return stringifiedParams.length > 0 ? `/v1/oauth/authorize/project-claim?${stringifiedParams}` : `/v1/oauth/authorize/project-claim`
 }
 
 export const v1OauthAuthorizeProjectClaim = async (params: V1OauthAuthorizeProjectClaimParams, options?: RequestInit): Promise<v1OauthAuthorizeProjectClaimResponse> => {

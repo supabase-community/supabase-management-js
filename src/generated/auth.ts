@@ -63,7 +63,7 @@ export const getV1CreateLegacySigningKeyUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/auth/signing-keys/legacy`
+  return `/v1/projects/${ref}/config/auth/signing-keys/legacy`
 }
 
 export const v1CreateLegacySigningKey = async (ref: string, options?: RequestInit): Promise<v1CreateLegacySigningKeyResponse> => {
@@ -115,7 +115,7 @@ export const getV1GetLegacySigningKeyUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/auth/signing-keys/legacy`
+  return `/v1/projects/${ref}/config/auth/signing-keys/legacy`
 }
 
 export const v1GetLegacySigningKey = async (ref: string, options?: RequestInit): Promise<v1GetLegacySigningKeyResponse> => {
@@ -167,7 +167,7 @@ export const getV1CreateProjectSigningKeyUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/auth/signing-keys`
+  return `/v1/projects/${ref}/config/auth/signing-keys`
 }
 
 export const v1CreateProjectSigningKey = async (ref: string,
@@ -221,7 +221,7 @@ export const getV1GetProjectSigningKeysUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/auth/signing-keys`
+  return `/v1/projects/${ref}/config/auth/signing-keys`
 }
 
 export const v1GetProjectSigningKeys = async (ref: string, options?: RequestInit): Promise<v1GetProjectSigningKeysResponse> => {
@@ -274,7 +274,7 @@ export const getV1GetProjectSigningKeyUrl = (ref: string,
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/auth/signing-keys/${id}`
+  return `/v1/projects/${ref}/config/auth/signing-keys/${id}`
 }
 
 export const v1GetProjectSigningKey = async (ref: string,
@@ -328,7 +328,7 @@ export const getV1RemoveProjectSigningKeyUrl = (ref: string,
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/auth/signing-keys/${id}`
+  return `/v1/projects/${ref}/config/auth/signing-keys/${id}`
 }
 
 export const v1RemoveProjectSigningKey = async (ref: string,
@@ -382,7 +382,7 @@ export const getV1UpdateProjectSigningKeyUrl = (ref: string,
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/auth/signing-keys/${id}`
+  return `/v1/projects/${ref}/config/auth/signing-keys/${id}`
 }
 
 export const v1UpdateProjectSigningKey = async (ref: string,
@@ -442,7 +442,7 @@ export const getV1GetAuthServiceConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/auth`
+  return `/v1/projects/${ref}/config/auth`
 }
 
 export const v1GetAuthServiceConfig = async (ref: string, options?: RequestInit): Promise<v1GetAuthServiceConfigResponse> => {
@@ -499,7 +499,7 @@ export const getV1UpdateAuthServiceConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/auth`
+  return `/v1/projects/${ref}/config/auth`
 }
 
 export const v1UpdateAuthServiceConfig = async (ref: string,
@@ -553,7 +553,7 @@ export const getV1CreateProjectTpaIntegrationUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/auth/third-party-auth`
+  return `/v1/projects/${ref}/config/auth/third-party-auth`
 }
 
 export const v1CreateProjectTpaIntegration = async (ref: string,
@@ -607,7 +607,7 @@ export const getV1ListProjectTpaIntegrationsUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/auth/third-party-auth`
+  return `/v1/projects/${ref}/config/auth/third-party-auth`
 }
 
 export const v1ListProjectTpaIntegrations = async (ref: string, options?: RequestInit): Promise<v1ListProjectTpaIntegrationsResponse> => {
@@ -660,7 +660,7 @@ export const getV1DeleteProjectTpaIntegrationUrl = (ref: string,
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/auth/third-party-auth/${tpaId}`
+  return `/v1/projects/${ref}/config/auth/third-party-auth/${tpaId}`
 }
 
 export const v1DeleteProjectTpaIntegration = async (ref: string,
@@ -714,7 +714,7 @@ export const getV1GetProjectTpaIntegrationUrl = (ref: string,
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/auth/third-party-auth/${tpaId}`
+  return `/v1/projects/${ref}/config/auth/third-party-auth/${tpaId}`
 }
 
 export const v1GetProjectTpaIntegration = async (ref: string,
@@ -772,7 +772,7 @@ export const getV1CreateASsoProviderUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/auth/sso/providers`
+  return `/v1/projects/${ref}/config/auth/sso/providers`
 }
 
 export const v1CreateASsoProvider = async (ref: string,
@@ -831,7 +831,7 @@ export const getV1ListAllSsoProviderUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/auth/sso/providers`
+  return `/v1/projects/${ref}/config/auth/sso/providers`
 }
 
 export const v1ListAllSsoProvider = async (ref: string, options?: RequestInit): Promise<v1ListAllSsoProviderResponse> => {
@@ -889,7 +889,7 @@ export const getV1GetASsoProviderUrl = (ref: string,
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/auth/sso/providers/${providerId}`
+  return `/v1/projects/${ref}/config/auth/sso/providers/${providerId}`
 }
 
 export const v1GetASsoProvider = async (ref: string,
@@ -948,7 +948,7 @@ export const getV1UpdateASsoProviderUrl = (ref: string,
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/auth/sso/providers/${providerId}`
+  return `/v1/projects/${ref}/config/auth/sso/providers/${providerId}`
 }
 
 export const v1UpdateASsoProvider = async (ref: string,
@@ -1009,7 +1009,7 @@ export const getV1DeleteASsoProviderUrl = (ref: string,
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/auth/sso/providers/${providerId}`
+  return `/v1/projects/${ref}/config/auth/sso/providers/${providerId}`
 }
 
 export const v1DeleteASsoProvider = async (ref: string,

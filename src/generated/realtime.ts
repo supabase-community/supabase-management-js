@@ -50,7 +50,7 @@ export const getV1GetRealtimeConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/realtime`
+  return `/v1/projects/${ref}/config/realtime`
 }
 
 export const v1GetRealtimeConfig = async (ref: string, options?: RequestInit): Promise<v1GetRealtimeConfigResponse> => {
@@ -102,7 +102,7 @@ export const getV1UpdateRealtimeConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/realtime`
+  return `/v1/projects/${ref}/config/realtime`
 }
 
 export const v1UpdateRealtimeConfig = async (ref: string,
@@ -161,7 +161,7 @@ export const getV1ShutdownRealtimeUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/realtime/shutdown`
+  return `/v1/projects/${ref}/config/realtime/shutdown`
 }
 
 export const v1ShutdownRealtime = async (ref: string, options?: RequestInit): Promise<v1ShutdownRealtimeResponse> => {

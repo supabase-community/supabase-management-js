@@ -70,7 +70,7 @@ export const getV1GetProjectLogsUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/logs.all?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/logs.all`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/analytics/endpoints/logs.all?${stringifiedParams}` : `/v1/projects/${ref}/analytics/endpoints/logs.all`
 }
 
 export const v1GetProjectLogs = async (ref: string,
@@ -136,7 +136,7 @@ export const getV1GetProjectUsageApiCountUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/usage.api-counts?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/usage.api-counts`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/analytics/endpoints/usage.api-counts?${stringifiedParams}` : `/v1/projects/${ref}/analytics/endpoints/usage.api-counts`
 }
 
 export const v1GetProjectUsageApiCount = async (ref: string,
@@ -194,7 +194,7 @@ export const getV1GetProjectUsageRequestCountUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/usage.api-requests-count`
+  return `/v1/projects/${ref}/analytics/endpoints/usage.api-requests-count`
 }
 
 export const v1GetProjectUsageRequestCount = async (ref: string, options?: RequestInit): Promise<v1GetProjectUsageRequestCountResponse> => {
@@ -259,7 +259,7 @@ export const getV1GetProjectFunctionCombinedStatsUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/functions.combined-stats?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/analytics/endpoints/functions.combined-stats`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/analytics/endpoints/functions.combined-stats?${stringifiedParams}` : `/v1/projects/${ref}/analytics/endpoints/functions.combined-stats`
 }
 
 export const v1GetProjectFunctionCombinedStats = async (ref: string,

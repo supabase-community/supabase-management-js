@@ -59,7 +59,7 @@ export const getV1GetHostnameConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/custom-hostname`
+  return `/v1/projects/${ref}/custom-hostname`
 }
 
 export const v1GetHostnameConfig = async (ref: string, options?: RequestInit): Promise<v1GetHostnameConfigResponse> => {
@@ -116,7 +116,7 @@ export const getV1DeleteHostnameConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/custom-hostname`
+  return `/v1/projects/${ref}/custom-hostname`
 }
 
 export const v1DeleteHostnameConfig = async (ref: string, options?: RequestInit): Promise<v1DeleteHostnameConfigResponse> => {
@@ -173,7 +173,7 @@ export const getV1UpdateHostnameConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/custom-hostname/initialize`
+  return `/v1/projects/${ref}/custom-hostname/initialize`
 }
 
 export const v1UpdateHostnameConfig = async (ref: string,
@@ -232,7 +232,7 @@ export const getV1VerifyDnsConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/custom-hostname/reverify`
+  return `/v1/projects/${ref}/custom-hostname/reverify`
 }
 
 export const v1VerifyDnsConfig = async (ref: string, options?: RequestInit): Promise<v1VerifyDnsConfigResponse> => {
@@ -289,7 +289,7 @@ export const getV1ActivateCustomHostnameUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/custom-hostname/activate`
+  return `/v1/projects/${ref}/custom-hostname/activate`
 }
 
 export const v1ActivateCustomHostname = async (ref: string, options?: RequestInit): Promise<v1ActivateCustomHostnameResponse> => {
@@ -346,7 +346,7 @@ export const getV1GetVanitySubdomainConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/vanity-subdomain`
+  return `/v1/projects/${ref}/vanity-subdomain`
 }
 
 export const v1GetVanitySubdomainConfig = async (ref: string, options?: RequestInit): Promise<v1GetVanitySubdomainConfigResponse> => {
@@ -403,7 +403,7 @@ export const getV1DeactivateVanitySubdomainConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/vanity-subdomain`
+  return `/v1/projects/${ref}/vanity-subdomain`
 }
 
 export const v1DeactivateVanitySubdomainConfig = async (ref: string, options?: RequestInit): Promise<v1DeactivateVanitySubdomainConfigResponse> => {
@@ -460,7 +460,7 @@ export const getV1CheckVanitySubdomainAvailabilityUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/vanity-subdomain/check-availability`
+  return `/v1/projects/${ref}/vanity-subdomain/check-availability`
 }
 
 export const v1CheckVanitySubdomainAvailability = async (ref: string,
@@ -519,7 +519,7 @@ export const getV1ActivateVanitySubdomainConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/vanity-subdomain/activate`
+  return `/v1/projects/${ref}/vanity-subdomain/activate`
 }
 
 export const v1ActivateVanitySubdomainConfig = async (ref: string,

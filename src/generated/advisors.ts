@@ -52,7 +52,7 @@ export const getV1GetPerformanceAdvisorsUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/advisors/performance`
+  return `/v1/projects/${ref}/advisors/performance`
 }
 
 export const v1GetPerformanceAdvisors = async (ref: string, options?: RequestInit): Promise<v1GetPerformanceAdvisorsResponse> => {
@@ -114,7 +114,7 @@ export const getV1GetSecurityAdvisorsUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/advisors/security?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/advisors/security`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/advisors/security?${stringifiedParams}` : `/v1/projects/${ref}/advisors/security`
 }
 
 export const v1GetSecurityAdvisors = async (ref: string,

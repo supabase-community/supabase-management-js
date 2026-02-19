@@ -71,7 +71,7 @@ export const getV1GetProjectApiKeysUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/api-keys?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/api-keys`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/api-keys?${stringifiedParams}` : `/v1/projects/${ref}/api-keys`
 }
 
 export const v1GetProjectApiKeys = async (ref: string,
@@ -132,7 +132,7 @@ export const getV1CreateProjectApiKeyUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/api-keys?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/api-keys`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/api-keys?${stringifiedParams}` : `/v1/projects/${ref}/api-keys`
 }
 
 export const v1CreateProjectApiKey = async (ref: string,
@@ -187,7 +187,7 @@ export const getV1GetProjectLegacyApiKeysUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/api-keys/legacy`
+  return `/v1/projects/${ref}/api-keys/legacy`
 }
 
 export const v1GetProjectLegacyApiKeys = async (ref: string, options?: RequestInit): Promise<v1GetProjectLegacyApiKeysResponse> => {
@@ -247,7 +247,7 @@ export const getV1UpdateProjectLegacyApiKeysUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/api-keys/legacy?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/api-keys/legacy`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/api-keys/legacy?${stringifiedParams}` : `/v1/projects/${ref}/api-keys/legacy`
 }
 
 export const v1UpdateProjectLegacyApiKeys = async (ref: string,
@@ -309,7 +309,7 @@ export const getV1UpdateProjectApiKeyUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/api-keys/${id}?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/api-keys/${id}`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/api-keys/${id}?${stringifiedParams}` : `/v1/projects/${ref}/api-keys/${id}`
 }
 
 export const v1UpdateProjectApiKey = async (ref: string,
@@ -374,7 +374,7 @@ export const getV1GetProjectApiKeyUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/api-keys/${id}?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/api-keys/${id}`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/api-keys/${id}?${stringifiedParams}` : `/v1/projects/${ref}/api-keys/${id}`
 }
 
 export const v1GetProjectApiKey = async (ref: string,
@@ -437,7 +437,7 @@ export const getV1DeleteProjectApiKeyUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/api-keys/${id}?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/api-keys/${id}`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/api-keys/${id}?${stringifiedParams}` : `/v1/projects/${ref}/api-keys/${id}`
 }
 
 export const v1DeleteProjectApiKey = async (ref: string,
@@ -496,7 +496,7 @@ export const getV1GetPgsodiumConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/pgsodium`
+  return `/v1/projects/${ref}/pgsodium`
 }
 
 export const v1GetPgsodiumConfig = async (ref: string, options?: RequestInit): Promise<v1GetPgsodiumConfigResponse> => {
@@ -553,7 +553,7 @@ export const getV1UpdatePgsodiumConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/pgsodium`
+  return `/v1/projects/${ref}/pgsodium`
 }
 
 export const v1UpdatePgsodiumConfig = async (ref: string,
@@ -613,7 +613,7 @@ export const getV1ListAllSecretsUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/secrets`
+  return `/v1/projects/${ref}/secrets`
 }
 
 export const v1ListAllSecrets = async (ref: string, options?: RequestInit): Promise<v1ListAllSecretsResponse> => {
@@ -671,7 +671,7 @@ export const getV1BulkCreateSecretsUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/secrets`
+  return `/v1/projects/${ref}/secrets`
 }
 
 export const v1BulkCreateSecrets = async (ref: string,
@@ -731,7 +731,7 @@ export const getV1BulkDeleteSecretsUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/secrets`
+  return `/v1/projects/${ref}/secrets`
 }
 
 export const v1BulkDeleteSecrets = async (ref: string,

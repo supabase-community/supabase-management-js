@@ -56,7 +56,7 @@ export const getV1ListProjectAddonsUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/billing/addons`
+  return `/v1/projects/${ref}/billing/addons`
 }
 
 export const v1ListProjectAddons = async (ref: string, options?: RequestInit): Promise<v1ListProjectAddonsResponse> => {
@@ -114,7 +114,7 @@ export const getV1ApplyProjectAddonUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/billing/addons`
+  return `/v1/projects/${ref}/billing/addons`
 }
 
 export const v1ApplyProjectAddon = async (ref: string,
@@ -175,7 +175,7 @@ export const getV1RemoveProjectAddonUrl = (ref: string,
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/billing/addons/${addonVariant}`
+  return `/v1/projects/${ref}/billing/addons/${addonVariant}`
 }
 
 export const v1RemoveProjectAddon = async (ref: string,

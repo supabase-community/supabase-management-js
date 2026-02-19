@@ -87,7 +87,7 @@ export const getV1ListAllSnippetsUrl = (params?: V1ListAllSnippetsParams,) => {
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/snippets?${stringifiedParams}` : `https://api.supabase.com/v1/snippets`
+  return stringifiedParams.length > 0 ? `/v1/snippets?${stringifiedParams}` : `/v1/snippets`
 }
 
 export const v1ListAllSnippets = async (params?: V1ListAllSnippetsParams, options?: RequestInit): Promise<v1ListAllSnippetsResponse> => {
@@ -129,7 +129,7 @@ export const getV1GetASnippetUrl = (id: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/snippets/${id}`
+  return `/v1/snippets/${id}`
 }
 
 export const v1GetASnippet = async (id: string, options?: RequestInit): Promise<v1GetASnippetResponse> => {
@@ -186,7 +186,7 @@ export const getV1GetJitAccessConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/jit-access`
+  return `/v1/projects/${ref}/jit-access`
 }
 
 export const v1GetJitAccessConfig = async (ref: string, options?: RequestInit): Promise<v1GetJitAccessConfigResponse> => {
@@ -243,7 +243,7 @@ export const getV1UpdateJitAccessConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/jit-access`
+  return `/v1/projects/${ref}/jit-access`
 }
 
 export const v1UpdateJitAccessConfig = async (ref: string,
@@ -302,7 +302,7 @@ export const getV1GetSslEnforcementConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/ssl-enforcement`
+  return `/v1/projects/${ref}/ssl-enforcement`
 }
 
 export const v1GetSslEnforcementConfig = async (ref: string, options?: RequestInit): Promise<v1GetSslEnforcementConfigResponse> => {
@@ -359,7 +359,7 @@ export const getV1UpdateSslEnforcementConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/ssl-enforcement`
+  return `/v1/projects/${ref}/ssl-enforcement`
 }
 
 export const v1UpdateSslEnforcementConfig = async (ref: string,
@@ -427,7 +427,7 @@ export const getV1GenerateTypescriptTypesUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/types/typescript?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/types/typescript`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/types/typescript?${stringifiedParams}` : `/v1/projects/${ref}/types/typescript`
 }
 
 export const v1GenerateTypescriptTypes = async (ref: string,
@@ -485,7 +485,7 @@ export const getV1GetReadonlyModeStatusUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/readonly`
+  return `/v1/projects/${ref}/readonly`
 }
 
 export const v1GetReadonlyModeStatus = async (ref: string, options?: RequestInit): Promise<v1GetReadonlyModeStatusResponse> => {
@@ -542,7 +542,7 @@ export const getV1DisableReadonlyModeTemporarilyUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/readonly/temporary-disable`
+  return `/v1/projects/${ref}/readonly/temporary-disable`
 }
 
 export const v1DisableReadonlyModeTemporarily = async (ref: string, options?: RequestInit): Promise<v1DisableReadonlyModeTemporarilyResponse> => {
@@ -599,7 +599,7 @@ export const getV1SetupAReadReplicaUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/read-replicas/setup`
+  return `/v1/projects/${ref}/read-replicas/setup`
 }
 
 export const v1SetupAReadReplica = async (ref: string,
@@ -658,7 +658,7 @@ export const getV1RemoveAReadReplicaUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/read-replicas/remove`
+  return `/v1/projects/${ref}/read-replicas/remove`
 }
 
 export const v1RemoveAReadReplica = async (ref: string,
@@ -717,7 +717,7 @@ export const getV1CreateLoginRoleUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/cli/login-role`
+  return `/v1/projects/${ref}/cli/login-role`
 }
 
 export const v1CreateLoginRole = async (ref: string,
@@ -776,7 +776,7 @@ export const getV1DeleteLoginRolesUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/cli/login-role`
+  return `/v1/projects/${ref}/cli/login-role`
 }
 
 export const v1DeleteLoginRoles = async (ref: string, options?: RequestInit): Promise<v1DeleteLoginRolesResponse> => {
@@ -834,7 +834,7 @@ export const getV1ListMigrationHistoryUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/migrations`
+  return `/v1/projects/${ref}/database/migrations`
 }
 
 export const v1ListMigrationHistory = async (ref: string, options?: RequestInit): Promise<v1ListMigrationHistoryResponse> => {
@@ -892,7 +892,7 @@ export const getV1ApplyAMigrationUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/migrations`
+  return `/v1/projects/${ref}/database/migrations`
 }
 
 export const v1ApplyAMigration = async (ref: string,
@@ -952,7 +952,7 @@ export const getV1UpsertAMigrationUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/migrations`
+  return `/v1/projects/${ref}/database/migrations`
 }
 
 export const v1UpsertAMigration = async (ref: string,
@@ -1020,7 +1020,7 @@ export const getV1RollbackMigrationsUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/database/migrations?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/database/migrations`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/database/migrations?${stringifiedParams}` : `/v1/projects/${ref}/database/migrations`
 }
 
 export const v1RollbackMigrations = async (ref: string,
@@ -1080,7 +1080,7 @@ export const getV1GetAMigrationUrl = (ref: string,
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/migrations/${version}`
+  return `/v1/projects/${ref}/database/migrations/${version}`
 }
 
 export const v1GetAMigration = async (ref: string,
@@ -1140,7 +1140,7 @@ export const getV1PatchAMigrationUrl = (ref: string,
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/migrations/${version}`
+  return `/v1/projects/${ref}/database/migrations/${version}`
 }
 
 export const v1PatchAMigration = async (ref: string,
@@ -1200,7 +1200,7 @@ export const getV1RunAQueryUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/query`
+  return `/v1/projects/${ref}/database/query`
 }
 
 export const v1RunAQuery = async (ref: string,
@@ -1260,7 +1260,7 @@ export const getV1ReadOnlyQueryUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/query/read-only`
+  return `/v1/projects/${ref}/database/query/read-only`
 }
 
 export const v1ReadOnlyQuery = async (ref: string,
@@ -1319,7 +1319,7 @@ export const getV1EnableDatabaseWebhookUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/webhooks/enable`
+  return `/v1/projects/${ref}/database/webhooks/enable`
 }
 
 export const v1EnableDatabaseWebhook = async (ref: string, options?: RequestInit): Promise<v1EnableDatabaseWebhookResponse> => {
@@ -1373,7 +1373,7 @@ export const getV1GetDatabaseMetadataUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/context`
+  return `/v1/projects/${ref}/database/context`
 }
 
 export const v1GetDatabaseMetadata = async (ref: string, options?: RequestInit): Promise<v1GetDatabaseMetadataResponse> => {
@@ -1430,7 +1430,7 @@ export const getV1UpdateDatabasePasswordUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/password`
+  return `/v1/projects/${ref}/database/password`
 }
 
 export const v1UpdateDatabasePassword = async (ref: string,
@@ -1490,7 +1490,7 @@ export const getV1GetJitAccessUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/jit`
+  return `/v1/projects/${ref}/database/jit`
 }
 
 export const v1GetJitAccess = async (ref: string, options?: RequestInit): Promise<v1GetJitAccessResponse> => {
@@ -1548,7 +1548,7 @@ export const getV1AuthorizeJitAccessUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/jit`
+  return `/v1/projects/${ref}/database/jit`
 }
 
 export const v1AuthorizeJitAccess = async (ref: string,
@@ -1608,7 +1608,7 @@ export const getV1UpdateJitAccessUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/jit`
+  return `/v1/projects/${ref}/database/jit`
 }
 
 export const v1UpdateJitAccess = async (ref: string,
@@ -1668,7 +1668,7 @@ export const getV1ListJitAccessUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/jit/list`
+  return `/v1/projects/${ref}/database/jit/list`
 }
 
 export const v1ListJitAccess = async (ref: string, options?: RequestInit): Promise<v1ListJitAccessResponse> => {
@@ -1727,7 +1727,7 @@ export const getV1DeleteJitAccessUrl = (ref: string,
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/jit/${userId}`
+  return `/v1/projects/${ref}/database/jit/${userId}`
 }
 
 export const v1DeleteJitAccess = async (ref: string,
@@ -1785,7 +1785,7 @@ export const getV1GetProjectPgbouncerConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/database/pgbouncer`
+  return `/v1/projects/${ref}/config/database/pgbouncer`
 }
 
 export const v1GetProjectPgbouncerConfig = async (ref: string, options?: RequestInit): Promise<v1GetProjectPgbouncerConfigResponse> => {
@@ -1842,7 +1842,7 @@ export const getV1GetPoolerConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/database/pooler`
+  return `/v1/projects/${ref}/config/database/pooler`
 }
 
 export const v1GetPoolerConfig = async (ref: string, options?: RequestInit): Promise<v1GetPoolerConfigResponse> => {
@@ -1899,7 +1899,7 @@ export const getV1UpdatePoolerConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/database/pooler`
+  return `/v1/projects/${ref}/config/database/pooler`
 }
 
 export const v1UpdatePoolerConfig = async (ref: string,
@@ -1958,7 +1958,7 @@ export const getV1GetPostgresConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/database/postgres`
+  return `/v1/projects/${ref}/config/database/postgres`
 }
 
 export const v1GetPostgresConfig = async (ref: string, options?: RequestInit): Promise<v1GetPostgresConfigResponse> => {
@@ -2015,7 +2015,7 @@ export const getV1UpdatePostgresConfigUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/config/database/postgres`
+  return `/v1/projects/${ref}/config/database/postgres`
 }
 
 export const v1UpdatePostgresConfig = async (ref: string,
@@ -2074,7 +2074,7 @@ export const getV1ListAllBackupsUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/backups`
+  return `/v1/projects/${ref}/database/backups`
 }
 
 export const v1ListAllBackups = async (ref: string, options?: RequestInit): Promise<v1ListAllBackupsResponse> => {
@@ -2126,7 +2126,7 @@ export const getV1RestorePitrBackupUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/backups/restore-pitr`
+  return `/v1/projects/${ref}/database/backups/restore-pitr`
 }
 
 export const v1RestorePitrBackup = async (ref: string,
@@ -2180,7 +2180,7 @@ export const getV1CreateRestorePointUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/backups/restore-point`
+  return `/v1/projects/${ref}/database/backups/restore-point`
 }
 
 export const v1CreateRestorePoint = async (ref: string,
@@ -2247,7 +2247,7 @@ export const getV1GetRestorePointUrl = (ref: string,
 
   const stringifiedParams = normalizedParams.toString();
 
-  return stringifiedParams.length > 0 ? `https://api.supabase.com/v1/projects/${ref}/database/backups/restore-point?${stringifiedParams}` : `https://api.supabase.com/v1/projects/${ref}/database/backups/restore-point`
+  return stringifiedParams.length > 0 ? `/v1/projects/${ref}/database/backups/restore-point?${stringifiedParams}` : `/v1/projects/${ref}/database/backups/restore-point`
 }
 
 export const v1GetRestorePoint = async (ref: string,
@@ -2300,7 +2300,7 @@ export const getV1UndoUrl = (ref: string,) => {
 
   
 
-  return `https://api.supabase.com/v1/projects/${ref}/database/backups/undo`
+  return `/v1/projects/${ref}/database/backups/undo`
 }
 
 export const v1Undo = async (ref: string,
