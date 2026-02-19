@@ -218,6 +218,7 @@ ${typeImportLines}
 } from './generated';
 
 import { SupabaseManagementAPIError } from './error';
+import { SUPABASE_API_BASE_URL } from './consts';
 
 export interface SupabaseManagementAPIOptions {
   accessToken: string;
@@ -228,7 +229,7 @@ export class SupabaseManagementAPI {
   private readonly accessToken: string;
   private readonly baseUrl: string;
 
-  constructor({ accessToken, baseUrl = 'https://api.supabase.com' }: SupabaseManagementAPIOptions) {
+  constructor({ accessToken, baseUrl = SUPABSE_API_BASE_URL }: SupabaseManagementAPIOptions) {
     this.accessToken = accessToken;
     this.baseUrl = baseUrl;
   }
