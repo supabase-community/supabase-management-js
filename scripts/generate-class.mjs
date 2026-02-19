@@ -229,7 +229,7 @@ export class SupabaseManagementAPI {
   private readonly accessToken: string;
   private readonly baseUrl: string;
 
-  constructor({ accessToken, baseUrl = SUPABSE_API_BASE_URL }: SupabaseManagementAPIOptions) {
+  constructor({ accessToken, baseUrl = SUPABASE_API_BASE_URL }: SupabaseManagementAPIOptions) {
     this.accessToken = accessToken;
     this.baseUrl = baseUrl;
   }
