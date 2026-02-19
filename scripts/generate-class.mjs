@@ -129,7 +129,7 @@ for (const file of sourceFiles) {
       collectTypeNames(p, allTypeNames);
     }
 
-    const returnType = `${funcName}Response`;
+    const returnType = `${funcName}ResponseSuccess`;
     allResponseTypeNames.add(returnType);
 
     methodSpecs.push({
@@ -152,11 +152,15 @@ function generateMethod({ methodName, funcName, methodParamList, callParams, ret
     callParams.length > 0 ? `${callParams.join(", ")}, ` : "";
 
   return [
-    `  ${methodName}(${signatureParams}): Promise<${returnType}> {`,
-    `    return ${funcName}(${callArgs}{`,
+    `  async ${methodName}(${signatureParams}): Promise<${returnType}> {`,
+    `    const result = await ${funcName}(${callArgs}{`,
     `      ...options,`,
     `      headers: { ...this.authHeader, ...options?.headers },`,
     `    }, this.baseUrl);`,
+    `    if (result.status >= 400) {`,
+    `      throw new SupabaseManagementAPIError(result);`,
+    `    }`,
+    `    return result as ${returnType};`,
     `  }`,
   ].join("\n");
 }
@@ -186,6 +190,8 @@ ${funcImportLines}
 import type {
 ${typeImportLines}
 } from './generated';
+
+import { SupabaseManagementAPIError } from './error';
 
 export interface SupabaseManagementAPIOptions {
   accessToken: string;
@@ -223,6 +229,7 @@ const indexContent = `\
 export * from './generated';
 export { SupabaseManagementAPI } from './api';
 export type { SupabaseManagementAPIOptions } from './api';
+export { SupabaseManagementAPIError } from './error';
 `;
 
 writeFileSync(OUT_INDEX, indexContent, "utf8");

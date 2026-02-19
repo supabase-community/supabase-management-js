@@ -246,166 +246,168 @@ import type {
   V1UpdateProjectLegacyApiKeysParams,
   V1UpsertMigrationBody,
   VanitySubdomainBody,
-  v1ActivateCustomHostnameResponse,
-  v1ActivateVanitySubdomainConfigResponse,
-  v1ApplyAMigrationResponse,
-  v1ApplyProjectAddonResponse,
-  v1AuthorizeJitAccessResponse,
-  v1AuthorizeUserResponse,
-  v1BulkCreateSecretsResponse,
-  v1BulkDeleteSecretsResponse,
-  v1BulkUpdateFunctionsResponse,
-  v1CancelAProjectRestorationResponse,
-  v1CheckVanitySubdomainAvailabilityResponse,
-  v1ClaimProjectForOrganizationResponse,
-  v1CountActionRunsResponse,
-  v1CreateABranchResponse,
-  v1CreateAFunctionWithApplicationVndDenolandEszipResponse,
-  v1CreateAFunctionWithJsonResponse,
-  v1CreateAProjectResponse,
-  v1CreateASsoProviderResponse,
-  v1CreateAnOrganizationResponse,
-  v1CreateLegacySigningKeyResponse,
-  v1CreateLoginRoleResponse,
-  v1CreateProjectApiKeyResponse,
-  v1CreateProjectClaimTokenResponse,
-  v1CreateProjectSigningKeyResponse,
-  v1CreateProjectTpaIntegrationResponse,
-  v1CreateRestorePointResponse,
-  v1DeactivateVanitySubdomainConfigResponse,
-  v1DeleteABranchResponse,
-  v1DeleteAFunctionResponse,
-  v1DeleteAProjectResponse,
-  v1DeleteASsoProviderResponse,
-  v1DeleteHostnameConfigResponse,
-  v1DeleteJitAccessResponse,
-  v1DeleteLoginRolesResponse,
-  v1DeleteNetworkBansResponse,
-  v1DeleteProjectApiKeyResponse,
-  v1DeleteProjectClaimTokenResponse,
-  v1DeleteProjectTpaIntegrationResponse,
-  v1DeployAFunctionResponse,
-  v1DiffABranchResponse,
-  v1DisablePreviewBranchingResponse,
-  v1DisableReadonlyModeTemporarilyResponse,
-  v1EnableDatabaseWebhookResponse,
-  v1ExchangeOauthTokenResponse,
-  v1GenerateTypescriptTypesResponse,
-  v1GetABranchConfigResponse,
-  v1GetABranchResponse,
-  v1GetAFunctionBodyResponse,
-  v1GetAFunctionResponse,
-  v1GetAMigrationResponse,
-  v1GetASnippetResponse,
-  v1GetASsoProviderResponse,
-  v1GetActionRunLogsResponse,
-  v1GetActionRunResponse,
-  v1GetAllProjectsForOrganizationResponse,
-  v1GetAnOrganizationResponse,
-  v1GetAuthServiceConfigResponse,
-  v1GetAvailableRegionsResponse,
-  v1GetDatabaseMetadataResponse,
-  v1GetDiskUtilizationResponse,
-  v1GetHostnameConfigResponse,
-  v1GetJitAccessConfigResponse,
-  v1GetJitAccessResponse,
-  v1GetLegacySigningKeyResponse,
-  v1GetNetworkRestrictionsResponse,
-  v1GetOrganizationProjectClaimResponse,
-  v1GetPerformanceAdvisorsResponse,
-  v1GetPgsodiumConfigResponse,
-  v1GetPoolerConfigResponse,
-  v1GetPostgresConfigResponse,
-  v1GetPostgresUpgradeEligibilityResponse,
-  v1GetPostgresUpgradeStatusResponse,
-  v1GetPostgrestServiceConfigResponse,
-  v1GetProjectApiKeyResponse,
-  v1GetProjectApiKeysResponse,
-  v1GetProjectClaimTokenResponse,
-  v1GetProjectDiskAutoscaleConfigResponse,
-  v1GetProjectFunctionCombinedStatsResponse,
-  v1GetProjectLegacyApiKeysResponse,
-  v1GetProjectLogsResponse,
-  v1GetProjectPgbouncerConfigResponse,
-  v1GetProjectResponse,
-  v1GetProjectSigningKeyResponse,
-  v1GetProjectSigningKeysResponse,
-  v1GetProjectTpaIntegrationResponse,
-  v1GetProjectUsageApiCountResponse,
-  v1GetProjectUsageRequestCountResponse,
-  v1GetReadonlyModeStatusResponse,
-  v1GetRealtimeConfigResponse,
-  v1GetRestorePointResponse,
-  v1GetSecurityAdvisorsResponse,
-  v1GetServicesHealthResponse,
-  v1GetSslEnforcementConfigResponse,
-  v1GetStorageConfigResponse,
-  v1GetVanitySubdomainConfigResponse,
-  v1ListActionRunsResponse,
-  v1ListAllBackupsResponse,
-  v1ListAllBranchesResponse,
-  v1ListAllBucketsResponse,
-  v1ListAllFunctionsResponse,
-  v1ListAllNetworkBansEnrichedResponse,
-  v1ListAllNetworkBansResponse,
-  v1ListAllOrganizationsResponse,
-  v1ListAllProjectsResponse,
-  v1ListAllSecretsResponse,
-  v1ListAllSnippetsResponse,
-  v1ListAllSsoProviderResponse,
-  v1ListAvailableRestoreVersionsResponse,
-  v1ListJitAccessResponse,
-  v1ListMigrationHistoryResponse,
-  v1ListOrganizationMembersResponse,
-  v1ListProjectAddonsResponse,
-  v1ListProjectTpaIntegrationsResponse,
-  v1MergeABranchResponse,
-  v1ModifyDatabaseDiskResponse,
-  v1OauthAuthorizeProjectClaimResponse,
-  v1PatchAMigrationResponse,
-  v1PatchNetworkRestrictionsResponse,
-  v1PauseAProjectResponse,
-  v1PushABranchResponse,
-  v1ReadOnlyQueryResponse,
-  v1RemoveAReadReplicaResponse,
-  v1RemoveProjectAddonResponse,
-  v1RemoveProjectSigningKeyResponse,
-  v1ResetABranchResponse,
-  v1RestoreABranchResponse,
-  v1RestoreAProjectResponse,
-  v1RestorePitrBackupResponse,
-  v1RevokeTokenResponse,
-  v1RollbackMigrationsResponse,
-  v1RunAQueryResponse,
-  v1SetupAReadReplicaResponse,
-  v1ShutdownRealtimeResponse,
-  v1UndoResponse,
-  v1UpdateABranchConfigResponse,
-  v1UpdateAFunctionWithApplicationVndDenolandEszipResponse,
-  v1UpdateAFunctionWithJsonResponse,
-  v1UpdateAProjectResponse,
-  v1UpdateASsoProviderResponse,
-  v1UpdateActionRunStatusResponse,
-  v1UpdateAuthServiceConfigResponse,
-  v1UpdateDatabasePasswordResponse,
-  v1UpdateHostnameConfigResponse,
-  v1UpdateJitAccessConfigResponse,
-  v1UpdateJitAccessResponse,
-  v1UpdateNetworkRestrictionsResponse,
-  v1UpdatePgsodiumConfigResponse,
-  v1UpdatePoolerConfigResponse,
-  v1UpdatePostgresConfigResponse,
-  v1UpdatePostgrestServiceConfigResponse,
-  v1UpdateProjectApiKeyResponse,
-  v1UpdateProjectLegacyApiKeysResponse,
-  v1UpdateProjectSigningKeyResponse,
-  v1UpdateRealtimeConfigResponse,
-  v1UpdateSslEnforcementConfigResponse,
-  v1UpdateStorageConfigResponse,
-  v1UpgradePostgresVersionResponse,
-  v1UpsertAMigrationResponse,
-  v1VerifyDnsConfigResponse,
+  v1ActivateCustomHostnameResponseSuccess,
+  v1ActivateVanitySubdomainConfigResponseSuccess,
+  v1ApplyAMigrationResponseSuccess,
+  v1ApplyProjectAddonResponseSuccess,
+  v1AuthorizeJitAccessResponseSuccess,
+  v1AuthorizeUserResponseSuccess,
+  v1BulkCreateSecretsResponseSuccess,
+  v1BulkDeleteSecretsResponseSuccess,
+  v1BulkUpdateFunctionsResponseSuccess,
+  v1CancelAProjectRestorationResponseSuccess,
+  v1CheckVanitySubdomainAvailabilityResponseSuccess,
+  v1ClaimProjectForOrganizationResponseSuccess,
+  v1CountActionRunsResponseSuccess,
+  v1CreateABranchResponseSuccess,
+  v1CreateAFunctionWithApplicationVndDenolandEszipResponseSuccess,
+  v1CreateAFunctionWithJsonResponseSuccess,
+  v1CreateAProjectResponseSuccess,
+  v1CreateASsoProviderResponseSuccess,
+  v1CreateAnOrganizationResponseSuccess,
+  v1CreateLegacySigningKeyResponseSuccess,
+  v1CreateLoginRoleResponseSuccess,
+  v1CreateProjectApiKeyResponseSuccess,
+  v1CreateProjectClaimTokenResponseSuccess,
+  v1CreateProjectSigningKeyResponseSuccess,
+  v1CreateProjectTpaIntegrationResponseSuccess,
+  v1CreateRestorePointResponseSuccess,
+  v1DeactivateVanitySubdomainConfigResponseSuccess,
+  v1DeleteABranchResponseSuccess,
+  v1DeleteAFunctionResponseSuccess,
+  v1DeleteAProjectResponseSuccess,
+  v1DeleteASsoProviderResponseSuccess,
+  v1DeleteHostnameConfigResponseSuccess,
+  v1DeleteJitAccessResponseSuccess,
+  v1DeleteLoginRolesResponseSuccess,
+  v1DeleteNetworkBansResponseSuccess,
+  v1DeleteProjectApiKeyResponseSuccess,
+  v1DeleteProjectClaimTokenResponseSuccess,
+  v1DeleteProjectTpaIntegrationResponseSuccess,
+  v1DeployAFunctionResponseSuccess,
+  v1DiffABranchResponseSuccess,
+  v1DisablePreviewBranchingResponseSuccess,
+  v1DisableReadonlyModeTemporarilyResponseSuccess,
+  v1EnableDatabaseWebhookResponseSuccess,
+  v1ExchangeOauthTokenResponseSuccess,
+  v1GenerateTypescriptTypesResponseSuccess,
+  v1GetABranchConfigResponseSuccess,
+  v1GetABranchResponseSuccess,
+  v1GetAFunctionBodyResponseSuccess,
+  v1GetAFunctionResponseSuccess,
+  v1GetAMigrationResponseSuccess,
+  v1GetASnippetResponseSuccess,
+  v1GetASsoProviderResponseSuccess,
+  v1GetActionRunLogsResponseSuccess,
+  v1GetActionRunResponseSuccess,
+  v1GetAllProjectsForOrganizationResponseSuccess,
+  v1GetAnOrganizationResponseSuccess,
+  v1GetAuthServiceConfigResponseSuccess,
+  v1GetAvailableRegionsResponseSuccess,
+  v1GetDatabaseMetadataResponseSuccess,
+  v1GetDiskUtilizationResponseSuccess,
+  v1GetHostnameConfigResponseSuccess,
+  v1GetJitAccessConfigResponseSuccess,
+  v1GetJitAccessResponseSuccess,
+  v1GetLegacySigningKeyResponseSuccess,
+  v1GetNetworkRestrictionsResponseSuccess,
+  v1GetOrganizationProjectClaimResponseSuccess,
+  v1GetPerformanceAdvisorsResponseSuccess,
+  v1GetPgsodiumConfigResponseSuccess,
+  v1GetPoolerConfigResponseSuccess,
+  v1GetPostgresConfigResponseSuccess,
+  v1GetPostgresUpgradeEligibilityResponseSuccess,
+  v1GetPostgresUpgradeStatusResponseSuccess,
+  v1GetPostgrestServiceConfigResponseSuccess,
+  v1GetProjectApiKeyResponseSuccess,
+  v1GetProjectApiKeysResponseSuccess,
+  v1GetProjectClaimTokenResponseSuccess,
+  v1GetProjectDiskAutoscaleConfigResponseSuccess,
+  v1GetProjectFunctionCombinedStatsResponseSuccess,
+  v1GetProjectLegacyApiKeysResponseSuccess,
+  v1GetProjectLogsResponseSuccess,
+  v1GetProjectPgbouncerConfigResponseSuccess,
+  v1GetProjectResponseSuccess,
+  v1GetProjectSigningKeyResponseSuccess,
+  v1GetProjectSigningKeysResponseSuccess,
+  v1GetProjectTpaIntegrationResponseSuccess,
+  v1GetProjectUsageApiCountResponseSuccess,
+  v1GetProjectUsageRequestCountResponseSuccess,
+  v1GetReadonlyModeStatusResponseSuccess,
+  v1GetRealtimeConfigResponseSuccess,
+  v1GetRestorePointResponseSuccess,
+  v1GetSecurityAdvisorsResponseSuccess,
+  v1GetServicesHealthResponseSuccess,
+  v1GetSslEnforcementConfigResponseSuccess,
+  v1GetStorageConfigResponseSuccess,
+  v1GetVanitySubdomainConfigResponseSuccess,
+  v1ListActionRunsResponseSuccess,
+  v1ListAllBackupsResponseSuccess,
+  v1ListAllBranchesResponseSuccess,
+  v1ListAllBucketsResponseSuccess,
+  v1ListAllFunctionsResponseSuccess,
+  v1ListAllNetworkBansEnrichedResponseSuccess,
+  v1ListAllNetworkBansResponseSuccess,
+  v1ListAllOrganizationsResponseSuccess,
+  v1ListAllProjectsResponseSuccess,
+  v1ListAllSecretsResponseSuccess,
+  v1ListAllSnippetsResponseSuccess,
+  v1ListAllSsoProviderResponseSuccess,
+  v1ListAvailableRestoreVersionsResponseSuccess,
+  v1ListJitAccessResponseSuccess,
+  v1ListMigrationHistoryResponseSuccess,
+  v1ListOrganizationMembersResponseSuccess,
+  v1ListProjectAddonsResponseSuccess,
+  v1ListProjectTpaIntegrationsResponseSuccess,
+  v1MergeABranchResponseSuccess,
+  v1ModifyDatabaseDiskResponseSuccess,
+  v1OauthAuthorizeProjectClaimResponseSuccess,
+  v1PatchAMigrationResponseSuccess,
+  v1PatchNetworkRestrictionsResponseSuccess,
+  v1PauseAProjectResponseSuccess,
+  v1PushABranchResponseSuccess,
+  v1ReadOnlyQueryResponseSuccess,
+  v1RemoveAReadReplicaResponseSuccess,
+  v1RemoveProjectAddonResponseSuccess,
+  v1RemoveProjectSigningKeyResponseSuccess,
+  v1ResetABranchResponseSuccess,
+  v1RestoreABranchResponseSuccess,
+  v1RestoreAProjectResponseSuccess,
+  v1RestorePitrBackupResponseSuccess,
+  v1RevokeTokenResponseSuccess,
+  v1RollbackMigrationsResponseSuccess,
+  v1RunAQueryResponseSuccess,
+  v1SetupAReadReplicaResponseSuccess,
+  v1ShutdownRealtimeResponseSuccess,
+  v1UndoResponseSuccess,
+  v1UpdateABranchConfigResponseSuccess,
+  v1UpdateAFunctionWithApplicationVndDenolandEszipResponseSuccess,
+  v1UpdateAFunctionWithJsonResponseSuccess,
+  v1UpdateAProjectResponseSuccess,
+  v1UpdateASsoProviderResponseSuccess,
+  v1UpdateActionRunStatusResponseSuccess,
+  v1UpdateAuthServiceConfigResponseSuccess,
+  v1UpdateDatabasePasswordResponseSuccess,
+  v1UpdateHostnameConfigResponseSuccess,
+  v1UpdateJitAccessConfigResponseSuccess,
+  v1UpdateJitAccessResponseSuccess,
+  v1UpdateNetworkRestrictionsResponseSuccess,
+  v1UpdatePgsodiumConfigResponseSuccess,
+  v1UpdatePoolerConfigResponseSuccess,
+  v1UpdatePostgresConfigResponseSuccess,
+  v1UpdatePostgrestServiceConfigResponseSuccess,
+  v1UpdateProjectApiKeyResponseSuccess,
+  v1UpdateProjectLegacyApiKeysResponseSuccess,
+  v1UpdateProjectSigningKeyResponseSuccess,
+  v1UpdateRealtimeConfigResponseSuccess,
+  v1UpdateSslEnforcementConfigResponseSuccess,
+  v1UpdateStorageConfigResponseSuccess,
+  v1UpgradePostgresVersionResponseSuccess,
+  v1UpsertAMigrationResponseSuccess,
+  v1VerifyDnsConfigResponseSuccess,
 } from './generated';
+
+import { SupabaseManagementAPIError } from './error';
 
 export interface SupabaseManagementAPIOptions {
   accessToken: string;
@@ -425,1116 +427,1752 @@ export class SupabaseManagementAPI {
     return { Authorization: `Bearer ${this.accessToken}` };
   }
 
-  getPerformanceAdvisors(ref: string, options?: RequestInit): Promise<v1GetPerformanceAdvisorsResponse> {
-    return v1GetPerformanceAdvisors(ref, {
+  async getPerformanceAdvisors(ref: string, options?: RequestInit): Promise<v1GetPerformanceAdvisorsResponseSuccess> {
+    const result = await v1GetPerformanceAdvisors(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetPerformanceAdvisorsResponseSuccess;
   }
 
-  getSecurityAdvisors(ref: string, params?: V1GetSecurityAdvisorsParams, options?: RequestInit): Promise<v1GetSecurityAdvisorsResponse> {
-    return v1GetSecurityAdvisors(ref, params, {
+  async getSecurityAdvisors(ref: string, params?: V1GetSecurityAdvisorsParams, options?: RequestInit): Promise<v1GetSecurityAdvisorsResponseSuccess> {
+    const result = await v1GetSecurityAdvisors(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetSecurityAdvisorsResponseSuccess;
   }
 
-  getProjectLogs(ref: string, params?: V1GetProjectLogsParams, options?: RequestInit): Promise<v1GetProjectLogsResponse> {
-    return v1GetProjectLogs(ref, params, {
+  async getProjectLogs(ref: string, params?: V1GetProjectLogsParams, options?: RequestInit): Promise<v1GetProjectLogsResponseSuccess> {
+    const result = await v1GetProjectLogs(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetProjectLogsResponseSuccess;
   }
 
-  getProjectUsageApiCount(ref: string, params?: V1GetProjectUsageApiCountParams, options?: RequestInit): Promise<v1GetProjectUsageApiCountResponse> {
-    return v1GetProjectUsageApiCount(ref, params, {
+  async getProjectUsageApiCount(ref: string, params?: V1GetProjectUsageApiCountParams, options?: RequestInit): Promise<v1GetProjectUsageApiCountResponseSuccess> {
+    const result = await v1GetProjectUsageApiCount(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetProjectUsageApiCountResponseSuccess;
   }
 
-  getProjectUsageRequestCount(ref: string, options?: RequestInit): Promise<v1GetProjectUsageRequestCountResponse> {
-    return v1GetProjectUsageRequestCount(ref, {
+  async getProjectUsageRequestCount(ref: string, options?: RequestInit): Promise<v1GetProjectUsageRequestCountResponseSuccess> {
+    const result = await v1GetProjectUsageRequestCount(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetProjectUsageRequestCountResponseSuccess;
   }
 
-  getProjectFunctionCombinedStats(ref: string, params: V1GetProjectFunctionCombinedStatsParams, options?: RequestInit): Promise<v1GetProjectFunctionCombinedStatsResponse> {
-    return v1GetProjectFunctionCombinedStats(ref, params, {
+  async getProjectFunctionCombinedStats(ref: string, params: V1GetProjectFunctionCombinedStatsParams, options?: RequestInit): Promise<v1GetProjectFunctionCombinedStatsResponseSuccess> {
+    const result = await v1GetProjectFunctionCombinedStats(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetProjectFunctionCombinedStatsResponseSuccess;
   }
 
-  createLegacySigningKey(ref: string, options?: RequestInit): Promise<v1CreateLegacySigningKeyResponse> {
-    return v1CreateLegacySigningKey(ref, {
+  async createLegacySigningKey(ref: string, options?: RequestInit): Promise<v1CreateLegacySigningKeyResponseSuccess> {
+    const result = await v1CreateLegacySigningKey(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1CreateLegacySigningKeyResponseSuccess;
   }
 
-  getLegacySigningKey(ref: string, options?: RequestInit): Promise<v1GetLegacySigningKeyResponse> {
-    return v1GetLegacySigningKey(ref, {
+  async getLegacySigningKey(ref: string, options?: RequestInit): Promise<v1GetLegacySigningKeyResponseSuccess> {
+    const result = await v1GetLegacySigningKey(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetLegacySigningKeyResponseSuccess;
   }
 
-  createProjectSigningKey(ref: string, createSigningKeyBody: CreateSigningKeyBody, options?: RequestInit): Promise<v1CreateProjectSigningKeyResponse> {
-    return v1CreateProjectSigningKey(ref, createSigningKeyBody, {
+  async createProjectSigningKey(ref: string, createSigningKeyBody: CreateSigningKeyBody, options?: RequestInit): Promise<v1CreateProjectSigningKeyResponseSuccess> {
+    const result = await v1CreateProjectSigningKey(ref, createSigningKeyBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1CreateProjectSigningKeyResponseSuccess;
   }
 
-  getProjectSigningKeys(ref: string, options?: RequestInit): Promise<v1GetProjectSigningKeysResponse> {
-    return v1GetProjectSigningKeys(ref, {
+  async getProjectSigningKeys(ref: string, options?: RequestInit): Promise<v1GetProjectSigningKeysResponseSuccess> {
+    const result = await v1GetProjectSigningKeys(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetProjectSigningKeysResponseSuccess;
   }
 
-  getProjectSigningKey(ref: string, id: string, options?: RequestInit): Promise<v1GetProjectSigningKeyResponse> {
-    return v1GetProjectSigningKey(ref, id, {
+  async getProjectSigningKey(ref: string, id: string, options?: RequestInit): Promise<v1GetProjectSigningKeyResponseSuccess> {
+    const result = await v1GetProjectSigningKey(ref, id, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetProjectSigningKeyResponseSuccess;
   }
 
-  removeProjectSigningKey(ref: string, id: string, options?: RequestInit): Promise<v1RemoveProjectSigningKeyResponse> {
-    return v1RemoveProjectSigningKey(ref, id, {
+  async removeProjectSigningKey(ref: string, id: string, options?: RequestInit): Promise<v1RemoveProjectSigningKeyResponseSuccess> {
+    const result = await v1RemoveProjectSigningKey(ref, id, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1RemoveProjectSigningKeyResponseSuccess;
   }
 
-  updateProjectSigningKey(ref: string, id: string, updateSigningKeyBody: UpdateSigningKeyBody, options?: RequestInit): Promise<v1UpdateProjectSigningKeyResponse> {
-    return v1UpdateProjectSigningKey(ref, id, updateSigningKeyBody, {
+  async updateProjectSigningKey(ref: string, id: string, updateSigningKeyBody: UpdateSigningKeyBody, options?: RequestInit): Promise<v1UpdateProjectSigningKeyResponseSuccess> {
+    const result = await v1UpdateProjectSigningKey(ref, id, updateSigningKeyBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdateProjectSigningKeyResponseSuccess;
   }
 
-  getAuthServiceConfig(ref: string, options?: RequestInit): Promise<v1GetAuthServiceConfigResponse> {
-    return v1GetAuthServiceConfig(ref, {
+  async getAuthServiceConfig(ref: string, options?: RequestInit): Promise<v1GetAuthServiceConfigResponseSuccess> {
+    const result = await v1GetAuthServiceConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetAuthServiceConfigResponseSuccess;
   }
 
-  updateAuthServiceConfig(ref: string, updateAuthConfigBody: UpdateAuthConfigBody, options?: RequestInit): Promise<v1UpdateAuthServiceConfigResponse> {
-    return v1UpdateAuthServiceConfig(ref, updateAuthConfigBody, {
+  async updateAuthServiceConfig(ref: string, updateAuthConfigBody: UpdateAuthConfigBody, options?: RequestInit): Promise<v1UpdateAuthServiceConfigResponseSuccess> {
+    const result = await v1UpdateAuthServiceConfig(ref, updateAuthConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdateAuthServiceConfigResponseSuccess;
   }
 
-  createProjectTpaIntegration(ref: string, createThirdPartyAuthBody: CreateThirdPartyAuthBody, options?: RequestInit): Promise<v1CreateProjectTpaIntegrationResponse> {
-    return v1CreateProjectTpaIntegration(ref, createThirdPartyAuthBody, {
+  async createProjectTpaIntegration(ref: string, createThirdPartyAuthBody: CreateThirdPartyAuthBody, options?: RequestInit): Promise<v1CreateProjectTpaIntegrationResponseSuccess> {
+    const result = await v1CreateProjectTpaIntegration(ref, createThirdPartyAuthBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1CreateProjectTpaIntegrationResponseSuccess;
   }
 
-  listProjectTpaIntegrations(ref: string, options?: RequestInit): Promise<v1ListProjectTpaIntegrationsResponse> {
-    return v1ListProjectTpaIntegrations(ref, {
+  async listProjectTpaIntegrations(ref: string, options?: RequestInit): Promise<v1ListProjectTpaIntegrationsResponseSuccess> {
+    const result = await v1ListProjectTpaIntegrations(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ListProjectTpaIntegrationsResponseSuccess;
   }
 
-  deleteProjectTpaIntegration(ref: string, tpaId: string, options?: RequestInit): Promise<v1DeleteProjectTpaIntegrationResponse> {
-    return v1DeleteProjectTpaIntegration(ref, tpaId, {
+  async deleteProjectTpaIntegration(ref: string, tpaId: string, options?: RequestInit): Promise<v1DeleteProjectTpaIntegrationResponseSuccess> {
+    const result = await v1DeleteProjectTpaIntegration(ref, tpaId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1DeleteProjectTpaIntegrationResponseSuccess;
   }
 
-  getProjectTpaIntegration(ref: string, tpaId: string, options?: RequestInit): Promise<v1GetProjectTpaIntegrationResponse> {
-    return v1GetProjectTpaIntegration(ref, tpaId, {
+  async getProjectTpaIntegration(ref: string, tpaId: string, options?: RequestInit): Promise<v1GetProjectTpaIntegrationResponseSuccess> {
+    const result = await v1GetProjectTpaIntegration(ref, tpaId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetProjectTpaIntegrationResponseSuccess;
   }
 
-  createASsoProvider(ref: string, createProviderBody: CreateProviderBody, options?: RequestInit): Promise<v1CreateASsoProviderResponse> {
-    return v1CreateASsoProvider(ref, createProviderBody, {
+  async createASsoProvider(ref: string, createProviderBody: CreateProviderBody, options?: RequestInit): Promise<v1CreateASsoProviderResponseSuccess> {
+    const result = await v1CreateASsoProvider(ref, createProviderBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1CreateASsoProviderResponseSuccess;
   }
 
-  listAllSsoProvider(ref: string, options?: RequestInit): Promise<v1ListAllSsoProviderResponse> {
-    return v1ListAllSsoProvider(ref, {
+  async listAllSsoProvider(ref: string, options?: RequestInit): Promise<v1ListAllSsoProviderResponseSuccess> {
+    const result = await v1ListAllSsoProvider(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ListAllSsoProviderResponseSuccess;
   }
 
-  getASsoProvider(ref: string, providerId: string, options?: RequestInit): Promise<v1GetASsoProviderResponse> {
-    return v1GetASsoProvider(ref, providerId, {
+  async getASsoProvider(ref: string, providerId: string, options?: RequestInit): Promise<v1GetASsoProviderResponseSuccess> {
+    const result = await v1GetASsoProvider(ref, providerId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetASsoProviderResponseSuccess;
   }
 
-  updateASsoProvider(ref: string, providerId: string, updateProviderBody: UpdateProviderBody, options?: RequestInit): Promise<v1UpdateASsoProviderResponse> {
-    return v1UpdateASsoProvider(ref, providerId, updateProviderBody, {
+  async updateASsoProvider(ref: string, providerId: string, updateProviderBody: UpdateProviderBody, options?: RequestInit): Promise<v1UpdateASsoProviderResponseSuccess> {
+    const result = await v1UpdateASsoProvider(ref, providerId, updateProviderBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdateASsoProviderResponseSuccess;
   }
 
-  deleteASsoProvider(ref: string, providerId: string, options?: RequestInit): Promise<v1DeleteASsoProviderResponse> {
-    return v1DeleteASsoProvider(ref, providerId, {
+  async deleteASsoProvider(ref: string, providerId: string, options?: RequestInit): Promise<v1DeleteASsoProviderResponseSuccess> {
+    const result = await v1DeleteASsoProvider(ref, providerId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1DeleteASsoProviderResponseSuccess;
   }
 
-  listProjectAddons(ref: string, options?: RequestInit): Promise<v1ListProjectAddonsResponse> {
-    return v1ListProjectAddons(ref, {
+  async listProjectAddons(ref: string, options?: RequestInit): Promise<v1ListProjectAddonsResponseSuccess> {
+    const result = await v1ListProjectAddons(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ListProjectAddonsResponseSuccess;
   }
 
-  applyProjectAddon(ref: string, applyProjectAddonBody: ApplyProjectAddonBody, options?: RequestInit): Promise<v1ApplyProjectAddonResponse> {
-    return v1ApplyProjectAddon(ref, applyProjectAddonBody, {
+  async applyProjectAddon(ref: string, applyProjectAddonBody: ApplyProjectAddonBody, options?: RequestInit): Promise<v1ApplyProjectAddonResponseSuccess> {
+    const result = await v1ApplyProjectAddon(ref, applyProjectAddonBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ApplyProjectAddonResponseSuccess;
   }
 
-  removeProjectAddon(ref: string, addonVariant: 'ci_micro' | 'ci_small' | 'ci_medium' | 'ci_large' | 'ci_xlarge' | 'ci_2xlarge' | 'ci_4xlarge' | 'ci_8xlarge' | 'ci_12xlarge' | 'ci_16xlarge' | 'ci_24xlarge' | 'ci_24xlarge_optimized_cpu' | 'ci_24xlarge_optimized_memory' | 'ci_24xlarge_high_memory' | 'ci_48xlarge' | 'ci_48xlarge_optimized_cpu' | 'ci_48xlarge_optimized_memory' | 'ci_48xlarge_high_memory' | 'cd_default' | 'pitr_7' | 'pitr_14' | 'pitr_28' | 'ipv4_default', options?: RequestInit): Promise<v1RemoveProjectAddonResponse> {
-    return v1RemoveProjectAddon(ref, addonVariant, {
+  async removeProjectAddon(ref: string, addonVariant: 'ci_micro' | 'ci_small' | 'ci_medium' | 'ci_large' | 'ci_xlarge' | 'ci_2xlarge' | 'ci_4xlarge' | 'ci_8xlarge' | 'ci_12xlarge' | 'ci_16xlarge' | 'ci_24xlarge' | 'ci_24xlarge_optimized_cpu' | 'ci_24xlarge_optimized_memory' | 'ci_24xlarge_high_memory' | 'ci_48xlarge' | 'ci_48xlarge_optimized_cpu' | 'ci_48xlarge_optimized_memory' | 'ci_48xlarge_high_memory' | 'cd_default' | 'pitr_7' | 'pitr_14' | 'pitr_28' | 'ipv4_default', options?: RequestInit): Promise<v1RemoveProjectAddonResponseSuccess> {
+    const result = await v1RemoveProjectAddon(ref, addonVariant, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1RemoveProjectAddonResponseSuccess;
   }
 
-  listAllSnippets(params?: V1ListAllSnippetsParams, options?: RequestInit): Promise<v1ListAllSnippetsResponse> {
-    return v1ListAllSnippets(params, {
+  async listAllSnippets(params?: V1ListAllSnippetsParams, options?: RequestInit): Promise<v1ListAllSnippetsResponseSuccess> {
+    const result = await v1ListAllSnippets(params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ListAllSnippetsResponseSuccess;
   }
 
-  getASnippet(id: string, options?: RequestInit): Promise<v1GetASnippetResponse> {
-    return v1GetASnippet(id, {
+  async getASnippet(id: string, options?: RequestInit): Promise<v1GetASnippetResponseSuccess> {
+    const result = await v1GetASnippet(id, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetASnippetResponseSuccess;
   }
 
-  getJitAccessConfig(ref: string, options?: RequestInit): Promise<v1GetJitAccessConfigResponse> {
-    return v1GetJitAccessConfig(ref, {
+  async getJitAccessConfig(ref: string, options?: RequestInit): Promise<v1GetJitAccessConfigResponseSuccess> {
+    const result = await v1GetJitAccessConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetJitAccessConfigResponseSuccess;
   }
 
-  updateJitAccessConfig(ref: string, jitAccessRequestRequest: JitAccessRequestRequest, options?: RequestInit): Promise<v1UpdateJitAccessConfigResponse> {
-    return v1UpdateJitAccessConfig(ref, jitAccessRequestRequest, {
+  async updateJitAccessConfig(ref: string, jitAccessRequestRequest: JitAccessRequestRequest, options?: RequestInit): Promise<v1UpdateJitAccessConfigResponseSuccess> {
+    const result = await v1UpdateJitAccessConfig(ref, jitAccessRequestRequest, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdateJitAccessConfigResponseSuccess;
   }
 
-  getSslEnforcementConfig(ref: string, options?: RequestInit): Promise<v1GetSslEnforcementConfigResponse> {
-    return v1GetSslEnforcementConfig(ref, {
+  async getSslEnforcementConfig(ref: string, options?: RequestInit): Promise<v1GetSslEnforcementConfigResponseSuccess> {
+    const result = await v1GetSslEnforcementConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetSslEnforcementConfigResponseSuccess;
   }
 
-  updateSslEnforcementConfig(ref: string, sslEnforcementRequest: SslEnforcementRequest, options?: RequestInit): Promise<v1UpdateSslEnforcementConfigResponse> {
-    return v1UpdateSslEnforcementConfig(ref, sslEnforcementRequest, {
+  async updateSslEnforcementConfig(ref: string, sslEnforcementRequest: SslEnforcementRequest, options?: RequestInit): Promise<v1UpdateSslEnforcementConfigResponseSuccess> {
+    const result = await v1UpdateSslEnforcementConfig(ref, sslEnforcementRequest, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdateSslEnforcementConfigResponseSuccess;
   }
 
-  generateTypescriptTypes(ref: string, params?: V1GenerateTypescriptTypesParams, options?: RequestInit): Promise<v1GenerateTypescriptTypesResponse> {
-    return v1GenerateTypescriptTypes(ref, params, {
+  async generateTypescriptTypes(ref: string, params?: V1GenerateTypescriptTypesParams, options?: RequestInit): Promise<v1GenerateTypescriptTypesResponseSuccess> {
+    const result = await v1GenerateTypescriptTypes(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GenerateTypescriptTypesResponseSuccess;
   }
 
-  getReadonlyModeStatus(ref: string, options?: RequestInit): Promise<v1GetReadonlyModeStatusResponse> {
-    return v1GetReadonlyModeStatus(ref, {
+  async getReadonlyModeStatus(ref: string, options?: RequestInit): Promise<v1GetReadonlyModeStatusResponseSuccess> {
+    const result = await v1GetReadonlyModeStatus(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetReadonlyModeStatusResponseSuccess;
   }
 
-  disableReadonlyModeTemporarily(ref: string, options?: RequestInit): Promise<v1DisableReadonlyModeTemporarilyResponse> {
-    return v1DisableReadonlyModeTemporarily(ref, {
+  async disableReadonlyModeTemporarily(ref: string, options?: RequestInit): Promise<v1DisableReadonlyModeTemporarilyResponseSuccess> {
+    const result = await v1DisableReadonlyModeTemporarily(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1DisableReadonlyModeTemporarilyResponseSuccess;
   }
 
-  setupAReadReplica(ref: string, setUpReadReplicaBody: SetUpReadReplicaBody, options?: RequestInit): Promise<v1SetupAReadReplicaResponse> {
-    return v1SetupAReadReplica(ref, setUpReadReplicaBody, {
+  async setupAReadReplica(ref: string, setUpReadReplicaBody: SetUpReadReplicaBody, options?: RequestInit): Promise<v1SetupAReadReplicaResponseSuccess> {
+    const result = await v1SetupAReadReplica(ref, setUpReadReplicaBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1SetupAReadReplicaResponseSuccess;
   }
 
-  removeAReadReplica(ref: string, removeReadReplicaBody: RemoveReadReplicaBody, options?: RequestInit): Promise<v1RemoveAReadReplicaResponse> {
-    return v1RemoveAReadReplica(ref, removeReadReplicaBody, {
+  async removeAReadReplica(ref: string, removeReadReplicaBody: RemoveReadReplicaBody, options?: RequestInit): Promise<v1RemoveAReadReplicaResponseSuccess> {
+    const result = await v1RemoveAReadReplica(ref, removeReadReplicaBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1RemoveAReadReplicaResponseSuccess;
   }
 
-  createLoginRole(ref: string, createRoleBody: CreateRoleBody, options?: RequestInit): Promise<v1CreateLoginRoleResponse> {
-    return v1CreateLoginRole(ref, createRoleBody, {
+  async createLoginRole(ref: string, createRoleBody: CreateRoleBody, options?: RequestInit): Promise<v1CreateLoginRoleResponseSuccess> {
+    const result = await v1CreateLoginRole(ref, createRoleBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1CreateLoginRoleResponseSuccess;
   }
 
-  deleteLoginRoles(ref: string, options?: RequestInit): Promise<v1DeleteLoginRolesResponse> {
-    return v1DeleteLoginRoles(ref, {
+  async deleteLoginRoles(ref: string, options?: RequestInit): Promise<v1DeleteLoginRolesResponseSuccess> {
+    const result = await v1DeleteLoginRoles(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1DeleteLoginRolesResponseSuccess;
   }
 
-  listMigrationHistory(ref: string, options?: RequestInit): Promise<v1ListMigrationHistoryResponse> {
-    return v1ListMigrationHistory(ref, {
+  async listMigrationHistory(ref: string, options?: RequestInit): Promise<v1ListMigrationHistoryResponseSuccess> {
+    const result = await v1ListMigrationHistory(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ListMigrationHistoryResponseSuccess;
   }
 
-  applyAMigration(ref: string, v1CreateMigrationBody: V1CreateMigrationBody, options?: RequestInit): Promise<v1ApplyAMigrationResponse> {
-    return v1ApplyAMigration(ref, v1CreateMigrationBody, {
+  async applyAMigration(ref: string, v1CreateMigrationBody: V1CreateMigrationBody, options?: RequestInit): Promise<v1ApplyAMigrationResponseSuccess> {
+    const result = await v1ApplyAMigration(ref, v1CreateMigrationBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ApplyAMigrationResponseSuccess;
   }
 
-  upsertAMigration(ref: string, v1UpsertMigrationBody: V1UpsertMigrationBody, options?: RequestInit): Promise<v1UpsertAMigrationResponse> {
-    return v1UpsertAMigration(ref, v1UpsertMigrationBody, {
+  async upsertAMigration(ref: string, v1UpsertMigrationBody: V1UpsertMigrationBody, options?: RequestInit): Promise<v1UpsertAMigrationResponseSuccess> {
+    const result = await v1UpsertAMigration(ref, v1UpsertMigrationBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpsertAMigrationResponseSuccess;
   }
 
-  rollbackMigrations(ref: string, params: V1RollbackMigrationsParams, options?: RequestInit): Promise<v1RollbackMigrationsResponse> {
-    return v1RollbackMigrations(ref, params, {
+  async rollbackMigrations(ref: string, params: V1RollbackMigrationsParams, options?: RequestInit): Promise<v1RollbackMigrationsResponseSuccess> {
+    const result = await v1RollbackMigrations(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1RollbackMigrationsResponseSuccess;
   }
 
-  getAMigration(ref: string, version: string, options?: RequestInit): Promise<v1GetAMigrationResponse> {
-    return v1GetAMigration(ref, version, {
+  async getAMigration(ref: string, version: string, options?: RequestInit): Promise<v1GetAMigrationResponseSuccess> {
+    const result = await v1GetAMigration(ref, version, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetAMigrationResponseSuccess;
   }
 
-  patchAMigration(ref: string, version: string, v1PatchMigrationBody: V1PatchMigrationBody, options?: RequestInit): Promise<v1PatchAMigrationResponse> {
-    return v1PatchAMigration(ref, version, v1PatchMigrationBody, {
+  async patchAMigration(ref: string, version: string, v1PatchMigrationBody: V1PatchMigrationBody, options?: RequestInit): Promise<v1PatchAMigrationResponseSuccess> {
+    const result = await v1PatchAMigration(ref, version, v1PatchMigrationBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1PatchAMigrationResponseSuccess;
   }
 
-  runAQuery(ref: string, v1RunQueryBody: V1RunQueryBody, options?: RequestInit): Promise<v1RunAQueryResponse> {
-    return v1RunAQuery(ref, v1RunQueryBody, {
+  async runAQuery(ref: string, v1RunQueryBody: V1RunQueryBody, options?: RequestInit): Promise<v1RunAQueryResponseSuccess> {
+    const result = await v1RunAQuery(ref, v1RunQueryBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1RunAQueryResponseSuccess;
   }
 
-  readOnlyQuery(ref: string, v1ReadOnlyQueryBody: V1ReadOnlyQueryBody, options?: RequestInit): Promise<v1ReadOnlyQueryResponse> {
-    return v1ReadOnlyQuery(ref, v1ReadOnlyQueryBody, {
+  async readOnlyQuery(ref: string, v1ReadOnlyQueryBody: V1ReadOnlyQueryBody, options?: RequestInit): Promise<v1ReadOnlyQueryResponseSuccess> {
+    const result = await v1ReadOnlyQuery(ref, v1ReadOnlyQueryBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ReadOnlyQueryResponseSuccess;
   }
 
-  enableDatabaseWebhook(ref: string, options?: RequestInit): Promise<v1EnableDatabaseWebhookResponse> {
-    return v1EnableDatabaseWebhook(ref, {
+  async enableDatabaseWebhook(ref: string, options?: RequestInit): Promise<v1EnableDatabaseWebhookResponseSuccess> {
+    const result = await v1EnableDatabaseWebhook(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1EnableDatabaseWebhookResponseSuccess;
   }
 
-  getDatabaseMetadata(ref: string, options?: RequestInit): Promise<v1GetDatabaseMetadataResponse> {
-    return v1GetDatabaseMetadata(ref, {
+  async getDatabaseMetadata(ref: string, options?: RequestInit): Promise<v1GetDatabaseMetadataResponseSuccess> {
+    const result = await v1GetDatabaseMetadata(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetDatabaseMetadataResponseSuccess;
   }
 
-  updateDatabasePassword(ref: string, v1UpdatePasswordBody: V1UpdatePasswordBody, options?: RequestInit): Promise<v1UpdateDatabasePasswordResponse> {
-    return v1UpdateDatabasePassword(ref, v1UpdatePasswordBody, {
+  async updateDatabasePassword(ref: string, v1UpdatePasswordBody: V1UpdatePasswordBody, options?: RequestInit): Promise<v1UpdateDatabasePasswordResponseSuccess> {
+    const result = await v1UpdateDatabasePassword(ref, v1UpdatePasswordBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdateDatabasePasswordResponseSuccess;
   }
 
-  getJitAccess(ref: string, options?: RequestInit): Promise<v1GetJitAccessResponse> {
-    return v1GetJitAccess(ref, {
+  async getJitAccess(ref: string, options?: RequestInit): Promise<v1GetJitAccessResponseSuccess> {
+    const result = await v1GetJitAccess(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetJitAccessResponseSuccess;
   }
 
-  authorizeJitAccess(ref: string, authorizeJitAccessBody: AuthorizeJitAccessBody, options?: RequestInit): Promise<v1AuthorizeJitAccessResponse> {
-    return v1AuthorizeJitAccess(ref, authorizeJitAccessBody, {
+  async authorizeJitAccess(ref: string, authorizeJitAccessBody: AuthorizeJitAccessBody, options?: RequestInit): Promise<v1AuthorizeJitAccessResponseSuccess> {
+    const result = await v1AuthorizeJitAccess(ref, authorizeJitAccessBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1AuthorizeJitAccessResponseSuccess;
   }
 
-  updateJitAccess(ref: string, updateJitAccessBody: UpdateJitAccessBody, options?: RequestInit): Promise<v1UpdateJitAccessResponse> {
-    return v1UpdateJitAccess(ref, updateJitAccessBody, {
+  async updateJitAccess(ref: string, updateJitAccessBody: UpdateJitAccessBody, options?: RequestInit): Promise<v1UpdateJitAccessResponseSuccess> {
+    const result = await v1UpdateJitAccess(ref, updateJitAccessBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdateJitAccessResponseSuccess;
   }
 
-  listJitAccess(ref: string, options?: RequestInit): Promise<v1ListJitAccessResponse> {
-    return v1ListJitAccess(ref, {
+  async listJitAccess(ref: string, options?: RequestInit): Promise<v1ListJitAccessResponseSuccess> {
+    const result = await v1ListJitAccess(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ListJitAccessResponseSuccess;
   }
 
-  deleteJitAccess(ref: string, userId: string, options?: RequestInit): Promise<v1DeleteJitAccessResponse> {
-    return v1DeleteJitAccess(ref, userId, {
+  async deleteJitAccess(ref: string, userId: string, options?: RequestInit): Promise<v1DeleteJitAccessResponseSuccess> {
+    const result = await v1DeleteJitAccess(ref, userId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1DeleteJitAccessResponseSuccess;
   }
 
-  getProjectPgbouncerConfig(ref: string, options?: RequestInit): Promise<v1GetProjectPgbouncerConfigResponse> {
-    return v1GetProjectPgbouncerConfig(ref, {
+  async getProjectPgbouncerConfig(ref: string, options?: RequestInit): Promise<v1GetProjectPgbouncerConfigResponseSuccess> {
+    const result = await v1GetProjectPgbouncerConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetProjectPgbouncerConfigResponseSuccess;
   }
 
-  getPoolerConfig(ref: string, options?: RequestInit): Promise<v1GetPoolerConfigResponse> {
-    return v1GetPoolerConfig(ref, {
+  async getPoolerConfig(ref: string, options?: RequestInit): Promise<v1GetPoolerConfigResponseSuccess> {
+    const result = await v1GetPoolerConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetPoolerConfigResponseSuccess;
   }
 
-  updatePoolerConfig(ref: string, updateSupavisorConfigBody: UpdateSupavisorConfigBody, options?: RequestInit): Promise<v1UpdatePoolerConfigResponse> {
-    return v1UpdatePoolerConfig(ref, updateSupavisorConfigBody, {
+  async updatePoolerConfig(ref: string, updateSupavisorConfigBody: UpdateSupavisorConfigBody, options?: RequestInit): Promise<v1UpdatePoolerConfigResponseSuccess> {
+    const result = await v1UpdatePoolerConfig(ref, updateSupavisorConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdatePoolerConfigResponseSuccess;
   }
 
-  getPostgresConfig(ref: string, options?: RequestInit): Promise<v1GetPostgresConfigResponse> {
-    return v1GetPostgresConfig(ref, {
+  async getPostgresConfig(ref: string, options?: RequestInit): Promise<v1GetPostgresConfigResponseSuccess> {
+    const result = await v1GetPostgresConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetPostgresConfigResponseSuccess;
   }
 
-  updatePostgresConfig(ref: string, updatePostgresConfigBody: UpdatePostgresConfigBody, options?: RequestInit): Promise<v1UpdatePostgresConfigResponse> {
-    return v1UpdatePostgresConfig(ref, updatePostgresConfigBody, {
+  async updatePostgresConfig(ref: string, updatePostgresConfigBody: UpdatePostgresConfigBody, options?: RequestInit): Promise<v1UpdatePostgresConfigResponseSuccess> {
+    const result = await v1UpdatePostgresConfig(ref, updatePostgresConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdatePostgresConfigResponseSuccess;
   }
 
-  listAllBackups(ref: string, options?: RequestInit): Promise<v1ListAllBackupsResponse> {
-    return v1ListAllBackups(ref, {
+  async listAllBackups(ref: string, options?: RequestInit): Promise<v1ListAllBackupsResponseSuccess> {
+    const result = await v1ListAllBackups(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ListAllBackupsResponseSuccess;
   }
 
-  restorePitrBackup(ref: string, v1RestorePitrBody: V1RestorePitrBody, options?: RequestInit): Promise<v1RestorePitrBackupResponse> {
-    return v1RestorePitrBackup(ref, v1RestorePitrBody, {
+  async restorePitrBackup(ref: string, v1RestorePitrBody: V1RestorePitrBody, options?: RequestInit): Promise<v1RestorePitrBackupResponseSuccess> {
+    const result = await v1RestorePitrBackup(ref, v1RestorePitrBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1RestorePitrBackupResponseSuccess;
   }
 
-  createRestorePoint(ref: string, v1RestorePointPostBody: V1RestorePointPostBody, options?: RequestInit): Promise<v1CreateRestorePointResponse> {
-    return v1CreateRestorePoint(ref, v1RestorePointPostBody, {
+  async createRestorePoint(ref: string, v1RestorePointPostBody: V1RestorePointPostBody, options?: RequestInit): Promise<v1CreateRestorePointResponseSuccess> {
+    const result = await v1CreateRestorePoint(ref, v1RestorePointPostBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1CreateRestorePointResponseSuccess;
   }
 
-  getRestorePoint(ref: string, params?: V1GetRestorePointParams, options?: RequestInit): Promise<v1GetRestorePointResponse> {
-    return v1GetRestorePoint(ref, params, {
+  async getRestorePoint(ref: string, params?: V1GetRestorePointParams, options?: RequestInit): Promise<v1GetRestorePointResponseSuccess> {
+    const result = await v1GetRestorePoint(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetRestorePointResponseSuccess;
   }
 
-  undo(ref: string, v1UndoBody: V1UndoBody, options?: RequestInit): Promise<v1UndoResponse> {
-    return v1Undo(ref, v1UndoBody, {
+  async undo(ref: string, v1UndoBody: V1UndoBody, options?: RequestInit): Promise<v1UndoResponseSuccess> {
+    const result = await v1Undo(ref, v1UndoBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UndoResponseSuccess;
   }
 
-  getHostnameConfig(ref: string, options?: RequestInit): Promise<v1GetHostnameConfigResponse> {
-    return v1GetHostnameConfig(ref, {
+  async getHostnameConfig(ref: string, options?: RequestInit): Promise<v1GetHostnameConfigResponseSuccess> {
+    const result = await v1GetHostnameConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetHostnameConfigResponseSuccess;
   }
 
-  deleteHostnameConfig(ref: string, options?: RequestInit): Promise<v1DeleteHostnameConfigResponse> {
-    return v1DeleteHostnameConfig(ref, {
+  async deleteHostnameConfig(ref: string, options?: RequestInit): Promise<v1DeleteHostnameConfigResponseSuccess> {
+    const result = await v1DeleteHostnameConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1DeleteHostnameConfigResponseSuccess;
   }
 
-  updateHostnameConfig(ref: string, updateCustomHostnameBody: UpdateCustomHostnameBody, options?: RequestInit): Promise<v1UpdateHostnameConfigResponse> {
-    return v1UpdateHostnameConfig(ref, updateCustomHostnameBody, {
+  async updateHostnameConfig(ref: string, updateCustomHostnameBody: UpdateCustomHostnameBody, options?: RequestInit): Promise<v1UpdateHostnameConfigResponseSuccess> {
+    const result = await v1UpdateHostnameConfig(ref, updateCustomHostnameBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdateHostnameConfigResponseSuccess;
   }
 
-  verifyDnsConfig(ref: string, options?: RequestInit): Promise<v1VerifyDnsConfigResponse> {
-    return v1VerifyDnsConfig(ref, {
+  async verifyDnsConfig(ref: string, options?: RequestInit): Promise<v1VerifyDnsConfigResponseSuccess> {
+    const result = await v1VerifyDnsConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1VerifyDnsConfigResponseSuccess;
   }
 
-  activateCustomHostname(ref: string, options?: RequestInit): Promise<v1ActivateCustomHostnameResponse> {
-    return v1ActivateCustomHostname(ref, {
+  async activateCustomHostname(ref: string, options?: RequestInit): Promise<v1ActivateCustomHostnameResponseSuccess> {
+    const result = await v1ActivateCustomHostname(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ActivateCustomHostnameResponseSuccess;
   }
 
-  getVanitySubdomainConfig(ref: string, options?: RequestInit): Promise<v1GetVanitySubdomainConfigResponse> {
-    return v1GetVanitySubdomainConfig(ref, {
+  async getVanitySubdomainConfig(ref: string, options?: RequestInit): Promise<v1GetVanitySubdomainConfigResponseSuccess> {
+    const result = await v1GetVanitySubdomainConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetVanitySubdomainConfigResponseSuccess;
   }
 
-  deactivateVanitySubdomainConfig(ref: string, options?: RequestInit): Promise<v1DeactivateVanitySubdomainConfigResponse> {
-    return v1DeactivateVanitySubdomainConfig(ref, {
+  async deactivateVanitySubdomainConfig(ref: string, options?: RequestInit): Promise<v1DeactivateVanitySubdomainConfigResponseSuccess> {
+    const result = await v1DeactivateVanitySubdomainConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1DeactivateVanitySubdomainConfigResponseSuccess;
   }
 
-  checkVanitySubdomainAvailability(ref: string, vanitySubdomainBody: VanitySubdomainBody, options?: RequestInit): Promise<v1CheckVanitySubdomainAvailabilityResponse> {
-    return v1CheckVanitySubdomainAvailability(ref, vanitySubdomainBody, {
+  async checkVanitySubdomainAvailability(ref: string, vanitySubdomainBody: VanitySubdomainBody, options?: RequestInit): Promise<v1CheckVanitySubdomainAvailabilityResponseSuccess> {
+    const result = await v1CheckVanitySubdomainAvailability(ref, vanitySubdomainBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1CheckVanitySubdomainAvailabilityResponseSuccess;
   }
 
-  activateVanitySubdomainConfig(ref: string, vanitySubdomainBody: VanitySubdomainBody, options?: RequestInit): Promise<v1ActivateVanitySubdomainConfigResponse> {
-    return v1ActivateVanitySubdomainConfig(ref, vanitySubdomainBody, {
+  async activateVanitySubdomainConfig(ref: string, vanitySubdomainBody: VanitySubdomainBody, options?: RequestInit): Promise<v1ActivateVanitySubdomainConfigResponseSuccess> {
+    const result = await v1ActivateVanitySubdomainConfig(ref, vanitySubdomainBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ActivateVanitySubdomainConfigResponseSuccess;
   }
 
-  listAllFunctions(ref: string, options?: RequestInit): Promise<v1ListAllFunctionsResponse> {
-    return v1ListAllFunctions(ref, {
+  async listAllFunctions(ref: string, options?: RequestInit): Promise<v1ListAllFunctionsResponseSuccess> {
+    const result = await v1ListAllFunctions(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ListAllFunctionsResponseSuccess;
   }
 
-  createAFunctionWithApplicationVndDenolandEszip(ref: string, v1CreateAFunctionWithApplicationVndDenolandEszipBody: Blob, params?: V1CreateAFunctionWithApplicationVndDenolandEszipParams, options?: RequestInit): Promise<v1CreateAFunctionWithApplicationVndDenolandEszipResponse> {
-    return v1CreateAFunctionWithApplicationVndDenolandEszip(ref, v1CreateAFunctionWithApplicationVndDenolandEszipBody, params, {
+  async createAFunctionWithApplicationVndDenolandEszip(ref: string, v1CreateAFunctionWithApplicationVndDenolandEszipBody: Blob, params?: V1CreateAFunctionWithApplicationVndDenolandEszipParams, options?: RequestInit): Promise<v1CreateAFunctionWithApplicationVndDenolandEszipResponseSuccess> {
+    const result = await v1CreateAFunctionWithApplicationVndDenolandEszip(ref, v1CreateAFunctionWithApplicationVndDenolandEszipBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1CreateAFunctionWithApplicationVndDenolandEszipResponseSuccess;
   }
 
-  createAFunctionWithJson(ref: string, v1CreateFunctionBody: V1CreateFunctionBody, params?: V1CreateAFunctionWithJsonParams, options?: RequestInit): Promise<v1CreateAFunctionWithJsonResponse> {
-    return v1CreateAFunctionWithJson(ref, v1CreateFunctionBody, params, {
+  async createAFunctionWithJson(ref: string, v1CreateFunctionBody: V1CreateFunctionBody, params?: V1CreateAFunctionWithJsonParams, options?: RequestInit): Promise<v1CreateAFunctionWithJsonResponseSuccess> {
+    const result = await v1CreateAFunctionWithJson(ref, v1CreateFunctionBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1CreateAFunctionWithJsonResponseSuccess;
   }
 
-  bulkUpdateFunctions(ref: string, bulkUpdateFunctionBody: BulkUpdateFunctionBody, options?: RequestInit): Promise<v1BulkUpdateFunctionsResponse> {
-    return v1BulkUpdateFunctions(ref, bulkUpdateFunctionBody, {
+  async bulkUpdateFunctions(ref: string, bulkUpdateFunctionBody: BulkUpdateFunctionBody, options?: RequestInit): Promise<v1BulkUpdateFunctionsResponseSuccess> {
+    const result = await v1BulkUpdateFunctions(ref, bulkUpdateFunctionBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1BulkUpdateFunctionsResponseSuccess;
   }
 
-  deployAFunction(ref: string, functionDeployBody: FunctionDeployBody, params?: V1DeployAFunctionParams, options?: RequestInit): Promise<v1DeployAFunctionResponse> {
-    return v1DeployAFunction(ref, functionDeployBody, params, {
+  async deployAFunction(ref: string, functionDeployBody: FunctionDeployBody, params?: V1DeployAFunctionParams, options?: RequestInit): Promise<v1DeployAFunctionResponseSuccess> {
+    const result = await v1DeployAFunction(ref, functionDeployBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1DeployAFunctionResponseSuccess;
   }
 
-  getAFunction(ref: string, functionSlug: string, options?: RequestInit): Promise<v1GetAFunctionResponse> {
-    return v1GetAFunction(ref, functionSlug, {
+  async getAFunction(ref: string, functionSlug: string, options?: RequestInit): Promise<v1GetAFunctionResponseSuccess> {
+    const result = await v1GetAFunction(ref, functionSlug, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetAFunctionResponseSuccess;
   }
 
-  updateAFunctionWithApplicationVndDenolandEszip(ref: string, functionSlug: string, v1UpdateAFunctionWithApplicationVndDenolandEszipBody: Blob, params?: V1UpdateAFunctionWithApplicationVndDenolandEszipParams, options?: RequestInit): Promise<v1UpdateAFunctionWithApplicationVndDenolandEszipResponse> {
-    return v1UpdateAFunctionWithApplicationVndDenolandEszip(ref, functionSlug, v1UpdateAFunctionWithApplicationVndDenolandEszipBody, params, {
+  async updateAFunctionWithApplicationVndDenolandEszip(ref: string, functionSlug: string, v1UpdateAFunctionWithApplicationVndDenolandEszipBody: Blob, params?: V1UpdateAFunctionWithApplicationVndDenolandEszipParams, options?: RequestInit): Promise<v1UpdateAFunctionWithApplicationVndDenolandEszipResponseSuccess> {
+    const result = await v1UpdateAFunctionWithApplicationVndDenolandEszip(ref, functionSlug, v1UpdateAFunctionWithApplicationVndDenolandEszipBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdateAFunctionWithApplicationVndDenolandEszipResponseSuccess;
   }
 
-  updateAFunctionWithJson(ref: string, functionSlug: string, v1UpdateFunctionBody: V1UpdateFunctionBody, params?: V1UpdateAFunctionWithJsonParams, options?: RequestInit): Promise<v1UpdateAFunctionWithJsonResponse> {
-    return v1UpdateAFunctionWithJson(ref, functionSlug, v1UpdateFunctionBody, params, {
+  async updateAFunctionWithJson(ref: string, functionSlug: string, v1UpdateFunctionBody: V1UpdateFunctionBody, params?: V1UpdateAFunctionWithJsonParams, options?: RequestInit): Promise<v1UpdateAFunctionWithJsonResponseSuccess> {
+    const result = await v1UpdateAFunctionWithJson(ref, functionSlug, v1UpdateFunctionBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdateAFunctionWithJsonResponseSuccess;
   }
 
-  deleteAFunction(ref: string, functionSlug: string, options?: RequestInit): Promise<v1DeleteAFunctionResponse> {
-    return v1DeleteAFunction(ref, functionSlug, {
+  async deleteAFunction(ref: string, functionSlug: string, options?: RequestInit): Promise<v1DeleteAFunctionResponseSuccess> {
+    const result = await v1DeleteAFunction(ref, functionSlug, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1DeleteAFunctionResponseSuccess;
   }
 
-  getAFunctionBody(ref: string, functionSlug: string, options?: RequestInit): Promise<v1GetAFunctionBodyResponse> {
-    return v1GetAFunctionBody(ref, functionSlug, {
+  async getAFunctionBody(ref: string, functionSlug: string, options?: RequestInit): Promise<v1GetAFunctionBodyResponseSuccess> {
+    const result = await v1GetAFunctionBody(ref, functionSlug, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetAFunctionBodyResponseSuccess;
   }
 
-  getABranchConfig(branchIdOrRef: string, options?: RequestInit): Promise<v1GetABranchConfigResponse> {
-    return v1GetABranchConfig(branchIdOrRef, {
+  async getABranchConfig(branchIdOrRef: string, options?: RequestInit): Promise<v1GetABranchConfigResponseSuccess> {
+    const result = await v1GetABranchConfig(branchIdOrRef, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetABranchConfigResponseSuccess;
   }
 
-  updateABranchConfig(branchIdOrRef: string, updateBranchBody: UpdateBranchBody, options?: RequestInit): Promise<v1UpdateABranchConfigResponse> {
-    return v1UpdateABranchConfig(branchIdOrRef, updateBranchBody, {
+  async updateABranchConfig(branchIdOrRef: string, updateBranchBody: UpdateBranchBody, options?: RequestInit): Promise<v1UpdateABranchConfigResponseSuccess> {
+    const result = await v1UpdateABranchConfig(branchIdOrRef, updateBranchBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdateABranchConfigResponseSuccess;
   }
 
-  deleteABranch(branchIdOrRef: string, params?: V1DeleteABranchParams, options?: RequestInit): Promise<v1DeleteABranchResponse> {
-    return v1DeleteABranch(branchIdOrRef, params, {
+  async deleteABranch(branchIdOrRef: string, params?: V1DeleteABranchParams, options?: RequestInit): Promise<v1DeleteABranchResponseSuccess> {
+    const result = await v1DeleteABranch(branchIdOrRef, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1DeleteABranchResponseSuccess;
   }
 
-  pushABranch(branchIdOrRef: string, branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1PushABranchResponse> {
-    return v1PushABranch(branchIdOrRef, branchActionBody, {
+  async pushABranch(branchIdOrRef: string, branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1PushABranchResponseSuccess> {
+    const result = await v1PushABranch(branchIdOrRef, branchActionBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1PushABranchResponseSuccess;
   }
 
-  mergeABranch(branchIdOrRef: string, branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1MergeABranchResponse> {
-    return v1MergeABranch(branchIdOrRef, branchActionBody, {
+  async mergeABranch(branchIdOrRef: string, branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1MergeABranchResponseSuccess> {
+    const result = await v1MergeABranch(branchIdOrRef, branchActionBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1MergeABranchResponseSuccess;
   }
 
-  resetABranch(branchIdOrRef: string, branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1ResetABranchResponse> {
-    return v1ResetABranch(branchIdOrRef, branchActionBody, {
+  async resetABranch(branchIdOrRef: string, branchActionBody: BranchActionBody, options?: RequestInit): Promise<v1ResetABranchResponseSuccess> {
+    const result = await v1ResetABranch(branchIdOrRef, branchActionBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ResetABranchResponseSuccess;
   }
 
-  restoreABranch(branchIdOrRef: string, options?: RequestInit): Promise<v1RestoreABranchResponse> {
-    return v1RestoreABranch(branchIdOrRef, {
+  async restoreABranch(branchIdOrRef: string, options?: RequestInit): Promise<v1RestoreABranchResponseSuccess> {
+    const result = await v1RestoreABranch(branchIdOrRef, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1RestoreABranchResponseSuccess;
   }
 
-  diffABranch(branchIdOrRef: string, params?: V1DiffABranchParams, options?: RequestInit): Promise<v1DiffABranchResponse> {
-    return v1DiffABranch(branchIdOrRef, params, {
+  async diffABranch(branchIdOrRef: string, params?: V1DiffABranchParams, options?: RequestInit): Promise<v1DiffABranchResponseSuccess> {
+    const result = await v1DiffABranch(branchIdOrRef, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1DiffABranchResponseSuccess;
   }
 
-  listActionRuns(ref: string, params?: V1ListActionRunsParams, options?: RequestInit): Promise<v1ListActionRunsResponse> {
-    return v1ListActionRuns(ref, params, {
+  async listActionRuns(ref: string, params?: V1ListActionRunsParams, options?: RequestInit): Promise<v1ListActionRunsResponseSuccess> {
+    const result = await v1ListActionRuns(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ListActionRunsResponseSuccess;
   }
 
-  countActionRuns(ref: string, options?: RequestInit): Promise<v1CountActionRunsResponse> {
-    return v1CountActionRuns(ref, {
+  async countActionRuns(ref: string, options?: RequestInit): Promise<v1CountActionRunsResponseSuccess> {
+    const result = await v1CountActionRuns(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1CountActionRunsResponseSuccess;
   }
 
-  getActionRun(ref: string, runId: string, options?: RequestInit): Promise<v1GetActionRunResponse> {
-    return v1GetActionRun(ref, runId, {
+  async getActionRun(ref: string, runId: string, options?: RequestInit): Promise<v1GetActionRunResponseSuccess> {
+    const result = await v1GetActionRun(ref, runId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetActionRunResponseSuccess;
   }
 
-  updateActionRunStatus(ref: string, runId: string, updateRunStatusBody: UpdateRunStatusBody, options?: RequestInit): Promise<v1UpdateActionRunStatusResponse> {
-    return v1UpdateActionRunStatus(ref, runId, updateRunStatusBody, {
+  async updateActionRunStatus(ref: string, runId: string, updateRunStatusBody: UpdateRunStatusBody, options?: RequestInit): Promise<v1UpdateActionRunStatusResponseSuccess> {
+    const result = await v1UpdateActionRunStatus(ref, runId, updateRunStatusBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdateActionRunStatusResponseSuccess;
   }
 
-  getActionRunLogs(ref: string, runId: string, options?: RequestInit): Promise<v1GetActionRunLogsResponse> {
-    return v1GetActionRunLogs(ref, runId, {
+  async getActionRunLogs(ref: string, runId: string, options?: RequestInit): Promise<v1GetActionRunLogsResponseSuccess> {
+    const result = await v1GetActionRunLogs(ref, runId, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetActionRunLogsResponseSuccess;
   }
 
-  listAllBranches(ref: string, options?: RequestInit): Promise<v1ListAllBranchesResponse> {
-    return v1ListAllBranches(ref, {
+  async listAllBranches(ref: string, options?: RequestInit): Promise<v1ListAllBranchesResponseSuccess> {
+    const result = await v1ListAllBranches(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ListAllBranchesResponseSuccess;
   }
 
-  createABranch(ref: string, createBranchBody: CreateBranchBody, options?: RequestInit): Promise<v1CreateABranchResponse> {
-    return v1CreateABranch(ref, createBranchBody, {
+  async createABranch(ref: string, createBranchBody: CreateBranchBody, options?: RequestInit): Promise<v1CreateABranchResponseSuccess> {
+    const result = await v1CreateABranch(ref, createBranchBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1CreateABranchResponseSuccess;
   }
 
-  disablePreviewBranching(ref: string, options?: RequestInit): Promise<v1DisablePreviewBranchingResponse> {
-    return v1DisablePreviewBranching(ref, {
+  async disablePreviewBranching(ref: string, options?: RequestInit): Promise<v1DisablePreviewBranchingResponseSuccess> {
+    const result = await v1DisablePreviewBranching(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1DisablePreviewBranchingResponseSuccess;
   }
 
-  getABranch(ref: string, name: string, options?: RequestInit): Promise<v1GetABranchResponse> {
-    return v1GetABranch(ref, name, {
+  async getABranch(ref: string, name: string, options?: RequestInit): Promise<v1GetABranchResponseSuccess> {
+    const result = await v1GetABranch(ref, name, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetABranchResponseSuccess;
   }
 
-  authorizeUser(params: V1AuthorizeUserParams, options?: RequestInit): Promise<v1AuthorizeUserResponse> {
-    return v1AuthorizeUser(params, {
+  async authorizeUser(params: V1AuthorizeUserParams, options?: RequestInit): Promise<v1AuthorizeUserResponseSuccess> {
+    const result = await v1AuthorizeUser(params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1AuthorizeUserResponseSuccess;
   }
 
-  exchangeOauthToken(oAuthTokenBody: OAuthTokenBody, options?: RequestInit): Promise<v1ExchangeOauthTokenResponse> {
-    return v1ExchangeOauthToken(oAuthTokenBody, {
+  async exchangeOauthToken(oAuthTokenBody: OAuthTokenBody, options?: RequestInit): Promise<v1ExchangeOauthTokenResponseSuccess> {
+    const result = await v1ExchangeOauthToken(oAuthTokenBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ExchangeOauthTokenResponseSuccess;
   }
 
-  revokeToken(oAuthRevokeTokenBody: OAuthRevokeTokenBody, options?: RequestInit): Promise<v1RevokeTokenResponse> {
-    return v1RevokeToken(oAuthRevokeTokenBody, {
+  async revokeToken(oAuthRevokeTokenBody: OAuthRevokeTokenBody, options?: RequestInit): Promise<v1RevokeTokenResponseSuccess> {
+    const result = await v1RevokeToken(oAuthRevokeTokenBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1RevokeTokenResponseSuccess;
   }
 
-  oauthAuthorizeProjectClaim(params: V1OauthAuthorizeProjectClaimParams, options?: RequestInit): Promise<v1OauthAuthorizeProjectClaimResponse> {
-    return v1OauthAuthorizeProjectClaim(params, {
+  async oauthAuthorizeProjectClaim(params: V1OauthAuthorizeProjectClaimParams, options?: RequestInit): Promise<v1OauthAuthorizeProjectClaimResponseSuccess> {
+    const result = await v1OauthAuthorizeProjectClaim(params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1OauthAuthorizeProjectClaimResponseSuccess;
   }
 
-  listAllOrganizations(options?: RequestInit): Promise<v1ListAllOrganizationsResponse> {
-    return v1ListAllOrganizations({
+  async listAllOrganizations(options?: RequestInit): Promise<v1ListAllOrganizationsResponseSuccess> {
+    const result = await v1ListAllOrganizations({
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ListAllOrganizationsResponseSuccess;
   }
 
-  createAnOrganization(createOrganizationV1: CreateOrganizationV1, options?: RequestInit): Promise<v1CreateAnOrganizationResponse> {
-    return v1CreateAnOrganization(createOrganizationV1, {
+  async createAnOrganization(createOrganizationV1: CreateOrganizationV1, options?: RequestInit): Promise<v1CreateAnOrganizationResponseSuccess> {
+    const result = await v1CreateAnOrganization(createOrganizationV1, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1CreateAnOrganizationResponseSuccess;
   }
 
-  listOrganizationMembers(slug: string, options?: RequestInit): Promise<v1ListOrganizationMembersResponse> {
-    return v1ListOrganizationMembers(slug, {
+  async listOrganizationMembers(slug: string, options?: RequestInit): Promise<v1ListOrganizationMembersResponseSuccess> {
+    const result = await v1ListOrganizationMembers(slug, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ListOrganizationMembersResponseSuccess;
   }
 
-  getAnOrganization(slug: string, options?: RequestInit): Promise<v1GetAnOrganizationResponse> {
-    return v1GetAnOrganization(slug, {
+  async getAnOrganization(slug: string, options?: RequestInit): Promise<v1GetAnOrganizationResponseSuccess> {
+    const result = await v1GetAnOrganization(slug, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetAnOrganizationResponseSuccess;
   }
 
-  getOrganizationProjectClaim(slug: string, token: string, options?: RequestInit): Promise<v1GetOrganizationProjectClaimResponse> {
-    return v1GetOrganizationProjectClaim(slug, token, {
+  async getOrganizationProjectClaim(slug: string, token: string, options?: RequestInit): Promise<v1GetOrganizationProjectClaimResponseSuccess> {
+    const result = await v1GetOrganizationProjectClaim(slug, token, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetOrganizationProjectClaimResponseSuccess;
   }
 
-  claimProjectForOrganization(slug: string, token: string, options?: RequestInit): Promise<v1ClaimProjectForOrganizationResponse> {
-    return v1ClaimProjectForOrganization(slug, token, {
+  async claimProjectForOrganization(slug: string, token: string, options?: RequestInit): Promise<v1ClaimProjectForOrganizationResponseSuccess> {
+    const result = await v1ClaimProjectForOrganization(slug, token, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ClaimProjectForOrganizationResponseSuccess;
   }
 
-  listAllProjects(options?: RequestInit): Promise<v1ListAllProjectsResponse> {
-    return v1ListAllProjects({
+  async listAllProjects(options?: RequestInit): Promise<v1ListAllProjectsResponseSuccess> {
+    const result = await v1ListAllProjects({
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ListAllProjectsResponseSuccess;
   }
 
-  createAProject(v1CreateProjectBody: V1CreateProjectBody, options?: RequestInit): Promise<v1CreateAProjectResponse> {
-    return v1CreateAProject(v1CreateProjectBody, {
+  async createAProject(v1CreateProjectBody: V1CreateProjectBody, options?: RequestInit): Promise<v1CreateAProjectResponseSuccess> {
+    const result = await v1CreateAProject(v1CreateProjectBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1CreateAProjectResponseSuccess;
   }
 
-  getAvailableRegions(params: V1GetAvailableRegionsParams, options?: RequestInit): Promise<v1GetAvailableRegionsResponse> {
-    return v1GetAvailableRegions(params, {
+  async getAvailableRegions(params: V1GetAvailableRegionsParams, options?: RequestInit): Promise<v1GetAvailableRegionsResponseSuccess> {
+    const result = await v1GetAvailableRegions(params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetAvailableRegionsResponseSuccess;
   }
 
-  listAllNetworkBans(ref: string, options?: RequestInit): Promise<v1ListAllNetworkBansResponse> {
-    return v1ListAllNetworkBans(ref, {
+  async listAllNetworkBans(ref: string, options?: RequestInit): Promise<v1ListAllNetworkBansResponseSuccess> {
+    const result = await v1ListAllNetworkBans(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ListAllNetworkBansResponseSuccess;
   }
 
-  listAllNetworkBansEnriched(ref: string, options?: RequestInit): Promise<v1ListAllNetworkBansEnrichedResponse> {
-    return v1ListAllNetworkBansEnriched(ref, {
+  async listAllNetworkBansEnriched(ref: string, options?: RequestInit): Promise<v1ListAllNetworkBansEnrichedResponseSuccess> {
+    const result = await v1ListAllNetworkBansEnriched(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ListAllNetworkBansEnrichedResponseSuccess;
   }
 
-  deleteNetworkBans(ref: string, removeNetworkBanRequest: RemoveNetworkBanRequest, options?: RequestInit): Promise<v1DeleteNetworkBansResponse> {
-    return v1DeleteNetworkBans(ref, removeNetworkBanRequest, {
+  async deleteNetworkBans(ref: string, removeNetworkBanRequest: RemoveNetworkBanRequest, options?: RequestInit): Promise<v1DeleteNetworkBansResponseSuccess> {
+    const result = await v1DeleteNetworkBans(ref, removeNetworkBanRequest, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1DeleteNetworkBansResponseSuccess;
   }
 
-  getNetworkRestrictions(ref: string, options?: RequestInit): Promise<v1GetNetworkRestrictionsResponse> {
-    return v1GetNetworkRestrictions(ref, {
+  async getNetworkRestrictions(ref: string, options?: RequestInit): Promise<v1GetNetworkRestrictionsResponseSuccess> {
+    const result = await v1GetNetworkRestrictions(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetNetworkRestrictionsResponseSuccess;
   }
 
-  patchNetworkRestrictions(ref: string, networkRestrictionsPatchRequest: NetworkRestrictionsPatchRequest, options?: RequestInit): Promise<v1PatchNetworkRestrictionsResponse> {
-    return v1PatchNetworkRestrictions(ref, networkRestrictionsPatchRequest, {
+  async patchNetworkRestrictions(ref: string, networkRestrictionsPatchRequest: NetworkRestrictionsPatchRequest, options?: RequestInit): Promise<v1PatchNetworkRestrictionsResponseSuccess> {
+    const result = await v1PatchNetworkRestrictions(ref, networkRestrictionsPatchRequest, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1PatchNetworkRestrictionsResponseSuccess;
   }
 
-  updateNetworkRestrictions(ref: string, networkRestrictionsRequest: NetworkRestrictionsRequest, options?: RequestInit): Promise<v1UpdateNetworkRestrictionsResponse> {
-    return v1UpdateNetworkRestrictions(ref, networkRestrictionsRequest, {
+  async updateNetworkRestrictions(ref: string, networkRestrictionsRequest: NetworkRestrictionsRequest, options?: RequestInit): Promise<v1UpdateNetworkRestrictionsResponseSuccess> {
+    const result = await v1UpdateNetworkRestrictions(ref, networkRestrictionsRequest, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdateNetworkRestrictionsResponseSuccess;
   }
 
-  getProject(ref: string, options?: RequestInit): Promise<v1GetProjectResponse> {
-    return v1GetProject(ref, {
+  async getProject(ref: string, options?: RequestInit): Promise<v1GetProjectResponseSuccess> {
+    const result = await v1GetProject(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetProjectResponseSuccess;
   }
 
-  deleteAProject(ref: string, options?: RequestInit): Promise<v1DeleteAProjectResponse> {
-    return v1DeleteAProject(ref, {
+  async deleteAProject(ref: string, options?: RequestInit): Promise<v1DeleteAProjectResponseSuccess> {
+    const result = await v1DeleteAProject(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1DeleteAProjectResponseSuccess;
   }
 
-  updateAProject(ref: string, v1UpdateProjectBody: V1UpdateProjectBody, options?: RequestInit): Promise<v1UpdateAProjectResponse> {
-    return v1UpdateAProject(ref, v1UpdateProjectBody, {
+  async updateAProject(ref: string, v1UpdateProjectBody: V1UpdateProjectBody, options?: RequestInit): Promise<v1UpdateAProjectResponseSuccess> {
+    const result = await v1UpdateAProject(ref, v1UpdateProjectBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdateAProjectResponseSuccess;
   }
 
-  upgradePostgresVersion(ref: string, upgradeDatabaseBody: UpgradeDatabaseBody, options?: RequestInit): Promise<v1UpgradePostgresVersionResponse> {
-    return v1UpgradePostgresVersion(ref, upgradeDatabaseBody, {
+  async upgradePostgresVersion(ref: string, upgradeDatabaseBody: UpgradeDatabaseBody, options?: RequestInit): Promise<v1UpgradePostgresVersionResponseSuccess> {
+    const result = await v1UpgradePostgresVersion(ref, upgradeDatabaseBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpgradePostgresVersionResponseSuccess;
   }
 
-  getPostgresUpgradeEligibility(ref: string, options?: RequestInit): Promise<v1GetPostgresUpgradeEligibilityResponse> {
-    return v1GetPostgresUpgradeEligibility(ref, {
+  async getPostgresUpgradeEligibility(ref: string, options?: RequestInit): Promise<v1GetPostgresUpgradeEligibilityResponseSuccess> {
+    const result = await v1GetPostgresUpgradeEligibility(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetPostgresUpgradeEligibilityResponseSuccess;
   }
 
-  getPostgresUpgradeStatus(ref: string, params?: V1GetPostgresUpgradeStatusParams, options?: RequestInit): Promise<v1GetPostgresUpgradeStatusResponse> {
-    return v1GetPostgresUpgradeStatus(ref, params, {
+  async getPostgresUpgradeStatus(ref: string, params?: V1GetPostgresUpgradeStatusParams, options?: RequestInit): Promise<v1GetPostgresUpgradeStatusResponseSuccess> {
+    const result = await v1GetPostgresUpgradeStatus(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetPostgresUpgradeStatusResponseSuccess;
   }
 
-  getServicesHealth(ref: string, params: V1GetServicesHealthParams, options?: RequestInit): Promise<v1GetServicesHealthResponse> {
-    return v1GetServicesHealth(ref, params, {
+  async getServicesHealth(ref: string, params: V1GetServicesHealthParams, options?: RequestInit): Promise<v1GetServicesHealthResponseSuccess> {
+    const result = await v1GetServicesHealth(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetServicesHealthResponseSuccess;
   }
 
-  pauseAProject(ref: string, options?: RequestInit): Promise<v1PauseAProjectResponse> {
-    return v1PauseAProject(ref, {
+  async pauseAProject(ref: string, options?: RequestInit): Promise<v1PauseAProjectResponseSuccess> {
+    const result = await v1PauseAProject(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1PauseAProjectResponseSuccess;
   }
 
-  listAvailableRestoreVersions(ref: string, options?: RequestInit): Promise<v1ListAvailableRestoreVersionsResponse> {
-    return v1ListAvailableRestoreVersions(ref, {
+  async listAvailableRestoreVersions(ref: string, options?: RequestInit): Promise<v1ListAvailableRestoreVersionsResponseSuccess> {
+    const result = await v1ListAvailableRestoreVersions(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ListAvailableRestoreVersionsResponseSuccess;
   }
 
-  restoreAProject(ref: string, options?: RequestInit): Promise<v1RestoreAProjectResponse> {
-    return v1RestoreAProject(ref, {
+  async restoreAProject(ref: string, options?: RequestInit): Promise<v1RestoreAProjectResponseSuccess> {
+    const result = await v1RestoreAProject(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1RestoreAProjectResponseSuccess;
   }
 
-  cancelAProjectRestoration(ref: string, options?: RequestInit): Promise<v1CancelAProjectRestorationResponse> {
-    return v1CancelAProjectRestoration(ref, {
+  async cancelAProjectRestoration(ref: string, options?: RequestInit): Promise<v1CancelAProjectRestorationResponseSuccess> {
+    const result = await v1CancelAProjectRestoration(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1CancelAProjectRestorationResponseSuccess;
   }
 
-  getProjectClaimToken(ref: string, options?: RequestInit): Promise<v1GetProjectClaimTokenResponse> {
-    return v1GetProjectClaimToken(ref, {
+  async getProjectClaimToken(ref: string, options?: RequestInit): Promise<v1GetProjectClaimTokenResponseSuccess> {
+    const result = await v1GetProjectClaimToken(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetProjectClaimTokenResponseSuccess;
   }
 
-  createProjectClaimToken(ref: string, options?: RequestInit): Promise<v1CreateProjectClaimTokenResponse> {
-    return v1CreateProjectClaimToken(ref, {
+  async createProjectClaimToken(ref: string, options?: RequestInit): Promise<v1CreateProjectClaimTokenResponseSuccess> {
+    const result = await v1CreateProjectClaimToken(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1CreateProjectClaimTokenResponseSuccess;
   }
 
-  deleteProjectClaimToken(ref: string, options?: RequestInit): Promise<v1DeleteProjectClaimTokenResponse> {
-    return v1DeleteProjectClaimToken(ref, {
+  async deleteProjectClaimToken(ref: string, options?: RequestInit): Promise<v1DeleteProjectClaimTokenResponseSuccess> {
+    const result = await v1DeleteProjectClaimToken(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1DeleteProjectClaimTokenResponseSuccess;
   }
 
-  getDiskUtilization(ref: string, options?: RequestInit): Promise<v1GetDiskUtilizationResponse> {
-    return v1GetDiskUtilization(ref, {
+  async getDiskUtilization(ref: string, options?: RequestInit): Promise<v1GetDiskUtilizationResponseSuccess> {
+    const result = await v1GetDiskUtilization(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetDiskUtilizationResponseSuccess;
   }
 
-  modifyDatabaseDisk(ref: string, diskRequestBody: DiskRequestBody, options?: RequestInit): Promise<v1ModifyDatabaseDiskResponse> {
-    return v1ModifyDatabaseDisk(ref, diskRequestBody, {
+  async modifyDatabaseDisk(ref: string, diskRequestBody: DiskRequestBody, options?: RequestInit): Promise<v1ModifyDatabaseDiskResponseSuccess> {
+    const result = await v1ModifyDatabaseDisk(ref, diskRequestBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ModifyDatabaseDiskResponseSuccess;
   }
 
-  getProjectDiskAutoscaleConfig(ref: string, options?: RequestInit): Promise<v1GetProjectDiskAutoscaleConfigResponse> {
-    return v1GetProjectDiskAutoscaleConfig(ref, {
+  async getProjectDiskAutoscaleConfig(ref: string, options?: RequestInit): Promise<v1GetProjectDiskAutoscaleConfigResponseSuccess> {
+    const result = await v1GetProjectDiskAutoscaleConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetProjectDiskAutoscaleConfigResponseSuccess;
   }
 
-  getAllProjectsForOrganization(slug: string, params?: V1GetAllProjectsForOrganizationParams, options?: RequestInit): Promise<v1GetAllProjectsForOrganizationResponse> {
-    return v1GetAllProjectsForOrganization(slug, params, {
+  async getAllProjectsForOrganization(slug: string, params?: V1GetAllProjectsForOrganizationParams, options?: RequestInit): Promise<v1GetAllProjectsForOrganizationResponseSuccess> {
+    const result = await v1GetAllProjectsForOrganization(slug, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetAllProjectsForOrganizationResponseSuccess;
   }
 
-  getRealtimeConfig(ref: string, options?: RequestInit): Promise<v1GetRealtimeConfigResponse> {
-    return v1GetRealtimeConfig(ref, {
+  async getRealtimeConfig(ref: string, options?: RequestInit): Promise<v1GetRealtimeConfigResponseSuccess> {
+    const result = await v1GetRealtimeConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetRealtimeConfigResponseSuccess;
   }
 
-  updateRealtimeConfig(ref: string, updateRealtimeConfigBody: UpdateRealtimeConfigBody, options?: RequestInit): Promise<v1UpdateRealtimeConfigResponse> {
-    return v1UpdateRealtimeConfig(ref, updateRealtimeConfigBody, {
+  async updateRealtimeConfig(ref: string, updateRealtimeConfigBody: UpdateRealtimeConfigBody, options?: RequestInit): Promise<v1UpdateRealtimeConfigResponseSuccess> {
+    const result = await v1UpdateRealtimeConfig(ref, updateRealtimeConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdateRealtimeConfigResponseSuccess;
   }
 
-  shutdownRealtime(ref: string, options?: RequestInit): Promise<v1ShutdownRealtimeResponse> {
-    return v1ShutdownRealtime(ref, {
+  async shutdownRealtime(ref: string, options?: RequestInit): Promise<v1ShutdownRealtimeResponseSuccess> {
+    const result = await v1ShutdownRealtime(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ShutdownRealtimeResponseSuccess;
   }
 
-  getPostgrestServiceConfig(ref: string, options?: RequestInit): Promise<v1GetPostgrestServiceConfigResponse> {
-    return v1GetPostgrestServiceConfig(ref, {
+  async getPostgrestServiceConfig(ref: string, options?: RequestInit): Promise<v1GetPostgrestServiceConfigResponseSuccess> {
+    const result = await v1GetPostgrestServiceConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetPostgrestServiceConfigResponseSuccess;
   }
 
-  updatePostgrestServiceConfig(ref: string, v1UpdatePostgrestConfigBody: V1UpdatePostgrestConfigBody, options?: RequestInit): Promise<v1UpdatePostgrestServiceConfigResponse> {
-    return v1UpdatePostgrestServiceConfig(ref, v1UpdatePostgrestConfigBody, {
+  async updatePostgrestServiceConfig(ref: string, v1UpdatePostgrestConfigBody: V1UpdatePostgrestConfigBody, options?: RequestInit): Promise<v1UpdatePostgrestServiceConfigResponseSuccess> {
+    const result = await v1UpdatePostgrestServiceConfig(ref, v1UpdatePostgrestConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdatePostgrestServiceConfigResponseSuccess;
   }
 
-  getProjectApiKeys(ref: string, params?: V1GetProjectApiKeysParams, options?: RequestInit): Promise<v1GetProjectApiKeysResponse> {
-    return v1GetProjectApiKeys(ref, params, {
+  async getProjectApiKeys(ref: string, params?: V1GetProjectApiKeysParams, options?: RequestInit): Promise<v1GetProjectApiKeysResponseSuccess> {
+    const result = await v1GetProjectApiKeys(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetProjectApiKeysResponseSuccess;
   }
 
-  createProjectApiKey(ref: string, createApiKeyBody: CreateApiKeyBody, params?: V1CreateProjectApiKeyParams, options?: RequestInit): Promise<v1CreateProjectApiKeyResponse> {
-    return v1CreateProjectApiKey(ref, createApiKeyBody, params, {
+  async createProjectApiKey(ref: string, createApiKeyBody: CreateApiKeyBody, params?: V1CreateProjectApiKeyParams, options?: RequestInit): Promise<v1CreateProjectApiKeyResponseSuccess> {
+    const result = await v1CreateProjectApiKey(ref, createApiKeyBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1CreateProjectApiKeyResponseSuccess;
   }
 
-  getProjectLegacyApiKeys(ref: string, options?: RequestInit): Promise<v1GetProjectLegacyApiKeysResponse> {
-    return v1GetProjectLegacyApiKeys(ref, {
+  async getProjectLegacyApiKeys(ref: string, options?: RequestInit): Promise<v1GetProjectLegacyApiKeysResponseSuccess> {
+    const result = await v1GetProjectLegacyApiKeys(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetProjectLegacyApiKeysResponseSuccess;
   }
 
-  updateProjectLegacyApiKeys(ref: string, params: V1UpdateProjectLegacyApiKeysParams, options?: RequestInit): Promise<v1UpdateProjectLegacyApiKeysResponse> {
-    return v1UpdateProjectLegacyApiKeys(ref, params, {
+  async updateProjectLegacyApiKeys(ref: string, params: V1UpdateProjectLegacyApiKeysParams, options?: RequestInit): Promise<v1UpdateProjectLegacyApiKeysResponseSuccess> {
+    const result = await v1UpdateProjectLegacyApiKeys(ref, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdateProjectLegacyApiKeysResponseSuccess;
   }
 
-  updateProjectApiKey(ref: string, id: string, updateApiKeyBody: UpdateApiKeyBody, params?: V1UpdateProjectApiKeyParams, options?: RequestInit): Promise<v1UpdateProjectApiKeyResponse> {
-    return v1UpdateProjectApiKey(ref, id, updateApiKeyBody, params, {
+  async updateProjectApiKey(ref: string, id: string, updateApiKeyBody: UpdateApiKeyBody, params?: V1UpdateProjectApiKeyParams, options?: RequestInit): Promise<v1UpdateProjectApiKeyResponseSuccess> {
+    const result = await v1UpdateProjectApiKey(ref, id, updateApiKeyBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdateProjectApiKeyResponseSuccess;
   }
 
-  getProjectApiKey(ref: string, id: string, params?: V1GetProjectApiKeyParams, options?: RequestInit): Promise<v1GetProjectApiKeyResponse> {
-    return v1GetProjectApiKey(ref, id, params, {
+  async getProjectApiKey(ref: string, id: string, params?: V1GetProjectApiKeyParams, options?: RequestInit): Promise<v1GetProjectApiKeyResponseSuccess> {
+    const result = await v1GetProjectApiKey(ref, id, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetProjectApiKeyResponseSuccess;
   }
 
-  deleteProjectApiKey(ref: string, id: string, params?: V1DeleteProjectApiKeyParams, options?: RequestInit): Promise<v1DeleteProjectApiKeyResponse> {
-    return v1DeleteProjectApiKey(ref, id, params, {
+  async deleteProjectApiKey(ref: string, id: string, params?: V1DeleteProjectApiKeyParams, options?: RequestInit): Promise<v1DeleteProjectApiKeyResponseSuccess> {
+    const result = await v1DeleteProjectApiKey(ref, id, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1DeleteProjectApiKeyResponseSuccess;
   }
 
-  getPgsodiumConfig(ref: string, options?: RequestInit): Promise<v1GetPgsodiumConfigResponse> {
-    return v1GetPgsodiumConfig(ref, {
+  async getPgsodiumConfig(ref: string, options?: RequestInit): Promise<v1GetPgsodiumConfigResponseSuccess> {
+    const result = await v1GetPgsodiumConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetPgsodiumConfigResponseSuccess;
   }
 
-  updatePgsodiumConfig(ref: string, updatePgsodiumConfigBody: UpdatePgsodiumConfigBody, options?: RequestInit): Promise<v1UpdatePgsodiumConfigResponse> {
-    return v1UpdatePgsodiumConfig(ref, updatePgsodiumConfigBody, {
+  async updatePgsodiumConfig(ref: string, updatePgsodiumConfigBody: UpdatePgsodiumConfigBody, options?: RequestInit): Promise<v1UpdatePgsodiumConfigResponseSuccess> {
+    const result = await v1UpdatePgsodiumConfig(ref, updatePgsodiumConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdatePgsodiumConfigResponseSuccess;
   }
 
-  listAllSecrets(ref: string, options?: RequestInit): Promise<v1ListAllSecretsResponse> {
-    return v1ListAllSecrets(ref, {
+  async listAllSecrets(ref: string, options?: RequestInit): Promise<v1ListAllSecretsResponseSuccess> {
+    const result = await v1ListAllSecrets(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ListAllSecretsResponseSuccess;
   }
 
-  bulkCreateSecrets(ref: string, createSecretBody: CreateSecretBody, options?: RequestInit): Promise<v1BulkCreateSecretsResponse> {
-    return v1BulkCreateSecrets(ref, createSecretBody, {
+  async bulkCreateSecrets(ref: string, createSecretBody: CreateSecretBody, options?: RequestInit): Promise<v1BulkCreateSecretsResponseSuccess> {
+    const result = await v1BulkCreateSecrets(ref, createSecretBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1BulkCreateSecretsResponseSuccess;
   }
 
-  bulkDeleteSecrets(ref: string, deleteSecretsBody: DeleteSecretsBody, options?: RequestInit): Promise<v1BulkDeleteSecretsResponse> {
-    return v1BulkDeleteSecrets(ref, deleteSecretsBody, {
+  async bulkDeleteSecrets(ref: string, deleteSecretsBody: DeleteSecretsBody, options?: RequestInit): Promise<v1BulkDeleteSecretsResponseSuccess> {
+    const result = await v1BulkDeleteSecrets(ref, deleteSecretsBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1BulkDeleteSecretsResponseSuccess;
   }
 
-  listAllBuckets(ref: string, options?: RequestInit): Promise<v1ListAllBucketsResponse> {
-    return v1ListAllBuckets(ref, {
+  async listAllBuckets(ref: string, options?: RequestInit): Promise<v1ListAllBucketsResponseSuccess> {
+    const result = await v1ListAllBuckets(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1ListAllBucketsResponseSuccess;
   }
 
-  getStorageConfig(ref: string, options?: RequestInit): Promise<v1GetStorageConfigResponse> {
-    return v1GetStorageConfig(ref, {
+  async getStorageConfig(ref: string, options?: RequestInit): Promise<v1GetStorageConfigResponseSuccess> {
+    const result = await v1GetStorageConfig(ref, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1GetStorageConfigResponseSuccess;
   }
 
-  updateStorageConfig(ref: string, updateStorageConfigBody: UpdateStorageConfigBody, options?: RequestInit): Promise<v1UpdateStorageConfigResponse> {
-    return v1UpdateStorageConfig(ref, updateStorageConfigBody, {
+  async updateStorageConfig(ref: string, updateStorageConfigBody: UpdateStorageConfigBody, options?: RequestInit): Promise<v1UpdateStorageConfigResponseSuccess> {
+    const result = await v1UpdateStorageConfig(ref, updateStorageConfigBody, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
+    if (result.status >= 400) {
+      throw new SupabaseManagementAPIError(result);
+    }
+    return result as v1UpdateStorageConfigResponseSuccess;
   }
 }
