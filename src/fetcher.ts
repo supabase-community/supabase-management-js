@@ -1,22 +1,35 @@
-const DEFAULT_BASE_URL = 'https://api.supabase.com';
+export const SUPABASE_API_BASE_URL = "https://api.supabase.com";
 
-export interface FetcherOptions extends RequestInit {
-  baseUrl?: string;
-}
+const getBody = <T>(res: Response): Promise<T> => {
+  const contentType = res.headers.get("content-type");
+
+  if (contentType && contentType.includes("application/json")) {
+    return res.json();
+  }
+
+  return res.text() as Promise<T>;
+};
+
+const getUrl = (contextUrl: string): string => {
+  const url = new URL(contextUrl);
+  const pathname = url.pathname;
+  const search = url.search;
+  const baseUrl = process.env.SUPABASE_API_BASE_URL ?? SUPABASE_API_BASE_URL;
+
+  const requestUrl = new URL(`${baseUrl}${pathname}${search}`);
+
+  return requestUrl.toString();
+};
 
 export const customFetch = async <T>(
   url: string,
-  options?: FetcherOptions,
+  options?: RequestInit,
 ): Promise<T> => {
-  const { baseUrl = DEFAULT_BASE_URL, ...init } = options ?? {};
-  const resolvedUrl = baseUrl !== DEFAULT_BASE_URL
-    ? url.replace(DEFAULT_BASE_URL, baseUrl)
-    : url;
+  const resolvedUrl = getUrl(url);
 
-  const res = await fetch(resolvedUrl, init);
+  const res = await fetch(resolvedUrl, options);
 
-  const body = [204, 205, 304].includes(res.status) ? null : await res.text();
-  const data = body ? JSON.parse(body) : {};
+  const data = await getBody<T>(res);
 
   return { data, status: res.status, headers: res.headers } as T;
 };
