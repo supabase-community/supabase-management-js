@@ -179,6 +179,7 @@ function generateMethod({ methodName, funcName, methodParamList, callParams, ret
     `    const result = await ${funcName}(${callArgs}{`,
     `      ...options,`,
     `      headers: { ...this.authHeader, ...options?.headers },`,
+    `      baseUrl: this.baseUrl,`,
     `    } as RequestInit);`,
     `    if (result.status >= 400) {`,
     `      throw new SupabaseManagementAPIError(result, '${methodName}');`,
