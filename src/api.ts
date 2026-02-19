@@ -433,7 +433,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getPerformanceAdvisors');
     }
     return result as v1GetPerformanceAdvisorsResponseSuccess;
   }
@@ -444,7 +444,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getSecurityAdvisors');
     }
     return result as v1GetSecurityAdvisorsResponseSuccess;
   }
@@ -455,7 +455,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getProjectLogs');
     }
     return result as v1GetProjectLogsResponseSuccess;
   }
@@ -466,7 +466,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getProjectUsageApiCount');
     }
     return result as v1GetProjectUsageApiCountResponseSuccess;
   }
@@ -477,7 +477,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getProjectUsageRequestCount');
     }
     return result as v1GetProjectUsageRequestCountResponseSuccess;
   }
@@ -488,7 +488,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getProjectFunctionCombinedStats');
     }
     return result as v1GetProjectFunctionCombinedStatsResponseSuccess;
   }
@@ -499,7 +499,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'createLegacySigningKey');
     }
     return result as v1CreateLegacySigningKeyResponseSuccess;
   }
@@ -510,7 +510,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getLegacySigningKey');
     }
     return result as v1GetLegacySigningKeyResponseSuccess;
   }
@@ -521,7 +521,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'createProjectSigningKey');
     }
     return result as v1CreateProjectSigningKeyResponseSuccess;
   }
@@ -532,7 +532,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getProjectSigningKeys');
     }
     return result as v1GetProjectSigningKeysResponseSuccess;
   }
@@ -543,7 +543,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getProjectSigningKey');
     }
     return result as v1GetProjectSigningKeyResponseSuccess;
   }
@@ -554,7 +554,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'removeProjectSigningKey');
     }
     return result as v1RemoveProjectSigningKeyResponseSuccess;
   }
@@ -565,7 +565,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updateProjectSigningKey');
     }
     return result as v1UpdateProjectSigningKeyResponseSuccess;
   }
@@ -576,7 +576,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getAuthServiceConfig');
     }
     return result as v1GetAuthServiceConfigResponseSuccess;
   }
@@ -587,7 +587,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updateAuthServiceConfig');
     }
     return result as v1UpdateAuthServiceConfigResponseSuccess;
   }
@@ -598,7 +598,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'createProjectTpaIntegration');
     }
     return result as v1CreateProjectTpaIntegrationResponseSuccess;
   }
@@ -609,7 +609,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'listProjectTpaIntegrations');
     }
     return result as v1ListProjectTpaIntegrationsResponseSuccess;
   }
@@ -620,7 +620,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'deleteProjectTpaIntegration');
     }
     return result as v1DeleteProjectTpaIntegrationResponseSuccess;
   }
@@ -631,7 +631,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getProjectTpaIntegration');
     }
     return result as v1GetProjectTpaIntegrationResponseSuccess;
   }
@@ -642,7 +642,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'createASsoProvider');
     }
     return result as v1CreateASsoProviderResponseSuccess;
   }
@@ -653,7 +653,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'listAllSsoProvider');
     }
     return result as v1ListAllSsoProviderResponseSuccess;
   }
@@ -664,7 +664,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getASsoProvider');
     }
     return result as v1GetASsoProviderResponseSuccess;
   }
@@ -675,7 +675,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updateASsoProvider');
     }
     return result as v1UpdateASsoProviderResponseSuccess;
   }
@@ -686,7 +686,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'deleteASsoProvider');
     }
     return result as v1DeleteASsoProviderResponseSuccess;
   }
@@ -697,7 +697,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'listProjectAddons');
     }
     return result as v1ListProjectAddonsResponseSuccess;
   }
@@ -708,7 +708,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'applyProjectAddon');
     }
     return result as v1ApplyProjectAddonResponseSuccess;
   }
@@ -719,7 +719,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'removeProjectAddon');
     }
     return result as v1RemoveProjectAddonResponseSuccess;
   }
@@ -730,7 +730,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'listAllSnippets');
     }
     return result as v1ListAllSnippetsResponseSuccess;
   }
@@ -741,7 +741,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getASnippet');
     }
     return result as v1GetASnippetResponseSuccess;
   }
@@ -752,7 +752,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getJitAccessConfig');
     }
     return result as v1GetJitAccessConfigResponseSuccess;
   }
@@ -763,7 +763,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updateJitAccessConfig');
     }
     return result as v1UpdateJitAccessConfigResponseSuccess;
   }
@@ -774,7 +774,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getSslEnforcementConfig');
     }
     return result as v1GetSslEnforcementConfigResponseSuccess;
   }
@@ -785,7 +785,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updateSslEnforcementConfig');
     }
     return result as v1UpdateSslEnforcementConfigResponseSuccess;
   }
@@ -796,7 +796,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'generateTypescriptTypes');
     }
     return result as v1GenerateTypescriptTypesResponseSuccess;
   }
@@ -807,7 +807,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getReadonlyModeStatus');
     }
     return result as v1GetReadonlyModeStatusResponseSuccess;
   }
@@ -818,7 +818,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'disableReadonlyModeTemporarily');
     }
     return result as v1DisableReadonlyModeTemporarilyResponseSuccess;
   }
@@ -829,7 +829,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'setupAReadReplica');
     }
     return result as v1SetupAReadReplicaResponseSuccess;
   }
@@ -840,7 +840,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'removeAReadReplica');
     }
     return result as v1RemoveAReadReplicaResponseSuccess;
   }
@@ -851,7 +851,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'createLoginRole');
     }
     return result as v1CreateLoginRoleResponseSuccess;
   }
@@ -862,7 +862,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'deleteLoginRoles');
     }
     return result as v1DeleteLoginRolesResponseSuccess;
   }
@@ -873,7 +873,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'listMigrationHistory');
     }
     return result as v1ListMigrationHistoryResponseSuccess;
   }
@@ -884,7 +884,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'applyAMigration');
     }
     return result as v1ApplyAMigrationResponseSuccess;
   }
@@ -895,7 +895,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'upsertAMigration');
     }
     return result as v1UpsertAMigrationResponseSuccess;
   }
@@ -906,7 +906,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'rollbackMigrations');
     }
     return result as v1RollbackMigrationsResponseSuccess;
   }
@@ -917,7 +917,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getAMigration');
     }
     return result as v1GetAMigrationResponseSuccess;
   }
@@ -928,7 +928,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'patchAMigration');
     }
     return result as v1PatchAMigrationResponseSuccess;
   }
@@ -939,7 +939,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'runAQuery');
     }
     return result as v1RunAQueryResponseSuccess;
   }
@@ -950,7 +950,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'readOnlyQuery');
     }
     return result as v1ReadOnlyQueryResponseSuccess;
   }
@@ -961,7 +961,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'enableDatabaseWebhook');
     }
     return result as v1EnableDatabaseWebhookResponseSuccess;
   }
@@ -972,7 +972,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getDatabaseMetadata');
     }
     return result as v1GetDatabaseMetadataResponseSuccess;
   }
@@ -983,7 +983,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updateDatabasePassword');
     }
     return result as v1UpdateDatabasePasswordResponseSuccess;
   }
@@ -994,7 +994,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getJitAccess');
     }
     return result as v1GetJitAccessResponseSuccess;
   }
@@ -1005,7 +1005,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'authorizeJitAccess');
     }
     return result as v1AuthorizeJitAccessResponseSuccess;
   }
@@ -1016,7 +1016,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updateJitAccess');
     }
     return result as v1UpdateJitAccessResponseSuccess;
   }
@@ -1027,7 +1027,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'listJitAccess');
     }
     return result as v1ListJitAccessResponseSuccess;
   }
@@ -1038,7 +1038,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'deleteJitAccess');
     }
     return result as v1DeleteJitAccessResponseSuccess;
   }
@@ -1049,7 +1049,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getProjectPgbouncerConfig');
     }
     return result as v1GetProjectPgbouncerConfigResponseSuccess;
   }
@@ -1060,7 +1060,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getPoolerConfig');
     }
     return result as v1GetPoolerConfigResponseSuccess;
   }
@@ -1071,7 +1071,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updatePoolerConfig');
     }
     return result as v1UpdatePoolerConfigResponseSuccess;
   }
@@ -1082,7 +1082,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getPostgresConfig');
     }
     return result as v1GetPostgresConfigResponseSuccess;
   }
@@ -1093,7 +1093,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updatePostgresConfig');
     }
     return result as v1UpdatePostgresConfigResponseSuccess;
   }
@@ -1104,7 +1104,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'listAllBackups');
     }
     return result as v1ListAllBackupsResponseSuccess;
   }
@@ -1115,7 +1115,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'restorePitrBackup');
     }
     return result as v1RestorePitrBackupResponseSuccess;
   }
@@ -1126,7 +1126,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'createRestorePoint');
     }
     return result as v1CreateRestorePointResponseSuccess;
   }
@@ -1137,7 +1137,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getRestorePoint');
     }
     return result as v1GetRestorePointResponseSuccess;
   }
@@ -1148,7 +1148,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'undo');
     }
     return result as v1UndoResponseSuccess;
   }
@@ -1159,7 +1159,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getHostnameConfig');
     }
     return result as v1GetHostnameConfigResponseSuccess;
   }
@@ -1170,7 +1170,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'deleteHostnameConfig');
     }
     return result as v1DeleteHostnameConfigResponseSuccess;
   }
@@ -1181,7 +1181,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updateHostnameConfig');
     }
     return result as v1UpdateHostnameConfigResponseSuccess;
   }
@@ -1192,7 +1192,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'verifyDnsConfig');
     }
     return result as v1VerifyDnsConfigResponseSuccess;
   }
@@ -1203,7 +1203,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'activateCustomHostname');
     }
     return result as v1ActivateCustomHostnameResponseSuccess;
   }
@@ -1214,7 +1214,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getVanitySubdomainConfig');
     }
     return result as v1GetVanitySubdomainConfigResponseSuccess;
   }
@@ -1225,7 +1225,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'deactivateVanitySubdomainConfig');
     }
     return result as v1DeactivateVanitySubdomainConfigResponseSuccess;
   }
@@ -1236,7 +1236,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'checkVanitySubdomainAvailability');
     }
     return result as v1CheckVanitySubdomainAvailabilityResponseSuccess;
   }
@@ -1247,7 +1247,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'activateVanitySubdomainConfig');
     }
     return result as v1ActivateVanitySubdomainConfigResponseSuccess;
   }
@@ -1258,7 +1258,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'listAllFunctions');
     }
     return result as v1ListAllFunctionsResponseSuccess;
   }
@@ -1269,7 +1269,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'createAFunctionWithApplicationVndDenolandEszip');
     }
     return result as v1CreateAFunctionWithApplicationVndDenolandEszipResponseSuccess;
   }
@@ -1280,7 +1280,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'createAFunctionWithJson');
     }
     return result as v1CreateAFunctionWithJsonResponseSuccess;
   }
@@ -1291,7 +1291,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'bulkUpdateFunctions');
     }
     return result as v1BulkUpdateFunctionsResponseSuccess;
   }
@@ -1302,7 +1302,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'deployAFunction');
     }
     return result as v1DeployAFunctionResponseSuccess;
   }
@@ -1313,7 +1313,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getAFunction');
     }
     return result as v1GetAFunctionResponseSuccess;
   }
@@ -1324,7 +1324,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updateAFunctionWithApplicationVndDenolandEszip');
     }
     return result as v1UpdateAFunctionWithApplicationVndDenolandEszipResponseSuccess;
   }
@@ -1335,7 +1335,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updateAFunctionWithJson');
     }
     return result as v1UpdateAFunctionWithJsonResponseSuccess;
   }
@@ -1346,7 +1346,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'deleteAFunction');
     }
     return result as v1DeleteAFunctionResponseSuccess;
   }
@@ -1357,7 +1357,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getAFunctionBody');
     }
     return result as v1GetAFunctionBodyResponseSuccess;
   }
@@ -1368,7 +1368,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getABranchConfig');
     }
     return result as v1GetABranchConfigResponseSuccess;
   }
@@ -1379,7 +1379,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updateABranchConfig');
     }
     return result as v1UpdateABranchConfigResponseSuccess;
   }
@@ -1390,7 +1390,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'deleteABranch');
     }
     return result as v1DeleteABranchResponseSuccess;
   }
@@ -1401,7 +1401,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'pushABranch');
     }
     return result as v1PushABranchResponseSuccess;
   }
@@ -1412,7 +1412,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'mergeABranch');
     }
     return result as v1MergeABranchResponseSuccess;
   }
@@ -1423,7 +1423,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'resetABranch');
     }
     return result as v1ResetABranchResponseSuccess;
   }
@@ -1434,7 +1434,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'restoreABranch');
     }
     return result as v1RestoreABranchResponseSuccess;
   }
@@ -1445,7 +1445,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'diffABranch');
     }
     return result as v1DiffABranchResponseSuccess;
   }
@@ -1456,7 +1456,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'listActionRuns');
     }
     return result as v1ListActionRunsResponseSuccess;
   }
@@ -1467,7 +1467,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'countActionRuns');
     }
     return result as v1CountActionRunsResponseSuccess;
   }
@@ -1478,7 +1478,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getActionRun');
     }
     return result as v1GetActionRunResponseSuccess;
   }
@@ -1489,7 +1489,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updateActionRunStatus');
     }
     return result as v1UpdateActionRunStatusResponseSuccess;
   }
@@ -1500,7 +1500,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getActionRunLogs');
     }
     return result as v1GetActionRunLogsResponseSuccess;
   }
@@ -1511,7 +1511,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'listAllBranches');
     }
     return result as v1ListAllBranchesResponseSuccess;
   }
@@ -1522,7 +1522,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'createABranch');
     }
     return result as v1CreateABranchResponseSuccess;
   }
@@ -1533,7 +1533,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'disablePreviewBranching');
     }
     return result as v1DisablePreviewBranchingResponseSuccess;
   }
@@ -1544,7 +1544,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getABranch');
     }
     return result as v1GetABranchResponseSuccess;
   }
@@ -1555,7 +1555,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'authorizeUser');
     }
     return result as v1AuthorizeUserResponseSuccess;
   }
@@ -1566,7 +1566,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'exchangeOauthToken');
     }
     return result as v1ExchangeOauthTokenResponseSuccess;
   }
@@ -1577,7 +1577,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'revokeToken');
     }
     return result as v1RevokeTokenResponseSuccess;
   }
@@ -1588,7 +1588,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'oauthAuthorizeProjectClaim');
     }
     return result as v1OauthAuthorizeProjectClaimResponseSuccess;
   }
@@ -1599,7 +1599,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'listAllOrganizations');
     }
     return result as v1ListAllOrganizationsResponseSuccess;
   }
@@ -1610,7 +1610,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'createAnOrganization');
     }
     return result as v1CreateAnOrganizationResponseSuccess;
   }
@@ -1621,7 +1621,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'listOrganizationMembers');
     }
     return result as v1ListOrganizationMembersResponseSuccess;
   }
@@ -1632,7 +1632,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getAnOrganization');
     }
     return result as v1GetAnOrganizationResponseSuccess;
   }
@@ -1643,7 +1643,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getOrganizationProjectClaim');
     }
     return result as v1GetOrganizationProjectClaimResponseSuccess;
   }
@@ -1654,7 +1654,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'claimProjectForOrganization');
     }
     return result as v1ClaimProjectForOrganizationResponseSuccess;
   }
@@ -1665,7 +1665,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'listAllProjects');
     }
     return result as v1ListAllProjectsResponseSuccess;
   }
@@ -1676,7 +1676,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'createAProject');
     }
     return result as v1CreateAProjectResponseSuccess;
   }
@@ -1687,7 +1687,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getAvailableRegions');
     }
     return result as v1GetAvailableRegionsResponseSuccess;
   }
@@ -1698,7 +1698,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'listAllNetworkBans');
     }
     return result as v1ListAllNetworkBansResponseSuccess;
   }
@@ -1709,7 +1709,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'listAllNetworkBansEnriched');
     }
     return result as v1ListAllNetworkBansEnrichedResponseSuccess;
   }
@@ -1720,7 +1720,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'deleteNetworkBans');
     }
     return result as v1DeleteNetworkBansResponseSuccess;
   }
@@ -1731,7 +1731,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getNetworkRestrictions');
     }
     return result as v1GetNetworkRestrictionsResponseSuccess;
   }
@@ -1742,7 +1742,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'patchNetworkRestrictions');
     }
     return result as v1PatchNetworkRestrictionsResponseSuccess;
   }
@@ -1753,7 +1753,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updateNetworkRestrictions');
     }
     return result as v1UpdateNetworkRestrictionsResponseSuccess;
   }
@@ -1764,7 +1764,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getProject');
     }
     return result as v1GetProjectResponseSuccess;
   }
@@ -1775,7 +1775,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'deleteAProject');
     }
     return result as v1DeleteAProjectResponseSuccess;
   }
@@ -1786,7 +1786,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updateAProject');
     }
     return result as v1UpdateAProjectResponseSuccess;
   }
@@ -1797,7 +1797,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'upgradePostgresVersion');
     }
     return result as v1UpgradePostgresVersionResponseSuccess;
   }
@@ -1808,7 +1808,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getPostgresUpgradeEligibility');
     }
     return result as v1GetPostgresUpgradeEligibilityResponseSuccess;
   }
@@ -1819,7 +1819,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getPostgresUpgradeStatus');
     }
     return result as v1GetPostgresUpgradeStatusResponseSuccess;
   }
@@ -1830,7 +1830,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getServicesHealth');
     }
     return result as v1GetServicesHealthResponseSuccess;
   }
@@ -1841,7 +1841,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'pauseAProject');
     }
     return result as v1PauseAProjectResponseSuccess;
   }
@@ -1852,7 +1852,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'listAvailableRestoreVersions');
     }
     return result as v1ListAvailableRestoreVersionsResponseSuccess;
   }
@@ -1863,7 +1863,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'restoreAProject');
     }
     return result as v1RestoreAProjectResponseSuccess;
   }
@@ -1874,7 +1874,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'cancelAProjectRestoration');
     }
     return result as v1CancelAProjectRestorationResponseSuccess;
   }
@@ -1885,7 +1885,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getProjectClaimToken');
     }
     return result as v1GetProjectClaimTokenResponseSuccess;
   }
@@ -1896,7 +1896,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'createProjectClaimToken');
     }
     return result as v1CreateProjectClaimTokenResponseSuccess;
   }
@@ -1907,7 +1907,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'deleteProjectClaimToken');
     }
     return result as v1DeleteProjectClaimTokenResponseSuccess;
   }
@@ -1918,7 +1918,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getDiskUtilization');
     }
     return result as v1GetDiskUtilizationResponseSuccess;
   }
@@ -1929,7 +1929,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'modifyDatabaseDisk');
     }
     return result as v1ModifyDatabaseDiskResponseSuccess;
   }
@@ -1940,7 +1940,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getProjectDiskAutoscaleConfig');
     }
     return result as v1GetProjectDiskAutoscaleConfigResponseSuccess;
   }
@@ -1951,7 +1951,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getAllProjectsForOrganization');
     }
     return result as v1GetAllProjectsForOrganizationResponseSuccess;
   }
@@ -1962,7 +1962,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getRealtimeConfig');
     }
     return result as v1GetRealtimeConfigResponseSuccess;
   }
@@ -1973,7 +1973,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updateRealtimeConfig');
     }
     return result as v1UpdateRealtimeConfigResponseSuccess;
   }
@@ -1984,7 +1984,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'shutdownRealtime');
     }
     return result as v1ShutdownRealtimeResponseSuccess;
   }
@@ -1995,7 +1995,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getPostgrestServiceConfig');
     }
     return result as v1GetPostgrestServiceConfigResponseSuccess;
   }
@@ -2006,7 +2006,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updatePostgrestServiceConfig');
     }
     return result as v1UpdatePostgrestServiceConfigResponseSuccess;
   }
@@ -2017,7 +2017,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getProjectApiKeys');
     }
     return result as v1GetProjectApiKeysResponseSuccess;
   }
@@ -2028,7 +2028,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'createProjectApiKey');
     }
     return result as v1CreateProjectApiKeyResponseSuccess;
   }
@@ -2039,7 +2039,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getProjectLegacyApiKeys');
     }
     return result as v1GetProjectLegacyApiKeysResponseSuccess;
   }
@@ -2050,7 +2050,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updateProjectLegacyApiKeys');
     }
     return result as v1UpdateProjectLegacyApiKeysResponseSuccess;
   }
@@ -2061,7 +2061,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updateProjectApiKey');
     }
     return result as v1UpdateProjectApiKeyResponseSuccess;
   }
@@ -2072,7 +2072,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getProjectApiKey');
     }
     return result as v1GetProjectApiKeyResponseSuccess;
   }
@@ -2083,7 +2083,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'deleteProjectApiKey');
     }
     return result as v1DeleteProjectApiKeyResponseSuccess;
   }
@@ -2094,7 +2094,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getPgsodiumConfig');
     }
     return result as v1GetPgsodiumConfigResponseSuccess;
   }
@@ -2105,7 +2105,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updatePgsodiumConfig');
     }
     return result as v1UpdatePgsodiumConfigResponseSuccess;
   }
@@ -2116,7 +2116,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'listAllSecrets');
     }
     return result as v1ListAllSecretsResponseSuccess;
   }
@@ -2127,7 +2127,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'bulkCreateSecrets');
     }
     return result as v1BulkCreateSecretsResponseSuccess;
   }
@@ -2138,7 +2138,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'bulkDeleteSecrets');
     }
     return result as v1BulkDeleteSecretsResponseSuccess;
   }
@@ -2149,7 +2149,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'listAllBuckets');
     }
     return result as v1ListAllBucketsResponseSuccess;
   }
@@ -2160,7 +2160,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'getStorageConfig');
     }
     return result as v1GetStorageConfigResponseSuccess;
   }
@@ -2171,7 +2171,7 @@ export class SupabaseManagementAPI {
       headers: { ...this.authHeader, ...options?.headers },
     }, this.baseUrl);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result);
+      throw new SupabaseManagementAPIError(result, 'updateStorageConfig');
     }
     return result as v1UpdateStorageConfigResponseSuccess;
   }

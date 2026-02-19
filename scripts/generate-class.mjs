@@ -158,7 +158,7 @@ function generateMethod({ methodName, funcName, methodParamList, callParams, ret
     `      headers: { ...this.authHeader, ...options?.headers },`,
     `    }, this.baseUrl);`,
     `    if (result.status >= 400) {`,
-    `      throw new SupabaseManagementAPIError(result);`,
+    `      throw new SupabaseManagementAPIError(result, '${methodName}');`,
     `    }`,
     `    return result as ${returnType};`,
     `  }`,
