@@ -1,5 +1,11 @@
 # supabase-management-js
 
+## 2.0.2
+
+### Patch Changes
+
+- 409e246: Bump orval version to 8.4.1
+
 ## 2.0.1
 
 ### Patch Changes
