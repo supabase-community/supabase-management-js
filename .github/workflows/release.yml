@@ -12,6 +12,7 @@ jobs:
     permissions:
       id-token: write # Required for OIDC trusted publishing
       contents: write # Required for creating releases
+      pull-requests: write # Required for creating release PRs
     if: |
       github.repository == 'supabase-community/supabase-management-js'
     outputs:
