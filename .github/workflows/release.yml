@@ -9,6 +9,9 @@ jobs:
   release:
     name: 🦋 Changesets Release
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Required for OIDC trusted publishing
+      contents: write # Required for creating releases
     if: |
       github.repository == 'supabase-community/supabase-management-js'
     outputs:
@@ -28,17 +31,13 @@ jobs:
         with:
           node-version: 24
           cache: "npm"
+          registry-url: "https://registry.npmjs.org"
 
       - name: 📥 Download deps
         run: npm install
 
       - name: 🔎 Type check
         run: npm run typecheck
-
-      - name: 🔐 Setup npm auth
-        run: |
-          echo "registry=https://registry.npmjs.org" >> ~/.npmrc
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
 
         # This action has two responsibilities. The first time the workflow runs
         # (initial push to the `main` branch) it will create a new branch and
@@ -56,4 +55,3 @@ jobs:
           createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
