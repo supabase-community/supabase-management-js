@@ -104,6 +104,31 @@ npm exec changeset
 
 7. Create a branch, commit your changes, and open a Pull Request against the `main` branch in this repo.
 
+### Release Process
+
+This project uses [Changesets](https://github.com/changesets/changesets) for automated versioning and publishing.
+
+1. Create a changeset by running:
+
+```sh
+npm exec changeset
+```
+
+This command will prompt you to:
+
+- Select which package version to bump (`patch`, `minor`, or `major`)
+- Describe your changes (this becomes part of the release notes)
+
+Once accepted it will create a changeset file inside the [.changeset](./.changeset) folder which can be updated with your release notes. Changesets support Markdown formatting, so you can include bullet points, links, and other formatting in your release notes.
+
+2. Commit the changeset file and merge the PR.
+
+After your PR is merged the `release.yml` workflow will create another PR that bumps the version and updates `CHANGELOG.md` with all pending changeset descriptions.
+
+3. Merge the second PR.
+
+After this second PR is merged, the `release.yml` workflow will build and publishe the new version to npm, and create a GitHub release with the changelog.
+
 ### Regenerating the client
 
 The files under `src/generated/` are auto-generated from the Supabase [OpenAPI spec](https://api.supabase.com/api/v1-json) using [orval](https://orval.dev). To refresh both the spec and the generated client in one step, run:
@@ -111,3 +136,5 @@ The files under `src/generated/` are auto-generated from the Supabase [OpenAPI s
 ```sh
 npm run generate
 ```
+
+This will regenerate the code based on what the latest Supabase Management OpenAPI spec is.
