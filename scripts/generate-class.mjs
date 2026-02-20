@@ -72,19 +72,31 @@ function toMethodName(v1Name) {
 /**
  * Collects PascalCase type names from a param string,
  * skipping primitives and DOM globals.
+ * Handles union types (e.g., "Blob | V1CreateFunctionBody").
  */
 function collectTypeNames(paramStr, typeNames) {
   // Match the type part after ": " — handles optional "?" before the type
-  const typeMatch = paramStr.match(/:\s*\??([A-Za-z][A-Za-z0-9]*)/);
+  const typeMatch = paramStr.match(/:\s*\??(.*?)(?:,|$)/);
   if (!typeMatch) return;
-  const typeName = typeMatch[1];
-  // Only collect PascalCase types (uppercase first letter)
-  if (
-    /^[A-Z]/.test(typeName) &&
-    !DOM_GLOBALS.has(typeName) &&
-    !PRIMITIVES.has(typeName)
-  ) {
-    typeNames.add(typeName);
+  const typeStr = typeMatch[1].trim();
+  
+  // Split by | to handle union types and extract all type names
+  const typeCandidates = typeStr.split('|').map(t => t.trim());
+  
+  for (const candidate of typeCandidates) {
+    // Extract the base type name (handles generic types like Record<string, string>)
+    const baseType = candidate.match(/^([A-Za-z][A-Za-z0-9]*)/);
+    if (!baseType) continue;
+    
+    const typeName = baseType[1];
+    // Only collect PascalCase types (uppercase first letter)
+    if (
+      /^[A-Z]/.test(typeName) &&
+      !DOM_GLOBALS.has(typeName) &&
+      !PRIMITIVES.has(typeName)
+    ) {
+      typeNames.add(typeName);
+    }
   }
 }
 

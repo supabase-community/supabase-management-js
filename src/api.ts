@@ -17,8 +17,7 @@ import {
   v1ClaimProjectForOrganization,
   v1CountActionRuns,
   v1CreateABranch,
-  v1CreateAFunctionWithApplicationVndDenolandEszip,
-  v1CreateAFunctionWithJson,
+  v1CreateAFunction,
   v1CreateAProject,
   v1CreateASsoProvider,
   v1CreateAnOrganization,
@@ -138,8 +137,7 @@ import {
   v1ShutdownRealtime,
   v1Undo,
   v1UpdateABranchConfig,
-  v1UpdateAFunctionWithApplicationVndDenolandEszip,
-  v1UpdateAFunctionWithJson,
+  v1UpdateAFunction,
   v1UpdateAProject,
   v1UpdateASsoProvider,
   v1UpdateActionRunStatus,
@@ -204,8 +202,7 @@ import type {
   UpdateSupavisorConfigBody,
   UpgradeDatabaseBody,
   V1AuthorizeUserParams,
-  V1CreateAFunctionWithApplicationVndDenolandEszipParams,
-  V1CreateAFunctionWithJsonParams,
+  V1CreateAFunctionParams,
   V1CreateFunctionBody,
   V1CreateMigrationBody,
   V1CreateProjectApiKeyParams,
@@ -236,8 +233,7 @@ import type {
   V1RollbackMigrationsParams,
   V1RunQueryBody,
   V1UndoBody,
-  V1UpdateAFunctionWithApplicationVndDenolandEszipParams,
-  V1UpdateAFunctionWithJsonParams,
+  V1UpdateAFunctionParams,
   V1UpdateFunctionBody,
   V1UpdatePasswordBody,
   V1UpdatePostgrestConfigBody,
@@ -260,8 +256,7 @@ import type {
   v1ClaimProjectForOrganizationResponseSuccess,
   v1CountActionRunsResponseSuccess,
   v1CreateABranchResponseSuccess,
-  v1CreateAFunctionWithApplicationVndDenolandEszipResponseSuccess,
-  v1CreateAFunctionWithJsonResponseSuccess,
+  v1CreateAFunctionResponseSuccess,
   v1CreateAProjectResponseSuccess,
   v1CreateASsoProviderResponseSuccess,
   v1CreateAnOrganizationResponseSuccess,
@@ -381,8 +376,7 @@ import type {
   v1ShutdownRealtimeResponseSuccess,
   v1UndoResponseSuccess,
   v1UpdateABranchConfigResponseSuccess,
-  v1UpdateAFunctionWithApplicationVndDenolandEszipResponseSuccess,
-  v1UpdateAFunctionWithJsonResponseSuccess,
+  v1UpdateAFunctionResponseSuccess,
   v1UpdateAProjectResponseSuccess,
   v1UpdateASsoProviderResponseSuccess,
   v1UpdateActionRunStatusResponseSuccess,
@@ -1604,33 +1598,16 @@ export class SupabaseManagementAPI {
    * @deprecated
    * @summary Create a function
    */
-  async createAFunctionWithApplicationVndDenolandEszip(ref: string, v1CreateAFunctionWithApplicationVndDenolandEszipBody: Blob, params?: V1CreateAFunctionWithApplicationVndDenolandEszipParams, options?: RequestInit): Promise<v1CreateAFunctionWithApplicationVndDenolandEszipResponseSuccess> {
-    const result = await v1CreateAFunctionWithApplicationVndDenolandEszip(ref, v1CreateAFunctionWithApplicationVndDenolandEszipBody, params, {
+  async createAFunction(ref: string, v1CreateAFunctionBody: Blob | V1CreateFunctionBody, params?: V1CreateAFunctionParams, options?: RequestInit): Promise<v1CreateAFunctionResponseSuccess> {
+    const result = await v1CreateAFunction(ref, v1CreateAFunctionBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
       baseUrl: this.baseUrl,
     } as RequestInit);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result, 'createAFunctionWithApplicationVndDenolandEszip');
+      throw new SupabaseManagementAPIError(result, 'createAFunction');
     }
-    return result as v1CreateAFunctionWithApplicationVndDenolandEszipResponseSuccess;
-  }
-
-  /**
-   * This endpoint is deprecated - use the deploy endpoint. Creates a function and adds it to the specified project.
-   * @deprecated
-   * @summary Create a function
-   */
-  async createAFunctionWithJson(ref: string, v1CreateFunctionBody: V1CreateFunctionBody, params?: V1CreateAFunctionWithJsonParams, options?: RequestInit): Promise<v1CreateAFunctionWithJsonResponseSuccess> {
-    const result = await v1CreateAFunctionWithJson(ref, v1CreateFunctionBody, params, {
-      ...options,
-      headers: { ...this.authHeader, ...options?.headers },
-      baseUrl: this.baseUrl,
-    } as RequestInit);
-    if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result, 'createAFunctionWithJson');
-    }
-    return result as v1CreateAFunctionWithJsonResponseSuccess;
+    return result as v1CreateAFunctionResponseSuccess;
   }
 
   /**
@@ -1685,32 +1662,16 @@ export class SupabaseManagementAPI {
    * Updates a function with the specified slug and project.
    * @summary Update a function
    */
-  async updateAFunctionWithApplicationVndDenolandEszip(ref: string, functionSlug: string, v1UpdateAFunctionWithApplicationVndDenolandEszipBody: Blob, params?: V1UpdateAFunctionWithApplicationVndDenolandEszipParams, options?: RequestInit): Promise<v1UpdateAFunctionWithApplicationVndDenolandEszipResponseSuccess> {
-    const result = await v1UpdateAFunctionWithApplicationVndDenolandEszip(ref, functionSlug, v1UpdateAFunctionWithApplicationVndDenolandEszipBody, params, {
+  async updateAFunction(ref: string, functionSlug: string, v1UpdateAFunctionBody: Blob | V1UpdateFunctionBody, params?: V1UpdateAFunctionParams, options?: RequestInit): Promise<v1UpdateAFunctionResponseSuccess> {
+    const result = await v1UpdateAFunction(ref, functionSlug, v1UpdateAFunctionBody, params, {
       ...options,
       headers: { ...this.authHeader, ...options?.headers },
       baseUrl: this.baseUrl,
     } as RequestInit);
     if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result, 'updateAFunctionWithApplicationVndDenolandEszip');
+      throw new SupabaseManagementAPIError(result, 'updateAFunction');
     }
-    return result as v1UpdateAFunctionWithApplicationVndDenolandEszipResponseSuccess;
-  }
-
-  /**
-   * Updates a function with the specified slug and project.
-   * @summary Update a function
-   */
-  async updateAFunctionWithJson(ref: string, functionSlug: string, v1UpdateFunctionBody: V1UpdateFunctionBody, params?: V1UpdateAFunctionWithJsonParams, options?: RequestInit): Promise<v1UpdateAFunctionWithJsonResponseSuccess> {
-    const result = await v1UpdateAFunctionWithJson(ref, functionSlug, v1UpdateFunctionBody, params, {
-      ...options,
-      headers: { ...this.authHeader, ...options?.headers },
-      baseUrl: this.baseUrl,
-    } as RequestInit);
-    if (result.status >= 400) {
-      throw new SupabaseManagementAPIError(result, 'updateAFunctionWithJson');
-    }
-    return result as v1UpdateAFunctionWithJsonResponseSuccess;
+    return result as v1UpdateAFunctionResponseSuccess;
   }
 
   /**
