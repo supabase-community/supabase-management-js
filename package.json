@@ -1,6 +1,6 @@
 {
   "name": "supabase-management-js",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Convenience wrapper for the Supabase Management API",
   "repository": {
     "type": "git",
