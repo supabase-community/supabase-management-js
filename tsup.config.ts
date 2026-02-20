@@ -34,7 +34,7 @@ export const options: Options = {
     preset: "recommended",
   },
   esbuildPlugins: [restoreNodeProtocolPlugin()],
-  noExternal: ["openapi-fetch"],
+  noExternal: [],
 };
 
 export default defineConfig(options);
